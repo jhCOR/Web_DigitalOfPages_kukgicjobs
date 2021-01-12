@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+	<meta property="og:description" content="소통의 중심! Ahouse">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
+		
+		<title>홈 화면</title>
+		
+		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
+    	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
+
+		<link rel="stylesheet" href="../public/css/owl.carousel.css">
+		<link rel="stylesheet" href="../public/css/owl.theme.default.css">		
+
+    	<style>
+        	body { padding-top:40px; }
+        	
+			@font-face {
+				font-family: 'Nanum Gothic'; font-style: normal; font-weight: 400;
+				src: url('../public/NanumGothic-Regular.eot');
+				src: local('NanumGothic'),
+					url('../public/NanumGothic-Regular.eot?#iefix') format('embedded-opentype'),
+					url('../public/NanumGothic-Regular.woff2') format('woff2'),
+					url('../public/NanumGothic-Regular.woff') format('woff'),
+					url('../public/NanumGothic-Regular.ttf') format('truetype');
+			}
+        	
+        	h1, p, a { font-family: 'Nanum Gothic' }
+    	</style>
+    
+	</head>
+	<body>
+		<div class="container">
+		
+		    <div class="jumbotron text-center">
+				<h1><img class="ui avatar image" width="70px" height="70px"
+					 src="../public/images/ahouselogo.png">A HOUSE</h1>
+					 
+				<br>
+				<% if (login_success) { %>
+					<!-- <script>
+						window.location.replace("/process/listpost");
+					</script> -->
+					<!-- <a class="btn btn-default" href='/process/listpost'>채팅</a> -->
+					<a class="btn btn-default" href='/process/listpost?page=0&perPage=2'>게시판</a>
+					
+					<a href="/profile" class="btn btn-default">프로필</a> 
+					<a href="/logout" class="btn btn-default">logout</a> 
+				<% } else { %>
+					<p>안녕하세요 반갑습니다!<p>
+					
+					<br>
+			        <a href="/login" class="btn btn-default"><span class="fa fa-user"></span>로그인</a>
+			        <a href="/signup" class="btn btn-default"><span class="fa fa-user"></span>회원가입</a>
+					<br>
+					<!-- <a href="/auth/facebook" class="btn btn-primary"><span class="fa fa-facebook"></span> 페이스북으로 로그인</a> -->
+				<% } %>
+		    </div>
+			
+		</div>
+		<div id="wrapper">
+			<div class="owl-carousel owl-theme">
+				<div class="item">
+					<img src="../public/images/puppy1.jpg">
+				</div>
+				<div class="item">
+					<img src="../public/images/puppy2.jpg">
+				</div>
+				<div class="item">
+					<img src="../public/images/puppy3.jpg">
+				</div>         
+				<div class="item">
+					<img src="../public/images/cat4.jpg">
+				</div>
+				<div class="item">
+					<img src="../public/images/cat7.jpg">
+				</div>
+				<div class="item">
+					<img src="../public/images/cat3.jpg">
+				</div>         
+			</div>
+		</div>
+
+		<script src="../public/js/jquery-2.2.4.min.js"></script>
+    <script src="../public/js/owl.carousel.js"></script>
+    <script src="../public/js/owl.autoplay.js"></script>
+	<script src="../public/js/owl.navigation.js"></script>	
+
+		<script>
+			$(function() {
+				$('.owl-carousel').owlCarousel({
+					items:3,
+					margin:10,
+					loop:true,
+          nav:true,
+          navText:['이전','다음'],					
+					autoplay:true,
+          autoplayTimeout:3000,
+          autoplayHoverPause:true
+				});
+			});
+		</script>
+	</body>
+</html>

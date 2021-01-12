@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
+		
+		<title>프로필 화면</title>
+		
+		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
+    	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
+    	
+    	<style>
+        	body        { padding-top:80px; }
+			.right-img{float: right;;
+			margin-right: 25px;}
+    	</style>
+	<script>
+		 function modify(){
+			if(document.getElementById("modifyId").readOnly==true){
+				document.getElementById("modifyId").readOnly=false;
+				document.getElementById("modifyButton").style.display="none"
+				if(document.getElementById("modifyButton2").style.display=="none")
+				document.getElementById("modifyButton2").style.display="block"
+			}
+		else{
+			document.getElementById("modifyId").readOnly=true;
+			document.getElementById("modifyButton").style.display="block"
+			if(document.getElementById("modifyButton2").style.display=="block")
+				document.getElementById("modifyButton2").style.display="none"
+		}
+		
+		 }
+			
+	
+	</script>
+	</head>
+	<body>
+		
+		<div class="container">			
+						
+			<div class="page-header text-center">
+		        <h1>사용자 프로필</h1>
+		        <!-- <a href="/logout" class="btn btn-default btn-sm">전체  로그아웃</a> -->
+		    </div>
+			<br>
+		    <div class="row">
+		
+		        <div class="col-sm-6">
+		            <div class="well">
+		            
+						<% if (user.provider == undefined || user.provider == '') { %>
+							
+						<div >
+							<h3></span> 로컬 프로필</h3>
+							<br>
+							<p>
+								<strong>이메일</strong>: <%= user.email %><br><br>
+								<strong>별명</strong>: 
+								<form class="btn btn-default btn-sm"  method="post" action="/process/modifyUser">
+									<input type="text" id="modifyId" readonly name="idmodify" value="<%= user.name %>">
+									<input hidden type="text" name="email" value="<%=user.email %>">
+									<input type="button" id="modifyButton" style="float:right;" value="수정" onclick="modify()" />
+									<input type="submit" id="modifyButton2"  style="float:right; display:none;" value="완료" onclick="modify()" />
+								</form>
+								
+								<P></P>
+								<a href='/' class="btn btn-default btn-sm">홈</a>
+								<a href="/logout" class="btn btn-default btn-sm">로그아웃</a>
+								<form class="btn btn-default btn-sm" method="post" action="/process/deleteUser">
+									<input hidden type="text" name="id" value="<%=user.email %>">
+									<input type="submit" value="탈퇴" name="" />
+								</form>
+			                </p>
+						</div>	
+						<!-- <form name='uploadProfileImg' action='/process/uploadProfileImg' encType='multipart/form-data'>
+							<div class="right-img">
+								<input type="file"  name="reviewIng" id="reviewImageFileOpenInput" 
+								accept="image/*">
+							</div>
+						</form> -->
+					
+							
+			            <% } else if (user.provider == 'facebook') { %>
+							<h3 class="text-primary"><span class="fa fa-facebook"></span> 페이스북 프로필</h3>
+							<br>
+		                    <p>
+		                        <strong>아이디</strong>: <%= user.facebook.id %><br><br>
+		                        <strong>이메일</strong>: <%= user.facebook.email %><br><br>
+								<strong>이름</strong>: <%= user.facebook.name %>
+								<p></p>
+								<a href='/' class="btn btn-default btn-sm">입장</a>
+								<a href="/logout" class="btn btn-default btn-sm">로그아웃</a>
+		                    </p>
+		                <% } else if (user.provider == 'twitter') { %>
+							<h3 class="text-primary"><span class="fa fa-twitter"></span> 트위터 프로필</h3>
+							<br>
+		                    <p>
+		                        <strong>아이디</strong>: <%= user.twitter.id %><br><br>
+		                        <strong>이메일</strong>: <%= user.twitter.email %><br><br>
+								<strong>이름</strong>: <%= user.twitter.name %>
+								<p></p>
+								<a href='/' class="btn btn-default btn-sm">입장</a>
+								<a href="/logout" class="btn btn-default btn-sm">로그아웃</a>
+		                    </p>
+		                <% } else if (user.provider == 'google') { %>
+							<h3 class="text-primary"><span class="fa fa-google"></span> 구글 프로필</h3>
+							<br>
+		                    <p>
+		                        <strong>아이디</strong>: <%= user.google.id %><br><br>
+		                        <strong>이메일</strong>: <%= user.google.email %><br><br>
+								<strong>이름</strong>: <%= user.google.name %>
+								<p></p>
+								<a href='/' class="btn btn-default btn-sm">입장</a>
+								<a href="/logout" class="btn btn-default btn-sm">로그아웃</a>
+		                    </p>
+						<% } %>
+		                	
+						<br>
+		            </div>
+		        </div>
+		
+		    </div>
+			
+		</div>	
+			
+	</body>
+</html>
