@@ -67,7 +67,7 @@ app.use(cookieParser(process.env.COOKIE_SECRET));
 
 // 세션 설정
 app.use(expressSession({
-	secret:"ahousefromgrowbigger,
+	secret:'ahousefromgrowbigger',
 	resave:true,
 	saveUninitialized:true,
 	// store: new RedisStore({
