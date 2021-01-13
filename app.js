@@ -89,7 +89,39 @@ app.use(flash());
 var router = express.Router();
 route_loader.init(app, router);
 
+var multipart = require('connect-multiparty');
+var multipartMiddleware = multipart();
+router.post('/uploader', multipartMiddleware, function(req, res) {
+	var fs = require('fs');
+	// app.use('/public',static(path.join(__dirname,'public')));
+	// app.use('/uploads',static(path.join(__dirname,'uploads')));
 
+console.log("uploader_path");
+    fs.readFile(req.files.upload.path, function (err, data) {
+
+		
+		var newPath = __dirname +'/public/uploads/' +  req.files.upload.name;
+		console.log('path'+newPath);
+        fs.writeFile(newPath, data, function (err) {
+            if (err) console.log({err: err});
+            else {
+                html = "";
+                html += "<script type='text/javascript'>";
+                html += "    var funcNum = " + req.query.CKEditorFuncNum + ";";
+                html += "    var url     = \"/uploads/" + req.files.upload.name + "\";";
+                html += "    var message = \"Uploaded file successfully\";";
+                html += "";
+                html += "    window.parent.CKEDITOR.tools.callFunction(funcNum, url, message);";
+                html += "</script>";
+
+                res.send(html);
+            }
+        });
+    });
+});
+
+
+app.use('/', router);
 // 패스포트 설정
 var configPassport = require('./config/passport');
 configPassport(app, passport);
@@ -135,7 +167,7 @@ app.on('close', function () {
 });
 
 // 시작된 서버 객체를 리턴받도록 합니다. 
-var server = http.createServer(app).listen(app.get('port'), function(){
+var server = http.createServer(app).listen(process.env.PORT||app.get('port'), function(){
 	console.log('서버가 시작되었습니다. 포트 : ' + app.get('port'));
 
 	// 데이터베이스 초기화

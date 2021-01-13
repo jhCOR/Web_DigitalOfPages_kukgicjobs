@@ -17,7 +17,7 @@ module.exports = new LocalStrategy({
         // 요청 파라미터 중 name 파라미터 확인
         var paramName = req.body.name || req.query.name;
 	 
-		console.log('passport의 local-signup 호출됨 : ' + email + ', ' + password + ', ' + paramName);
+		
 		
 	    // findOne 메소드가 blocking되지 않도록 하고 싶은 경우, async 방식으로 변경
 	    process.nextTick(function() {

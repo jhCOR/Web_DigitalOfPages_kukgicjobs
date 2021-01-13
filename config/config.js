@@ -1,4 +1,5 @@
 module.exports = {
+
 	server_port: 3000,
 	db_url: 'mongodb://growbigger:growbigger1117@localhost:27017/admin',
 	db_schemas: [
@@ -23,6 +24,8 @@ module.exports = {
 		,{file:'./post', path:'/process/modifyUser', method:'modifyUser', type:'post'}
 		,{file:'./post', path:'/process/scrap', method:'scrap', type:'post'}
 		,{file:'./post', path:'/process/showscrap', method:'showscrap', type:'post'}
+		
+		
 	],
 	facebook: {		// passport facebook
 		clientID: '1442860336022433',

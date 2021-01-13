@@ -57,7 +57,6 @@ var addpost = function(req, res) {
 			
 			var date=new Date();
 			var uniquenumber=date.getTime();
-			console.log('uniquenumber' + uniquenumber +'(paramWriter) -> ' + userObjectId);
 			// save()로 저장
 			// PostModel 인스턴스 생성
 			var post = new database.PostModel({
@@ -80,9 +79,6 @@ var addpost = function(req, res) {
                         return;
                     
                 }
-				
-			    console.log("글 데이터 추가함.");
-			    console.log('글 작성', '포스팅 글을 생성했습니다. : ' + post._id);
 			    
 			    return res.redirect('/process/showpost/' + post._id); 
 			});
@@ -134,8 +130,6 @@ var listpost = function(req, res) {
 					if(results[i].writer==null){
 						;
 						results[i].writer={name:'(알수없음)',email:'unknown'};}
-						
-						console.log('###요청 파라미터(result):\n ' +results[i])
 				}
 				// 전체 문서 객체 수 확인
 				database.PostModel.count().exec(function(err, count) {
@@ -197,11 +191,10 @@ var showpost = (req, res) => {
 	currentId = paramId;
 	var login = req.isAuthenticated();
     var userEmail=req.user.email;
-	console.log('요청 파라미터 : ' + paramId + '(paramId)');
+
 
 	var database = req.app.get('database');
 	if(req.isAuthenticated()){
-		console.log('요청 파라미터(req.email in showpost) : ' +req.user.email);
 		// 데이터베이스 객체가 초기화된 경우
 		if (database.db) {
 			// 1. 글 리스트
@@ -217,11 +210,8 @@ var showpost = (req, res) => {
 
 					return;
 				}
-				console.log('1 ');
+
 				if (results) {
-					console.log("results:"+results);
-					// 조회수 업데이트
-					console.log('trying to update hits.');
 
 					database.PostModel.incrHits(results._doc._id, function (err2, results2) {
 						console.log('incrHits executed.');
@@ -284,7 +274,6 @@ var deletePost = function (req, res) {
     console.log('post.js의 deletepost 호출됨');
 
     var paramId = req.body.id || req.query.id || req.params.id;
-    console.log('요청 파라미터 : ' + paramId);
 
     var database = req.app.get('database');
 
@@ -331,7 +320,7 @@ var updatepost = function(req, res) {
     var paramContents = req.body.contents || req.query.contents;
 	var database = req.app.get('database');
 
-	console.log('Id:'+paramId);
+
 	//var modifiedContents=paramContents.substring(0,paramContents.length-2);//아예 기호를 뺴는 방법을 생각해봐야하겠음
 	// 데이터베이스 객체가 초기화된 경우
 	
@@ -364,7 +353,6 @@ if (database.db) {
 					page: currentPage,
 					Entities: Entities
 				};
-				console.log('results.contents:'+results.title);
 				req.app.render('updatepost', context, function(err, html) {
 					res.end(html);
 				});
@@ -397,7 +385,6 @@ var saveupdatedpost = function(req, res) {
                 
                 return;
 			}
-			console.log('3');
 			res.redirect('/process/showpost/' + paramId); 
 		});
 	} else {
@@ -416,8 +403,6 @@ var addcomment = function(req, res) {
     var paramWriter = req.user.email;
 	var Writer = req.user.name;
 	var alertWriter=req.body.writerforalert || req.query.writerforalert;
-    console.log('요청 파라미터 :\n' + paramId + ', ' + paramContents + ', ' + 
-               paramWriter);
     
 	var database = req.app.get('database');
 	
@@ -454,8 +439,6 @@ var addcomment = function(req, res) {
                     return;
                 }
 
-                console.log("글 데이터 추가함.");
-                console.log('글 작성', '포스팅 글을 생성했습니다. : ' + paramId);
 
                 return res.redirect('/process/showpost/' + paramId); 
         });
@@ -508,8 +491,7 @@ var removecomment = function(req, res) {
 					}
 					res.redirect('/process/showpost/' + paramId);
 				});
-				
-                console.log('결과 :' + results);          
+        
             }
         })
 
@@ -553,8 +535,6 @@ var addrecomment = function(req, res) {
                 
                 return;
 			}
-console.log('result(addrecomment)'+results);
-console.log('result(addrecomment)'+results.isrecomments);
 			res.redirect('/process/showpost/' + paramId); 
 		});
 	} else {
@@ -575,7 +555,6 @@ var removerecomment = function(req, res) {
 		if (database.db) {
 			
 			database.PostModel.load(paramId, function(err, results) {
-				console.log('results(삭제전) :' + results);          
             if (err) {
                 console.log('삭제할 글 조회 중 오류 발생 ' + err.stack);
 
@@ -606,7 +585,7 @@ var removerecomment = function(req, res) {
 					res.redirect('/process/showpost/' + paramId);
 				});
 				
-                console.log('결과 :' + results);          
+                   
             }
         });
 
@@ -648,10 +627,10 @@ var deleteUser = function(req, res) {
 				
 				return;
 			}
-			console.log('user:'+results);
+		
 			results.remove();
 			//var userObjectId = results[0]._doc._id;
-			console.log('user(2):'+results);
+		
 		});
 		
 	} else {
@@ -709,7 +688,7 @@ var scrap = function(req, res) {
 	var postId =req.body.postId || req.query.postId;
 	var postUniqueNum =req.body.postUniqueNum || req.query.postUniqueNum;;
 	var userId;
-	console.log('post 모듈 안에 있는 load2 호출됨.(postUniqueNum)'+postUniqueNum);
+
 	var database = req.app.get('database');
 	
 	// 데이터베이스 객체가 초기화된 경우
@@ -739,8 +718,7 @@ var tem=postId+","+results.scrapId;
 					
 					return;
 				}
-				console.log('tem'+tem);
-				console.log('post 모듈 안에 있는 load2 호출됨.(result2)'+results2.scrapId);
+			
 			});
 		});	
 		res.redirect('/process/showpost/' + postId);
@@ -753,7 +731,6 @@ var tem=postId+","+results.scrapId;
 };
 
 var showscrap = (req, res) => {
-	console.log('post 모듈 안에 있는 showscrap 호출됨.');
 
 	// URL 파라미터로 전달됨
 	var paramId = req.body.id || req.query.id || req.params.id;
@@ -809,7 +786,7 @@ var showscrap = (req, res) => {
 				};
 				req.app.render('userscrap', context, function (err, html) {
 					if (err) {
-						console.log('context:'+context.posts);
+					
 						
 						console.error('응답 웹문서 생성 중 에러 발생 : ' + err.stack+"//");
 
@@ -921,6 +898,11 @@ var searchedlistpost = function(req, res) {
 		res.end();
 	}
 };
+var tem = function(req, res) {
+	console.log('post 모듈 안에 있는 임시 메서드 실행');
+  
+	
+};
 module.exports.listpost = listpost;
 module.exports.addpost = addpost;
 module.exports.showpost = showpost;
@@ -936,3 +918,4 @@ module.exports.removerecomment= removerecomment;
 module.exports.modifyUser= modifyUser;
 module.exports.scrap= scrap;
 module.exports.showscrap= showscrap;
+module.exports.tem= tem;

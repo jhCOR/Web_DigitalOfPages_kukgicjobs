@@ -45,68 +45,19 @@
 			}
 	  
 		</style>
-
-		<script type="text/javascript">
-			$(document).ready(function(){
-			CKEDITOR.replace( 'contents', {
-			   filebrowserBrowseUrl: '/ckeditor/plugins/imagebrowser/browser/browser.html',
-			   filebrowserUploadUrl: '/upload_url?Type=File',
-			   filebrowserImageUploadUrl: '/upload_url?Type=Image',
-			   filebrowserFlashUploadUrl: '/upload_url?Type=Flash'
-			});
-			 
-			var description=CKEDITOR.instances.editor1.getData();
-			 console.log(description);
-				   var data = {description:description};
-				   $.ajax({
-					 url: "/backend/api/v1/savedata",
-					 method:'post',
-					 data:data,
-					 success:function(data){
-					 
-					alert("send data");
-			​
-					 }
-				 });
-			   
-			 });
-			​
-		
-			</script>
 		<script src="/public/jquery-3.1.1.min.js"></script>
 		<script src="/public/semantic.min.js"></script>
 		<script src="/public/ckeditor/ckeditor.js"></script>
 		<script src="https://cdn.ckeditor.com/4.9.0/standard/ckeditor.js"></script>
 		<script>
-			CKEDITOR.on('dialogDefinition', function (ev) {
-
-var dialogName = ev.data.name;
-
-var dialog = ev.data.definition.dialog;
-
-var dialogDefinition = ev.data.definition;
-
-if (dialogName == 'image') {
-
-	dialog.on('show', function (obj) {
-
-		this.selectPage('Upload'); //업로드텝으로 시작
-
-	});
-
-	dialogDefinition.removeContents('advanced'); // 자세히탭 제거
-
-	dialogDefinition.removeContents('Link'); // 링크탭 제거
-
-}
-
-});
+			
 			$(document).ready(function() { 
 				CKEDITOR.config.extraPlugins = 'colorbutton';
 				CKEDITOR.env.isCompatible = true;
-				CKEDITOR.replace('contents',{
-      uploadUrl: '/upload'
-    });
+				CKEDITOR.replace('contents', {
+		  filebrowserUploadUrl: '/uploader',
+		//   filebrowserBrowseUrl:'/broser'
+      });
 			});
 		</script>
 	</head>

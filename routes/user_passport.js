@@ -14,8 +14,6 @@ module.exports = function(router, passport) {
         
         tem=req.user;
 
-        console.log('req.user의 정보');
-        console.dir(req.user);
 
         // 인증 안된 경우
         if (!req.user) {
@@ -28,9 +26,6 @@ module.exports = function(router, passport) {
     });
     router.route('/views/addpost.ejs').get(function(req, res) {
 
-        console.log('req.user의 정보(2)');
-        console.dir(req.user.email+"/&/"+req.user.name);
-
         // 인증 안된 경우
         if (!req.user) {
             console.log('사용자 인증 안된 상태임.');
@@ -41,34 +36,7 @@ module.exports = function(router, passport) {
         }
     });
 
-var uuid = require('uuidv4');
-var multipart = require('connect-multiparty');
-var multipartMiddleware = multipart();
-var path = require('path');
-    router.route('/upload').post(multipartMiddleware,function(req, res) {
-        var fs = require('fs');
-        console.log("IMGUPLOADS_______________________________________________________");
-        var orifilepath = req.files.upload.path;
-        var orifilename = req.files.upload.name;
-        var srvfilename = uuid() + path.extname(orifilename);
-        fs.readFile(orifilepath, function (err, data) {
-        var newPath = __dirname + '/../public/upload/' + srvfilename;
-        fs.writeFile(newPath, data, function (err) {
-        if (err) console.log({ err: err });
-        else {
-        html = "{\"filename\" : \"" + orifilename + "\", \"uploaded\" : 1, \"url\": \"/uploads/" + srvfilename + "\"}"
-        console.log(html)
-        res.send(html);
-        }
-        });
-        });
-        });
-
-        
-
     router.route('/views/showpost.ejs').post(function(req, res) {
-
-        console.log('req.user의 정보(3)');
     
         // 인증 안된 경우
         if (!req.user) {
@@ -99,8 +67,6 @@ var path = require('path');
         console.log('/profile 패스 요청됨.');
 
         // 인증된 경우, req.user 객체에 사용자 정보 있으며, 인증안된 경우 req.user는 false값임
-        console.log('req.user 객체의 값');
-        console.dir(req.user);
 
         // 인증 안된 경우
         if (!req.user) {
@@ -109,7 +75,7 @@ var path = require('path');
         } else {
             console.log('사용자 인증된 상태임.');
             console.log('/profile 패스 요청됨.');
-            console.dir(req.user);
+           // console.dir(req.user);
 
             if (Array.isArray(req.user)) {
                 res.render('profile.ejs', {user: req.user[0]._doc});
