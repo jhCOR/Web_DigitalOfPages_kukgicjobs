@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <br>
+    <form method="post" id="form" enctype="multipart/form-data" action="/process/save">
+        
+        <table>
+            <tr>
+                <td>이미지 삽입 완료</td>
+                <td><input multiple="multiple" type="file" name="photo" id="photoInput" /><br><img src="" id="photoOutput" width="200px" /></td>
+            </tr>
+        </table>
+       
+        <input type='button' id="submit_img" value='저장'/>
+        <input type='button' onclick="javascript: self.close(); " value='취소'/>
+    </form>
+</body>
+</html>

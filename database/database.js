@@ -2,6 +2,7 @@
 /*
  * 데이터베이스 스키마 로딩
  * 기본 파일이며 개발자 수정 필요없음
+ * @author Mike
  */
 
 var mongoose = require('mongoose');
@@ -27,7 +28,7 @@ function connect(app, config) {
 	
 	database.db.on('error', console.error.bind(console, 'mongoose connection error.'));	
 	database.db.on('open', function () {
-		console.log('데이터베이스에 연결되었습니다. : ' + config.db_url);
+		
 		
 		// config에 등록된 스키마 및 모델 객체 생성
 		createSchema(app, config);
@@ -47,16 +48,16 @@ function createSchema(app, config) {
 		
 		// 모듈 파일에서 모듈 불러온 후 createSchema() 함수 호출하기
 		var curSchema = require(curItem.file).createSchema(mongoose);
-		console.log('%s 모듈을 불러들인 후 스키마 정의함.', curItem.file);
+		//console.log('%s 모듈을 불러들인 후 스키마 정의함.', curItem.file);
 		
 		// User 모델 정의
 		var curModel = mongoose.model(curItem.collection, curSchema);
-		console.log('%s 컬렉션을 위해 모델 정의함.', curItem.collection);
+		//console.log('%s 컬렉션을 위해 모델 정의함.', curItem.collection);
 		
 		// database 객체에 속성으로 추가
 		database[curItem.schemaName] = curSchema;
 		database[curItem.modelName] = curModel;
-		console.log('스키마 이름 [%s], 모델 이름 [%s] 이 database 객체의 속성으로 추가됨.', curItem.schemaName, curItem.modelName);
+		//console.log('스키마 이름 [%s], 모델 이름 [%s] 이 database 객체의 속성으로 추가됨.', curItem.schemaName, curItem.modelName);
 	}
 	
 	app.set('database', database);

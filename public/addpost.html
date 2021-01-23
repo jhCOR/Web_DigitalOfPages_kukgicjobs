@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
@@ -45,22 +46,27 @@
 			}
 	  
 		</style>
-		
 		<script src="/public/jquery-3.1.1.min.js"></script>
 		<script src="/public/semantic.min.js"></script>
-		<script src="/public/ckeditor/ckeditor.js"></script>
+		<script type="text/javascript" src="/public/dist/js/service/HuskyEZCreator.js" charset="utf-8"></script>
+		<script type="text/javascript">
 		
-		<script>
-			
-			$(document).ready(function() { 
-				CKEDITOR.config.extraPlugins = 'colorbutton';
-				CKEDITOR.env.isCompatible = true;
-				CKEDITOR.replace('ckeditor', {
-          filebrowserUploadUrl: '/uploader'
-      });
+			var oEditors = [];
+			$.getScript("/public/dist/js/service/HuskyEZCreator.js",function(){
+			nhn.husky.EZCreator.createInIFrame({
+			 oAppRef: oEditors,
+			 elPlaceHolder: "contents",
+			 sSkinURI: "/public/dist/SmartEditor2Skin.html",
+			 fCreator: "createSEditor2"
 			});
-			
-		</script>
+		});
+		function submitContents() {
+		// 에디터의 내용이 textarea에 적용된다.
+		oEditors.getById["contents"].exec("UPDATE_CONTENTS_FIELD", []);
+		};
+		// 에디터의 내용에 대한 값 검증은 이곳에서
+		// document.getElementById("ir1").value를 이용해서 처리한다.
+			</script>
 	</head>
 <body>
 	
@@ -71,7 +77,7 @@
 			<a class="ui blue ribbon label">게시판</a>
      			<span id="board_title">글쓰기</span>
 		
-			
+				
 			<div class="ui blue fluid card">
 				 <div class="content">
 			       		 
@@ -81,25 +87,25 @@
 						<div class="two fields">
 				    		<div class="field">
 				      			<label>제목</label>
-								<input type="text" name="title" placeholder="제목 입력">
+								<input type="text" name="title" minlength="1" placeholder="제목 입력">
 							</div>
 							<div class="field"></div>
 						</div>
 								
-						<div class="field">
-				    		<label>내용</label>
-				    		<textarea id="contents" name="contents" rows="10" cols="80"></textarea>
-				  		</div>		
+						<div class="field" id="contextfiled">
+							<label>내용</label>
+				    		<textarea id="contents" name="contents" class="contents" minlength="1"  rows="10" cols="80"></textarea>
+						
+						</div>		
 								
 						<div class="two fields">
 				    		<div class="field">
-				      			<label>작성자</label>
-								<input type="text" name="writer" placeholder="작성자아이디 입력">
+								<input hidden type="text" name="writer" value="<%=writer %>">
 							</div>
 							<div class="field"></div>
 						</div>
 								 
-						<input class="ui submit button" type="submit" value="추가" name="" />
+						<input class="ui submit button" type="submit" value="추가" name=""  onclick="submitContents()"/>
 						<input class="ui button" type="button" value="취소" name="" onclick="javascript:history.back()" />
 					</form>
 					
@@ -113,5 +119,7 @@
 	
 	<br><br>
 	
+
 </body>
+
 </html>

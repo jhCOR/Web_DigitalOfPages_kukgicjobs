@@ -14,10 +14,13 @@ var commentWriter;
 var addpost = function(req, res) {
 	console.log('post 모듈 안에 있는 addpost 호출됨.');
  
-    var paramTitle = req.body.title || req.query.title;
     var paramContents = req.body.contents || req.query.contents;
-	var paramWriter =req.body.writer || req.query.writer;
-
+	var paramWriter =req.user.email;
+	if(paramContents.length>10)
+	var t=paramContents.substring(0,10);
+	else
+	var t=paramContents;
+	var paramTitle = req.body.title || req.query.title||t;
     //console.log('요청 파라미터 : ' + paramTitle + ', ' + paramContents + ', ' + 
                //paramWriter);
     
@@ -79,7 +82,7 @@ var addpost = function(req, res) {
                         return;
                     
                 }
-			    
+			   
 			    return res.redirect('/process/showpost/' + post._id); 
 			});
 			
@@ -192,7 +195,7 @@ var showpost = (req, res) => {
 	var login = req.isAuthenticated();
     var userEmail=req.user.email;
 
-
+	
 	var database = req.app.get('database');
 	if(req.isAuthenticated()){
 		// 데이터베이스 객체가 초기화된 경우
@@ -210,7 +213,7 @@ var showpost = (req, res) => {
 
 					return;
 				}
-
+				if(results.writer==null){results.writer={email:'none',name:'none'};}
 				if (results) {
 
 					database.PostModel.incrHits(results._doc._id, function (err2, results2) {
@@ -264,7 +267,7 @@ var showpost = (req, res) => {
 			res.end();
 		}
 	}else{
-
+		alert("로그인을 해주십시오");
 		res.redirect('/');
 	
 	}
@@ -600,7 +603,7 @@ var removerecomment = function(req, res) {
 
 var deleteUser = function(req, res) {
 	var paramWriter =req.body.id || req.query.id;
-	console.log('deleteuser:');
+	console.log('deleteuser:'+paramWriter);
     
 	var database = req.app.get('database');
 	
@@ -630,7 +633,7 @@ var deleteUser = function(req, res) {
 		
 			results.remove();
 			//var userObjectId = results[0]._doc._id;
-		
+			res.redirect('/');
 		});
 		
 	} else {

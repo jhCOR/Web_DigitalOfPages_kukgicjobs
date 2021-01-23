@@ -1,5 +1,4 @@
 module.exports = {
-
 	server_port: 3000,
 	db_url: 'mongodb://growbigger:growbigger1117@localhost:27017/admin',
 	db_schemas: [
@@ -12,7 +11,7 @@ module.exports = {
         ,{file:'./post', path:'/process/listpost', method:'listpost', type:'post'}
         ,{file:'./post', path:'/process/listpost', method:'listpost', type:'get'}
 		,{file:'./post', path:'/process/addcomment', method:'addcomment', type:'post'}
-		, {file:'./post', path:'/process/deletepost', method:'deletepost', type: 'post'}
+		,{file:'./post', path:'/process/deletepost', method:'deletepost', type: 'post'}
 		,{file:'./post', path:'/process/updatepost', method:'updatepost', type:'post'}
 		,{file:'./post', path:'/process/saveupdatedpost', method:'saveupdatedpost', type:'post'}
 		,{file:'./post', path:'/process/removecomment', method:'removecomment', type:'post'}
