@@ -16,18 +16,13 @@ Schema.createSchema = function(mongoose) {
 		email: {type: String, 'default':''}
 	    , hashed_password: {type: String, 'default':''}
 		, name: {type: String, index: 'hashed', 'default':''}
-		,scrapId: {'default':''}	
-		,alert: { 'default':''}	
+		, reservationlist:[ {type: mongoose.Schema.ObjectId, ref: 'book'}]
+		, alert: { 'default':''}	
 	    , salt: {type:String}
 	    , created_at: {type: Date, index: {unique: false}, 'default': Date.now}
 	    , updated_at: {type: Date, index: {unique: false}, 'default': Date.now} 
 	    , provider: {type: String, 'default':''}
 	    , authToken: {type: String, 'default':''}
-	    , facebook: {}
-	    , twitter: {}
-	    , github: {}
-	    , google: {}
-	    , linkedin: {}
 	});
 	
 	// password를 virtual 메소드로 정의 : MongoDB에 저장되지 않는 편리한 속성임. 특정 속성을 지정하고 set, get 메소드를 정의함
@@ -112,10 +107,11 @@ Schema.createSchema = function(mongoose) {
 	UserSchema.static('load', function(options, callback) {
 		options.select = options.select || 'name';
 	    this.findOne(options.criteria)
+		.populate('reservationlist', 'title author created_at')
 	      .select(options.select)
 	      .exec(callback);
 	});
-	
+
 	
 	// 모델을 위한 스키마 등록
 	mongoose.model('User', UserSchema);

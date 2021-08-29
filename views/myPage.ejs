@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
+		
+		<title>마이페이지</title>
+		<link rel="SHORTCUT ICON" href="/public/images/faviconlogo.png"/>
+
+		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
+    	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
+    	
+    	<style>
+        	body        { padding-top:80px; }
+			.right-img{float: right;;
+			margin-right: 25px;}
+    	</style>
+
+	</head>
+	<body>
+		
+		<div class="container">			
+						
+			<div class="page-header text-center">
+		        <h1>마이페이지</h1>
+		      
+		    </div>
+			<br>
+		    <div class="row">
+		
+		        <div class="col-sm-6">
+		            <div class="well">
+		            
+						
+							
+						<div >
+							<h3></span>대출 중인 도서</h3>
+							<div>
+								<ul>
+									<% for (var i = 0; i < posts.reservationlist.length; i++) {%>
+
+										   <li>제목 : <%=posts.reservationlist[i].title%>, 저자 : <%=posts.reservationlist[i].author%>
+											<a class="btn btn-default" href='/book/return/<%=posts.reservationlist[i]._id %>'>반납</a></li>
+									<% } %>	
+								</ul>
+							</div>
+								<P></P>
+								<a href='/' class="btn btn-default btn-sm">홈</a>
+
+			                </p>
+						</div>	
+
+						<br>
+		            </div>
+		        </div>
+		
+		    </div>
+			
+		</div>	
+			
+	</body>
+</html>

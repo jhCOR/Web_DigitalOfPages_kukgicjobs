@@ -5,14 +5,31 @@
 		<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
 		
 		<title>회원가입 화면</title>
-		
+		<link rel="SHORTCUT ICON" href="/public/images/faviconlogo.png"/>
 		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
     	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
     	
     	<style>
         	body        { padding-top:80px; }
     	</style>
-    
+    <script type="text/javascript" >
+	
+	function checkpassward() {
+		var email=document.getElementById("email").value;
+			var passward=document.getElementById("password").value;
+			var passwordcheck=document.getElementById("passwordcheck").value;
+			if(passward==passwordcheck){
+				
+				document.getElementById("submitform").submit();
+				
+			
+				}else{
+				// alert("비밀번호가 일치하지 않습니다.");
+				document.getElementById("alarm").style.display='block';
+			}
+		}
+
+	</script>
 	</head>
 	<body>
 		
@@ -27,21 +44,28 @@
 			        <div class="alert alert-danger"><%= message %></div>
 			    <% } %>
  
-			    <form action="/signup" method="post" >
+			    <form action="/signup" method="post" id="submitform">
 			        <div class="form-group">
 			            <label>이메일</label>
-			            <input type="text" class="form-control" name="email">
+			            <input type="text" class="form-control" name="email" id="email">
 			        </div>
 			        <div class="form-group">
 			            <label>비밀번호</label>
-			            <input type="password" class="form-control" name="password">
+			            <input type="password" minlength="6" class="form-control" name="password" id="password">
+			        </div>
+					<div class="form-group">
+			            <label>비밀번호 확인</label>
+			            <input type="password" class="form-control" id="passwordcheck">
+						<p id="alarm" style="color: red; display: none;">비밀번호가 일치하지 않습니다</p>
 			        </div>
 			        <div class="form-group">
 			            <label>별명</label>
 			            <input type="text" class="form-control" name="name">
 			        </div>
 			
-			        <button type="submit" class="btn btn-warning btn-lg">회원가입</button>
+			        <input type="button"  id="submitbutton"
+					 class="btn btn-warning btn-lg" 
+					 onclick="checkpassward()" value="회원가입"></input>
 			    </form>
 			
 			    <hr>

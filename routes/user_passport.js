@@ -35,7 +35,17 @@ module.exports = function(router, passport) {
             res.render('addpost.ejs', {writer:req.user.email});
         }
     });
+    router.route('/views/addbook.ejs').get(function(req, res) {
 
+        // 인증 안된 경우
+        if (!req.user) {
+            console.log('사용자 인증 안된 상태임.');
+            res.redirect('/book/listpost?page=0&perPage=8');
+        } else {
+            console.log('사용자 인증된 상태임.');
+            res.render('addBook.ejs', {writer:req.user.email});
+        }
+    });
     router.route('/views/showpost.ejs').post(function(req, res) {
     
         // 인증 안된 경우

@@ -1,4 +1,3 @@
-// Express 기본 모듈 불러오기
 var express = require('express')
   , http = require('http')
   , path = require('path');
@@ -14,26 +13,15 @@ var expressErrorHandler = require('express-error-handler');
 
 // Session 미들웨어 불러오기
 var expressSession = require('express-session');
-
-var multer=require('multer');
-var fs=require('fs');
-
-
-var cors=require('cors');
+  
 
 //===== Passport 사용 =====//
 var passport = require('passport');
 var flash = require('connect-flash');
 
-require('dotenv').config();
-
 // 모듈로 분리한 설정 파일 불러오기
 var config = require('./config/config');
-const paste=require('./routes/paste');
-const helmet = require('helmet');
-const hpp=require('hpp');
-const redis = require('redis');
-const RedisStore=require('connect-redis')(expressSession);
+
 // 모듈로 분리한 데이터베이스 파일 불러오기
 var database = require('./database/database');
 
@@ -56,64 +44,26 @@ app.set('port', process.env.PORT || 3000);
  
 
 // body-parser를 이용해 application/x-www-form-urlencoded 파싱
-app.use(bodyParser.urlencoded({ extended: false }))
+//app.use(bodyParser.urlencoded({ extended: false }))
+app.use(express.urlencoded({ extended: true }))
 
 // body-parser를 이용해 application/json 파싱
 app.use(bodyParser.json())
 
 // public 폴더를 static으로 오픈
 app.use('/public', static(path.join(__dirname, 'public')));
-app.use('/uploads', static(path.join(__dirname, 'uploads')));
-
- if(process.env.NODE_ENV==='production'){
-	 app.use(helmet());
-	 app.use(hpp());
- }
+ 
 // cookie-parser 설정
-app.use(cookieParser(process.env.COOKIE_SECRET));
-//const client = redis.createClient({ host: process.env.REDIS_HOST, port: process.env.REDIS_PORT, password: process.env.REDIS_PASSWORD, logError: true });
+app.use(cookieParser());
 
 // 세션 설정
 app.use(expressSession({
-	secret:'ahousefromgrowbigger',
+	secret:'my key',
 	resave:true,
-	saveUninitialized:true,
-	// store: new RedisStore({
-	// 	client,
-//}),
+	saveUninitialized:true
 }));
 
-app.use(cors());
 
-//multer 미들웨어 사용 : 미들웨어 사용 순서 중요  body-parser -> multer -> router
-// 파일 제한 : 10개, 1G
-var storage = multer.diskStorage({
-	destination: function (req, file, callback) {
-		callback(null, 'uploads')
-		
-    },
-  filename: function (req, file, callback) {
-	let today = new Date(); 
-	let year = today.getFullYear(); // 년도
-	let month = today.getMonth() + 1;  // 월
-	let date = today.getDate();  // 날짜
-	let day = today.getDay();  // 요일
-	let hours = today.getHours();
-	var distintString=year+""+month+""+date+day+hours;
-      var extension = path.extname(file.originalname);
-	  var basename = path.basename(file.originalname, extension);
-
-	  callback(null, basename+distintString + extension);
-  }
-});
-
-var upload = multer({ 
-  storage: storage,
-  limits: {
-  files: 10,
-  fileSize: 1024 * 1024 * 1024
-}
-});
 
 //===== Passport 사용 설정 =====//
 // Passport의 세션을 사용할 때는 그 전에 Express의 세션을 사용하는 코드가 있어야 함
@@ -121,57 +71,13 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
  
+
+
 //라우팅 정보를 읽어들여 라우팅 설정
 var router = express.Router();
 route_loader.init(app, router);
 
-// 메모 저장을 위한 라우팅 함수
-router.route('/process/save').post(upload.array('photo'), function(req, res) {
-	console.log('/process/save 호출됨.');
-	
-	try {
-	      var files = req.files;
-	var path=[];
-        console.dir('#===== 업로드된 첫번째 파일 정보 =====#')
-        console.dir(req.files[0]);
-        console.dir('#=====#')
-        
-		// 현재의 파일 정보를 저장할 변수 선언
-		var originalname = '',
-			filename = '',
-			mimetype = '',
-			size = 0;
-		
-		if (Array.isArray(files)) {   // 배열에 들어가 있는 경우 (설정에서 1개의 파일도 배열에 넣게 했음)
-	        console.log("배열에 들어있는 파일 갯수 : %d", files.length);
-	        
-	        for (var index = 0; index < files.length; index++) {
-	        	originalname = files[index].originalname;
-	        	filename = files[index].filename;
-	        	mimetype = files[index].mimetype;
-				size = files[index].size;
-				}
-			
-            console.log('현재 파일 정보 : ' + originalname + ', ' + filename + ', ' + mimetype + ', ' + size);
-			res.redirect("/public/dist/sample/photo_uploader/img_uploader.html");
-			
-			 
-	    } else {
-            console.log('업로드된 파일이 배열에 들어가 있지 않습니다.');
-		}
 
-	} catch(err) {
-		console.dir(err.stack);
-		
-		res.writeHead(400, {'Content-Type':'text/html;charset=utf8'});
-		res.write('<div><p>메모 저장 시 에러 발생</p></div>');
-		res.end();
-	}	
-		
-});
-
-
-app.use('/', router);
 // 패스포트 설정
 var configPassport = require('./config/passport');
 configPassport(app, passport);
@@ -180,7 +86,10 @@ configPassport(app, passport);
 var userPassport = require('./routes/user_passport');
 userPassport(router, passport);
 
-
+// Layout 관련 라우터 -- 2021.07.11.
+var renderRouter = require('./routes/route_loader');
+var router = express.Router();
+route_loader.init(app, router);
 
 //===== 404 에러 페이지 처리 =====//
 var errorHandler = expressErrorHandler({
@@ -217,7 +126,7 @@ app.on('close', function () {
 });
 
 // 시작된 서버 객체를 리턴받도록 합니다. 
-var server = http.createServer(app).listen(process.env.PORT||app.get('port'), function(){
+var server = http.createServer(app).listen(app.get('port'), function(){
 	console.log('서버가 시작되었습니다. 포트 : ' + app.get('port'));
 
 	// 데이터베이스 초기화

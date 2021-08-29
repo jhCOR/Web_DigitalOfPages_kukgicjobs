@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
+		
+		<title>글 조회 페이지</title>
+		
+		<link href="/public/semantic.min.css" rel="stylesheet" >
+		
+		
+		<style>
+			* {
+				padding:0;
+				margin:0;
+				box-sizing:border-box;
+			}
+			
+			html {
+				width:100%;
+				height:100%;
+			}
+			
+			body {
+				width:100%;
+				height:100%;
+				color: #000;
+				background-color: #fff;
+			}
+					
+			.container {
+				margin-right: auto;
+				margin-left: auto;
+				padding-left: 20px;
+				padding-right: 20px;
+			}
+	
+			span {
+				color: #999;
+			}
+			
+			#titleOutput {
+				margin-bottom: 10px;
+				line-height: 1.2em;
+			}
+			
+			#contentsOutput {
+				margin-top: 10px;
+				margin-bottom: 10px;
+				line-height: 1.8em;
+			}
+	  
+			#board_title {
+				font-size:1.2em;
+				font-weight:bold;
+				color:teal;
+			}
+	.align{
+		float: left;
+	}
+	.align2{
+		float: right;
+		display: inline;
+	}
+	.hidedbutton{
+		display: none;
+	}
+	.box{
+		display: inline;
+	}
+		</style>
+		
+		<script src="/public/jquery-3.1.1.min.js"></script>
+		<script src="/public/semantic.min.js"></script>
+		<link href="/public/cleditor/jquery.cleditor.css" rel="stylesheet" />
+		<script src="/public/cleditor/jquery.cleditor.min.js"></script>
+		<script>
+			$(document).ready(function() {
+				var output = $("#contentsOutput").text();
+				console.log('output : ' + output);
+				
+				$("#contentsOutput").html(output);
+				 
+			});
+
+		</script>
+<script>
+	function show(idforcomment){
+		var visibility=  document.getElementById(idforcomment).style.display;
+		if(visibility=='none'){
+		 document.getElementById(idforcomment).style.display='block';
+		}else{
+		 document.getElementById(idforcomment).style.display='none';
+		}
+		   
+
+	}
+
+ </script>
+	</head>
+	<body>
+	
+		<div class="container">
+			<br>
+
+			<div class="ui raised segment">
+				<a class="ui blue ribbon label">게시판</a>
+      			<span id="board_title"><%=title %></span>
+							
+				<div class="ui blue fluid card">
+					 <div class="content">
+						<% 
+						   var curTitle = posts._doc.title;
+						   var curContents = posts._doc.contents;						  
+						var isBorrow=posts._doc.num;		
+						   var curWriter = posts._doc.writer.email; 
+						   var curWriterName = posts._doc.writer.name; 
+						   var curId = posts._doc._id; 
+						   var author=posts._doc.author; 
+						   var updated=posts._doc.updated_at;
+						   // html-entities module is required in post.js
+						   var entities = new Entities();
+						   var month=updated.getMonth()+1;
+						   var date=updated.getDate();
+						   var year=updated.getFullYear();
+						   var totalDate=year+'-'+month+'-'+date;
+						var unique= posts._doc.num;
+						var tem=curContents.replace(/<p>/gi,'');
+							<!-- var clearedContents=tem.replace(/</p>/gi,'');class="description" -->
+						   var decodedContents = entities.decode(tem);
+						   
+							  
+						%>
+						
+						<div id="titleOutput" class="header"><%=curTitle %></div>
+						<div id="titleOutput" class="header"><%=author %></div>
+	   					<div class="meta">
+	     						<span class="right floated time"> <%=totalDate %></span>
+	     						<span class="category">일반</span>
+	   					</div>
+	   					<div id="contentsOutput" class="description">
+							<%=decodedContents %>
+					    </div>
+					 </div>
+	  				<div class="extra content">
+	    				<div class="right floated author">
+	      					<img class="ui avatar image" src="/public/author.png"> <%=curWriterName %>
+	    				</div>
+	  				</div>
+					
+				</div>
+				
+                <div class="ui very relaxed selection celled list">
+					
+				<% 
+				var i=0;
+				var curPage=page;
+				%>
+					<a class="ui button"  href='/book/listpost?page=<%=curPage %>&perPage=8'>글 목록</a>
+
+				
+					<% if (login_success&&user===curWriter) { %>
+					<form class="align"  method="post" action="/process/updatepost">
+						<input hidden type="text" name="id" value="<%=posts._id %>">
+						<input hidden type="text" name="id" value="<%=curWriter %>">
+						<input   class="ui button"  type="submit" value="글 수정" name="" />
+					</form> 
+					<% }%>
+					<% if (user===curWriter) { %>
+
+					<form   class="align" height="70px" method="post" action="/process/deletepost">
+						<input hidden type="text" name="id" value="<%=posts._id %>">
+						<input   class="ui button"  type="submit" value="글 삭제" name="" />
+					</form> 
+					<% }%>
+					<% if (isBorrow=='0') { %>
+						<form   class="align" height="70px" method="post" action="/book/lend">
+							<input hidden type="text" name="id" value="<%=posts._id %>">
+							<input   class="ui button"  type="submit" value="대출" name="" />
+						</form> 
+					<% }else if(isBorrow=='2'){%>
+						<input   class="ui button"  type="submit" value="예약 중" name="" />
+					<%}else{%>
+						<input   class="ui button"  type="submit" value="대출 불가" name="" />
+					<%}%>
+					<form   class="align" height="70px" method="post" action="/book/reservation">
+						<input hidden type="text" name="id" value="<%=posts._id %>">
+						<input   class="ui button"  type="submit" value="예약" name="" />
+					</form> 
+
+                    <%  
+                        for (var i = 0; i < posts._doc.review.length; i++){
+                           var curCommentContents = posts._doc.review[i].contents;
+						   var curCommentWriter = posts._doc.review[i].writer;
+						   var curCommentWriterName = posts._doc.review[i].writername;
+						   var curCommentId=posts._doc.review[i]._id;
+						   var idforcomment=i;
+
+                           %>
+                            <div class="item">
+                                <div class="ui grid">
+                                    <div class="sixteen wide column">
+                                        <div class="ui header">
+                                            <h4 class="ui left aligned header">
+                                                <%=curCommentContents %>
+                                            </h4>
+                                            <h5 class="ui left aligned orange header">
+                                                <%=curCommentWriterName%>
+											</h5>
+											
+										<div class="box">
+									</div>
+											<div style="display: none;" id="<%=idforcomment %>" >
+												<form class="content ui form" method="post" action="/process/addrecomment">
+													<div class="field">
+														<input class=".align" type="text" name="recomment" style="width: 600px;" placeholder="댓글 입력"> 
+														<input class=".align" type="submit" value="입력" name="" />
+													  </div>		
+													<input hidden type="text" name="id" value="<%=curId %>">
+													<input hidden type="text" name="id2" value="<%=curCommentId %>">
+												</form>
+											</div>
+
+											<div class="align2" >
+											
+												<form   class="align2" method="post" >
+													<input hidden type="text" name="id4" value="<%=curCommentId %>">
+													<input type="submit" value="취소" name="" /> 
+													<!-- 이건 나중에 하기 -->
+												</form> 
+												<% if (login_success&&user===curCommentWriter) { %>
+												<form    class="align2" method="post" action="/process/removecomment">
+													<input hidden type="text" name="delete" value="<%=i %>">
+													<input type="submit" value="삭제" name="" />
+												</form> 
+												<% }%>
+												<form   class="align" height="70px" method="post" action="/book/translate">
+													<input hidden type="text" name="review" value="<%=curCommentContents %>">
+													<input   class="ui button"  type="submit" value="번역(테스트용)" name="" />
+												</form> 
+												
+											</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    <% } %>	
+
+                </div>
+
+                
+                
+                <div>
+                    <form class="content ui form" method="post" action="/book/addreview">
+						<div class="field">
+							<label>리뷰</label>
+							<input type="Integer" name="star" placeholder="점수">
+							<textarea type="text" name="contents" rows="4" style="width: 600px;" placeholder="리뷰 입력"></textarea>
+				  		</div>		
+						<input hidden type="text" name="writerforalert" value="<%=curWriter %>">
+                        <input hidden type="text" name="id" value="<%=curId %>">
+						<input class="ui submit button" type="submit" value="리뷰 추가" name="" />
+					</form>
+                </div>
+                
+			
+				
+			</div>
+			
+		</div>
+			
+	</body>
+</html>
+
+
