@@ -15,6 +15,7 @@ Schema.createSchema = function(mongoose) {
 	var UserSchema = mongoose.Schema({
 		email: {type: String, 'default':''}
 	    , hashed_password: {type: String, 'default':''}
+		, group: {type: String, index: 'hashed', 'default':''}
 		, name: {type: String, index: 'hashed', 'default':''}
 		, reservationlist:[ {type: mongoose.Schema.ObjectId, ref: 'book'}]
 		, alert: { 'default':''}	

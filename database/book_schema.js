@@ -13,6 +13,7 @@ SchemaObj.createSchema = function(mongoose) {
 	    title: {type: String, trim: true, 'default':''},		// 글 제목
 	    contents: {type: String, trim:true, 'default':''},		
 		which: {type: String, trim:true, 'default':''},		// 등록자
+		group: {type: String, index: 'hashed', 'default':''},//소속 부대
 		reservation: {type: String, trim:true, 'default':''},		
 		author: {type: String, trim:true, 'default':''},				
 	    writer: {type: mongoose.Schema.ObjectId, ref: 'users7'},	//저자					// 글쓴 사람

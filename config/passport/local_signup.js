@@ -16,6 +16,7 @@ module.exports = new LocalStrategy({
 	}, function(req, email, password, done) {
         // 요청 파라미터 중 name 파라미터 확인
         var paramName = req.body.name || req.query.name;
+	 	var paramGroup = req.body.group || req.query.group;
 	 
 		
 		
@@ -28,7 +29,7 @@ module.exports = new LocalStrategy({
 		        // 기존에 사용자 정보가 있는 경우
 		        if (user) {
 		        	console.log('이미 존재하는 이름입니다.');
-		            return done(null, false, req.flash('signupMessage', '이미 있는 이름입니다.ㄴ'));  // 검증 콜백에서 두 번째 파라미터의 값을 false로 하여 인증 실패한 것으로 처리
+		            return done(null, false, req.flash('signupMessage', '이미 있는 이름입니다.'));  // 검증 콜백에서 두 번째 파라미터의 값을 false로 하여 인증 실패한 것으로 처리
 		        }
 			});   
 		    database.UserModel.findOne({ 'email' :  email }, function(err, user) {
@@ -43,7 +44,7 @@ module.exports = new LocalStrategy({
 		            return done(null, false, req.flash('signupMessage', '계정이 이미 있습니다.'));  // 검증 콜백에서 두 번째 파라미터의 값을 false로 하여 인증 실패한 것으로 처리
 		        } else {
 		        	// 모델 인스턴스 객체 만들어 저장
-		        	var user = new database.UserModel({'email':email, 'password':password, 'name':paramName});
+		        	var user = new database.UserModel({'email':email, 'password':password, 'name':paramName, 'group':paramGroup});
 		        	user.save(function(err) {
 		        		if (err) {
 		        			throw err;
