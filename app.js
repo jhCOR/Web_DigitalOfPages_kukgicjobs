@@ -86,6 +86,9 @@ configPassport(app, passport);
 var userPassport = require('./routes/user_passport');
 userPassport(router, passport);
 
+var naverapi = require('./routes/naverAPI');
+naverapi(router, passport);
+
 // Layout 관련 라우터 -- 2021.07.11.
 var renderRouter = require('./routes/route_loader');
 var router = express.Router();
@@ -103,6 +106,33 @@ app.use( errorHandler );
 
 
 //===== 서버 시작 =====//
+
+// var moment = require('moment'); 
+// require('moment-timezone'); 
+// moment.tz.setDefault("Asia/Seoul"); 
+// var date = moment().format('YYYY-MM-DD HH:mm:ss');
+// console.log(date);
+
+// var cron = require('node-cron');
+
+// var term= parseInt(returndate-date / 86400000);
+// console.log(term);
+
+// cron.schedule('* * 2 * * *', () => {
+	
+// 	var database = req.app.get('database');
+
+// 	if(req.isAuthenticated()){
+
+// 		if (database.db) {
+// 			database.ReservationModel.loadAll(function(err, results) {
+
+// 			});
+// 		}	
+// 	}
+	
+// });
+
 
 //확인되지 않은 예외 처리 - 서버 프로세스 종료하지 않고 유지함
 process.on('uncaughtException', function (err) {

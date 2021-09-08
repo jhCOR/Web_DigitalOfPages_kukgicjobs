@@ -5,6 +5,7 @@ module.exports = {
         {file:'./user_schema', collection:'user7', schemaName:'UserSchema', modelName:'UserModel'}
 		,{file:'./book_schema', collection:'book', schemaName:'BookSchema', modelName:'BookModel'}
 		,{file:'./reservation_schema', collection:'reservation', schemaName:'ReservationSchema', modelName:'ReservationModel'}
+		,{file:'./applybook_schema', collection:'AppplyBook', schemaName:'AppplyBookSchema', modelName:'AppplyBookModel'}
 	],
 	route_info: [
 
@@ -16,6 +17,11 @@ module.exports = {
 		,{file:'./book', path:'/book/addreview', method:'addReview', type:'post'}
 		,{file:'./book', path:'/views/myPage.ejs', method:'reservationList', type:'get'}
 		,{file:'./book', path:'/book/return/:id', method:'giveBack', type:'get'}
+		,{file:'./book', path:'/book/applyBook', method:'applyBook', type:'post'}
+		,{file:'./book', path:'/requestBook', method:'requestBook', type:'post'}
+		,{file:'./book', path:'/book/listapplybook', method:'listapplybook', type:'get'}
+		,{file:'./book', path:'/book/acceptRequest/:id', method:'acceptRequest', type:'get'}
+		,{file:'./book', path:'/book/search', method:'search', type:'post'}
 	],
 
 }

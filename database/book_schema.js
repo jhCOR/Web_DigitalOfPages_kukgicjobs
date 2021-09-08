@@ -16,7 +16,7 @@ SchemaObj.createSchema = function(mongoose) {
 		group: {type: String, index: 'hashed', 'default':''},//소속 부대
 		reservation: {type: String, trim:true, 'default':''},		
 		author: {type: String, trim:true, 'default':''},				
-	    writer: {type: mongoose.Schema.ObjectId, ref: 'users7'},	//저자					// 글쓴 사람
+	    writer: {type: mongoose.Schema.ObjectId, ref: 'user7'},	// 글쓴 사람
 	    review: [{		// 리뷰
 	    	contents: {type: String, trim:true, 'default': ''},				// 댓글 내용
 			writer: {type: String, trim:true, 'default': ''},
@@ -80,7 +80,6 @@ SchemaObj.createSchema = function(mongoose) {
 			var criteria = options.criteria || {};
 			
 			this.find(criteria)
-				.populate('writer', 'name provider email')
 				.sort({'created_at': -1})
 				.limit(Number(options.perPage))
 				.skip(options.perPage * options.page)

@@ -31,6 +31,11 @@ SchemaObj.createSchema = function(mongoose) {
 				.populate('bookInfo', 'title contents author')
 				.exec(callback);
 		},
+		loadAll: function( callback) {
+			this.find()
+				.populate('bookInfo', 'title contents author')
+				.exec(callback);
+		},
 		list: function(options, callback) {
 			var criteria = options.criteria || {};
 			

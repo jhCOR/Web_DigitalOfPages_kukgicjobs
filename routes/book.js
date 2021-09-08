@@ -48,7 +48,8 @@ var addbook = function(req, res) {
 				writer: userObjectId,
 				which : paramWriter,
 				author:paramAuthor,
-				num: '0'
+				num: '0',
+				group:req.user.group,
 			});
 
 			book.savePost(function(err, result) {
@@ -92,7 +93,8 @@ var listpost = function(req, res) {
 		// 1. 글 리스트
 		var options = {
 			page: paramPage,
-			perPage: paramPerPage
+			perPage: paramPerPage,
+			criteria:{group:req.user.group},
 		}
 		
 		database.BookModel.list(options, function(err, results) {
@@ -230,8 +232,8 @@ var showbook = (req, res) => {
 					body = context;
 
 					database.UserModel.load(userEmail, function(err, results) {
-						if(results._id=='60534ecb612a073c1403ccb9'){
-							req.app.render('adminshowpost', context, function (err, html) {
+						
+							req.app.render('showbook', context, function (err, html) {
 								if (err) {
 									console.log('context:'+context.posts);
 									
@@ -241,18 +243,7 @@ var showbook = (req, res) => {
 								}
 								res.end(html);
 							});
-						}else{
-							req.app.render('showBook', context, function (err, html) {
-								if (err) {
-									console.log('context:'+context.posts);
-									
-									console.error('응답 웹문서 생성 중 에러 발생 : ' + err.stack+"//");
-		
-									return;
-								}
-								res.end(html);
-							});
-						}
+						
 		
 					});
 
@@ -471,6 +462,7 @@ var reservationList = function(req, res) {
 	}
 	
 };
+
 var giveBack = function(req, res) {
 	console.log('book 모듈 안에 있는 giveBack 호출됨.');
 
@@ -530,6 +522,348 @@ var giveBack = function(req, res) {
 	}
 	
 };
+
+var applyBook = function(req, res) {
+	console.log('book 모듈 안에 있는 applyBook 호출됨.');
+
+	var title = req.body.title || req.query.title || req.params.title;
+	var author= req.body.author || req.query.author || req.params.author;
+	var link= req.body.link || req.query.link || req.params.link;
+	var description= req.body.description || req.query.description || req.params.description;
+	//console.log("description:"+description);
+	var context = {
+			title: '책 신청',
+			bookTitle:title,
+			bookAuthor:author,
+			bookLink:link,
+			bookDescription:description
+		};
+					
+		req.app.render('applyBook.ejs', context, function(err, html) {
+			if (err) {
+				console.error('응답 웹문서 생성 중 에러 발생 : ' + err.stack);
+
+				res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
+				res.write('<h2>응답 웹문서 생성 중 에러 발생</h2>');
+				res.write('<p>' + err.stack + '</p>');
+				res.end();
+
+			    return;
+			}
+
+
+			res.end(html);
+		});
+
+};
+var requestBook = function(req, res) {
+	console.log('book 모듈 안에 있는 requestBook 호출됨.');
+	
+ 	var paramTitle = req.body.booktitle || req.query.booktitle;
+    var paramContents = req.body.bookdescription || req.query.bookdescription;
+	var paramAuthor = req.body.bookauthor || req.query.bookauthor;
+	var paramWriter =req.user.email;
+
+	var database = req.app.get('database');
+	
+	// 데이터베이스 객체가 초기화된 경우
+	if (database.db) {
+		
+		if(req.isAuthenticated==false){
+			return res.redirect('/'); 
+		}
+
+		// 1. 아이디를 이용해 사용자 검색
+		database.UserModel.findByEmail(paramWriter, function(err, results) {
+			if (err) {
+                console.error('게시판 글 추가 중 에러 발생 : ' + err.stack);
+                res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
+				res.write('<h2>게시판 글 추가 중 에러 발생</h2>');
+                res.write('<p>' + err.stack + '</p>');
+				res.end();
+                
+                return;
+            }
+
+			if (results == undefined || results.length < 1) {
+				res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
+				res.write('<h2>사용자 [' + paramWriter + ']를 찾을 수 없습니다.</h2>');
+				res.end();
+				
+				return;
+			}
+			
+			var userObjectId = results[0]._doc._id;
+			
+
+			var book = new database.AppplyBookModel({
+				title: paramTitle,
+				contents: paramContents,
+				user: userObjectId,
+				author:paramAuthor,
+				group:req.user.group,
+			});
+
+			book.savePost(function(err, result) {
+				if (err) {
+                    
+                        console.error('응답 웹문서 생성 중 에러 발생 : ' + err.stack);
+
+                        res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
+                        res.write('<h2>응답 웹문서 생성 중 에러 발생</h2>');
+                        res.write('<p>' + err.stack + '</p>');
+                        res.end();
+
+                        return;
+                    
+                }
+			   console.log(result);
+				
+			    database.AppplyBookModel.load(result._id, function (err, results) {
+
+					if(err) {
+						console.log('error');
+						console.error('게시판 글 조회 중 에러 발생 : ' + err.stack);
+
+						res.writeHead('200', { 'Content-Type': 'text/html;charset=utf8' });
+						res.write('<h2>게시판 글 조회 중 에러 발생</h2>');
+						res.write('<p>' + err.stack + '</p>');
+						res.end();
+
+						return;
+					}
+					
+				var context = {
+					title: '신청 완료',
+					bookTitle:results._doc.title,
+					bookAuthor:results._doc.author,
+					bookDescription:results._doc.contents,
+					
+				};
+					
+				req.app.render('applyBook.ejs', context, function(err, html) {
+					if (err) {
+						
+						console.error('응답 웹문서 생성 중 에러 발생 : ' + err.stack);
+
+						res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
+						res.write('<h2>응답 웹문서 생성 중 에러 발생</h2>');
+						res.write('<p>' + err.stack + '</p>');
+						res.end();
+
+						return;
+					}
+
+
+					res.end(html);
+				});
+				});			
+			});
+		
+		});
+		
+	} else {
+		res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
+		res.write('<h2>데이터베이스 연결 실패</h2>');
+		res.end();
+	}
+};
+
+var listapplybook = function(req, res) {
+	console.log('book 모듈 안에 있는 listapplybook 호출됨.');
+  	
+    var paramPage = req.body.page || req.query.page||'0';
+	console.log(paramPage);
+	var paramPerPage = 8
+
+	var database = req.app.get('database');
+
+    // 데이터베이스 객체가 초기화된 경우
+	if (database.db) {
+		// 1. 글 리스트
+		var options = {
+			page: paramPage,
+			perPage: paramPerPage,
+			criteria:{group:req.user.group},
+		}
+		
+		database.AppplyBookModel.list(options, function(err, results) {
+			if (err) {
+                console.error('게시판 글 목록 조회 중 에러 발생 : ' + err.stack);
+                
+                res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
+				res.write('<h2>게시판 글 목록 조회 중 에러 발생</h2>');
+                res.write('<p>' + err.stack + '</p>');
+				res.end();
+                
+                return;
+            }
+			
+			if (results) {
+				// for(var i=0;i<results.length;i++){
+				// 	if(results[i].writer==null){
+				// 		;
+				// 		results[i].writer={name:'(알수없음)',email:'unknown'};}
+				// }
+				// 전체 문서 객체 수 확인
+				database.AppplyBookModel.count().exec(function(err, count) {
+
+					res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
+					
+					// 뷰 템플레이트를 이용하여 렌더링한 후 전송
+					var context = {
+						title: '신청 목록',
+						posts: results,
+						page: parseInt(paramPage),
+						pageCount: Math.ceil(count / paramPerPage),
+						perPage: paramPerPage, 
+						totalRecords: count,
+						size: paramPerPage						
+					};
+					currentPage=context.page;
+					body=context;
+
+					req.app.render('listApplyBook', context, function(err, html) {
+                        if (err) {
+                            console.error('응답 웹문서 생성 중 에러 발생 : ' + err.stack);
+
+                            res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
+                            res.write('<h2>응답 웹문서 생성 중 에러 발생</h2>');
+                            res.write('<p>' + err.stack + '</p>');
+                            res.end();
+
+                            return;
+                        }
+						
+						res.end(html);
+					});
+					
+				});
+				
+			} else {
+				res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
+				res.write('<h2>글 목록 조회  실패</h2>');
+				res.end();
+			}
+		});
+	} else {
+		res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
+		res.write('<h2>데이터베이스 연결 실패</h2>');
+		res.end();
+	}
+};
+
+var acceptRequest = function(req, res) {
+	console.log('book 모듈 안에 있는 acceptRequest 호출됨.');
+
+	var paramId = req.body.id || req.query.id || req.params.id;
+	var database = req.app.get('database');
+
+	if (database.db) {
+	
+		database.AppplyBookModel.findByIdAndUpdate(paramId,{$set: {isAccepted : '1'}}, function(err,re){
+			if (err) {
+                console.error('업데이트 중 에러 발생 : ' + err.stack);
+                
+                res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
+				res.write('<h2>업데이트 에러 발생</h2>');
+                res.write('<p>' + err.stack + '</p>');
+				res.end();
+                
+                return;
+			}
+			
+		console.log(re);
+		});
+		
+		res.redirect("/book/listapplybook?page=0&perPage=2"); 
+	} else {
+		res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
+		res.write('<h2>데이터베이스 연결 실패</h2>');
+		res.end();
+	}
+	
+};
+
+
+var search = function(req, res) {
+	
+	var paramPage = req.body.page || req.query.page;
+	var search = req.body.search || req.query.search;
+	var paramPerPage = 8
+
+	var database = req.app.get('database');
+
+	if (database.db) {
+		// 1. 글 리스트
+		var options = {
+			page: paramPage,
+			perPage: paramPerPage,
+			criteria:{group:req.user.group,
+					  title:search},
+		}
+		
+		database.BookModel.list(options, function(err, results) {
+			if (err) {
+                console.error('게시판 글 목록 조회 중 에러 발생 : ' + err.stack);
+                
+                res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
+				res.write('<h2>게시판 글 목록 조회 중 에러 발생</h2>');
+                res.write('<p>' + err.stack + '</p>');
+				res.end();
+                
+                return;
+            }
+			
+			if (results) {
+				//console.log('###요청 파라미터(result):\n ' +results);
+				//console.dir(results);
+				for(var i=0;i<results.length;i++){
+					if(results[i].writer==null){
+						
+						results[i].writer={name:'(알수없음)',email:'unknown'};}
+				}
+				// 전체 문서 객체 수 확인
+				database.BookModel.count().exec(function(err, count) {
+
+					res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
+					
+					// 뷰 템플레이트를 이용하여 렌더링한 후 전송
+					var context = {
+						title: '글 목록',
+						posts: results,
+						page: parseInt(paramPage),
+						pageCount: Math.ceil(count / paramPerPage),
+						perPage: paramPerPage, 
+						totalRecords: count,
+						size: paramPerPage						
+					};
+					currentPage=context.page;
+					body=context;
+					//console.log('요청 파라미터(currentPage) ------> ' +currentPage);
+				
+					req.app.render('listbook', context, function(err, html) {
+                        if (err) {
+                            console.error('응답 웹문서 생성 중 에러 발생 : ' + err.stack);
+
+                            res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
+                            res.write('<h2>응답 웹문서 생성 중 에러 발생</h2>');
+                            res.write('<p>' + err.stack + '</p>');
+                            res.end();
+
+                            return;
+                        }
+						
+    
+						res.end(html);
+					});
+					
+				});		
+				
+			}
+		});
+	}
+};
 module.exports.listpost = listpost;
 module.exports.addbook = addbook;
 module.exports.showbook = showbook;
@@ -538,4 +872,9 @@ module.exports.reservation = reservation;
 module.exports.addReview = addReview;
 module.exports.reservationList = reservationList;
 module.exports.giveBack = giveBack;
+module.exports.applyBook = applyBook;
+module.exports.requestBook = requestBook;
+module.exports.listapplybook = listapplybook;
+module.exports.acceptRequest = acceptRequest;
+module.exports.search = search;
 
