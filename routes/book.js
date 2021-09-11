@@ -1,6 +1,6 @@
 var Entities = require('html-entities').AllHtmlEntities;
 var currentPage=0;
-var functions = require('../utils/functions');
+
 var addbook = (req, res) => {console.log('book 모듈 안에 있는 addbook 호출됨.');
  
     const paramContents = req.body.contents || req.query.contents;
