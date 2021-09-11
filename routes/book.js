@@ -1,6 +1,6 @@
 var Entities = require('html-entities').AllHtmlEntities;
 var currentPage=0;
-
+var functions = require('../utils/functions');
 var addbook = (req, res) => {console.log('book 모듈 안에 있는 addbook 호출됨.');
  
     const paramContents = req.body.contents || req.query.contents;
@@ -787,10 +787,19 @@ var acceptRequest = function(req, res) {
 
 var search = (req, res)=> {
 		console.log('book 모듈 안에 있는 search 호출됨.');
-	const paramPage = req.body.page || req.query.page;
+	const paramPage = req.body.page || req.query.page||'0';
 	const search = req.body.search || req.query.search;
 	const paramPerPage = 8
 	const result={};
+	let page="";
+	if(req.body.search ){
+		var option={group:req.user.group,
+					 title: new RegExp(search) }
+		page="listbook";
+	}else{
+		var option={ title: new RegExp(search) }
+		page="listbook_All";
+	}
 	
 	const database = req.app.get('database');
 
@@ -799,8 +808,7 @@ var search = (req, res)=> {
 		var options = {
 			page: paramPage,
 			perPage: paramPerPage,
-			criteria:{group:req.user.group,
-					 title: new RegExp(search) },
+			criteria:option,
 			
 		}
 		
@@ -844,7 +852,7 @@ var search = (req, res)=> {
 					currentPage=context.page;
 					body=context;
 
-					req.app.render('listbook', context, (err, html) => {
+					req.app.render(page, context, (err, html) => {
                         if (err) {
                             console.error('응답 웹문서 생성 중 에러 발생 : ' + err.stack);
 

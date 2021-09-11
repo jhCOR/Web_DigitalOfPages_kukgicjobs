@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
+		<title>메모 페이지</title>
+        
+        <!-- 제이쿼리 사용 -->
+        <script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+  <script src="attach_photo.js"></script>
+        <!-- moment 사용 -->
+        <script src="moment.min.js"></script>
+        <script>
+        
+            // 문서 로딩 완료 시
+            $(function() {
+        
+                // 파일선택 값이 바뀌면 
+                $("#photoInput").change(function() {
+                    readURL(this);
+               
+                });
+            });
+            
+            // 파일선택한 정보를 이용해 이미지 프리뷰
+            function readURL(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+                   
+                    reader.onload = function (e) {
+                        $('#photoOutput').attr('src', e.target.result);
+                     
+                      
+                    }
+                    reader.readAsDataURL(input.files[0]);
+                 
+                }
+            } 
+
+            window.onload=function(){
+            document.getElementById("submit_img").onclick=function(){
+                document.getElementById("form").submit();
+                alert(<%path%>);
+                //  opener.parent.pasteHTML();
+                //  self.close();
+                }
+            } 
+        </script>
+	</head>
+    <body>
+        <br>
+        <form method="post" id="form" enctype="multipart/form-data" action="/process/save">
+            <table>
+                <tr>
+                    <td><input multiple="multiple" type="file" name="photo" id="photoInput" /><br><img src="" id="photoOutput" width="200px" /></td>
+                </tr>
+            </table>
+            <!-- <input type="submit"  value="저장" name="" /> -->
+            <input type='button' id="submit_img" value='저장'/>
+            <input type='button' onclick="javascript: self.close(); " value='취소'/>
+        </form>
+    </body>
+</html>

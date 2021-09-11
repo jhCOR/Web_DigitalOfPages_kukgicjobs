@@ -24,6 +24,7 @@ module.exports = {
 		,{file:'./book', path:'/book/acceptRequest/:id', method:'acceptRequest', type:'get'}
 		,{file:'./book', path:'/user/acceptAdminRequest/:id', method:'acceptAdminRequest', type:'get'}
 		,{file:'./book', path:'/book/search', method:'search', type:'post'}
+		,{file:'./book', path:'/book/search', method:'search', type:'get'}
 		,{file:'./book', path:'/user/requestlist', method:'requestlist', type:'get'}
 	],
 
