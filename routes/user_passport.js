@@ -83,6 +83,11 @@ module.exports = function(router, passport) {
         console.log('/signup 패스 요청됨.');
         res.render('signup.ejs', {message: req.flash('signupMessage')});
     });
+	
+	  router.route('/signupAdmin').get(function(req, res) {
+        console.log('/signupAdmin 패스 요청됨.');
+        res.render('signupAdmin.ejs', {message: req.flash('signupMessage')});
+    });
 	 
     // 프로필 화면
     router.route('/profile').get(function(req, res) {
@@ -129,6 +134,11 @@ module.exports = function(router, passport) {
         failureFlash : true 
     }));
 
+	   router.route('/signupAsAdmin').post(passport.authenticate('local_signup_admin', {
+        successRedirect : '/profile', 
+        failureRedirect : '/signupAsAdmin', 
+        failureFlash : true 
+    }));
 
 
 

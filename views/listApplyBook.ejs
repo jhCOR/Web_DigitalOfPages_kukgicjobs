@@ -88,7 +88,7 @@
 							    for (var i = 0; i < posts.length; i++) {
 									
 								   var curTitle = posts[i]._doc.title||'0';
-								   var curContents = posts[i]._doc.contents;
+								   var name = posts[i]._doc.name;
 								   var curUser = posts[i]._doc.user;
 								   var isAccepted = posts[i]._doc.isAccepted;
   									if(isAccepted=='1'){

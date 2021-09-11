@@ -57,7 +57,7 @@
 		
 		<script>
 			function listpost(page, perPage) {
-				document.location = '/book/listpost?page=' + page + '&perPage=' + perPage;
+				document.location = '/book/listapplybook?page=' + page + '&perPage=' + perPage;
 			}
 
 		</script>
@@ -69,7 +69,7 @@
     		<br>
     		
 			<div class="ui raised segment">
-				<a href='/book/listpost?page=0&perPage=2' class="ui blue ribbon label">게시판</a>
+				<a href='/book/listapplybook?page=0&perPage=2' class="ui blue ribbon label">게시판</a>
       			
 			
 				
@@ -87,74 +87,38 @@
 								
 							    for (var i = 0; i < posts.length; i++) {
 									
-								   var curTitle = posts[i]._doc.title||'0';
-								   var curContents = posts[i]._doc.contents;
-								   var curWriter = posts[i]._doc.writer.name;
-                                   var curHits = posts[i]._doc.hits;  
-								   var isBorrow=  posts[i]._doc.num;  
-								   var available="";
-									
-								   if(isBorrow=='0'){
-									available="대출가능"
-								   }else if(isBorrow=='2'){
-									available="예약중"
+								   var email = posts[i]._doc.email||'0';
+								   var name = posts[i]._doc.name;
+								   var group = posts[i]._doc.group;
+								   var admin = posts[i]._doc.admin;
+  									if(admin=='adminRequset'){
+									   admin='수락 대기';
 								   }else{
-									available="대출중"
+									   admin='수락 완료';
 								   }
 								   var curNo =0;
-								   var Date=posts[i]._doc.updated_at;
-								   var month=Date.getMonth()+1;
-								   var date=Date.getDate();
-								   var year=Date.getFullYear();
-								   var totalDate=year+'-'+month+'-'+date;
+								
 									   curNo=totalRecords-8*(page)-i;
-									var calculatedItem=0;	   
-									if(title=="글 검색" ){
-									if( curTitle.indexOf(searchcontext)>=0){
-										calculatedItem+=1;
-										calculatedPage=Math.ceil(calculatedItem/8);
-										console.log('calculatedItem : ' + calculatedItem);
 								   %>
 								    <div class="item">
 										<div class="ui grid">
 						    				<div class="two wide column" ><%=curNo %></div>
-						    				<div class="fourteen wide column" onclick="javascript:window.location='/book/showbook/<%=posts[i]._id %>'">
+						    				<div class="fourteen wide column" onclick="javascript:window.location='#">
 						    					<div class="ui header">
 										    		<h4 class="ui left aligned header">
-										    			<%=curTitle %>
+										    			<%=name %>
 										    		</h4>
 											      	<h5 class="ui right aligned orange header">
-															<%=available %>
-											      			<%=curWriter %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-															<%=totalDate %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-											        		
-															
+											      			<%=email %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+															<%=group %>
+														<%=admin%>
+															<a class="ui button"  href='/user/acceptAdminRequest/<%=posts[i]._id%> '>신청 수락</a>
 											      	</h5>
+													
 												</div>
 						    				</div>
 						    			</div>
 						    		</div>
-								<%}}else{%>
-														    <div class="item">
-										<div class="ui grid">
-						    				<div class="two wide column" ><%=curNo %></div>
-						    				<div class="fourteen wide column" onclick="javascript:window.location='/book/showbook/<%=posts[i]._id %>'">
-						    					<div class="ui header">
-										    		<h4 class="ui left aligned header">
-										    			<%=curTitle %>
-										    		</h4>
-											      	<h5 class="ui right aligned orange header">
-															<%=available %>
-											      			<%=curWriter %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-															<%=totalDate %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-											        		
-															
-											      	</h5>
-												</div>
-						    				</div>
-						    			</div>
-						    		</div>
-							<%}%>
 							<% } %>	
 						 
 				    	</div>
@@ -235,17 +199,11 @@
 						 	  
 						<br><br>
 						<div class="menu">
-						<a href='/book/listpost?page=0&perPage=2'>
-							<img id="rotate" class="ui avatar image" src="../public/images/reload_black.png">
-							</a>
-						<a class="ui button"  href='/views/addBook.ejs'>글쓰기</a>
+						
+			
 							
 						<a class="ui button"  href='/'>홈으로</a>
-						<form  method="post" class="align" width="100%" height="100%" action="/book/search">
-							<input class="center" type="text" name="search" minlength="2" placeholder="검색어 입력"> 
-							<input hidden type="text" name="page" value="0"> 
-							<input type="submit" value="검색" name="" />
-						</form>
+						
 					</div>
 					</div>
 				</div>
