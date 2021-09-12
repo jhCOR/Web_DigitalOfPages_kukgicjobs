@@ -2,7 +2,8 @@ var Entities = require('html-entities').AllHtmlEntities;
 var currentPage=0;
 var printer = require("../utils/printer");
 var saver = require("../utils/saver");
-
+var Borrow = require("../routeFunc/borrow");
+var addReview = require("../routeFunc/addReview");
 var addbook = (req, res) => {console.log('book 모듈 안에 있는 addbook 호출됨.');
 
     const paramContents = req.body.contents || req.query.contents;
@@ -28,7 +29,7 @@ var addbook = (req, res) => {console.log('book 모듈 안에 있는 addbook 호�
                 
                 return;
             }
-
+			
 			if (results == undefined || results.length < 1) {
 				res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
 				res.write('<h2>사용자 [' + paramWriter + ']를 찾을 수 없습니다.</h2>');
@@ -51,8 +52,6 @@ var addbook = (req, res) => {console.log('book 모듈 안에 있는 addbook 호�
 			});
 			
 			saver.saving(book,res,'/book/showbook/' + book._id);
-
-			
 		});
 		
 	} else {
@@ -122,8 +121,6 @@ var listpost = function(req, res) {
                             printer.errrendering(res,err);
                             return;
                         }
-						
-    
 						res.end(html);
 					});
 					
@@ -242,92 +239,13 @@ var showbook = (req, res) => {
 
 var borrow = function(req, res) {
 	console.log('book 모듈 안에 있는 borrow 호출됨.');
-
-	var paramId = req.body.id || req.query.id || req.params.id;
-	var user=req.user.email;
-	var database = req.app.get('database');
-
-	if (database.db) {
-		var reservation = new database.ReservationModel({
-			bookInfo:paramId,
-			user:user,
-		});
-		saver.saving(reservation);
-
-
-		database.BookModel.findByIdAndUpdate(paramId,{$set: {num : '1'}}, function(err){
-			if (err) {
-                console.error('업데이트 중 에러 발생 : ' + err.stack);
-                
-                printer.errrendering(res,err);
-                
-                return;
-			}
-			
-			res.redirect('/book/showbook/' + paramId); 
-		});
-
-		database.UserModel.load(user, function(err, results) {
-			if (err) {
-                console.error('게시판 글 추가 중 에러 발생 : ' + err.stack);
-                printer.errrendering(res,err);
-                
-                return;
-			}
-			
-			database.UserModel.findByIdAndUpdate(results._id,	{'$push': {'reservationlist':paramId}},
-			{'new':true, 'upsert':true},  function(err, results2) {
-			
-			if (err) {
-				console.error('게시판 글 추가 중 에러 발생 : ' + err.stack);
-				printer.errrendering(res,err);
-				
-				return;
-			}
-			
-			});
-		});
-		
-	} else {
-		res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
-		res.write('<h2>데이터베이스 연결 실패</h2>');
-		res.end();
-	}
+	Borrow.borrowFun(req,res);
 	
 };
 
 
 var addReview = function(req, res) {
-	console.log('book 모듈 안에 있는 addReview 호출됨.');
- 
-    var paramId = req.body.id || req.query.id;
-    var paramContents = req.body.contents || req.query.contents;
-    var paramWriter = req.user.email;
-	var Writer = req.user.name;
-	var database = req.app.get('database');
-
-	if (database.db) {
-		database.BookModel.findByIdAndUpdate(paramId,
-            {'$push': {'review':{'contents':paramContents, 'writer':paramWriter, 'writername':Writer}}},
-            {'new':true, 'upsert':true},
-            function(err, results) {
-                if (err) {
-                    console.error('게시판 댓글 추가 중 에러 발생 : ' + err.stack);
-
-                    printer.errrendering(res,err);
-
-                    return;
-                }
-
-
-                return res.redirect('/book/showbook/' + paramId); 
-        });
- 
-	} else {
-		res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
-		res.write('<h2>데이터베이스 연결 실패</h2>');
-		res.end();
-	}
+	addReview.addReviewFun(req, res);
 	
 };
 var reservation = function(req, res) {
@@ -358,6 +276,7 @@ var reservation = function(req, res) {
 	}
 	
 };
+
 var reservationList = function(req, res) {
 	console.log('book 모듈 안에 있는 reservationList 호출됨.');
 
@@ -373,8 +292,7 @@ var reservationList = function(req, res) {
                 
                 return;
 			}
-			console.log('reservationList:'+results.reservationlist);
-
+			
 			var context = {
 				posts: results,
 			};
@@ -623,7 +541,7 @@ var listapplybook = function(req, res) {
 
 var acceptRequest = function(req, res) {
 	console.log('book 모듈 안에 있는 acceptRequest 호출됨.');
-console.log('book 모듈 안에 있는 acceptRequest 호출됨.');
+
 	var paramId = req.body.id || req.query.id || req.params.id;
 	var database = req.app.get('database');
 
