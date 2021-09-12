@@ -21,8 +21,8 @@ module.exports = function(router, passport) {
             res.render('index.ejs', {login_success:false});
         } else {
             console.log('사용자 인증된 상태임.');
-			res.redirect('/public/index.html');
-            // res.render('index.ejs', {login_success:true});
+			
+            res.render('index.ejs', {login_success:true});
         }
     });
 	 router.route('/addhistory').get(function(req, res) {

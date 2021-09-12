@@ -47,10 +47,13 @@
 											
 										</ul>
 									</li>
-									<% } %>
+									<% }%>
+									
 								</ul>
 							</li>
-							
+							<% if (!login_success) { %>
+							<li><a href="/login" class="button">Login</a></li>
+							<%}%>
 						</ul>
 					</nav>
 				</header>
@@ -64,7 +67,7 @@
 						<li><a href="#" class="button">Start!</a></li>
 						<% } else { %>
 						
-						<li><a href="/login" class="button">Login Of SignUp</a></li>
+						<li><a href="/login" class="button">Login OR SignUp</a></li>
 						<% } %>
 					</ul>
 				</section>

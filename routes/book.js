@@ -1,13 +1,15 @@
 var Entities = require('html-entities').AllHtmlEntities;
 var currentPage=0;
+var printer = require("../utils/printer");
+var saver = require("../utils/saver");
 
 var addbook = (req, res) => {console.log('book 모듈 안에 있는 addbook 호출됨.');
- 
+
     const paramContents = req.body.contents || req.query.contents;
 	const paramWriter =req.user.email;
 	const paramTitle = req.body.title || req.query.title;
 	const paramAuthor = req.body.author || req.query.author;
-
+		 
 	var database = req.app.get('database');
 	
 	// 데이터베이스 객체가 초기화된 경우
@@ -22,10 +24,7 @@ var addbook = (req, res) => {console.log('book 모듈 안에 있는 addbook 호�
 		database.UserModel.findByEmail(paramWriter, function(err, results) {
 			if (err) {
                 console.error('게시판 글 추가 중 에러 발생 : ' + err.stack);
-                res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
-				res.write('<h2>게시판 글 추가 중 에러 발생</h2>');
-                res.write('<p>' + err.stack + '</p>');
-				res.end();
+				printer.errrendering(res,err);
                 
                 return;
             }
@@ -50,30 +49,14 @@ var addbook = (req, res) => {console.log('book 모듈 안에 있는 addbook 호�
 				num: '0',
 				group:req.user.group,
 			});
+			
+			saver.saving(book,res,'/book/showbook/' + book._id);
 
-			book.savePost(function(err, result) {
-				if (err) {
-                    
-                        console.error('응답 웹문서 생성 중 에러 발생 : ' + err.stack);
-
-                        res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
-                        res.write('<h2>응답 웹문서 생성 중 에러 발생</h2>');
-                        res.write('<p>' + err.stack + '</p>');
-                        res.end();
-
-                        return;
-                    
-                }
-			   console.log(result);
-			    return res.redirect('/book/showbook/' + book._id); 
-			});
 			
 		});
 		
 	} else {
-		res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
-		res.write('<h2>데이터베이스 연결 실패</h2>');
-		res.end();
+		printer.errrendering(res);
 	} }; 
 
 
@@ -100,10 +83,7 @@ var listpost = function(req, res) {
 			if (err) {
                 console.error('게시판 글 목록 조회 중 에러 발생 : ' + err.stack);
                 
-                res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
-				res.write('<h2>게시판 글 목록 조회 중 에러 발생</h2>');
-                res.write('<p>' + err.stack + '</p>');
-				res.end();
+                printer.errrendering(res,err);
                 
                 return;
             }
@@ -139,11 +119,7 @@ var listpost = function(req, res) {
                         if (err) {
                             console.error('응답 웹문서 생성 중 에러 발생 : ' + err.stack);
 
-                            res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
-                            res.write('<h2>응답 웹문서 생성 중 에러 발생</h2>');
-                            res.write('<p>' + err.stack + '</p>');
-                            res.end();
-
+                            printer.errrendering(res,err);
                             return;
                         }
 						
@@ -189,10 +165,7 @@ var showbook = (req, res) => {
 					console.log('error');
 					console.error('게시판 글 조회 중 에러 발생 : ' + err.stack);
 
-					res.writeHead('200', { 'Content-Type': 'text/html;charset=utf8' });
-					res.write('<h2>게시판 글 조회 중 에러 발생</h2>');
-					res.write('<p>' + err.stack + '</p>');
-					res.end();
+					printer.errrendering(res,err);
 
 					return;
 				}
@@ -275,37 +248,18 @@ var borrow = function(req, res) {
 	var database = req.app.get('database');
 
 	if (database.db) {
-
-
 		var reservation = new database.ReservationModel({
 			bookInfo:paramId,
 			user:user,
 		});
-
-		reservation.savePost(function(err, result) {
-			if (err) {
-				
-					console.error('응답 웹문서 생성 중 에러 발생 : ' + err.stack);
-
-					res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
-					res.write('<h2>응답 웹문서 생성 중 에러 발생</h2>');
-					res.write('<p>' + err.stack + '</p>');
-					res.end();
-
-					return;
-			}
-			console.log(result);
-		});
+		saver.saving(reservation);
 
 
 		database.BookModel.findByIdAndUpdate(paramId,{$set: {num : '1'}}, function(err){
 			if (err) {
                 console.error('업데이트 중 에러 발생 : ' + err.stack);
                 
-                res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
-				res.write('<h2>업데이트 에러 발생</h2>');
-                res.write('<p>' + err.stack + '</p>');
-				res.end();
+                printer.errrendering(res,err);
                 
                 return;
 			}
@@ -316,10 +270,7 @@ var borrow = function(req, res) {
 		database.UserModel.load(user, function(err, results) {
 			if (err) {
                 console.error('게시판 글 추가 중 에러 발생 : ' + err.stack);
-                res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
-				res.write('<h2>게시판 글 추가 중 에러 발생</h2>');
-                res.write('<p>' + err.stack + '</p>');
-				res.end();
+                printer.errrendering(res,err);
                 
                 return;
 			}
@@ -329,16 +280,14 @@ var borrow = function(req, res) {
 			
 			if (err) {
 				console.error('게시판 글 추가 중 에러 발생 : ' + err.stack);
-				res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
-				res.write('<h2>게시판 글 추가 중 에러 발생</h2>');
-				res.write('<p>' + err.stack + '</p>');
-				res.end();
+				printer.errrendering(res,err);
 				
 				return;
 			}
 			
 			});
 		});
+		
 	} else {
 		res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
 		res.write('<h2>데이터베이스 연결 실패</h2>');
@@ -365,10 +314,7 @@ var addReview = function(req, res) {
                 if (err) {
                     console.error('게시판 댓글 추가 중 에러 발생 : ' + err.stack);
 
-                    res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
-                    res.write('<h2>게시판 댓글 추가 중 에러 발생</h2>');
-                    res.write('<p>' + err.stack + '</p>');
-                    res.end();
+                    printer.errrendering(res,err);
 
                     return;
                 }
@@ -393,18 +339,11 @@ var reservation = function(req, res) {
 
 	if (database.db) {
 
-
-
-
-
 		database.BookModel.findByIdAndUpdate(paramId,{$set: {num : '2', reservation:reserve}}, function(err,result){
 			if (err) {
                 console.error('업데이트 중 에러 발생 : ' + err.stack);
                 
-                res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
-				res.write('<h2>업데이트 에러 발생</h2>');
-                res.write('<p>' + err.stack + '</p>');
-				res.end();
+                printer.errrendering(res,err);
                 
                 return;
 			}
@@ -422,7 +361,7 @@ var reservation = function(req, res) {
 var reservationList = function(req, res) {
 	console.log('book 모듈 안에 있는 reservationList 호출됨.');
 
-	var user=req.user.email;
+	var user = req.user.email;
 	var database = req.app.get('database');
 
 	if (database.db) {
@@ -430,10 +369,7 @@ var reservationList = function(req, res) {
 		database.UserModel.load(user, function(err, results) {
 			if (err) {
                 console.error('게시판 글 추가 중 에러 발생 : ' + err.stack);
-                res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
-				res.write('<h2>게시판 글 추가 중 에러 발생</h2>');
-                res.write('<p>' + err.stack + '</p>');
-				res.end();
+                printer.errrendering(res,err);
                 
                 return;
 			}
@@ -475,10 +411,7 @@ var giveBack = function(req, res) {
 			if (err) {
                 console.error('업데이트 중 에러 발생 : ' + err.stack);
                 
-                res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
-				res.write('<h2>업데이트 에러 발생</h2>');
-                res.write('<p>' + err.stack + '</p>');
-				res.end();
+                printer.errrendering(res,err);
                 
                 return;
 			}
@@ -489,10 +422,7 @@ var giveBack = function(req, res) {
 			database.UserModel.load(user, function(err, results) {
 			if (err) {
                 console.error('게시판 글 추가 중 에러 발생 : ' + err.stack);
-                res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
-				res.write('<h2>게시판 글 추가 중 에러 발생</h2>');
-                res.write('<p>' + err.stack + '</p>');
-				res.end();
+                printer.errrendering(res,err);
                 
                 return;
 			}
@@ -503,16 +433,15 @@ var giveBack = function(req, res) {
 				
 			if (err) {
 				console.error('에러 발생 : ' + err.stack);
-				res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
-				res.write('<h2>에러 발생</h2>');
-				res.write('<p>' + err.stack + '</p>');
-				res.end();
+				printer.errrendering(res,err);
 				
 				return;
 			}
 			console.log(paramId+"/"+results2);
 			});
 		});
+		
+		
 		res.redirect("/views/myPage.ejs"); 
 	} else {
 		res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
@@ -529,7 +458,7 @@ var applyBook = function(req, res) {
 	var author= req.body.author || req.query.author || req.params.author;
 	var link= req.body.link || req.query.link || req.params.link;
 	var description= req.body.description || req.query.description || req.params.description;
-	//console.log("description:"+description);
+
 	var context = {
 			title: '책 신청',
 			bookTitle:title,
@@ -542,10 +471,7 @@ var applyBook = function(req, res) {
 			if (err) {
 				console.error('응답 웹문서 생성 중 에러 발생 : ' + err.stack);
 
-				res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
-				res.write('<h2>응답 웹문서 생성 중 에러 발생</h2>');
-				res.write('<p>' + err.stack + '</p>');
-				res.end();
+				printer.errrendering(res,err);
 
 			    return;
 			}
@@ -576,10 +502,7 @@ var requestBook = function(req, res) {
 		database.UserModel.findByEmail(paramWriter, function(err, results) {
 			if (err) {
                 console.error('게시판 글 추가 중 에러 발생 : ' + err.stack);
-                res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
-				res.write('<h2>게시판 글 추가 중 에러 발생</h2>');
-                res.write('<p>' + err.stack + '</p>');
-				res.end();
+                printer.errrendering(res,err);
                 
                 return;
             }
@@ -602,19 +525,13 @@ var requestBook = function(req, res) {
 				author:paramAuthor,
 				group:req.user.group,
 			});
-
+			
 			book.savePost(function(err, result) {
 				if (err) {
-                    
-                        console.error('응답 웹문서 생성 중 에러 발생 : ' + err.stack);
+                    console.error('응답 웹문서 생성 중 에러 발생 : ' + err.stack);
+                    printer.errrendering(res,err);
 
-                        res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
-                        res.write('<h2>응답 웹문서 생성 중 에러 발생</h2>');
-                        res.write('<p>' + err.stack + '</p>');
-                        res.end();
-
-                        return;
-                    
+                    return;
                 }
 			   console.log(result);
 				
@@ -624,10 +541,7 @@ var requestBook = function(req, res) {
 						console.log('error');
 						console.error('게시판 글 조회 중 에러 발생 : ' + err.stack);
 
-						res.writeHead('200', { 'Content-Type': 'text/html;charset=utf8' });
-						res.write('<h2>게시판 글 조회 중 에러 발생</h2>');
-						res.write('<p>' + err.stack + '</p>');
-						res.end();
+						printer.errrendering(res,err);
 
 						return;
 					}
@@ -639,32 +553,14 @@ var requestBook = function(req, res) {
 					bookDescription:results._doc.contents,
 					
 				};
-					
-				req.app.render('applyBook.ejs', context, function(err, html) {
-					if (err) {
-						
-						console.error('응답 웹문서 생성 중 에러 발생 : ' + err.stack);
-
-						res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
-						res.write('<h2>응답 웹문서 생성 중 에러 발생</h2>');
-						res.write('<p>' + err.stack + '</p>');
-						res.end();
-
-						return;
-					}
-
-
-					res.end(html);
-				});
+				printer.rendering(req,res,'applyBook.ejs',context);					
 				});			
 			});
 		
 		});
 		
 	} else {
-		res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
-		res.write('<h2>데이터베이스 연결 실패</h2>');
-		res.end();
+		printer.errrendering(res);
 	}
 };
 
@@ -672,7 +568,6 @@ var listapplybook = function(req, res) {
 	console.log('book 모듈 안에 있는 listapplybook 호출됨.');
   	
     var paramPage = req.body.page || req.query.page||'0';
-	console.log(paramPage);
 	var paramPerPage = 8
 
 	var database = req.app.get('database');
@@ -688,23 +583,13 @@ var listapplybook = function(req, res) {
 		
 		database.AppplyBookModel.list(options, function(err, results) {
 			if (err) {
-                console.error('게시판 글 목록 조회 중 에러 발생 : ' + err.stack);
-                
-                res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
-				res.write('<h2>게시판 글 목록 조회 중 에러 발생</h2>');
-                res.write('<p>' + err.stack + '</p>');
-				res.end();
-                
+                console.error('게시판 글 목록 조회 중 에러 발생 : ' + err.stack);              
+                printer.errrendering(res,err);
                 return;
             }
 			
 			if (results) {
-				// for(var i=0;i<results.length;i++){
-				// 	if(results[i].writer==null){
-				// 		;
-				// 		results[i].writer={name:'(알수없음)',email:'unknown'};}
-				// }
-				// 전체 문서 객체 수 확인
+
 				database.AppplyBookModel.count().exec(function(err, count) {
 
 					res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
@@ -721,22 +606,8 @@ var listapplybook = function(req, res) {
 					};
 					currentPage=context.page;
 					body=context;
-
-					req.app.render('listApplyBook', context, function(err, html) {
-                        if (err) {
-                            console.error('응답 웹문서 생성 중 에러 발생 : ' + err.stack);
-
-                            res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
-                            res.write('<h2>응답 웹문서 생성 중 에러 발생</h2>');
-                            res.write('<p>' + err.stack + '</p>');
-                            res.end();
-
-                            return;
-                        }
-						
-						res.end(html);
-					});
 					
+					printer.rendering(req,res,'listApplyBook',context);
 				});
 				
 			} else {
@@ -746,9 +617,7 @@ var listapplybook = function(req, res) {
 			}
 		});
 	} else {
-		res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
-		res.write('<h2>데이터베이스 연결 실패</h2>');
-		res.end();
+		printer.errrendering(res);
 	}
 };
 
@@ -763,12 +632,7 @@ var acceptRequest = function(req, res) {
 		database.AppplyBookModel.findByIdAndUpdate(paramId,{$set: {isAccepted : '1'}}, function(err,re){
 			if (err) {
                 console.error('업데이트 중 에러 발생 : ' + err.stack);
-                
-                res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
-				res.write('<h2>업데이트 에러 발생</h2>');
-                res.write('<p>' + err.stack + '</p>');
-				res.end();
-                
+               	printer.errrendering(res,err);
                 return;
 			}
 			
@@ -777,20 +641,18 @@ var acceptRequest = function(req, res) {
 		
 		res.redirect("/book/listapplybook?page=0&perPage=2"); 
 	} else {
-		res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
-		res.write('<h2>데이터베이스 연결 실패</h2>');
-		res.end();
+		printer.errrendering(res);
 	}
 	
 };
 
 
 var search = (req, res)=> {
-		console.log('book 모듈 안에 있는 search 호출됨.');
+	console.log('book 모듈 안에 있는 search 호출됨.');
 	const paramPage = req.body.page || req.query.page||'0';
 	const search = req.body.search || req.query.search;
 	const paramPerPage = 8
-	const result={};
+
 	let page="";
 	if(req.body.search ){
 		var option={group:req.user.group,
@@ -817,25 +679,12 @@ var search = (req, res)=> {
 			if (err) {
                 console.error('게시판 글 목록 조회 중 에러 발생 : ' + err.stack);
                 
-                res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
-				res.write('<h2>게시판 글 목록 조회 중 에러 발생</h2>');
-                res.write('<p>' + err.stack + '</p>');
-				res.end();
+                printer.errrendering(res,err);
                 
                 return;
             }
 			
 			if (results) {
-				
-
-				//console.dir(results);
-				// for(var i=0;i<results.length;i++){
-				// 	if(results[i].writer==null){
-						
-				// 		results[i].writer={name:'(알수없음)',email:'unknown'};}
-				// }
-
-					
 					res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
 					
 					// 뷰 템플레이트를 이용하여 렌더링한 후 전송
@@ -851,25 +700,7 @@ var search = (req, res)=> {
 					};
 					currentPage=context.page;
 					body=context;
-
-					req.app.render(page, context, (err, html) => {
-                        if (err) {
-                            console.error('응답 웹문서 생성 중 에러 발생 : ' + err.stack);
-
-                            res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
-                            res.write('<h2>응답 웹문서 생성 중 에러 발생</h2>');
-                            res.write('<p>' + err.stack + '</p>');
-                            res.end();
-
-                            return;
-                        }
-						
-    
-						res.end(html);
-					});
-					
-					
-				
+					printer.rendering(req,res,page,context);
 			}
 		});
 	}
@@ -879,7 +710,6 @@ var requestlist = function(req, res) {
 	console.log('book 모듈 안에 있는 requestlist 호출됨.');
   	
     var paramPage = req.body.page || req.query.page||'0';
-	console.log(paramPage);
 	var paramPerPage = 8
 
 	var database = req.app.get('database');
@@ -897,11 +727,7 @@ var requestlist = function(req, res) {
 			if (err) {
                 console.error('게시판 글 목록 조회 중 에러 발생 : ' + err.stack);
                 
-                res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
-				res.write('<h2>게시판 글 목록 조회 중 에러 발생</h2>');
-                res.write('<p>' + err.stack + '</p>');
-				res.end();
-                
+               printer.errrendering(res,err);
                 return;
             }
 			
@@ -923,23 +749,17 @@ var requestlist = function(req, res) {
 					currentPage=context.page;
 					body=context;
 
-					req.app.render('listAdminRequest', context, function(err, html) {
-                        if (err) {
-                            console.error('응답 웹문서 생성 중 에러 발생 : ' + err.stack);
+					// req.app.render('listAdminRequest', context, function(err, html) {
+					// if (err) {
+					// console.error('응답 웹문서 생성 중 에러 발생 : ' + err.stack);
+					// printer.errrendering(res,err);
 
-                            res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
-                            res.write('<h2>응답 웹문서 생성 중 에러 발생</h2>');
-                            res.write('<p>' + err.stack + '</p>');
-                            res.end();
-
-                            return;
-                        }
+					// return;
+					// }
 						
-						res.end(html);
-					});
-					
-				
-				
+					// 	res.end(html);
+					// });
+				printer.rendering(req,res,'listAdminRequest',context);
 			} else {
 				res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
 				res.write('<h2>글 목록 조회  실패</h2>');
@@ -947,9 +767,7 @@ var requestlist = function(req, res) {
 			}
 		});
 	} else {
-		res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
-		res.write('<h2>데이터베이스 연결 실패</h2>');
-		res.end();
+		printer.errrendering(res);
 	}
 };
 
@@ -960,27 +778,18 @@ var acceptAdminRequest = function(req, res) {
 	var database = req.app.get('database');
 
 	if (database.db) {
-	
 		database.UserModel.findByIdAndUpdate(paramId,{$set: {admin : 'accepted'}}, function(err,re){
 			if (err) {
                 console.error('업데이트 중 에러 발생 : ' + err.stack);
-                
-                res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
-				res.write('<h2>업데이트 에러 발생</h2>');
-                res.write('<p>' + err.stack + '</p>');
-				res.end();
+                printer.errrendering(res,err);
                 
                 return;
 			}
-			
-		console.log(re);
 		});
 		
 		res.redirect("/user/requestlist?page=0&perPage=2"); 
 	} else {
-		res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
-		res.write('<h2>데이터베이스 연결 실패</h2>');
-		res.end();
+		printer.errrendering(res);
 	}
 	
 };
