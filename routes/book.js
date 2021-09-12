@@ -623,7 +623,7 @@ var listapplybook = function(req, res) {
 
 var acceptRequest = function(req, res) {
 	console.log('book 모듈 안에 있는 acceptRequest 호출됨.');
-
+console.log('book 모듈 안에 있는 acceptRequest 호출됨.');
 	var paramId = req.body.id || req.query.id || req.params.id;
 	var database = req.app.get('database');
 
