@@ -16,21 +16,21 @@
 
 			<!-- Header -->
 				<header id="header" class="alt">
-					<h1><a href="index.html">Digital Of Pages</a> by 국직 잡스</h1>
+					<h1><a href="/">Digital Of Pages</a> by 국직 잡스</h1>
 					<nav id="nav">
 						<ul>
 							<% if (login_success) { %>
 							<li><a href="/logout" >Logout</a></li>
 							<% } %>
-							<li><a href="index.ejs">Home</a></li>
+							<li><a href="/">Home</a></li>
 							
 							<li>
 								
 								<a href="#" class="icon solid fa-angle-down">Menu</a>
 								
 								<ul>
-									<li><a href="generic.html">ABOUT US</a></li>
-									<li><a href="contact.html">Contact</a></li>
+									<li><a href="/public/generic.html">ABOUT US</a></li>
+									<li><a href="/public/contact.html">Contact</a></li>
 									<% if (login_success) { %>
 									<li><a href='/views/myPage.ejs'>My Page</a></li>
 									
@@ -90,7 +90,7 @@
 							<section>
 								<span class="icon solid major fa-bolt accent2"></span>
 								<h3>도서 대출/예약/반납</h3>
-								<p>SunMenu에서 손쉬운 도서 대출/반납과 예약 기능을 누려보세요!</p>
+								<p>SubMenu에서 손쉬운 도서 대출/반납과 예약 기능을 누려보세요!</p>
 							</section>
 							<section>
 								<span class="icon solid major fa-chart-area accent3"></span>
@@ -122,10 +122,10 @@
 								
 								<ul class="actions special">
 									<% if (login_success) { %>
-									 <li><a href="/addhistory" class="button alt">Learn More</a></li>
+									 <li><a href="#" class="button alt">Learn More</a></li>
 									<% } else { %>
 						
-									<li><a href="#" class="button">start</a></li>
+									<li><a href="/addhistory" class="button">start</a></li>
 									<% } %>
 									
 								</ul>

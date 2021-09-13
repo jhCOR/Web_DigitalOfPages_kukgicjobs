@@ -1,3 +1,5 @@
+var Entities = require('html-entities').AllHtmlEntities;
+
 var saver = require("../utils/saver");
 var printer = require("../utils/printer");
 var showBookFun=(req,res)=>{
