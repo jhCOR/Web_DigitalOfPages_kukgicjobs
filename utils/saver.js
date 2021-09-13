@@ -1,4 +1,5 @@
 var printer = require("./printer");
+
 var saving = (Model,res,link) => {
 	Model.savePost(function(err, result) {
 		if(err) {

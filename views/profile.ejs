@@ -1,60 +1,118 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
+<!--
+	Alpha by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
 <html>
 	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
-		
-		<title>프로필 화면</title>
-		<link rel="SHORTCUT ICON" href="/public/images/faviconlogo.png"/>
-
-		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
-    	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
-    	
-    
+		<title>Digital Of Pages</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="/public/assets/css/main.css" />
 	</head>
-	<body>
-		
-		<div class="container">			
-			<br>
-		    <div class="row">
-		
-		        <div class="col-sm-6">
-		            <div class="well">
-		            
-						<% if (user.provider == undefined || user.provider == '') { %>
+	<body class="landing is-preload">
+		<div id="page-wrapper">
+
+			<!-- Header -->
+				<header id="header" class="alt">
+					<h1><a href="index.html">Digital Of Pages</a> by 국직 잡스</h1>
+					<nav id="nav">
+						<ul>
+							
+							<li><a href="/logout" >Logout</a></li>
+							
+							<li><a href="index.html">Home</a></li>
+							
+							<li>
+								
+								<a href="#" class="icon solid fa-angle-down">Menu</a>
+								
+								<ul>
+									<li><a href="generic.html">ABOUT US</a></li>
+									<li><a href="contact.html">Contact</a></li>
+									
+									<li><a href='/views/myPage.ejs'>My Page</a></li>
+									
+									<li>
+										<a href="#">Submenu</a>
+										<ul>
+
+											<li><a href="/profile">프로필</a> </li>
+											<li><a href='/book/listpost?page=0&perPage=2'>도서목록</a></li>
+											<li><a  href='/book/listapplybook?page=0&perPage=2'>신청도서목록</a></li>
+											<li><a class="btn btn-default" href='/user/requestlist?page=0&perPage=2'>관리자 요청 계정 리스트</a></li>
+											<li><a class="btn btn-default" href='/views/addbook.ejs'>도서등록</a></li>
+											<li><a class="btn btn-default" href='/views/applyNewBook.ejs'>도서신청</a></li>
+											
+										</ul>
+									</li>
+								
+								</ul>
+							</li>
+							<li><a href="/login" class="button">Login</a></li>
+						
+						</ul>
+					</nav>
+				</header>
+
+			<!-- Banner -->
+				
+				<br><br>
+				<h3>내 프로필</h3>
+	
+			<!-- Main -->
+				<% if (user.provider == undefined || user.provider == '') { %>
 							
 						<div >
-							<h3></span> 로컬 프로필</h3>
+					
 							<br>
-							<p>
+							
 								<strong>이메일</strong>: <%= user.email %><br><br>
-								<strong>별명</strong>: 
+								
 								<form class="btn btn-default btn-sm"  method="post" action="/process/modifyUser">
-									<input type="text" id="modifyId" readonly name="idmodify" value="<%= user.name %>">
-									<input hidden type="text" name="email" value="<%=user.email %>">
-									<input type="button" id="modifyButton" style="float:right;" value="수정" onclick="modify()" />
-									<input type="submit" id="modifyButton2"  style="float:right; display:none;" value="완료" onclick="modify()" />
+									<strong>닉네임</strong>
+									<input type="text" id="modifyId" style=width:50%; readonly name="idmodify" value="<%= user.name %>">
+									
+									<input type="button" id="modifyButton" style="display:inline" value="수정" onclick="modify()" />
+									<input type="submit" id="modifyButton2"  style=" display:none;" value="완료" onclick="modify()" />
+
 								</form>
-								<p>소속 부대:<%= user.group %></p>
-								<P></P>
-								<a href='/' class="btn btn-default btn-sm">홈</a>
-								<a href="/logout" class="btn btn-default btn-sm">로그아웃</a>
-								<form class="btn btn-default btn-sm" method="post" action="/process/deleteUser">
-									<input hidden type="text" name="id" value="<%=user.email %>">
+
+								<form class="btn btn-sm" method="post" action="/process/deleteUser">
 									<input type="submit" value="탈퇴" name="" />
 								</form>
-			                </p>
+							
+			                <p>소속 부대:<%= user.group %></p>
+								<a href='/' class="btn btn-default btn-sm">홈</a>
+								<a href="/logout" class="btn btn-default btn-sm">로그아웃</a>
 						</div>	
 
-			            <% }  %>
-							
-						<br>
-		            </div>
-		        </div>
-		
-		    </div>
-			
-		</div>	
-			
+			    <% }  %>
+
+				
+			<!-- Footer -->
+				<footer id="footer">
+					<ul class="icons">
+
+						<li><a href="https://github.com/jhCOR?tab=repositories" class="icon brands fa-github"><span class="label">Github</span></a></li>
+	
+					</ul>
+					<ul class="copyright">
+						<li>&copy; Digital Of Pages. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+					</ul>
+				</footer>
+
+		</div>
+
+
+			<script src="/public/assets/js/jquery.min.js"></script>
+			<script src="/public/assets/js/jquery.dropotron.min.js"></script>
+			<script src="/public/assets/js/jquery.scrollex.min.js"></script>
+			<script src="/public/assets/js/browser.min.js"></script>
+			<script src="/public/assets/js/breakpoints.min.js"></script>
+			<script src="/public/assets/js/util.js"></script>
+			<script src="/public/assets/js/main.js"></script>
+
 	</body>
 </html>
