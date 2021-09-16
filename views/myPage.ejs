@@ -9,7 +9,7 @@
 
 		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
     	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
-    	
+    			<link rel="stylesheet" href="/public/assets/css/main.css" />
     	<style>
         	body        { padding-top:80px; }
 			.right-img{float: right;;
@@ -17,14 +17,55 @@
     	</style>
 
 	</head>
-	<body>
+	<body  class="landing is-preload">
 		
-		<div class="container">			
-						
+		<div id="page-wrapper" class="container">			
+					
 			<div class="page-header text-center">
+		
 		        <h1>마이페이지</h1>
 		      
 		    </div>
+						<header id="header" class="alt">
+					<h1><a href="index.html">Digital Of Pages</a> by 국직 잡스</h1>
+					<nav id="nav">
+						<ul>
+							
+							<li><a href="/logout" >Logout</a></li>
+							
+							<li><a href="index.html">Home</a></li>
+							
+							<li>
+								
+								<a href="#" class="icon solid fa-angle-down">Menu</a>
+								
+								<ul>
+									<li><a href="generic.html">ABOUT US</a></li>
+									<li><a href="contact.html">Contact</a></li>
+									
+									<li><a href='/views/myPage.ejs'>My Page</a></li>
+									
+									<li>
+										<a href="#">Submenu</a>
+										<ul>
+
+											<li><a href="/profile">프로필</a> </li>
+											<li><a href='/book/listpost?page=0&perPage=2'>도서목록</a></li>
+											<li><a  href='/book/listapplybook?page=0&perPage=2'>신청도서목록</a></li>
+											<li><a class="btn btn-default" href='/user/requestlist?page=0&perPage=2'>관리자 요청 계정 리스트</a></li>
+											<li><a class="btn btn-default" href='/views/addbook.ejs'>도서등록</a></li>
+											<li><a class="btn btn-default" href='/views/applyNewBook.ejs'>도서신청</a></li>
+											
+										</ul>
+									</li>
+									
+									
+								</ul>
+							</li>
+							
+						</ul>
+					</nav>
+				</header>
 			<br>
 		    <div class="row">
 		
@@ -39,13 +80,13 @@
 								<ul>
 									<% for (var i = 0; i < posts.reservationlist.length; i++) {%>
 
-										   <li>제목 : <%=posts.reservationlist[i].title%>, 저자 : <%=posts.reservationlist[i].author%>
+										   <li><a href='/book/showbook/<%=posts.reservationlist[i]._id %>'>제목 : <%=posts.reservationlist[i].title%>, 저자 : <%=posts.reservationlist[i].author%></a>
 											<a class="btn btn-default" href='/book/return/<%=posts.reservationlist[i]._id %>'>반납</a></li>
 									<% } %>	
 								</ul>
 							</div>
 								<P></P>
-								<a href='/' class="btn btn-default btn-sm">홈</a>
+								<a href='/' class="button">홈</a>
 
 			                </p>
 						</div>	
@@ -58,5 +99,12 @@
 			
 		</div>	
 			
+			<script src="/public/assets/js/jquery.min.js"></script>
+			<script src="/public/assets/js/jquery.dropotron.min.js"></script>
+			<script src="/public/assets/js/jquery.scrollex.min.js"></script>
+			<script src="/public/assets/js/browser.min.js"></script>
+			<script src="/public/assets/js/breakpoints.min.js"></script>
+			<script src="/public/assets/js/util.js"></script>
+			<script src="/public/assets/js/main.js"></script>
 	</body>
 </html>

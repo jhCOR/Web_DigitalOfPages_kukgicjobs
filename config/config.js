@@ -26,6 +26,8 @@ module.exports = {
 		,{file:'./book', path:'/book/search', method:'search', type:'post'}
 		,{file:'./book', path:'/book/search', method:'search', type:'get'}
 		,{file:'./book', path:'/user/requestlist', method:'requestlist', type:'get'}
+		,{file:'./user', path:'/userRequest/deleteUser', method:'deleteUser', type:'post'}
+		,{file:'./book', path:'/book/loanByQrcode/:id', method:'loanByQrcode', type:'get'}
 	],
 
 }

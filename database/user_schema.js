@@ -105,7 +105,12 @@ Schema.createSchema = function(mongoose) {
 	UserSchema.static('findAll', function(callback) {
 		return this.find({}, callback);
 	});
-	
+	UserSchema.static('load2', function(options, callback) {
+		options.select = options.select || 'email';
+	    this.findOne({email:options.email})
+	      .select(options.select)
+	      .exec(callback);
+	});
 	UserSchema.static('load', function(options, callback) {
 		options.select = options.select || 'name';
 	    this.findOne(options.criteria)

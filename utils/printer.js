@@ -15,7 +15,10 @@ var rendering=(req,res,file,context)=>{
 	req.app.render(file, context, function(err, html) {
          if (err) {
             console.error('응답 웹문서 생성 중 에러 발생 : ' + err.stack);
-            printer.errrendering(res,err);
+            res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
+        	res.write('<h2>응답 웹문서 생성 중 에러 발생</h2>');
+    		res.write('<p>' + err.stack + '</p>');
+        	res.end();
 
           return;
          }
