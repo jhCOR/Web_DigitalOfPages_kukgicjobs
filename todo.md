@@ -1,7 +1,7 @@
 # What am I doing now?
 
 김정호
-- mypage 작업 중
+- profile 작업 중
   
 양재훈
 - returnBooks 작업 중
