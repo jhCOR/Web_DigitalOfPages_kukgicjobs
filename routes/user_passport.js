@@ -110,9 +110,9 @@ module.exports = function(router, passport) {
            // console.dir(req.user);
 
             if (Array.isArray(req.user)) {
-                res.render('profile.ejs', {user: req.user[0]._doc});
+                res.render('profile_hou.ejs', {user: req.user[0]._doc});
             } else {
-                res.render('profile.ejs', {user: req.user});
+                res.render('profile_hou.ejs', {user: req.user});
             }
         }
     });
