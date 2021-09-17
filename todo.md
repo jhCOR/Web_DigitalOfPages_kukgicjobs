@@ -2,6 +2,7 @@
 
 김정호
 - profile 작업 중
+- 스키마 세부 사항 조정
   
 양재훈
 - returnBooks 작업 중
