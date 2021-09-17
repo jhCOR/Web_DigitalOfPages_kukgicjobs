@@ -18,7 +18,7 @@ Schema.createSchema = function (mongoose) {
 		group: { type: String, index: 'hashed', default: '' },
 		name: { type: String, index: 'hashed', default: '' },
 		reservationlist: [{ type: mongoose.Schema.ObjectId, ref: 'book' }],
-		mybooklist: [{ type: mongoose.Schema.ObjectId, ref: 'reservation' }],
+		myBookList: [{ type: mongoose.Schema.ObjectId, ref: 'reservation' }],
 		alert: { default: '' },
 		salt: { type: String },
 		created_at: { type: Date, index: { unique: false }, default: Date.now },
