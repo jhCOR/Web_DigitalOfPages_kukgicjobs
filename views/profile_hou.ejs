@@ -69,38 +69,63 @@
 			</nav>
 		</header>
 		<br /><br />
-		
+
 		<div class="container mt-4">
 			<h3>내 프로필</h3>
 			<br />
-			<div class="row">
-				<div class="col-sm-6">
-					<div class="well">
-						<div class="card" style="width: 18rem;">
-							<img src="https://source.unsplash.com/random" class="card-img-top" alt="..." style='height: 15rem'/>
-							<div class="card-body">
-								<h5 class="card-title">Book title</h5>
-								<p class="card-text">
-									Some quick example text to build on the card title and make up
-									the bulk of the card's content.
-								</p>
-								<a href="#" class="btn btn-primary">Go somewhere</a>
-							</div>
+			<div class="card mb-3" style="max-width: 540px;">
+				<div class="row no-gutters" style="margin-top: 0; margin-left: 0em;">
+					<div class="col-md-4">
+						<img
+							src="https://source.unsplash.com/random"
+							alt="..."
+							style="width: 100%; height: 100%; border-radius: 5px;"
+						/>
+					</div>
+					<div class="col-md-8">
+						<div class="card-body">
+							<h2 class="card-title"><%= user.name %></h2>
+							<p class="card-text">소속 부대: <strong><%= user.group %></strong></p>
+							<p class="card-text">
+								<small class="text-muted">Last updated 3 mins ago</small>
+							</p>
 						</div>
-						<br />
-						<button
-							type="button"
-							class="btn btn-outline-secondary mt-2"
-							onclick="location.href='/'"
-						>
-							Home
-						</button>
-
-						<br />
 					</div>
 				</div>
 			</div>
 		</div>
+		<div class="container mt-4">
+			<div class="list-group list-group-horizontal">
+				<% for (var i = 0; i < 3/*user.mybooklist.length*/; i++) { %>
+				<div class="card" style="width: 18rem;">
+					<img
+						src="https://source.unsplash.com/random"
+						class="card-img-top"
+						alt="..."
+						style="height: 15rem;"
+					/>
+					<div class="card-body">
+						<h5 class="card-title">Book title</h5>
+						<p class="card-text">
+							Some quick example text to build on the card title and make up the bulk
+							of the card's content.
+						</p>
+						<a href="#" class="btn btn-primary">Go somewhere</a>
+					</div>
+				</div>
+
+				<% } %>
+			</div>
+		</div>
+		<br />
+		<button
+			type="button"
+			class="btn btn-outline-secondary mt-2"
+			onclick="location.href='/'"
+			style=""
+		>
+			Home
+		</button>
 		<footer id="footer">
 			<ul class="icons">
 				<li>
