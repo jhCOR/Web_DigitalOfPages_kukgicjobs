@@ -30,6 +30,13 @@
 			});
 			
 		});
+			function submitContents() {
+		// 에디터의 내용이 textarea에 적용된다.
+		oEditors.getById["contents"].exec("UPDATE_CONTENTS_FIELD", []);
+		
+		// 에디터의 내용에 대한 값 검증은 이곳에서
+		// document.getElementById("ir1").value를 이용해서 처리한다.
+		};
 			</script>
 	
 
@@ -77,7 +84,7 @@
 			<!-- Main -->
 				<section id="main" class="container">
 
-						<form class="content ui form" method="post" action="/process/addpost">
+					<form class="content ui form" method="post" action="/post/addHistoryOfBook">
 						<h4 class="ui dividing header">History Of Book</h4>
 						
 						<div class="two fields">

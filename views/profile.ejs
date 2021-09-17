@@ -10,6 +10,25 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="/public/assets/css/main.css" />
+			<script>
+		 function modify(){
+			if(document.getElementById("modifyId").readOnly==true){
+				document.getElementById("modifyId").readOnly=false;
+				document.getElementById("modifyButton").style.display="none"
+				if(document.getElementById("modifyButton2").style.display=="none")
+				document.getElementById("modifyButton2").style.display="block"
+			}
+		else{
+			document.getElementById("modifyId").readOnly=true;
+			document.getElementById("modifyButton").style.display="block"
+			if(document.getElementById("modifyButton2").style.display=="block")
+				document.getElementById("modifyButton2").style.display="none"
+		}
+		
+		 }
+			
+	
+	</script>
 	</head>
 	<body class="landing is-preload">
 		<div id="page-wrapper">
@@ -70,7 +89,7 @@
 							
 								<strong>이메일</strong>: <%= user.email %><br><br>
 								
-								<form class="btn btn-default btn-sm"  method="post" action="/process/modifyUser">
+								<form class="btn btn-default btn-sm"  method="post" action="/user/modifyUser">
 									<strong>닉네임</strong>
 									<input type="text" id="modifyId" style=width:50%; readonly name="idmodify" value="<%= user.name %>">
 									

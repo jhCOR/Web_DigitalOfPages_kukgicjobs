@@ -16,7 +16,7 @@ Schema.createSchema = function(mongoose) {
 		email: {type: String, 'default':''}
 		, admin: {type: String, 'default':'none'}
 	    , hashed_password: {type: String, 'default':''}
-		, group: {type: String, index: 'hashed', 'default':''}
+		, group: {type: String, index: 'hashed', 'default':'none'}
 		, name: {type: String, index: 'hashed', 'default':''}
 		, reservationlist:[ {type: mongoose.Schema.ObjectId, ref: 'book'}]
 		, alert: { 'default':''}	
@@ -105,6 +105,7 @@ Schema.createSchema = function(mongoose) {
 	UserSchema.static('findAll', function(callback) {
 		return this.find({}, callback);
 	});
+	
 	UserSchema.static('load2', function(options, callback) {
 		options.select = options.select || 'email';
 	    this.findOne({email:options.email})

@@ -22,8 +22,7 @@ module.exports = function(router, passport) {
 		var context = {
 			title: '책 목록',
 			posts: jsonData.items,
-		};
-					
+		};			
 	
 		req.app.render('selectBook.ejs', context, function(err, html) {
 			if (err) {
