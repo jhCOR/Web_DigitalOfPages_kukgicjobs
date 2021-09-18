@@ -3,6 +3,7 @@
 김정호
 - profile 작업 중
 - 스키마 세부 사항 조정
+- header, footer 모듈화 (나눠놓았으며 세부적인 작업 추가적으로 진행할 예정)
   
 양재훈
 - returnBooks 작업 중
