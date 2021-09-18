@@ -54,11 +54,15 @@ module.exports = function(router, passport) {
 	}
 });
 	
+	
+	
 	 router.route('/addhistory').get(function(req, res) {
-  		res.render('historyOfBook.ejs', {writer:req.user.email});
+  		res.render('historyOfBook.ejs', {writer:req.user.email,post:null});
 
     });
-	 router.route('/views/bookHistoryGallery.ejs').get(function(req, res) {//기능 테스트 용도(실제 사용전 테스트!)
+	
+	
+	 router.route('/views/bookHistoryGallery.ejs').get(function(req, res) {//기능 테스트 용도(사용전 테스트)
 		 	console.log("addWidget");
 		 
 	var database = req.app.get('database');
@@ -103,6 +107,7 @@ module.exports = function(router, passport) {
             res.redirect('/book/listpost?page=0&perPage=8');
         } else {
             console.log('사용자 인증된 상태임.');
+			
             res.render('addBook.ejs', {writer:req.user.email, group:req.user.group});
         }
     });
@@ -113,6 +118,7 @@ module.exports = function(router, passport) {
             console.log('사용자 인증 안된 상태임.');
             res.redirect('/');
         } else {
+			 console.log("reuest:"+req.query.request);
             console.log('사용자 인증된 상태임.');
             res.render('applyNewBook.ejs');
         }
