@@ -30,6 +30,21 @@
 			});
 			
 		});
+			function submitContents() {
+		// 에디터의 내용이 textarea에 적용된다.
+		oEditors.getById["contents"].exec("UPDATE_CONTENTS_FIELD", []);
+		
+		// 에디터의 내용에 대한 값 검증은 이곳에서
+		// document.getElementById("ir1").value를 이용해서 처리한다.
+		};
+			function searchBook(code){
+				win=open("/views/applyNewBook.ejs?request=0","new page","width=400,height=300");
+				win.moveTo(500,100);
+				
+			}
+			window.onload=()=>{
+				document.getElementById("img").src = document.getElementById("imgPath").href;
+			}
 			</script>
 	
 
@@ -76,26 +91,57 @@
 
 			<!-- Main -->
 				<section id="main" class="container">
-
-						<form class="content ui form" method="post" action="/process/addpost">
+					
+					
+						<button onclick="searchBook()"> 책 검색</button>
+						
+					
+					<form class="content ui form" method="post" action="/post/addHistoryOfBook">
 						<h4 class="ui dividing header">History Of Book</h4>
 						
 						<div class="two fields">
 				    		<div >
 				      			<label>제목</label>
-								<input type="text" style="width: 99%;" name="title"  placeholder="제목 입력">
+								<%if(post){%>
+								<p>
+									<%=post.title%>
+								</p>
+									
+								<%}else{%>
+									<input type="text" style="width: 99%;" name="title" id="title" placeholder="제목 입력">
+								<%}%>
+								
 							</div>
-							<div class="field"></div>
+								<%if(post){%>
+								<a href="<%=post.bookinfo%>" id="imgPath">
+									<img scr="" width="148" height="210" id="img">
+								</a>
+									
+								<%}else{%>
+									<input type="text" style="width: 99%;" readonly name="booktitle" id="booktitle" placeholder="책 검색 버튼을 눌러 책 정보를 채워 주세요">
+								<%}%>
+								
 						</div>
 								
 						<div id="contextfiled">
 							<label>내용</label>
-				    		<textarea id="contents" name="contents" class="contents" minlength="1"  rows="10" cols="80"></textarea>
-							
+				    	
+								<%if(post){%>
+										<p minlength="1" readonly  rows="10" cols="80"><%=post.contents%></p><!-- cleditor(무료)로 구문해석해야함 -->
+								<%}else{%>
+									
+									<textarea id="contents" name="contents" class="contents" minlength="1"  rows="10" cols="80"></textarea>
+								<%}%>
 						</div>		
 				<br>
-						<input class="ui submit button" type="submit" value="추가" name="" onclick="submitContents()" />
+
+							<%if(post){%>
+								<a class="ui button" href="/public/index.html">Home</a>
+							<%}else{%>
+									<input class="ui submit button" type="submit" value="저장" name="" onclick="submitContents()" />
 						<input class="ui button" type="button" value="취소" name="" onclick="javascript:history.back()" />
+							<%}%>
+						
 					</form>
 				</section>
 
