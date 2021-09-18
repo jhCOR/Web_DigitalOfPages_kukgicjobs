@@ -1,137 +1,161 @@
-<!DOCTYPE HTML>
-<!--
-	Alpha by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
+<!DOCTYPE html>
 <html>
 	<head>
-		<title>Digital Of Pages</title>
+		<!-- Required meta tags -->
 		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+		<!-- Bootstrap CSS -->
+		<link
+			rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+			integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
+			crossorigin="anonymous"
+		/>
 		<link rel="stylesheet" href="/public/assets/css/main.css" />
-			<script>
-		 function modify(){
-			if(document.getElementById("modifyId").readOnly==true){
-				document.getElementById("modifyId").readOnly=false;
-				document.getElementById("modifyButton").style.display="none"
-				if(document.getElementById("modifyButton2").style.display=="none")
-				document.getElementById("modifyButton2").style.display="block"
-			}
-		else{
-			document.getElementById("modifyId").readOnly=true;
-			document.getElementById("modifyButton").style.display="block"
-			if(document.getElementById("modifyButton2").style.display=="block")
-				document.getElementById("modifyButton2").style.display="none"
-		}
-		
-		 }
-			
-	
-	</script>
+		<title>Profile</title>
 	</head>
-	<body class="landing is-preload">
-		<div id="page-wrapper">
+	<body>
+		<header id="header" class="alt">
+			<h1><a href="index.html">Digital Of Pages</a> by 국직 잡스</h1>
+			<nav id="nav">
+				<ul>
+					<li><a href="/logout">Logout</a></li>
 
-			<!-- Header -->
-				<header id="header" class="alt">
-					<h1><a href="index.html">Digital Of Pages</a> by 국직 잡스</h1>
-					<nav id="nav">
+					<li><a href="index.html">Home</a></li>
+
+					<li>
+						<a href="#" class="icon solid fa-angle-down">Menu</a>
+
 						<ul>
-							
-							<li><a href="/logout" >Logout</a></li>
-							
-							<li><a href="index.html">Home</a></li>
-							
-							<li>
-								
-								<a href="#" class="icon solid fa-angle-down">Menu</a>
-								
-								<ul>
-									<li><a href="generic.html">ABOUT US</a></li>
-									<li><a href="contact.html">Contact</a></li>
-									
-									<li><a href='/views/myPage.ejs'>My Page</a></li>
-									
-									<li>
-										<a href="#">Submenu</a>
-										<ul>
+							<li><a href="generic.html">ABOUT US</a></li>
+							<li><a href="contact.html">Contact</a></li>
 
-											<li><a href="/profile">프로필</a> </li>
-											<li><a href='/book/listpost?page=0&perPage=2'>도서목록</a></li>
-											<li><a  href='/book/listapplybook?page=0&perPage=2'>신청도서목록</a></li>
-											<li><a class="btn btn-default" href='/user/requestlist?page=0&perPage=2'>관리자 요청 계정 리스트</a></li>
-											<li><a class="btn btn-default" href='/views/addbook.ejs'>도서등록</a></li>
-											<li><a class="btn btn-default" href='/views/applyNewBook.ejs'>도서신청</a></li>
-											
-										</ul>
+							<li><a href="/views/myPage.ejs">My Page</a></li>
+
+							<li>
+								<a href="#">Submenu</a>
+								<ul>
+									<li><a href="/profile">프로필</a></li>
+									<li><a href="/book/listpost?page=0&perPage=2">도서목록</a></li>
+									<li>
+										<a href="/book/listapplybook?page=0&perPage=2"
+											>신청도서목록</a
+										>
 									</li>
-								
+									<li>
+										<a
+											class="btn btn-default"
+											href="/user/requestlist?page=0&perPage=2"
+											>관리자 요청 계정 리스트</a
+										>
+									</li>
+									<li>
+										<a class="btn btn-default" href="/views/addbook.ejs"
+											>도서등록</a
+										>
+									</li>
+									<li>
+										<a class="btn btn-default" href="/views/applyNewBook.ejs"
+											>도서신청</a
+										>
+									</li>
 								</ul>
 							</li>
-							<li><a href="/login" class="button">Login</a></li>
-						
 						</ul>
-					</nav>
-				</header>
+					</li>
+					<li><a href="/login" class="button">Login</a></li>
+				</ul>
+			</nav>
+		</header>
+		<br /><br />
 
-			<!-- Banner -->
-				
-				<br><br>
-				<h3>내 프로필</h3>
-	
-			<!-- Main -->
-				<% if (user.provider == undefined || user.provider == '') { %>
-							
-						<div >
-					
-							<br>
-							
-								<strong>이메일</strong>: <%= user.email %><br><br>
-								
-								<form class="btn btn-default btn-sm"  method="post" action="/user/modifyUser">
-									<strong>닉네임</strong>
-									<input type="text" id="modifyId" style=width:50%; readonly name="idmodify" value="<%= user.name %>">
-									
-									<input type="button" id="modifyButton" style="display:inline" value="수정" onclick="modify()" />
-									<input type="submit" id="modifyButton2"  style=" display:none;" value="완료" onclick="modify()" />
-
-								</form>
-
-								<form class="btn btn-sm" method="post" action="/userRequest/deleteUser">
-									<input type="submit" value="탈퇴" name="" />
-								</form>
-							
-			                <p>소속 부대:<%= user.group %></p>
-								<a href='/' class="btn btn-default btn-sm">홈</a>
-								<a href="/logout" class="btn btn-default btn-sm">로그아웃</a>
-						</div>	
-
-			    <% }  %>
-
-				
-			<!-- Footer -->
-				<footer id="footer">
-					<ul class="icons">
-
-						<li><a href="https://github.com/jhCOR?tab=repositories" class="icon brands fa-github"><span class="label">Github</span></a></li>
-	
-					</ul>
-					<ul class="copyright">
-						<li>&copy; Digital Of Pages. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
-					</ul>
-				</footer>
-
+		<div class="container mt-4">
+			<h3>내 프로필</h3>
+			<br />
+			<div class="card mb-3" style="max-width: 540px;">
+				<div class="row no-gutters" style="margin-top: 0; margin-left: 0em;">
+					<div class="col-md-4">
+						<img
+							src="https://source.unsplash.com/random"
+							alt="..."
+							style="width: 100%; height: 100%; border-radius: 5px;"
+						/>
+					</div>
+					<div class="col-md-8">
+						<div class="card-body">
+							<h2 class="card-title"><%= user.name %></h2>
+							<p class="card-text">소속 부대: <strong><%= user.group %></strong></p>
+							<p class="card-text">
+								<small class="text-muted"
+									>총 대출 권 수 :
+									<span class="badge badge-pill badge-success">0</span></small
+								>
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
+		<div class="container mt-4">
+			<div class="list-group list-group-horizontal">
+				<% for (var i = 0; i < 3/*user.mybooklist.length*/; i++) { %>
+				<div class="card" style="width: 18rem;">
+					<img
+						src="https://source.unsplash.com/random"
+						class="card-img-top"
+						alt="..."
+						style="height: 15rem;"
+					/>
+					<div class="card-body">
+						<h5 class="card-title">Book title</h5>
+						<p class="card-text">
+							Some quick example text to build on the card title and make up the bulk
+							of the card's content.
+						</p>
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							width="16"
+							height="16"
+							fill="currentColor"
+							class="bi bi-share"
+							viewBox="0 0 16 16"
+							style="margin-right: 12px;"
+						>
+							<path
+								d="M13.5 1a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.499 2.499 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5zm-8.5 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm11 5.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z"
+							/>
+						</svg>
+						<a href="#" class="btn btn-primary">Go Details</a>
+					</div>
+				</div>
 
-
-			<script src="/public/assets/js/jquery.min.js"></script>
-			<script src="/public/assets/js/jquery.dropotron.min.js"></script>
-			<script src="/public/assets/js/jquery.scrollex.min.js"></script>
-			<script src="/public/assets/js/browser.min.js"></script>
-			<script src="/public/assets/js/breakpoints.min.js"></script>
-			<script src="/public/assets/js/util.js"></script>
-			<script src="/public/assets/js/main.js"></script>
-
+				<% } %>
+			</div>
+		</div>
+		<br />
+		<button
+			type="button"
+			class="btn btn-outline-secondary mt-2"
+			onclick="location.href='/'"
+			style=""
+		>
+			Home
+		</button>
+		<footer id="footer">
+			<ul class="icons">
+				<li>
+					<a
+						href="https://github.com/jhCOR?tab=repositories"
+						class="icon brands fa-github"
+						><span class="label">Github</span></a
+					>
+				</li>
+			</ul>
+			<ul class="copyright">
+				<li>&copy; Digital Of Pages. All rights reserved.</li>
+				<li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+			</ul>
+		</footer>
 	</body>
 </html>
