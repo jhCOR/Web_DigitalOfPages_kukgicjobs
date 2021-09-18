@@ -103,9 +103,9 @@ module.exports = function (router, passport) {
 			console.log('/profile 패스 요청됨.');
 			
 			if (Array.isArray(req.user)) {
-				res.render('profile_hou.ejs', { user: req.user[0]._doc });
+				res.render('profile.ejs', { user: req.user[0]._doc });
 			} else {
-				res.render('profile_hou.ejs', { user: req.user });
+				res.render('profile.ejs', { user: req.user });
 			}
 		}
 	});
