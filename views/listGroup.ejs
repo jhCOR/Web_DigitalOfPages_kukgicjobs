@@ -61,7 +61,22 @@
 			}
 
 		</script>
+		    <script>
+	
+	async function insertGroupName(id){
+
+			opener.document.getElementById("group").value = document.getElementById("ID"+id).innerText;
+			
+				
+			await closeWindow();
+			
+		}
+		function closeWindow(){
+			
+			window.close();
+		}
 		
+		</script>
 	</head>
 	<body>
     	
@@ -69,7 +84,7 @@
     		<br>
     		
 			<div class="ui raised segment">
-				<a href='/book/listpost?page=0&perPage=2' class="ui blue ribbon label">게시판</a>
+				<a href='/book/listpost?page=0&perPage=2' class="ui blue ribbon label"><%=title%></a>
       			
 			
 				
@@ -85,48 +100,24 @@
 						<div class="ui very relaxed selection celled list">
 							<%  var noStart = (pageCount - page) * perPage;
 								
-							    for (var i = 0; i < posts.length; i++) {
-									
-								   var curTitle = posts[i]._doc.title||'0';
-								   var curContents = posts[i]._doc.contents;
-								   var curWriter = posts[i]._doc.writer.name;
-                                   var curHits = posts[i]._doc.hits;  
-								   var group = posts[i]._doc.group;
-									
-								   var curNo =0;
-								   var Date=posts[i]._doc.updated_at;
-								   var month=Date.getMonth()+1;
-								   var date=Date.getDate();
-								   var year=Date.getFullYear();
-								   var totalDate=year+'-'+month+'-'+date;
+							    for (var i = 0; i < groupList.length; i++) {
+								
+									 var curNo =0;
 									   curNo=totalRecords-8*(page)-i;
 									var calculatedItem=0;	   
-									if(title=="글 검색" ){
-									if( curTitle.indexOf(searchcontext)>=0){
-										calculatedItem+=1;
-										calculatedPage=Math.ceil(calculatedItem/8);
-										console.log('calculatedItem : ' + calculatedItem);
+									if(title=="그룹 검색" ){
+						
 								   %>
-								    <div class="item">
-										<div class="ui grid">
-						    				<div class="two wide column" ><%=curNo %></div>
-						    				<div class="fourteen wide column" >
-						    					<div class="ui header">
-										    		<h4 class="ui left aligned header">
-										    			<%=curTitle %>
-										    		</h4>
-											      	<h5 class="ui right aligned orange header">
-															<%=group %>
-											      			<%=curWriter %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-															<%=totalDate %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-											        		
-															
-											      	</h5>
-												</div>
-						    				</div>
-						    			</div>
-						    		</div>
-								<%}}else{%>
+						<div class="col-sm-6 col-sm-offset-3">
+		
+			   				 <h1><span class="fa fa-sign-in"></span> 그룹 찾기 </h1>
+								<%for(var i=0;i<groupList.length;i++){%>
+								<p id='ID<%=i%>' value="<%=groupList[i]%>" onclick="insertGroupName('<%=i%>')"><%=groupList[i]%></p>
+								<%}%>
+			
+
+						</div>
+								<%}else{%>
 														    <div class="item">
 										<div class="ui grid">
 						    				<div class="two wide column" ><%=curNo %></div>
@@ -230,9 +221,6 @@
 						<a href='/book/listpost?page=0&perPage=2'>
 							<img id="rotate" class="ui avatar image" src="../public/images/reload_black.png">
 							</a>
-						<a class="ui button"  href='/views/addBook.ejs'>글쓰기</a>
-							
-						<a  class="ui button"  href='/'>홈으로</a>
 
 					</div>
 					</div>
