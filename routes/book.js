@@ -48,7 +48,8 @@ var addReview = function(req, res) {
 	
 };
 
-var reservation = function(req, res) {//예약신청
+var reservation = function (req, res) {
+	//예약신청
 	console.log('book 모듈 안에 있는 reservation 호출됨.');
 
 	var paramId = req.body.id || req.query.id || req.params.id;
@@ -56,135 +57,130 @@ var reservation = function(req, res) {//예약신청
 	var database = req.app.get('database');
 
 	if (database.db) {
+		database.BookModel.findByIdAndUpdate(
+			paramId,
+			{ $set: { num: '2', reservation: reserve } },
+			function (err, result) {
+				if (err) {
+					console.error('업데이트 중 에러 발생 : ' + err.stack);
 
-		database.BookModel.findByIdAndUpdate(paramId,{$set: {num : '2', reservation:reserve}}, function(err,result){
-			if (err) {
-                console.error('업데이트 중 에러 발생 : ' + err.stack);
-                
-                printer.errrendering(res,err);
-                
-                return;
+					printer.errrendering(res, err);
+
+					return;
+				}
+
+				res.redirect('/book/showbook/' + paramId);
 			}
-
-			res.redirect('/book/showbook/' + paramId); 
-		});
-	
+		);
 	} else {
-		
-   		printer.errrendering(res);
+		printer.errrendering(res);
 	}
-	
 };
 
-var reservationList = function(req, res) {//반납 알림& 예약자에게 알림 해주는 기능
+var reservationList = function (req, res) {
+	//반납 알림& 예약자에게 알림 해주는 기능
 	console.log('book 모듈 안에 있는 reservationList 호출됨.');
 
 	var user = req.user.email;
 	var database = req.app.get('database');
 
 	if (database.db) {
-
-		database.UserModel.load(user, function(err, results) {
+		database.UserModel.load(user, function (err, results) {
 			if (err) {
-                console.error('게시판 글 추가 중 에러 발생 : ' + err.stack);
-                printer.errrendering(res,err);
-                
-                return;
+				console.error('게시판 글 추가 중 에러 발생 : ' + err.stack);
+				printer.errrendering(res, err);
+
+				return;
 			}
-		
+
 			var context = {
 				posts: results,
 			};
-			
-			printer.rendering(req,res,'myPage.ejs',context);			
 
+			printer.rendering(req, res, 'myPage.ejs', context);
 		});
 	} else {
-	   printer.errrendering(res);
+		printer.errrendering(res);
 	}
-	
 };
 
-var giveBack = function(req, res) {
+var giveBack = function (req, res) {
 	console.log('book 모듈 안에 있는 giveBack 호출됨.');
 
 	var paramId = req.body.id || req.query.id || req.params.id;
-	var user=req.user.email;
+	var user = req.user.email;
 	var database = req.app.get('database');
 
 	if (database.db) {
-	
-		database.BookModel.findByIdAndUpdate(paramId,{$set: {num : '0'}}, function(err){
+		database.BookModel.findByIdAndUpdate(paramId, { $set: { num: '0' } }, function (err) {
 			if (err) {
-                console.error('업데이트 중 에러 발생 : ' + err.stack);
-                
-                printer.errrendering(res,err);
-                
-                return;
-			}
-		});
+				console.error('업데이트 중 에러 발생 : ' + err.stack);
 
-			database.UserModel.load(user, function(err, results) {
-			if (err) {
-                console.error('게시판 글 추가 중 에러 발생 : ' + err.stack);
-                printer.errrendering(res,err);
-                
-                return;
-			}
-			
-			database.UserModel.findByIdAndUpdate(results._id,{ $pull: { "reservationlist" :  paramId } }
+				printer.errrendering(res, err);
 
-			,  function(err, results2) {
-				
-			if (err) {
-				console.error('에러 발생 : ' + err.stack);
-				printer.errrendering(res,err);
-				
 				return;
 			}
-			console.log(paramId+"/"+results2);
-			});
 		});
-		
-		
-		res.redirect("/views/myPage.ejs"); 
+
+		database.UserModel.load(user, function (err, results) {
+			if (err) {
+				console.error('게시판 글 추가 중 에러 발생 : ' + err.stack);
+				printer.errrendering(res, err);
+
+				return;
+			}
+
+			database.UserModel.findByIdAndUpdate(
+				results._id,
+				{ $pull: { reservationlist: paramId } },
+
+				function (err, results2) {
+					if (err) {
+						console.error('에러 발생 : ' + err.stack);
+						printer.errrendering(res, err);
+
+						return;
+					}
+					console.log(paramId + '/' + results2);
+				}
+			);
+		});
+
+		res.redirect('/views/myPage.ejs');
 	} else {
-		res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
+		res.writeHead('200', { 'Content-Type': 'text/html;charset=utf8' });
 		res.write('<h2>데이터베이스 연결 실패</h2>');
 		res.end();
 	}
-	
 };
 
-var applyBook = function(req, res) {
+var applyBook = function (req, res) {
 	console.log('book 모듈 안에 있는 applyBook 호출됨.');
 
 	var title = req.body.title || req.query.title || req.params.title;
-	var author= req.body.author || req.query.author || req.params.author;
-	var link= req.body.link || req.query.link || req.params.link;
-	var description= req.body.description || req.query.description || req.params.description;
+	var author = req.body.author || req.query.author || req.params.author;
+	var link = req.body.link || req.query.link || req.params.link;
+	var description = req.body.description || req.query.description || req.params.description;
 
 	var context = {
-			title: '책 신청',
-			bookTitle:title,
-			bookAuthor:author,
-			bookLink:link,
-			bookDescription:description
-		};
-					
-		req.app.render('applyBook.ejs', context, function(err, html) {
-			if (err) {
-				console.error('응답 웹문서 생성 중 에러 발생 : ' + err.stack);
+		title: '책 신청',
+		bookTitle: title,
+		bookAuthor: author,
+		bookLink: link,
+		bookDescription: description,
+	};
 
-				printer.errrendering(res,err);
+	req.app.render('applyBook.ejs', context, function (err, html) {
+		if (err) {
+			console.error('응답 웹문서 생성 중 에러 발생 : ' + err.stack);
 
-			    return;
-			}
+			printer.errrendering(res, err);
 
+			return;
+		}
 
-			res.end(html);
-		});
-
+		res.end(html);
+	});
 };
 
 var requestBook = function(req, res) {
@@ -192,52 +188,49 @@ var requestBook = function(req, res) {
 	RequestBook.requestFun(req,res);
 };
 
-var listapplybook = function(req, res) {
+var listapplybook = function (req, res) {
 	console.log('book 모듈 안에 있는 listapplybook 호출됨.');
-  	
-    var paramPage = req.body.page || req.query.page||'0';
-	var paramPerPage = 8
+
+	var paramPage = req.body.page || req.query.page || '0';
+	var paramPerPage = 8;
 
 	var database = req.app.get('database');
 
-    // 데이터베이스 객체가 초기화된 경우
+	// 데이터베이스 객체가 초기화된 경우
 	if (database.db) {
 		// 1. 글 리스트
 		var options = {
 			page: paramPage,
 			perPage: paramPerPage,
-			criteria:{group:req.user.group},
-		}
-		
-		database.AppplyBookModel.list(options, function(err, results) {
+			criteria: { group: req.user.group },
+		};
+
+		database.AppplyBookModel.list(options, function (err, results) {
 			if (err) {
-                console.error('게시판 글 목록 조회 중 에러 발생 : ' + err.stack);              
-                printer.errrendering(res,err);
-                return;
-            }
-			
+				console.error('게시판 글 목록 조회 중 에러 발생 : ' + err.stack);
+				printer.errrendering(res, err);
+				return;
+			}
+
 			if (results) {
+				database.AppplyBookModel.count().exec(function (err, count) {
+					res.writeHead('200', { 'Content-Type': 'text/html;charset=utf8' });
 
-				database.AppplyBookModel.count().exec(function(err, count) {
-
-					res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
-					
 					// 뷰 템플레이트를 이용하여 렌더링한 후 전송
 					var context = {
 						title: '신청 목록',
 						posts: results,
 						page: parseInt(paramPage),
 						pageCount: Math.ceil(count / paramPerPage),
-						perPage: paramPerPage, 
+						perPage: paramPerPage,
 						totalRecords: count,
-						size: paramPerPage						
+						size: paramPerPage,
 					};
-					
-					printer.rendering(req,res,'listApplyBook',context);
+
+					printer.rendering(req, res, 'listApplyBook', context);
 				});
-				
 			} else {
-				res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
+				res.writeHead('200', { 'Content-Type': 'text/html;charset=utf8' });
 				res.write('<h2>글 목록 조회  실패</h2>');
 				res.end();
 			}
@@ -247,47 +240,48 @@ var listapplybook = function(req, res) {
 	}
 };
 
-var acceptRequest = function(req, res) {
+var acceptRequest = function (req, res) {
 	console.log('book 모듈 안에 있는 acceptRequest 호출됨.');
 
 	var paramId = req.body.id || req.query.id || req.params.id;
 	var database = req.app.get('database');
 
 	if (database.db) {
-	
-		database.AppplyBookModel.findByIdAndUpdate(paramId,{$set: {isAccepted : '1'}}, function(err,re){
-			if (err) {
-                console.error('업데이트 중 에러 발생 : ' + err.stack);
-               	printer.errrendering(res,err);
-                return;
+		database.AppplyBookModel.findByIdAndUpdate(
+			paramId,
+			{ $set: { isAccepted: '1' } },
+			function (err, re) {
+				if (err) {
+					console.error('업데이트 중 에러 발생 : ' + err.stack);
+					printer.errrendering(res, err);
+					return;
+				}
 			}
+		);
 
-		});
-		
-		res.redirect("/book/listapplybook?page=0&perPage=2"); 
+		res.redirect('/book/listapplybook?page=0&perPage=2');
 	} else {
 		printer.errrendering(res);
 	}
-	
 };
 
 
-var search = (req, res)=> {
+var search = (req, res) => {
 	console.log('book 모듈 안에 있는 search 호출됨.');
-	const paramPage = req.body.page || req.query.page||'0';
+	const paramPage = req.body.page || req.query.page || '0';
 	const search = req.body.search || req.query.search;
-	const paramPerPage = 8
+	const paramPerPage = 8;
 
-	let page="";
-	if(req.body.search ){
-		var option={group:req.user.group,
-					 title: new RegExp(search) }
-		page="listbook";
-	}else{
-		var option={ title: new RegExp(search) }
-		page="listbook_All";
+	let page = '';
+	if (search) {
+		var option = { group: req.user.group, title: new RegExp(search) };
+		page = 'listbook';
+	} else {
+		var option = { title: new RegExp(search) };
+		page = 'listbook';
+		
 	}
-	
+console.log(page);
 	const database = req.app.get('database');
 
 	if (database.db) {
@@ -295,87 +289,145 @@ var search = (req, res)=> {
 		var options = {
 			page: paramPage,
 			perPage: paramPerPage,
-			criteria:option,
-			
-		}
-		
-		database.BookModel.searchList(options, (err, results)=> {
-			
-			if (err) {
-                console.error('게시판 글 목록 조회 중 에러 발생 : ' + err.stack);
-                
-                printer.errrendering(res,err);
-                
-                return;
-            }
-			
-			if (results) {
-					res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
-					
-					// 뷰 템플레이트를 이용하여 렌더링한 후 전송
-					var context = {
-						title: '글 검색',
-						posts: results,
-						page: parseInt(paramPage),
-						pageCount: Math.ceil(results.length / paramPerPage),
-						perPage: paramPerPage, 
-						totalRecords: results.length ,
-						size: paramPerPage,
-						searchcontext:search,
-					};
+			criteria: option,
+		};
 
-					printer.rendering(req,res,page,context);
+		database.BookModel.searchList(options, (err, results) => {
+			if (err) {
+				console.error('게시판 글 목록 조회 중 에러 발생 : ' + err.stack);
+
+				printer.errrendering(res, err);
+
+				return;
+			}
+
+			if (results) {
+				res.writeHead('200', { 'Content-Type': 'text/html;charset=utf8' });
+
+				// 뷰 템플레이트를 이용하여 렌더링한 후 전송
+				var context = {
+					title: '글 검색',
+					posts: results,
+					page: parseInt(paramPage),
+					pageCount: Math.ceil(results.length / paramPerPage),
+					perPage: paramPerPage,
+					totalRecords: results.length,
+					size: paramPerPage,
+					searchcontext: search,
+				};
+
+				printer.rendering(req, res, page, context);
 			}
 		});
 	}
 };
+var searchGroup = (req, res) => {
+	console.log('book 모듈 안에 있는 searchGroup 호출됨.');
+	const paramPage = req.body.page || req.query.page || '0';
+	const search = req.body.search || req.query.search;
+	const paramPerPage = 8;
 
-var requestlist = function(req, res) {
-	console.log('book 모듈 안에 있는 requestlist 호출됨.');
-  	
-    var paramPage = req.body.page || req.query.page||'0';
-	var paramPerPage = 8
+	let page = 'listGroup';
+	
+	if (search) {
+		var option = { group : new RegExp(search) };
+	} else {
+		var option = {};
+		
+	}
 
-	var database = req.app.get('database');
+	const database = req.app.get('database');
 
-    // 데이터베이스 객체가 초기화된 경우
 	if (database.db) {
 		// 1. 글 리스트
 		var options = {
 			page: paramPage,
 			perPage: paramPerPage,
-			criteria:{admin:'adminRequset'},
-		}
-		
-		database.UserModel.list(options, function(err, results) {
+			criteria: option,
+		};
+
+		database.UserModel.list(options, (err, results) => {
 			if (err) {
-                console.error('게시판 글 목록 조회 중 에러 발생 : ' + err.stack);
-                
-               printer.errrendering(res,err);
-                return;
-            }
-			
+				console.error('게시판 글 목록 조회 중 에러 발생 : ' + err.stack);
+
+				printer.errrendering(res, err);
+
+				return;
+			}
+
+			if (results) {
+				var groups = [];
+				var num = 0;
+
+				for (var i = 0; i < results.length; i++) {
+					if (!groups.includes(results[i]._doc.group)) {
+						groups[num] = results[i]._doc.group;
+						num++;
+					}
+				}
+				res.writeHead('200', { 'Content-Type': 'text/html;charset=utf8' });
+
+				// 뷰 템플레이트를 이용하여 렌더링한 후 전송
+				var context = {
+					title: '그룹 검색',
+					groupList: groups,
+					page: parseInt(paramPage),
+					pageCount: Math.ceil(results.length / paramPerPage),
+					perPage: paramPerPage,
+					totalRecords: results.length,
+					size: paramPerPage,
+					searchcontext: search,
+				};
+
+				printer.rendering(req, res, page, context);
+			}
+		});
+	}
+};
+var requestlist = function (req, res) {
+	console.log('book 모듈 안에 있는 requestlist 호출됨.');
+
+	var paramPage = req.body.page || req.query.page || '0';
+	var paramPerPage = 8;
+
+	var database = req.app.get('database');
+
+	// 데이터베이스 객체가 초기화된 경우
+	if (database.db) {
+		// 1. 글 리스트
+		var options = {
+			page: paramPage,
+			perPage: paramPerPage,
+			criteria: { admin: 'adminRequset' },
+		};
+
+		database.UserModel.list(options, function (err, results) {
+			if (err) {
+				console.error('게시판 글 목록 조회 중 에러 발생 : ' + err.stack);
+
+				printer.errrendering(res, err);
+				return;
+			}
+
 			if (results) {
 				console.log(results);
-				
-				res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
-					
-					// 뷰 템플레이트를 이용하여 렌더링한 후 전송
-					var context = {
-						title: '권한 요청',
-						posts: results,
-						page: parseInt(paramPage),
-						pageCount: Math.ceil(results.length / paramPerPage),
-						perPage: paramPerPage, 
-						totalRecords: results.length,
-						size: paramPerPage						
-					};
 
+				res.writeHead('200', { 'Content-Type': 'text/html;charset=utf8' });
 
+				// 뷰 템플레이트를 이용하여 렌더링한 후 전송
+				var context = {
+					title: '권한 요청',
+					posts: results,
+					page: parseInt(paramPage),
+					pageCount: Math.ceil(results.length / paramPerPage),
+					perPage: paramPerPage,
+					totalRecords: results.length,
+					size: paramPerPage,
+				};
 
-				printer.rendering(req,res,'listAdminRequest',context);
+				printer.rendering(req, res, 'listAdminRequest', context);
 			} else {
-				res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
+				res.writeHead('200', { 'Content-Type': 'text/html;charset=utf8' });
 				res.write('<h2>글 목록 조회  실패</h2>');
 				res.end();
 			}
@@ -385,62 +437,63 @@ var requestlist = function(req, res) {
 	}
 };
 
-var acceptAdminRequest = function(req, res) {
+var acceptAdminRequest = function (req, res) {
 	console.log('book 모듈 안에 있는 acceptAdminRequest 호출됨.');
 
 	var paramId = req.body.id || req.query.id || req.params.id;
 	var database = req.app.get('database');
 
 	if (database.db) {
-		database.UserModel.findByIdAndUpdate(paramId,{$set: {admin : 'accepted'}}, function(err,re){
+		database.UserModel.findByIdAndUpdate(paramId, { $set: { admin: 'accepted' } }, function (
+			err,
+			re
+		) {
 			if (err) {
-                console.error('업데이트 중 에러 발생 : ' + err.stack);
-                printer.errrendering(res,err);
-                
-                return;
+				console.error('업데이트 중 에러 발생 : ' + err.stack);
+				printer.errrendering(res, err);
+
+				return;
 			}
 		});
-		
-		res.redirect("/user/requestlist?page=0&perPage=2"); 
+
+		res.redirect('/user/requestlist?page=0&perPage=2');
 	} else {
 		printer.errrendering(res);
 	}
-	
 };
+
 var QRCode = require('qrcode');
 
-var loanByQrcode=(req,res)=>{
+var loanByQrcode = (req, res) => {
 	var paramId = req.body.id || req.query.id || req.params.id;
-	var user=req.user.email;
-	
+	var user = req.user.email;
+
 	var database = req.app.get('database');
 
 	if (database.db) {
-
-
-
-		database.UserModel.findByEmail(user, function(err, results) {
+		database.UserModel.findByEmail(user, function (err, results) {
 			if (err) {
-                console.error('게시판 글 추가 중 에러 발생 : ' + err.stack);
-                printer.errrendering(res,err);
-                
-                return;
+				console.error('게시판 글 추가 중 에러 발생 : ' + err.stack);
+				printer.errrendering(res, err);
+
+				return;
 			}
 			console.log(results._id);
-			const data = results._id+"/"+paramId; 
-			QRCode.toDataURL( data , function(err , url) { //res.send(url);
-				var data = url.replace(/.*,/ , ''); 
-				var img = new Buffer(data , 'base64'); 
-				res.writeHead(200 , {'Content-Type':'image/png'});
-				res.end(img); 
+			const data = results._id + '/' + paramId;
+			QRCode.toDataURL(data, function (err, url) {
+				//res.send(url);
+				var data = url.replace(/.*,/, '');
+				var img = new Buffer(data, 'base64');
+				res.writeHead(200, { 'Content-Type': 'image/png' });
+				res.end(img);
 			});
 		});
 	} else {
-		res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
+		res.writeHead('200', { 'Content-Type': 'text/html;charset=utf8' });
 		res.write('<h2>데이터베이스 연결 실패</h2>');
 		res.end();
 	}
-}
+};
 
 module.exports.listpost = listpost;
 module.exports.addbook = addbook;
@@ -458,4 +511,4 @@ module.exports.search = search;
 module.exports.requestlist = requestlist;
 module.exports.acceptAdminRequest = acceptAdminRequest;
 module.exports.loanByQrcode = loanByQrcode;
-
+module.exports.searchGroup = searchGroup;
