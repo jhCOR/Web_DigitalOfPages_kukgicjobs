@@ -5,7 +5,7 @@ module.exports = function(router, passport) {
 
     // 홈 화면
     router.route('/searchBooks').post(function (req, res) {
-		
+
    var api_url = 'https://openapi.naver.com/v1/search/book.json?query=' + encodeURI(req.body.booktitle);  
 		
    var request = require('request');
@@ -22,9 +22,9 @@ module.exports = function(router, passport) {
 		var context = {
 			title: '책 목록',
 			posts: jsonData.items,
-		};
-					
-	
+			next:'책 검색',
+		};			
+	//console.log(jsonData.items);
 		req.app.render('selectBook.ejs', context, function(err, html) {
 			if (err) {
 				console.error('응답 웹문서 생성 중 에러 발생 : ' + err.stack);
@@ -49,4 +49,5 @@ module.exports = function(router, passport) {
      }
    });
  });
+
 };

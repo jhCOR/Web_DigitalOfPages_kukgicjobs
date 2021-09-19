@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
+		
+		<title>그룹 찾기</title>
+		<link rel="SHORTCUT ICON" href="/public/images/faviconlogo.png"/>
+		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
+    	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
+    	
+    	<style>
+        	body        { padding-top:80px; }
+    	</style>
+    <script>
+	
+	async function insertGroupName(id){
+
+			opener.document.getElementById("group").value = document.getElementById("ID"+id).innerText;
+			
+				
+			await closeWindow();
+			
+		}
+		function closeWindow(){
+			
+			window.close();
+		}
+		
+		</script>
+	</head>
+	<body>
+		<div class="container">
+
+			<div class="col-sm-6 col-sm-offset-3">
+		
+			    <h1><span class="fa fa-sign-in"></span> 그룹 찾기 </h1>
+			<%for(var i=0;i<groupList.length;i++){%>
+				<p id='ID<%=i%>' value="<%=groupList[i]%>" onclick="insertGroupName('<%=i%>')"><%=groupList[i]%></p>
+				<%}%>
+			
+
+			</div>
+		
+		</div>
+
+	</body>
+</html>

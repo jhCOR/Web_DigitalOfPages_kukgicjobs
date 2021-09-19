@@ -59,10 +59,33 @@
 			function listpost(page, perPage) {
 				document.location = '/book/listpost?page=' + page + '&perPage=' + perPage;
 			}
+			
 			function send(i){
-				var param="bookForm"+i;
+				if(document.getElementById('next').innerText="책 찾기"){
+					var param="booktitle"+i;
+					var book=document.getElementById(param).value;//or innerText
+					insertTitle(book);
+					
+				}else{
+					var param="bookForm"+i;
 				document.getElementById(param).submit();
+				}
+				
 			}
+			
+		async function insertTitle(string){
+
+			opener.document.getElementById("booktitle").value = string;
+			
+				
+			await closeWindow();
+			
+		}
+			
+		function closeWindow(){
+			
+			window.close();
+		}
 		</script>
 		
 	</head>
@@ -72,7 +95,7 @@
     		<br>
     		
 			<div class="ui raised segment">
-				<a href='/book/listpost?page=0&perPage=2' class="ui blue ribbon label">게시판</a>
+				<a href='/book/listpost?page=0&perPage=2' id="next" class="ui blue ribbon label"><%=next%></a>
       			<span id="board_title">책 목록</span>
 			
 				
@@ -94,8 +117,10 @@
 								   var author = posts[i].author;
                                    var imgpath = posts[i].image;  
 									 var link = posts[i].link;  
+									 var isbn = posts[i].isbn;  
 									var Description = posts[i].description.replace(/<b>/g,"");
 									var description=Description.replace(/\<\/b>/g,"");
+									
 									
 								   %>
 					
@@ -104,21 +129,24 @@
 						    				<div class="two wide column" >-</div>
 						    				<div class="fourteen wide column" onclick="send(<%=i %>)" >
 						    					<div class="ui header">
-										    		<h4 class="ui left aligned header">
+										    		<h4 class="ui left aligned header" >
 										    			<%=title %>
 										    		</h4>
 											      	<h5 class="ui right aligned orange header">
 											      			<%=author %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 															
 											      	</h5>
-														<form class="btn btn-default btn-sm" id="bookForm<%=i %>" method="post" action="/book/applyBook">
+													
+													<form class="btn btn-default btn-sm" id="bookForm<%=i %>" method="post" action="/book/applyBook">
 									
 														<input hidden type="text" name="title" value="<%=title %>">
 														<input hidden type="text" name="author" value="<%=author %>">
-														<input hidden type="text" name="link" value="<%=link %>">
+														<input hidden type="text" name="link" id="booktitle<%=i %>" value="<%=imgpath %>">
 														<input hidden type="text" name="description" value="<%=description %>">
 														
 													</form>
+													
+													
 												</div>
 						    				</div>
 						    			</div>

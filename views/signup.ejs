@@ -28,7 +28,20 @@
 				document.getElementById("alarm").style.display='block';
 			}
 		}
-
+	function makeReadOnly(){
+		if(	document.getElementById('group').readOnly == true)
+		document.getElementById('group').readOnly = false;
+		else
+			document.getElementById("group").readOnly=true;
+	}
+	
+	function findGroup(){
+		//alert("searching...");
+		var query=document.getElementById("findGroup").value;
+		win=open("/searchGroup","new page","width=400,height=300");
+					win.moveTo(500,100);
+	}
+	
 	</script>
 	</head>
 	<body>
@@ -64,18 +77,24 @@
 			        </div>
 					 <div class="form-group">
 			            <label>소속부대</label>
-			            <input type="text" class="form-control" name="group" id="group">
+						 
+			            <input type="text" class="form-control" readonly name="group" id="group" >
+						
+						
 			        </div>
 					 <label>관리자 계정으로 가입하기</label>
-					<input type="checkbox" name="admin" >
+					<input type="checkbox" name="admin" onclick="makeReadOnly()">
 					<br>
 			        <input type="button"  id="submitbutton"
 					 class="btn btn-warning btn-lg" 
-					 onclick="checkpassward()" value="회원가입"></input>
+					 onclick="checkpassward()" value="회원가입">
 				<!-- <a  href='/signupAdmin'>관리자 권한으로 회원가입하기</a> -->
-				</input>
+				
 			    </form>
-			
+				 <input type="text" class="form-control" name="findGroup" id="findGroup" >
+			<button class="btn" onclick="findGroup()">
+							소속검색
+						 </button>
 			    <hr>
 			
 			    <p>이미 계정이 있으신가요? <a href="/login">로그인하기</a></p>

@@ -1,4 +1,9 @@
 var printer = require("../utils/printer");
+var saver = require("../utils/saver");
+
+const ROUTEFUNCTIONPATH="../routeFunc";
+
+var ModifyUser = require(ROUTEFUNCTIONPATH+"/modifyUser");
 
 var deleteUser = function(req, res) {
 console.log('user 모듈 안에 있는 deleteUser 호출됨.');
@@ -34,4 +39,11 @@ console.log('user 모듈 안에 있는 deleteUser 호출됨.');
  		printer.errrendering(res);
 	}
 };
+
+var modifyUser = function(req, res) {
+	ModifyUser.modifyFunc(req,res);
+};
+
+
 module.exports.deleteUser = deleteUser;
+module.exports.modifyUser = modifyUser;
