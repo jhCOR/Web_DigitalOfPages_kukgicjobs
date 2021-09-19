@@ -31,6 +31,7 @@ module.exports = {
 		,{file:'./book', path:'/book/loanByQrcode/:id', method:'loanByQrcode', type:'get'}
 		,{file:'./HistoryOfBook', path:'/post/addHistoryOfBook', method:'addHistoryOfBook', type:'post'}
 		,{file:'./user', path:'/user/modifyUser', method:'modifyUser', type:'post'}
+		,{file:'./book', path:'/searchGroup', method:'searchGroup', type:'get'}
 	],
 
 }
