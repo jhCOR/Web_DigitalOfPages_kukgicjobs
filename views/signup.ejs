@@ -36,12 +36,12 @@
 	}
 	
 	function findGroup(){
-		//alert("searching...");
+		
 		var query=document.getElementById("findGroup").value;
-		win=open("/searchGroup","new page","width=400,height=300");
+		win=open("/searchGroup?search="+query,"new page","width=400,height=300");
+		//alert(query);
 					win.moveTo(500,100);
 	}
-	
 	</script>
 	</head>
 	<body>
