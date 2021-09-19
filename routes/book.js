@@ -11,10 +11,12 @@ var ListPost=require(ROUTEFUNCTIONPATH+"/listPost");
 var RequestBook=require(ROUTEFUNCTIONPATH+"/requestBook");
 var ShowBook=require(ROUTEFUNCTIONPATH+"/showBook");
 
+
+
 var addbook = (req, res) => {
 	console.log('book 모듈 안에 있는 addbook 호출됨.');
 	
-	AddBook.addBookFun(req, res);
+	AddBook.addBookFun(req, res,"addBook");
 }; 
 
 
@@ -27,8 +29,10 @@ var listpost = (req, res) => {
 
 var showbook = (req, res) => {
 	console.log('book 모듈 안에 있는 showbook 호출됨.');
-	
+	if(req.user)
 	ShowBook.showBookFun(req, res);
+	else
+	res.redirect("/login");	
 };
 
 var borrow = function(req, res) {
@@ -44,7 +48,7 @@ var addReview = function(req, res) {
 	
 };
 
-var reservation = function(req, res) {
+var reservation = function(req, res) {//예약신청
 	console.log('book 모듈 안에 있는 reservation 호출됨.');
 
 	var paramId = req.body.id || req.query.id || req.params.id;
@@ -72,7 +76,7 @@ var reservation = function(req, res) {
 	
 };
 
-var reservationList = function(req, res) {
+var reservationList = function(req, res) {//반납 알림& 예약자에게 알림 해주는 기능
 	console.log('book 모듈 안에 있는 reservationList 호출됨.');
 
 	var user = req.user.email;

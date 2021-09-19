@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
+		
+		<title>Detail Page</title>
+		
+		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
+    	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
+		<script src="utils\editorMovement.js"></script>
+
+		<script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+
+		<script>
+			//캔버스 관련 자바스크립트코드은 옮김
+			var img_L = 0;
+			var img_T = 0;
+			var i=0;//id를 부여하기 위한 변수, 다른 위젯버튼이라도 일괄적인 적용(위젯의 총 개수를 쉽게 알 수 있음)
+			var j=0;
+			var k=0;
+			var targetObj;
+			var ButtonId;
+			var wholeDocument;
+			var selectedBefore={};
+			
+			var monitor2=document.getElementById("monitor2");
+			function create2DArray(rows, columns) {
+				var arr = new Array(rows);
+				for (var i = 0; i < rows; i++) {
+					arr[i] = new Array(columns);
+				}
+				return arr;
+			}
+			function getLeft(o){
+				return parseInt(o.style.left.replace('px', ''));
+			}
+			function getTop(o){
+				return parseInt(o.style.top.replace('px', ''));
+			}
+			// 이미지 움직이기
+			function moveDrag(e){
+				var e_obj = window.event? window.event : e;
+				var dmvx = parseInt(e_obj.clientX + img_L);
+				var dmvy = parseInt(e_obj.clientY + img_T);
+				targetObj.style.left = dmvx +"px";
+				targetObj.style.top = dmvy +"px";
+				return false;
+			}
+			// 드래그 시작
+			function startDrag(e, obj){
+				targetObj = obj;
+				var e_obj = window.event? window.event : e;
+				img_L = getLeft(obj) - e_obj.clientX;
+				img_T = getTop(obj) - e_obj.clientY;
+				document.onmousemove = moveDrag;
+				document.onmouseup = stopDrag;
+				if(e_obj.preventDefault)e_obj.preventDefault();
+			}
+			// 드래그 멈추기
+			function stopDrag(){
+				document.onmousemove = null;
+				document.onmouseup = null;
+			}
+
+			
+			function addWidget(idNumber){
+			
+				var widgetbox=document.getElementById("widgetbox");
+				//var idNumberToString=idNumber+"";
+				var newButton=document.createElement("button");
+				newButton.id='W'+i;
+				i++;
+				newButton.style.position="absolute";
+				newButton.style.left=0;
+				newButton.style.top=0;
+				
+				newButton.onmousedown=function(event){
+					startDrag(event,newButton);
+				}
+
+				var newText=document.createTextNode(idNumber);
+				widgetbox.appendChild(newButton);
+				newButton.appendChild(newText);
+
+			}
+
+		</script>
+
+    	<style>
+        	body        { padding-top:80px; }
+			.box{
+				width: 550px;
+				height: 600px;
+				background-color: wheat;
+				border-color: black;
+				border-width: 0.5em;
+			
+			}
+			.box1{
+				width: 550px;
+				height: 600px;
+				background-color: skyblue;
+				border-color: black;
+				border-width: 0.5em;
+			
+			}
+			.box2{
+				width: 350px;
+				height: 600px;
+				background-color: gray;
+				border-color: black;
+				border-width: 0.5em;
+			}
+			.box3{
+				width: auto;
+				height: 600px;
+				background-color: grey;
+			}
+    	</style>
+    
+	</head>
+	<body>
+		<div >
+			<div  class="box" id="widgetbox" style=" margin-left: 1%; position: relative; ">
+					
+
+			</div>
+
+			<div  >
+								
+				<%for(var i=0;i<posts.reservationlist.length; i++){%>
+					<input type="button" id="element<%=i%>" value="<%= posts.reservationlist[i].title %>" onclick="addWidget('<%= posts.reservationlist[i].title %>')">
+				<%}%>
+			</div>
+	
+			<a href="/" class="btn btn-default"><span class="movebutton">홈으로</span></a>
+		</div>
+	</body>
+</html>

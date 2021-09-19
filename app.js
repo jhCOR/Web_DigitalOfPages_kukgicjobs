@@ -5,7 +5,7 @@ var express = require('express')
 // Express의 미들웨어 불러오기
 var bodyParser = require('body-parser')
   , cookieParser = require('cookie-parser')
-  , static = require('serve-static')
+  , serveStatic = require('serve-static')
   , errorHandler = require('errorhandler');
 
 // 에러 핸들러 모듈 사용
@@ -38,7 +38,7 @@ app.set('view engine', 'ejs');
 console.log('뷰 엔진이 ejs로 설정되었습니다.');
 
 
-//===== 서버 변수 설정 및 static으로 public 폴더 설정  =====//
+//===== 서버 변수 설정 및 serveStatic으로 public 폴더 설정  =====//
 console.log('config.server_port : %d', config.server_port);
 app.set('port', process.env.PORT || 3000);
  
@@ -50,8 +50,8 @@ app.use(express.urlencoded({ extended: true }))
 // body-parser를 이용해 application/json 파싱
 app.use(bodyParser.json())
 
-// public 폴더를 static으로 오픈
-app.use('/public', static(path.join(__dirname, 'public')));
+// public 폴더를 serveStatic으로 오픈
+app.use('/public', serveStatic(path.join(__dirname, 'public')));
  
 // cookie-parser 설정
 app.use(cookieParser());
@@ -96,7 +96,7 @@ route_loader.init(app, router);
 
 //===== 404 에러 페이지 처리 =====//
 var errorHandler = expressErrorHandler({
- static: {
+ serveStatic: {
    '404': './public/404.html'
  }
 });

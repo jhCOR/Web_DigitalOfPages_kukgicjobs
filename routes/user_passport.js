@@ -25,10 +25,69 @@ module.exports = function(router, passport) {
             res.render('index.ejs', {login_success:true});
         }
     });
-	 router.route('/addhistory').get(function(req, res) {
-  		res.render('historyOfBook.ejs', {writer:req.user.email});
+	
+	
+	 router.route('/searchGroup').get(function(req, res) {
+		 	var database = req.app.get('database');
+
+	if (database.db) {
+
+		database.UserModel.findAll( function(err, results) {
+			if (err) {
+                
+	return;
+			}
+			var groups=[];
+			var num=0;
+				
+			for(var i=0;i<results.length;i++){
+				
+				if(!groups.includes(results[i]._doc.group)){
+					groups[num]=results[i]._doc.group;
+				num++;
+				}
+				
+			}
+  		res.render('searchGroup.ejs', {groupList : groups});
 
     });
+	}
+});
+	
+	
+	
+	 router.route('/addhistory').get(function(req, res) {
+  		res.render('historyOfBook.ejs', {writer:req.user.email,post:null});
+
+    });
+	
+	
+	 router.route('/views/bookHistoryGallery.ejs').get(function(req, res) {//기능 테스트 용도(사용전 테스트)
+		 	console.log("addWidget");
+		 
+	var database = req.app.get('database');
+
+	if (database.db) {
+
+		database.UserModel.load(req.user.email, function(err, results) {
+			if (err) {
+                console.error('게시판 글 추가 중 에러 발생 : ' + err.stack);
+               // printer.errrendering(res,err);
+                
+                return;
+			}
+		
+			res.render('bookHistoryGallery.ejs' ,{login_success:true ,posts:results});
+		});
+	} else {
+	  // printer.errrendering(res);
+	}
+  		
+
+    });
+	
+	
+	
     router.route('/views/addpost.ejs').get(function(req, res) {
 
         // 인증 안된 경우
@@ -48,6 +107,7 @@ module.exports = function(router, passport) {
             res.redirect('/book/listpost?page=0&perPage=8');
         } else {
             console.log('사용자 인증된 상태임.');
+			
             res.render('addBook.ejs', {writer:req.user.email, group:req.user.group});
         }
     });
@@ -58,6 +118,7 @@ module.exports = function(router, passport) {
             console.log('사용자 인증 안된 상태임.');
             res.redirect('/');
         } else {
+			 console.log("reuest:"+req.query.request);
             console.log('사용자 인증된 상태임.');
             res.render('applyNewBook.ejs');
         }
@@ -88,6 +149,38 @@ module.exports = function(router, passport) {
         console.log('/signup 패스 요청됨.');
         res.render('signup.ejs', {message: req.flash('signupMessage')});
     });
+	
+	// router.route('/signup').get(function(req, res) {
+	// console.log('/signup 패스 요청됨.');
+	// 	var database = req.app.get('database');
+
+	// if (database.db) {
+
+	// 	database.UserModel.findAll( function(err, results) {
+	// 		if (err) {
+                
+	// return;
+	// 		}
+	// 		var groups=[];
+	// 		var num=0;
+				
+	// 		for(var i=0;i<results.length;i++){
+				
+	// 			if(!groups.includes(results[i]._doc.group)){
+	// 				groups[num]=results[i]._doc.group;
+	// 			num++;
+	// 			}
+				
+	// 		}
+	// 			console.log(...groups);	
+			
+	// res.render('signup.ejs', {message: req.flash('signupMessage'), groupList : groups});
+	// 	});
+	// } else {
+	//    printer.errrendering(res);
+	// }
+       
+	// });
 	
 	  router.route('/signupAdmin').get(function(req, res) {
         console.log('/signupAdmin 패스 요청됨.');

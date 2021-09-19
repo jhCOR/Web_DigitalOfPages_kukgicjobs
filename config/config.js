@@ -7,6 +7,7 @@ module.exports = {
 		,{file:'./book_schema', collection:'book', schemaName:'BookSchema', modelName:'BookModel'}
 		,{file:'./reservation_schema', collection:'reservation', schemaName:'ReservationSchema', modelName:'ReservationModel'}
 		,{file:'./applybook_schema', collection:'AppplyBook', schemaName:'AppplyBookSchema', modelName:'AppplyBookModel'}
+		,{file:'./post_schema', collection:'bookpost', schemaName:'BookPostSchema', modelName:'BookPostModel'}
 	],
 	route_info: [
 
@@ -28,6 +29,8 @@ module.exports = {
 		,{file:'./book', path:'/user/requestlist', method:'requestlist', type:'get'}
 		,{file:'./user', path:'/userRequest/deleteUser', method:'deleteUser', type:'post'}
 		,{file:'./book', path:'/book/loanByQrcode/:id', method:'loanByQrcode', type:'get'}
+		,{file:'./HistoryOfBook', path:'/post/addHistoryOfBook', method:'addHistoryOfBook', type:'post'}
+		,{file:'./user', path:'/user/modifyUser', method:'modifyUser', type:'post'}
 	],
 
 }
