@@ -1,35 +1,3 @@
-Skip to content
-Search or jump to…
-Pull requests
-Issues
-Marketplace
-Explore
-
-@hou27 
-osamhack2021
-/
-Web_DigitalOfPages_kukgicjobs
-Public
-1
-1
-0
-Code
-Issues
-Pull requests
-1
-Actions
-Projects
-Wiki
-Security
-Insights
-Settings
-Web_DigitalOfPages_kukgicjobs/routes/user_passport.js /
-@jhCOR
-jhCOR add some functions
-Latest commit 7d7b22e 2 hours ago
- History
- 1 contributor
-253 lines (190 sloc)  6.65 KB
 
 /**
  * 패스포트 라우팅 함수 정의
@@ -60,32 +28,32 @@ module.exports = function(router, passport) {
     });
 	
 	
-	 router.route('/searchGroup').get(function(req, res) {
-		 	var database = req.app.get('database');
+// 	 router.route('/searchGroup').get(function(req, res) {
+// 		 	var database = req.app.get('database');
 
-	if (database.db) {
+// 	if (database.db) {
 
-		database.UserModel.findAll( function(err, results) {
-			if (err) {
+// 		database.UserModel.findAll( function(err, results) {
+// 			if (err) {
                 
-	return;
-			}
-			var groups=[];
-			var num=0;
+// 	return;
+// 			}
+// 			var groups=[];
+// 			var num=0;
 				
-			for(var i=0;i<results.length;i++){
+// 			for(var i=0;i<results.length;i++){
 				
-				if(!groups.includes(results[i]._doc.group)){
-					groups[num]=results[i]._doc.group;
-				num++;
-				}
+// 				if(!groups.includes(results[i]._doc.group)){
+// 					groups[num]=results[i]._doc.group;
+// 				num++;
+// 				}
 				
-			}
-  		res.render('searchGroup.ejs', {groupList : groups});
+// 			}
+//   		res.render('searchGroup.ejs', {groupList : groups});
 
-    });
-	}
-});
+//     });
+// 	}
+// });
 	
 	
 	
@@ -284,16 +252,4 @@ module.exports = function(router, passport) {
 //            return tem.email;
 //        }
 // }
-© 2021 GitHub, Inc.
-Terms
-Privacy
-Security
-Status
-Docs
-Contact GitHub
-Pricing
-API
-Training
-Blog
-About
-Loading complete
+
