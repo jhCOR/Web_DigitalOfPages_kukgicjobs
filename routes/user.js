@@ -44,6 +44,28 @@ var modifyUser = function(req, res) {
 	ModifyUser.modifyFunc(req,res);
 };
 
+var acceptAdminRequest = function(req, res) {
+	console.log('user 모듈 안에 있는 acceptAdminRequest 호출됨.');
 
+	var paramId = req.body.id || req.query.id || req.params.id;
+	var database = req.app.get('database');
+
+	if (database.db) {
+		database.UserModel.findByIdAndUpdate(paramId,{$set: {admin : 'accepted'}}, function(err,re){
+			if (err) {
+                console.error('업데이트 중 에러 발생 : ' + err.stack);
+                printer.errrendering(res,err);
+                
+                return;
+			}
+		});
+		
+		res.redirect("/user/requestlist?page=0&perPage=2"); 
+	} else {
+		printer.errrendering(res);
+	}
+	
+};
 module.exports.deleteUser = deleteUser;
 module.exports.modifyUser = modifyUser;
+module.exports.acceptAdminRequest = acceptAdminRequest;

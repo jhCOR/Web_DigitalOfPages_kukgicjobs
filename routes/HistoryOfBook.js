@@ -2,7 +2,7 @@ var saver = require("../utils/saver");
 var printer = require("../utils/printer");
 
 var addHistoryOfBook = (req, res)=> {//네이버 api 이용해서 책을 찾은 후에 저장?
-	console.log('add book history');
+	console.log('HistoryOfBook 모듈 호출됨');
 	
  	if(req.body){
 		

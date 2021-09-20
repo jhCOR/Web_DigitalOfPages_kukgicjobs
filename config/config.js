@@ -11,26 +11,31 @@ module.exports = {
 	],
 	route_info: [
 
-		{file:'./book', path:'/book/listpost', method:'listpost', type:'get'}
+		{file:'./showList', path:'/book/listpost', method:'listpost', type:'get'}
+		,{file:'./showList', path:'/views/myPage.ejs', method:'reservationList', type:'get'}
+		,{file:'./showList', path:'/book/listapplybook', method:'listapplybook', type:'get'}
+		,{file:'./showList', path:'/user/requestlist', method:'requestlist', type:'get'}
+		
 		,{file:'./book', path:'/book/addbook', method:'addbook', type:'post'}
 		,{file:'./book', path:'/book/showbook/:id', method:'showbook', type:'get'}
 		,{file:'./book', path:'/book/lend', method:'borrow', type:'post'}
 		,{file:'./book', path:'/book/reservation', method:'reservation', type:'post'}
 		,{file:'./book', path:'/book/addreview', method:'addReview', type:'post'}
-		,{file:'./book', path:'/views/myPage.ejs', method:'reservationList', type:'get'}
 		,{file:'./book', path:'/book/return/:id', method:'giveBack', type:'get'}
-		,{file:'./book', path:'/book/applyBook', method:'applyBook', type:'post'}
-		,{file:'./book', path:'/requestBook', method:'requestBook', type:'post'}
-		,{file:'./book', path:'/book/listapplybook', method:'listapplybook', type:'get'}
-		,{file:'./book', path:'/book/acceptRequest/:id', method:'acceptRequest', type:'get'}
-		,{file:'./book', path:'/user/acceptAdminRequest/:id', method:'acceptAdminRequest', type:'get'}
 		,{file:'./book', path:'/book/search', method:'search', type:'post'}
 		,{file:'./book', path:'/book/search', method:'search', type:'get'}
-		,{file:'./book', path:'/user/requestlist', method:'requestlist', type:'get'}
-		,{file:'./user', path:'/userRequest/deleteUser', method:'deleteUser', type:'post'}
-		,{file:'./book', path:'/book/loanByQrcode/:id', method:'loanByQrcode', type:'get'}
-		,{file:'./HistoryOfBook', path:'/post/addHistoryOfBook', method:'addHistoryOfBook', type:'post'}
+		,{file:'./book', path:'/searchGroup', method:'searchGroup', type:'get'}
+		
+		,{file:'./BookRequest', path:'/book/applyBook', method:'applyBook', type:'post'}
+		,{file:'./BookRequest', path:'/requestBook', method:'requestBook', type:'post'}
+		,{file:'./BookRequest', path:'/book/acceptRequest/:id', method:'acceptRequest', type:'get'}
+		
 		,{file:'./user', path:'/user/modifyUser', method:'modifyUser', type:'post'}
+		,{file:'./user', path:'/userRequest/deleteUser', method:'deleteUser', type:'post'}
+		,{file:'./user', path:'/user/acceptAdminRequest/:id', method:'acceptAdminRequest', type:'get'}
+		,{file:'./showQRcode', path:'/book/loanByQrcode/:id', method:'loanByQrcode', type:'get'}
+		,{file:'./HistoryOfBook', path:'/post/addHistoryOfBook', method:'addHistoryOfBook', type:'post'}
+		
 	],
 
 }
