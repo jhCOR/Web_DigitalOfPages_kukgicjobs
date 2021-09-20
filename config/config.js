@@ -7,7 +7,7 @@ module.exports = {
 		,{file:'./book_schema', collection:'book', schemaName:'BookSchema', modelName:'BookModel'}
 		,{file:'./reservation_schema', collection:'reservation', schemaName:'ReservationSchema', modelName:'ReservationModel'}
 		,{file:'./applybook_schema', collection:'AppplyBook', schemaName:'AppplyBookSchema', modelName:'AppplyBookModel'}
-		,{file:'./post_schema', collection:'bookpost', schemaName:'BookPostSchema', modelName:'BookPostModel'}
+		,{file:'./history_schema', collection:'bookpost', schemaName:'BookPostSchema', modelName:'BookPostModel'}
 	],
 	route_info: [
 
@@ -34,7 +34,10 @@ module.exports = {
 		,{file:'./user', path:'/userRequest/deleteUser', method:'deleteUser', type:'post'}
 		,{file:'./user', path:'/user/acceptAdminRequest/:id', method:'acceptAdminRequest', type:'get'}
 		,{file:'./showQRcode', path:'/book/loanByQrcode/:id', method:'loanByQrcode', type:'get'}
+		
 		,{file:'./HistoryOfBook', path:'/post/addHistoryOfBook', method:'addHistoryOfBook', type:'post'}
+		,{file:'./HistoryOfBook', path:'/post/addHistoryOfBook/:id', method:'addHistoryOfBook', type:'get'}
+		,{file:'./HistoryOfBook', path:'/historyofbook', method:'listHistoryOfBook', type:'get'}
 		
 	],
 

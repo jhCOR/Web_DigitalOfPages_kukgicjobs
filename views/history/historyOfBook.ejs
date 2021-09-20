@@ -136,7 +136,7 @@
 				<br>
 
 							<%if(post){%>
-								<a class="ui button" href="/public/index.html">Home</a>
+								<a class="ui button" href="/">Home</a>
 							<%}else{%>
 									<input class="ui submit button" type="submit" value="저장" name="" onclick="submitContents()" />
 						<input class="ui button" type="button" value="취소" name="" onclick="javascript:history.back()" />
@@ -146,16 +146,9 @@
 				</section>
 
 			<!-- Footer -->
-				<footer id="footer">
-					<ul class="icons">
 
-							<li><a href="https://github.com/jhCOR?tab=repositories" class="icon brands fa-github"><span class="label">Github</span></a></li>
+			<% include ../footer.ejs %>
 
-					</ul>
-					<ul class="copyright">
-						<li>&copy; Digital Of Pages. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
-					</ul>
-				</footer>
 
 		</div>
 	</div>

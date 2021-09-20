@@ -58,7 +58,7 @@
 											<li><a class="btn btn-default" href='/user/requestlist?page=0&perPage=2'>관리자 요청 계정 리스트</a></li>
 											<li><a class="btn btn-default" href='/views/addbook.ejs'>도서등록</a></li>
 											<li><a class="btn btn-default" href='/views/applyNewBook.ejs'>도서신청</a></li>
-											<li><a class="btn btn-default" href='/views/bookHistoryGallery.ejs'>독서 발자취</a></li>
+											<li><a class="btn btn-default" href='/historyofbook?page=0&perPage=2'>독서 발자취</a></li>
 											
 										</ul>
 									</li>
@@ -185,16 +185,10 @@
 				</section>
 
 			<!-- Footer -->
-				<footer id="footer">
-					<ul class="icons">
 
-						<li><a href="https://github.com/jhCOR?tab=repositories" class="icon brands fa-github"><span class="label">Github</span></a></li>
-	
-					</ul>
-					<ul class="copyright">
-						<li>&copy; Digital Of Pages. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
-					</ul>
-				</footer>
+			<!-- Footer -->
+			<% include ./footer.ejs %>
+
 
 		</div>
 
