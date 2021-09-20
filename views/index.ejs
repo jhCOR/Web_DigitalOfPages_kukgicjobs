@@ -10,6 +10,20 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="/public/assets/css/main.css" />
+	<script>
+		window.onload=function(){
+		var response = window.matchMedia("(min-width: 430px)");
+
+		if (response.matches) {
+			console.log("화면의 너비가 768px 보다 큽니다.");
+		} else {
+			
+			document.getElementById("responsible").style.display="none";
+			console.log("화면의 너비가 768px 보다 작습니다..");
+		}
+		}
+
+</script>
 	</head>
 	<body class="landing is-preload">
 		<div id="page-wrapper">
@@ -32,7 +46,7 @@
 				</section>
 
 			<!-- Main -->
-				<section id="main" class="container">
+				<section id="main" class="container ">
 
 					<section class="box special">
 						<header class="major">
@@ -44,7 +58,7 @@
 						<span class="image featured"><img src="images/book.png" alt="" /></span>
 					</section>
 
-					<section class="box special features">
+					<section id="responsible" class="box special features">
 						<div class="features-row">
 							<section>
 								<span class="icon solid major fa-bolt accent2"></span>

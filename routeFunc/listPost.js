@@ -53,7 +53,7 @@ var listPostFun=(req,res)=>{
 					currentPage=context.page;
 					body=context;
 					//console.log('요청 파라미터(currentPage) ------> ' +currentPage);
-				printer.rendering(req,res,'listbook.ejs',context);				
+				printer.rendering(req,res,'lists/listbook.ejs',context);				
 
 					
 				});
