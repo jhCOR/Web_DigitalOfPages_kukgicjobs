@@ -70,6 +70,7 @@ contact us 미완성 gmail 등 메일링 시스템 구현
 
 김정호 :  
 - customizing frontend template  
+  
 양재훈 :  
 - customizing frontend template  
 
