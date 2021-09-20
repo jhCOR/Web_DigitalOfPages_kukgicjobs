@@ -61,7 +61,7 @@ var addHistoryOfBook = (req, res)=> {//네이버 api 이용해서 책을 찾은 
 				}
 				var content={post:post}	
 			   
-				printer.rendering(req,res,'historyOfBook.ejs',content);	
+				printer.rendering(req,res,'history/historyOfBook.ejs',content);	
 
 			});
 			

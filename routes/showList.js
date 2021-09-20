@@ -75,7 +75,7 @@ var listapplybook = function (req, res) {
                         size: paramPerPage,
                     };
 
-                    printer.rendering(req, res, 'listApplyBook', context);
+                    printer.rendering(req, res, 'lists/listApplyBook', context);
                 });
             } else {
                 res.writeHead('200', { 'Content-Type': 'text/html;charset=utf8' });
@@ -129,7 +129,7 @@ var requestlist = function (req, res) {
                     size: paramPerPage,
                 };
 
-                printer.rendering(req, res, 'listAdminRequest', context);
+                printer.rendering(req, res, 'lists/listAdminRequest', context);
             } else {
                 res.writeHead('200', { 'Content-Type': 'text/html;charset=utf8' });
                 res.write('<h2>글 목록 조회  실패</h2>');

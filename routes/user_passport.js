@@ -53,7 +53,7 @@ module.exports = function (router, passport) {
     // });
 
     router.route('/addhistory').get(function (req, res) {
-        res.render('historyOfBook.ejs', { writer: req.user.email, post: null });
+        res.render('history/historyOfBook.ejs', { writer: req.user.email, post: null });
     });
 
     router.route('/views/bookHistoryGallery.ejs').get(function (req, res) {
@@ -71,7 +71,7 @@ module.exports = function (router, passport) {
                     return;
                 }
 
-                res.render('bookHistoryGallery.ejs', { login_success: true, posts: results });
+                res.render('history/bookHistoryGallery.ejs', { login_success: true, posts: results });
             });
         } else {
             // printer.errrendering(res);

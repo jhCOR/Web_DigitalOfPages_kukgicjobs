@@ -172,7 +172,7 @@ var searchGroup = (req, res) => {
     const search = req.body.search || req.query.search;
     const paramPerPage = 8;
 
-    let page = 'listGroup';
+    let page = 'lists/listGroup';
 
     if (search) {
         var option = { group: new RegExp(search) };
