@@ -38,7 +38,5 @@ module.exports = {
 		,{file:'./HistoryOfBook', path:'/post/addHistoryOfBook', method:'addHistoryOfBook', type:'post'}
 		,{file:'./HistoryOfBook', path:'/post/addHistoryOfBook/:id', method:'addHistoryOfBook', type:'get'}
 		,{file:'./HistoryOfBook', path:'/historyofbook', method:'listHistoryOfBook', type:'get'}
-		
 	],
-
-}
+};
