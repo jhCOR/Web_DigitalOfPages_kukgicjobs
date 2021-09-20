@@ -68,8 +68,8 @@ contact us 미완성 gmail 등 메일링 시스템 구현
 안드로이드 스튜디오 개발(메모장 어플,퀴즈&설문어플등)
 플러터(간단한 수준), 인공지능(스타일 트렌스퍼 등을 적용해 프로필 사진에 변화를 주어 신선한 느낌을 줘 볼 수 있음, 사용 결정시 바로 적용 가능)
 
-김정호 : 
-양재훈 : frontend template customizing
+김정호 : customizing frontend template  
+양재훈 : customizing frontend template  
 
 추가 고려 사항
 도메인 구입(약자인 dop는 대부분 구입 불가)
