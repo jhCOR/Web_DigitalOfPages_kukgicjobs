@@ -75,6 +75,8 @@ contact us 미완성 gmail 등 메일링 시스템 구현
   
 양재훈 :  
 - customizing frontend template  
+  - dashboard/app
+  - dashboard/user
 
 **추가 고려 사항**
 도메인 구입(약자인 dop는 대부분 구입 불가)
