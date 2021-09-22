@@ -76,6 +76,8 @@ contact us 미완성 gmail 등 메일링 시스템 구현
   - components/dashboard/product
   - pages/Blog
   - pages/Products
+  - _mocks_/blog
+  - _mocks_/products
   
 양재훈 :  
 - customizing frontend template  
