@@ -64,7 +64,7 @@ contact us 미완성 gmail 등 메일링 시스템 구현
 관리자 페이지 새로 만들기(통계 화면이나 공지사항등 업로드)
 메인화면에 컨텐츠가 적고 의미없는 소개가 너무 많음
 
-**추가할 수 있는 역량** 
+**추가할 수 있는 역량**  
 정지혁 :  
 - 게시판 기능(이미지 본문삽입,댓글 대댓글 등)
 안드로이드 스튜디오 개발(메모장 어플,퀴즈&설문어플등)
@@ -72,6 +72,10 @@ contact us 미완성 gmail 등 메일링 시스템 구현
 
 김정호 :  
 - customizing frontend template  
+  - components/dashboard/blog
+  - components/dashboard/product
+  - pages/Blog
+  - pages/Products
   
 양재훈 :  
 - customizing frontend template  
