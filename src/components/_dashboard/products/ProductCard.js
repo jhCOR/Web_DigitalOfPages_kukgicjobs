@@ -11,7 +11,6 @@ import { /*fCurrency,*/ fNumber } from '../../../utils/formatNumber';
 import Label from '../../Label';
 // import ColorPreview from '../../ColorPreview';
 import * as React from 'react';
-import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import EditIcon from '@mui/icons-material/Edit';
@@ -86,7 +85,7 @@ ShopProductCard.propTypes = {
 };
 
 export default function ShopProductCard({ product, index }) {
-	const { name, cover, colors, status, genres, personalScore } = product;
+	const { name, cover, status, genres, personalScore } = product;
 	const [anchorEl, setAnchorEl] = React.useState(null);
 	const open = Boolean(anchorEl);
 	const handleClick = (event) => {

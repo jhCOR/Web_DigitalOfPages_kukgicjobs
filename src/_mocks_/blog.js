@@ -37,7 +37,7 @@ const posts = [...Array(24)].map((_, index) => ({
 	title: POST_TITLES[index],
 	createdAt: faker.date.past(),
 	view: faker.datatype.number(),
-	comment: faker.random.number({ min: 0, max: 100.0 }),
+	comment: faker.datatype.number({ min: 0, max: 100.0 }),
 	share: faker.datatype.number(),
 	favorite: faker.datatype.number(),
 	author: {
@@ -45,7 +45,7 @@ const posts = [...Array(24)].map((_, index) => ({
 		avatarUrl: `/static/mock-images/avatars/avatar_${index + 1}.jpg`,
 	},
 	genres: ['Classic', 'Drama', 'Fairytale', 'History', 'Horror'],
-	score: faker.random.number({ min: 0.0, max: 10.0, precision: 0.01 }),
+	score: faker.datatype.number({ min: 0.0, max: 10.0, precision: 0.01 }),
 }));
 
 export default posts;

@@ -9,7 +9,7 @@ import starOutline from '@iconify/icons-eva/star-outline';
 import { alpha, styled } from '@mui/material/styles';
 import { Box, Link, Card, Grid, Avatar, Typography, CardContent } from '@mui/material';
 // utils
-import { fDate } from '../../../utils/formatTime';
+// import { fDate } from '../../../utils/formatTime';
 import { fShortenNumber } from '../../../utils/formatNumber';
 //
 import SvgIconStyle from '../../SvgIconStyle';
@@ -62,7 +62,7 @@ BlogPostCard.propTypes = {
 };
 
 export default function BlogPostCard({ post, index }) {
-	const { cover, title, view, comment, share, author, createdAt, genres, score } = post;
+	const { cover, title, view, comment, author, genres, score } = post;
 	const latestPostLarge = false;// index === 0;
 	const latestPost = false;// index === 1 || index === 2;
 
