@@ -30,7 +30,7 @@ const POST_TITLES = [
 	'Here’s a Dyson motorcycle concept that doesn’t ‘suck’!',
 	'How to Animate a SVG with border-image',
 ];
-
+const genres = ['Classic', 'Drama', 'Fairytale', 'History', 'Horror'];
 const posts = [...Array(24)].map((_, index) => ({
 	id: faker.datatype.uuid(),
 	cover: /*'https://source.unsplash.com/random'*/mockImgCover(index + 1),
@@ -44,7 +44,7 @@ const posts = [...Array(24)].map((_, index) => ({
 		name: faker.name.findName(),
 		avatarUrl: `/static/mock-images/avatars/avatar_${index + 1}.jpg`,
 	},
-	genres: ['Classic', 'Drama', 'Fairytale', 'History', 'Horror'],
+	genres: genres[Math.floor(Math.random() * genres.length)],
 	score: faker.datatype.number({ min: 0.0, max: 10.0, precision: 0.01 }),
 }));
 

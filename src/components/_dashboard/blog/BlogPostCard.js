@@ -62,16 +62,16 @@ BlogPostCard.propTypes = {
 };
 
 export default function BlogPostCard({ post, index }) {
-	const { cover, title, view, comment, author, genres, score } = post;
-	const latestPostLarge = false;// index === 0;
-	const latestPost = false;// index === 1 || index === 2;
+	const { id, cover, title, view, comment, author, genres, score } = post;
+	const latestPostLarge = false; // index === 0;
+	const latestPost = false; // index === 1 || index === 2;
 
 	const POST_INFO = [
 		{ number: comment, icon: messageCircleFill },
 		{ number: view, icon: eyeFill },
 		{ number: score, icon: starOutline },
 	];
-	
+
 	return (
 		<Grid item xs={12} sm={latestPostLarge ? 12 : 6} md={latestPostLarge ? 6 : 3}>
 			<Card sx={{ position: 'relative' }}>
@@ -140,7 +140,7 @@ export default function BlogPostCard({ post, index }) {
 						variant="caption"
 						sx={{ color: 'text.disabled', display: 'block' }}
 					>
-						{genres[Math.floor(Math.random() * genres.length)]}
+						{genres}
 					</Typography>
 
 					<TitleStyle
@@ -149,6 +149,7 @@ export default function BlogPostCard({ post, index }) {
 						variant="subtitle2"
 						underline="hover"
 						component={RouterLink}
+						to={`/dashboard/detail/${id}`}
 						sx={{
 							...(latestPostLarge && { typography: 'h5', height: 60 }),
 							...((latestPostLarge || latestPost) && {
@@ -188,3 +189,5 @@ export default function BlogPostCard({ post, index }) {
 		</Grid>
 	);
 }
+
+// <Link to={`/${id}`}></Link>

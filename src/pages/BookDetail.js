@@ -1,11 +1,12 @@
 import { Icon } from '@iconify/react';
 import plusFill from '@iconify/icons-eva/plus-fill';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useParams } from 'react-router-dom';
 // material
 import { Grid, Button, Container, Stack, Typography } from '@mui/material';
 // components
 import Page from '../components/Page';
-import { BlogPostCard, BlogPostsSort, BlogPostsSearch } from '../components/_dashboard/blog';
+import { BlogPostCard, BlogPostsSort, BlogPostsSearch, } from '../components/_dashboard/blog';
+import DetailContainer from '../components/_dashboard/detail/DetailContainer';
 //
 import POSTS from '../_mocks_/blog';
 
@@ -19,13 +20,18 @@ const SORT_OPTIONS = [
 
 // ----------------------------------------------------------------------
 
-export default function Blog() {
+export default function BookDetail() {
+	const { id } = useParams();
+	console.log(id, typeof id)
+	const bookInfo = POSTS.filter(book => book.id == id);
+	console.log(bookInfo);
+	
 	return (
 		<Page title="Dashboard: Library">
 			<Container>
 				<Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
 					<Typography variant="h4" gutterBottom>
-						Books
+						Details
 					</Typography>
 					<Button
 						variant="contained"
@@ -33,20 +39,11 @@ export default function Blog() {
 						to="#"
 						startIcon={<Icon icon={plusFill} />}
 					>
-						도서 신청
+						대출 신청
 					</Button>
 				</Stack>
 
-				<Stack mb={5} direction="row" alignItems="center" justifyContent="space-between">
-					<BlogPostsSearch />
-					<BlogPostsSort options={SORT_OPTIONS} />
-				</Stack>
-
-				<Grid container spacing={3}>
-					{POSTS.map((post, index) => (
-						<BlogPostCard key={post.id} post={post} index={index} />
-					))}
-				</Grid>
+				<DetailContainer book={bookInfo[0]} ></DetailContainer>
 			</Container>
 		</Page>
 	);
