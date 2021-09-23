@@ -13,6 +13,7 @@
   - pages/Products
   - _mocks_/blog
   - _mocks_/products
+  - src/layouts/dashboard/DashboardSidebar (edit to remove ad)
   
 양재훈 :  
 - customizing frontend template  
