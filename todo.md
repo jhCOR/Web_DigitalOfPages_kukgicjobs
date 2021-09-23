@@ -14,6 +14,10 @@
   - _mocks_/blog
   - _mocks_/products
   - src/layouts/dashboard/DashboardSidebar (edit to remove ad)
+  - src/routes
+- add files(related to book details)
+  - src/components/_dashboard/detail/
+  - src/pages/BookDetail
   
 양재훈 :  
 - customizing frontend template  
