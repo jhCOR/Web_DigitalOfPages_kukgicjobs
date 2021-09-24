@@ -70,7 +70,7 @@ export default function Blog() {
 				</Stack>
 
 				{formInput.length > 0 ? (
-					<BookList />
+					<BookList formInput={formInput}/>
 				) : (
 					<Grid container spacing={3}>
 						{POSTS.map((post, index) => (

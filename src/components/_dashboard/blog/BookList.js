@@ -1,4 +1,6 @@
 import * as React from 'react';
+import PropTypes from 'prop-types';
+// material
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import Divider from '@mui/material/Divider';
@@ -7,7 +9,11 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 
-export default function AlignItemsList() {
+BookList.propTypes = {
+	formInput: PropTypes.string.isRequired,
+};
+
+export default function BookList({ formInput }) {
   return (
     <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
       <ListItem alignItems="flex-start">
@@ -24,7 +30,7 @@ export default function AlignItemsList() {
                 variant="body2"
                 color="text.primary"
               >
-                Ali Connors
+                {formInput}
               </Typography>
               {" — I'll be in your neighborhood doing errands this…"}
             </React.Fragment>
