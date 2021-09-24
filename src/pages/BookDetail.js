@@ -2,28 +2,20 @@ import { Icon } from '@iconify/react';
 import plusFill from '@iconify/icons-eva/plus-fill';
 import { Link as RouterLink, useParams } from 'react-router-dom';
 // material
-import { Grid, Button, Container, Stack, Typography } from '@mui/material';
+import { Button, Container, Stack, Typography } from '@mui/material';
 // components
 import Page from '../components/Page';
-import { BlogPostCard, BlogPostsSort, BlogPostsSearch, } from '../components/_dashboard/blog';
+// import { BlogPostCard, BlogPostsSort, BooksSearch, } from '../components/_dashboard/blog';
 import DetailContainer from '../components/_dashboard/detail/DetailContainer';
 //
 import POSTS from '../_mocks_/blog';
 
 // ----------------------------------------------------------------------
 
-const SORT_OPTIONS = [
-	{ value: 'latest', label: 'Latest' },
-	{ value: 'popular', label: 'Popular' },
-	{ value: 'oldest', label: 'Oldest' },
-];
-
-// ----------------------------------------------------------------------
-
 export default function BookDetail() {
 	const { id } = useParams();
 	console.log(id, typeof id)
-	const bookInfo = POSTS.filter(book => book.id == id);
+	const bookInfo = POSTS.filter(book => book.id === id);
 	console.log(bookInfo);
 	
 	return (

@@ -1,13 +1,13 @@
 import PropTypes from 'prop-types';
 // material
-import { Paper, Typography, Container } from '@mui/material';
-import { alpha, styled } from '@mui/material/styles';
+import { Typography, Container } from '@mui/material';
+import { styled } from '@mui/material/styles';
 
 // ----------------------------------------------------------------------
 
-const DetailBox = styled(Container)({
-	display: 'flex',
-});
+// const DetailBox = styled(Container)({
+// 	display: 'flex',
+// });
 
 const BookInfo = styled(Typography)({
 	position: 'absolute',

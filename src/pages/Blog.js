@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from 'react';
 import { Icon } from '@iconify/react';
 import plusFill from '@iconify/icons-eva/plus-fill';
 import { Link as RouterLink } from 'react-router-dom';
@@ -5,7 +6,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import { Grid, Button, Container, Stack, Typography } from '@mui/material';
 // components
 import Page from '../components/Page';
-import { BlogPostCard, BlogPostsSort, BlogPostsSearch } from '../components/_dashboard/blog';
+import { BlogPostCard, BlogPostsSort, BooksSearch, BookList } from '../components/_dashboard/blog';
 //
 import POSTS from '../_mocks_/blog';
 
@@ -20,6 +21,32 @@ const SORT_OPTIONS = [
 // ----------------------------------------------------------------------
 
 export default function Blog() {
+	const [formInput, setFormInput] = useState('');
+
+	const handleSubmit = (event) => {
+		// console.log(`formInput ::: ${formInput}`);
+		
+		// backend 연결 시 작성 예정
+		// fetch('to backend api', {
+		// 	method: 'POST',
+		// 	body: data,
+		// 	headers: {
+		// 		'Content-Type': 'application/json',
+		// 	},
+		// })
+		// 	.then((response) => response.json())
+		// 	.then((response) => console.log('Success:', JSON.stringify(response)))
+		// 	.catch((error) => console.error('Error:', error));
+	};
+
+	const handleInput = (event) => {
+		setFormInput(event.target.value);
+	};
+
+	useEffect(() => {
+		return formInput.length > 0 ? handleSubmit(formInput) : null;
+	}, [formInput]);
+
 	return (
 		<Page title="Dashboard: Library">
 			<Container>
@@ -38,15 +65,19 @@ export default function Blog() {
 				</Stack>
 
 				<Stack mb={5} direction="row" alignItems="center" justifyContent="space-between">
-					<BlogPostsSearch />
+					<BooksSearch formInput={formInput} onFormInput={handleInput} />
 					<BlogPostsSort options={SORT_OPTIONS} />
 				</Stack>
 
-				<Grid container spacing={3}>
-					{POSTS.map((post, index) => (
-						<BlogPostCard key={post.id} post={post} index={index} />
-					))}
-				</Grid>
+				{formInput.length > 0 ? (
+					<BookList />
+				) : (
+					<Grid container spacing={3}>
+						{POSTS.map((post, index) => (
+							<BlogPostCard key={post.id} post={post} index={index} />
+						))}
+					</Grid>
+				)}
 			</Container>
 		</Page>
 	);
