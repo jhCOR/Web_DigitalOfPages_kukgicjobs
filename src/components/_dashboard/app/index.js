@@ -10,3 +10,5 @@ export { default as AppTasks } from './AppTasks';
 export { default as AppTrafficBySite } from './AppTrafficBySite';
 export { default as AppWebsiteVisits } from './AppWebsiteVisits';
 export { default as AppWeeklySales } from './AppWeeklySales';
+export { default as AppBookHistory } from './AppBookHistory';
+export { default as AppTodayBook } from './AppTodayBook';
