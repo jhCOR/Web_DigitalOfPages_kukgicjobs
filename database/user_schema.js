@@ -25,6 +25,7 @@ Schema.createSchema = function (mongoose) {
 		updated_at: { type: Date, index: { unique: false }, default: Date.now },
 		provider: { type: String, default: '' },
 		authToken: { type: String, default: '' },
+		PreviousPage: { type: String, default: '0' },
 	});
 
 	// password를 virtual 메소드로 정의 : MongoDB에 저장되지 않는 편리한 속성임. 특정 속성을 지정하고 set, get 메소드를 정의함

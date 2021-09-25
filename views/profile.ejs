@@ -14,6 +14,25 @@
 		/>
 		<link rel="stylesheet" href="/public/assets/css/main.css" />
 		<title>Profile</title>
+		<script>
+			function modify(){
+			   if(document.getElementById("modifyId").readOnly==true){
+				   document.getElementById("modifyId").readOnly=false;
+				   document.getElementById("modifyButton").style.display="none"
+				   if(document.getElementById("modifyButton2").style.display=="none")
+				   document.getElementById("modifyButton2").style.display="block"
+			   }
+		   else{
+			   document.getElementById("modifyId").readOnly=true;
+			   document.getElementById("modifyButton").style.display="block"
+			   if(document.getElementById("modifyButton2").style.display=="block")
+				   document.getElementById("modifyButton2").style.display="none"
+		   }
+		   
+			}
+			   
+	   
+	   </script>
 	</head>
 	<body>
 		<header id="header" class="alt">
@@ -31,7 +50,7 @@
 							<li><a href="generic.html">ABOUT US</a></li>
 							<li><a href="contact.html">Contact</a></li>
 
-							<li><a href="/views/myPage.ejs">My Page</a></li>
+							<li><a href="/views/myPage">My Page</a></li>
 
 							<li>
 								<a href="#">Submenu</a>
@@ -83,12 +102,16 @@
 					</div>
 					<div class="col-md-8">
 						<div class="card-body">
-							<h2 class="card-title"><%= user.name %></h2>
+							<h2 class="card-title"><form class="btn btn-default btn-sm"  method="post" action="/user/modifyUser">
+								<input type="text" id="modifyId" readonly name="idmodify" value="<%= user.name %>">
+								<input type="button" id="modifyButton" style="float:right;" value="수정" onclick="modify()" />
+								<input type="submit" id="modifyButton2"  style="float:right; display:none;" value="완료" onclick="modify()" />
+							</form></h2>
 							<p class="card-text">소속 부대: <strong><%= user.group %></strong></p>
 							<p class="card-text">
 								<small class="text-muted"
 									>총 대출 권 수 :
-									<span class="badge badge-pill badge-success">0</span></small
+									<span class="badge badge-pill badge-success" onclick="javascript:window.location='/views/myPage'"><%=user.reservationlist.length%></span></small
 								>
 							</p>
 						</div>
@@ -96,48 +119,13 @@
 				</div>
 			</div>
 		</div>
-		<div class="container mt-4">
-			<div class="list-group list-group-horizontal">
-				<% for (var i = 0; i < 3/*user.mybooklist.length*/; i++) { %>
-				<div class="card" style="width: 18rem;">
-					<img
-						src="https://source.unsplash.com/random"
-						class="card-img-top"
-						alt="..."
-						style="height: 15rem;"
-					/>
-					<div class="card-body">
-						<h5 class="card-title">Book title</h5>
-						<p class="card-text">
-							Some quick example text to build on the card title and make up the bulk
-							of the card's content.
-						</p>
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							width="16"
-							height="16"
-							fill="currentColor"
-							class="bi bi-share"
-							viewBox="0 0 16 16"
-							style="margin-right: 12px;"
-						>
-							<path
-								d="M13.5 1a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.499 2.499 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5zm-8.5 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm11 5.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z"
-							/>
-						</svg>
-						<a href="#" class="btn btn-primary">Go Details</a>
-					</div>
-				</div>
-
-				<% } %>
-			</div>
-		</div>
+		
 		<br />
 		<button
 			type="button"
 			class="btn btn-outline-secondary mt-2"
 			onclick="location.href='/'"
-			style=""
+			
 		>
 			Home
 		</button>

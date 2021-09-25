@@ -8,13 +8,15 @@ module.exports = {
 		,{file:'./reservation_schema', collection:'reservation', schemaName:'ReservationSchema', modelName:'ReservationModel'}
 		,{file:'./applybook_schema', collection:'AppplyBook', schemaName:'AppplyBookSchema', modelName:'AppplyBookModel'}
 		,{file:'./history_schema', collection:'bookpost', schemaName:'BookPostSchema', modelName:'BookPostModel'}
+		,{file:'./announcement_schema', collection:'announcement', schemaName:'AnnouncementSchema', modelName:'AnnouncementModel'}
 	],
 	route_info: [
 
 		{file:'./showList', path:'/book/listpost', method:'listpost', type:'get'}
-		,{file:'./showList', path:'/views/myPage.ejs', method:'reservationList', type:'get'}
+		,{file:'./showList', path:'/views/myPage', method:'reservationList', type:'get'}
 		,{file:'./showList', path:'/book/listapplybook', method:'listapplybook', type:'get'}
 		,{file:'./showList', path:'/user/requestlist', method:'requestlist', type:'get'}
+		,{file:'./showList', path:'/dev/announcement', method:'devAnnouncement', type:'get'}
 		
 		,{file:'./book', path:'/book/addbook', method:'addbook', type:'post'}
 		,{file:'./book', path:'/book/showbook/:id', method:'showbook', type:'get'}
@@ -38,5 +40,9 @@ module.exports = {
 		,{file:'./HistoryOfBook', path:'/post/addHistoryOfBook', method:'addHistoryOfBook', type:'post'}
 		,{file:'./HistoryOfBook', path:'/post/addHistoryOfBook/:id', method:'addHistoryOfBook', type:'get'}
 		,{file:'./HistoryOfBook', path:'/historyofbook', method:'listHistoryOfBook', type:'get'}
+
+		,{file:'./showAnnouncement', path:'/announce/show/:id', method:'showAnnounceFun', type:'get'}
+		,{file:'./announcement', path:'/dev/addAnnouncement', method:'addAnnounceFun', type:'post'}
+		
 	],
 };

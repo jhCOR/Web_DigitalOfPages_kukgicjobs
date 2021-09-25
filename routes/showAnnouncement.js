@@ -2,20 +2,21 @@ var Entities = require('html-entities').AllHtmlEntities;
 
 var saver = require("../utils/saver");
 var printer = require("../utils/printer");
-var showBookFun=(req,res)=>{
+
+var showAnnounceFun=(req,res)=>{
 	// URL 파라미터로 전달됨
 	var paramId = req.body.id || req.query.id || req.params.id;
 	currentId = paramId;
 	var login = req.isAuthenticated();
     var userEmail=req.user.email;
-	
+	console.log('showAnnounceFun실행중');
 	var database = req.app.get('database');
 	if(req.isAuthenticated()){
 		// 데이터베이스 객체가 초기화된 경우
 		if (database.db) {
 			// 1. 글 리스트
 
-			database.BookModel.load(paramId, function (err, results) {
+			database.AnnouncementModel.load(paramId, function (err, results) {
 
 				if (err) {
 					console.log('error');
@@ -25,24 +26,9 @@ var showBookFun=(req,res)=>{
 
 					return;
 				}
-				if(results.writer==null){results.writer={email:'none',name:'none'};
-			}else if(results.writer.email==null){
-				results.writer={email:'none',name:'none'}
-			}
+			
 				if (results) {
 
-					database.BookModel.incrHits(results._doc._id, function (err2, results2) {
-						console.log('incrHits executed.');
-
-						if (err2) {
-							console.log('incrHits 실행 중 에러 발생.');
-							console.dir(err2);
-							return;
-						}
-
-					});
-
-					//+
 					res.writeHead('200', { 'Content-Type': 'text/html;charset=utf8' });
 					if(results===null){
 						res.redirect('/');
@@ -50,20 +36,17 @@ var showBookFun=(req,res)=>{
 
 					// 뷰 템플레이트를 이용하여 렌더링한 후 전송
 					var context = {
-						title: '글 조회 ',
+						title: '공지사항',
 						posts: results,
 						page: req.user.PreviousPage,
 						login_success: login,
 						user:userEmail,
 						Entities: Entities
 					};
-					console.log("num:"+results.num);
+					console.log("num:"+results);
 					body = context;
 
-					database.UserModel.load(userEmail, function(err, results) {
-						printer.rendering(req,res,'showbook.ejs',context);			
-
-					});
+					printer.rendering(req,res,'showAnnouncement.ejs',context);	
 				} else {
 					res.writeHead('200', { 'Content-Type': 'text/html;charset=utf8' });
 					res.write('<h2>글 조회  실패</h2>');
@@ -80,4 +63,4 @@ var showBookFun=(req,res)=>{
 	
 	}
 }
-module.exports.showBookFun = showBookFun;
+module.exports.showAnnounceFun = showAnnounceFun;

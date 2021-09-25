@@ -55,39 +55,7 @@
 
 		<div id="page-wrapper">
 
-			<!-- Header -->
-				<header id="header">
-					<h1><a href="/public/index.html">Digital Of Pages</a> by 국직 잡스</h1>
-					<nav id="nav">
-						<ul>
-							<li><a href="/public/index.html">Home</a></li>
-							<li>
-								<a href="#" class="icon solid fa-angle-down">Layouts</a>
-								<ul>
-											<li><a href="generic.html">ABOUT US</a></li>
-									<li><a href="contact.html">Contact</a></li>
-									
-									<li><a href="/logout" class="btn btn-default">Logout</a> </li>
-									<li>
-										<a href="#">Submenu</a>
-										<ul>
-
-											<li><a href="/profile">프로필</a> </li>
-											
-											<li><a href='/book/listpost?page=0&perPage=2'>도서목록</a></li>
-											<li><a  href='/book/listapplybook?page=0&perPage=2'>신청도서목록</a></li>
-											<li><a class="btn btn-default" href='/user/requestlist?page=0&perPage=2'>관리자 요청 계정 리스트</a></li>
-											<li><a class="btn btn-default" href='/views/addbook.ejs'>도서등록</a></li>
-											<li><a class="btn btn-default" href='/views/applyNewBook.ejs'>도서신청</a></li>
-											<li><a class="btn btn-default" href='/views/myPage.ejs'>마이페이지</a></li>
-										</ul>
-									</li>
-								</ul>
-							</li>
-							
-						</ul>
-					</nav>
-				</header>
+			<% include ./header.ejs %>
 
 			<!-- Main -->
 				<section id="main" class="container">

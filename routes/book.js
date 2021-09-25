@@ -103,7 +103,7 @@ var giveBack = function (req, res) {
             );
         });
 
-        res.redirect('/views/myPage.ejs');
+        res.redirect('/views/myPage');
     } else {
         res.writeHead('200', { 'Content-Type': 'text/html;charset=utf8' });
         res.write('<h2>데이터베이스 연결 실패</h2>');
