@@ -18,7 +18,7 @@ var expressSession = require('express-session');
 //===== Passport 사용 =====//
 var passport = require('passport');
 var flash = require('connect-flash');
-
+require('dotenv').config();
 // 모듈로 분리한 설정 파일 불러오기
 var config = require('./config/config');
 
