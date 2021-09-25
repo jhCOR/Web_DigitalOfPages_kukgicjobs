@@ -10,8 +10,8 @@ const users = [...Array(24)].map((_, index) => ({
   avatarUrl: mockImgAvatar(index + 1),
   name: faker.name.findName(),
   company: faker.company.companyName(),
-  isVerified: faker.datatype.boolean(),
-  status: sample(['active', 'banned']),
+  isVerified: faker.datatype.boolean() / 100,
+  amount: faker.datatype.number(),
   role: sample([
     'Leader',
     'Hr Manager',

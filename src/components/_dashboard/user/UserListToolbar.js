@@ -47,14 +47,7 @@ UserListToolbar.propTypes = {
 
 export default function UserListToolbar({ numSelected, filterName, onFilterName }) {
   return (
-    <RootStyle
-      sx={{
-        ...(numSelected > 0 && {
-          color: 'primary.main',
-          bgcolor: 'primary.lighter'
-        })
-      }}
-    >
+    <RootStyle>
       {numSelected > 0 ? (
         <Typography component="div" variant="subtitle1">
           {numSelected} selected
@@ -88,3 +81,11 @@ export default function UserListToolbar({ numSelected, filterName, onFilterName 
     </RootStyle>
   );
 }
+// <RootStyle
+//   sx={{
+//     ...(numSelected > 0 && {
+//       color: 'primary.main',
+//       bgcolor: 'primary.lighter'
+//     })
+//   }}
+// >

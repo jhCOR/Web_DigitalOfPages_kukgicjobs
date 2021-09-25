@@ -1,8 +1,8 @@
 import { filter } from 'lodash';
 import { Icon } from '@iconify/react';
-import { sentenceCase } from 'change-case';
+// import { sentenceCase } from 'change-case';
 import { useState } from 'react';
-import plusFill from '@iconify/icons-eva/plus-fill';
+// import plusFill from '@iconify/icons-eva/plus-fill';
 import { Link as RouterLink } from 'react-router-dom';
 // material
 import {
@@ -32,11 +32,12 @@ import USERLIST from '../_mocks_/user';
 // ----------------------------------------------------------------------
 
 const TABLE_HEAD = [
+    { id: 'rank', label: 'Rank', alignRight: false },
     { id: 'name', label: 'Name', alignRight: false },
     { id: 'company', label: 'Company', alignRight: false },
     { id: 'role', label: 'Role', alignRight: false },
     { id: 'isVerified', label: 'Verified', alignRight: false },
-    { id: 'status', label: 'Status', alignRight: false },
+    { id: 'amount', label: 'Amount', alignRight: false },
     { id: '' },
 ];
 
@@ -76,9 +77,9 @@ function applySortFilter(array, comparator, query) {
 
 export default function User() {
     const [page, setPage] = useState(0);
-    const [order, setOrder] = useState('asc');
+    const [order, setOrder] = useState('desc');
     const [selected, setSelected] = useState([]);
-    const [orderBy, setOrderBy] = useState('name');
+    const [orderBy, setOrderBy] = useState('amount');
     const [filterName, setFilterName] = useState('');
     const [rowsPerPage, setRowsPerPage] = useState(5);
 
@@ -86,33 +87,6 @@ export default function User() {
         const isAsc = orderBy === property && order === 'asc';
         setOrder(isAsc ? 'desc' : 'asc');
         setOrderBy(property);
-    };
-
-    const handleSelectAllClick = (event) => {
-        if (event.target.checked) {
-            const newSelecteds = USERLIST.map((n) => n.name);
-            setSelected(newSelecteds);
-            return;
-        }
-        setSelected([]);
-    };
-
-    const handleClick = (event, name) => {
-        const selectedIndex = selected.indexOf(name);
-        let newSelected = [];
-        if (selectedIndex === -1) {
-            newSelected = newSelected.concat(selected, name);
-        } else if (selectedIndex === 0) {
-            newSelected = newSelected.concat(selected.slice(1));
-        } else if (selectedIndex === selected.length - 1) {
-            newSelected = newSelected.concat(selected.slice(0, -1));
-        } else if (selectedIndex > 0) {
-            newSelected = newSelected.concat(
-                selected.slice(0, selectedIndex),
-                selected.slice(selectedIndex + 1)
-            );
-        }
-        setSelected(newSelected);
     };
 
     const handleChangePage = (event, newPage) => {
@@ -137,20 +111,9 @@ export default function User() {
     return (
         <Page title="User | Minimal-UI">
             <Container>
-                <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
-                    <Typography variant="h4" gutterBottom>
-                        User
-                    </Typography>
-                    <Button
-                        variant="contained"
-                        component={RouterLink}
-                        to="#"
-                        startIcon={<Icon icon={plusFill} />}
-                    >
-                        New User
-                    </Button>
-                </Stack>
-
+                <Typography variant="h4" gutterBottom>
+                    우리부대의 독서왕은?
+                </Typography>
                 <Card>
                     <UserListToolbar
                         numSelected={selected.length}
@@ -166,9 +129,8 @@ export default function User() {
                                     orderBy={orderBy}
                                     headLabel={TABLE_HEAD}
                                     rowCount={USERLIST.length}
-                                    numSelected={selected.length}
                                     onRequestSort={handleRequestSort}
-                                    onSelectAllClick={handleSelectAllClick}
+                                    // onSelectAllClick={handleSelectAllClick}
                                 />
                                 <TableBody>
                                     {filteredUsers
@@ -178,7 +140,7 @@ export default function User() {
                                                 id,
                                                 name,
                                                 role,
-                                                status,
+                                                amount,
                                                 company,
                                                 avatarUrl,
                                                 isVerified,
@@ -194,15 +156,10 @@ export default function User() {
                                                     selected={isItemSelected}
                                                     aria-checked={isItemSelected}
                                                 >
-                                                    <TableCell padding="checkbox">
-                                                        <Checkbox
-                                                            checked={isItemSelected}
-                                                            onChange={(event) =>
-                                                                handleClick(event, name)
-                                                            }
-                                                        />
+                                                    <TableCell align="left">
+                                                        {amount}
                                                     </TableCell>
-                                                    <TableCell
+                                                        <TableCell
                                                         component="th"
                                                         scope="row"
                                                         padding="none"
@@ -224,15 +181,7 @@ export default function User() {
                                                         {isVerified ? 'Yes' : 'No'}
                                                     </TableCell>
                                                     <TableCell align="left">
-                                                        <Label
-                                                            variant="ghost"
-                                                            color={
-                                                                (status === 'banned' && 'error') ||
-                                                                'success'
-                                                            }
-                                                        >
-                                                            {sentenceCase(status)}
-                                                        </Label>
+                                                        {amount}
                                                     </TableCell>
 
                                                     <TableCell align="right">
@@ -274,3 +223,43 @@ export default function User() {
         </Page>
     );
 }
+
+// <Button
+//     variant="contained"
+//     component={RouterLink}
+//     to="#"
+//     startIcon={<Icon icon={plusFill} />}
+//     >
+//     New User
+// </Button>
+// const handleSelectAllClick = (event) => {
+// if (event.target.checked) {
+// const newSelecteds = USERLIST.map((n) => n.name);
+// setSelected(newSelecteds);
+// return;
+// 
+//setSelected([]);
+// };
+// const handleClick = (event, name) => {
+//     const selectedIndex = selected.indexOf(name);
+//     let newSelected = [];
+//     if (selectedIndex === -1) {
+//         newSelected = newSelected.concat(selected, name);
+//     } else if (selectedIndex === 0) {
+//         newSelected = newSelected.concat(selected.slice(1));
+//     } else if (selectedIndex === selected.length - 1) {
+//         newSelected = newSelected.concat(selected.slice(0, -1));
+//     } else if (selectedIndex > 0) {
+//         newSelected = newSelected.concat(
+//             selected.slice(0, selectedIndex),
+//             selected.slice(selectedIndex + 1)
+//         );
+//     }
+//     setSelected(newSelected);
+// };
+// <Checkbox
+// checked={isItemSelected}
+// onChange={(event) =>
+//     handleClick(event, name)
+// }
+// />
