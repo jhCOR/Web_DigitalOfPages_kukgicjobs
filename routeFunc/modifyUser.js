@@ -2,7 +2,7 @@ var saver = require("../utils/saver");
 var printer = require("../utils/printer");
 
 var modifyFunc = (req, res)=>{
-	var paramWriter =req.body.email || req.query.email;
+	var paramWriter =req.user.email || req.user.email;
 	var writerName =req.body.idmodify || req.query.idmodify;
 	
 	var database = req.app.get('database');

@@ -47,11 +47,12 @@ var showBookFun=(req,res)=>{
 					if(results===null){
 						res.redirect('/');
 					}
+
 					// 뷰 템플레이트를 이용하여 렌더링한 후 전송
 					var context = {
 						title: '글 조회 ',
 						posts: results,
-						page: currentPage,
+						page: req.user.PreviousPage,
 						login_success: login,
 						user:userEmail,
 						Entities: Entities

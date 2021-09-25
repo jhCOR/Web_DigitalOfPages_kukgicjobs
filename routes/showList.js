@@ -28,7 +28,7 @@ var reservationList = function (req, res) {
             var context = {
                 posts: results,
             };
-
+                console.log(context);
             printer.rendering(req, res, 'myPage.ejs', context);
         });
     } else {
