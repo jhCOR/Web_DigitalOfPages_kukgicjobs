@@ -6,7 +6,7 @@
 플러터(간단한 수준), 인공지능(스타일 트렌스퍼 등을 적용해 프로필 사진에 변화를 주어 신선한 느낌을 줘 볼 수 있음, 사용 결정시 바로 적용 가능)  
   
 김정호 :  
-- customizing frontend template (branch blog_product)  
+- customizing frontend template (branch front/book)  
   - components/dashboard/blog
   - components/dashboard/product
   - pages/Blog
@@ -19,7 +19,7 @@
   - src/components/_dashboard/detail/
   - src/pages/BookDetail
   - src/components/_dashboard/blog/BookList  
-- draft를 이용한 editor 작업 시작
+- draft를 이용한 editor 작업 시작 (branch front/editor)
   - src/pages/Editor  
 ```
 npm install --save react-draft-wysiwyg draft-js
