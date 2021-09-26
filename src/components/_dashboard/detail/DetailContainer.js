@@ -9,24 +9,44 @@ import { styled } from '@mui/material/styles';
 // 	display: 'flex',
 // });
 
-const BookInfo = styled(Typography)({
-	position: 'absolute',
-	right: '5%',
-});
+const BookInfo = styled(Typography)(({ theme }) => ({
+	flexGrow: '0',
+	maxWidth: '66.666667%',
+	flexBasis: '66.666667%',
+	padding: '0 15px !important',
+	[theme.breakpoints.down('sm')]: {
+		maxWidth: '100%',
+		flexBasis: '100%',
+	},
+	// position: 'absolute',
+	// right: '5%',
+}));
 
-const CardMediaStyle = styled('div')({
-	top: 0,
-	width: 'calc(100% * 2 / 4)',
-	position: 'relative',
-	paddingTop: 'calc(100% * 3 / 4)',
-});
+const CardMediaStyle = styled('div')(({ theme }) => ({
+	display: 'flex',
+	flexWrap: 'wrap',
+	boxSizing: 'border-box',
+	// top: 0,
+	// width: 'calc(100% * 2 / 4)',
+	// position: 'relative',
+	// paddingTop: 'calc(100% * 3 / 4)',
+}));
 
-const CoverImgStyle = styled('img')({
-	top: 0,
-	width: '100%',
-	objectFit: 'cover',
-	position: 'absolute',
-});
+const CoverImgStyle = styled('img')(({ theme }) => ({
+	flexGrow: '0',
+	maxWidth: '33.333333%',
+	flexBasis: '33.333333%',
+	padding: '0 15px !important',
+	borderRadius: '10%',
+	[theme.breakpoints.down('sm')]: {
+		maxWidth: '100%',
+		flexBasis: '100%',
+	},
+	// top: 0,
+	// width: '100%',
+	// objectFit: 'cover',
+	// position: 'absolute',
+}));
 
 // ----------------------------------------------------------------------
 
@@ -40,17 +60,15 @@ export default function DetailContainer({ book }) {
 
 	return (
 		<Container>
-			<BookInfo variant="h4" gutterBottom>
-						{book.title}<br />{book.genres}
-					</BookInfo>
-			<CardMediaStyle
-				sx={{
-					...(latestPostLarge && {
-						pt: 'calc(100% * 4 / 3)',
-					}),
-				}}
-			>
+			<CardMediaStyle>
 				<CoverImgStyle alt={book.title} src={book.cover} />
+				<BookInfo variant="h3" gutterBottom>
+					{book.title}
+					<br />
+					<Typography variant='subtitle2' sx={{ color: 'text.disabled', display: 'block' }}>
+						{book.genres}
+					</Typography>
+				</BookInfo>
 			</CardMediaStyle>
 		</Container>
 	);
