@@ -37,7 +37,7 @@ app.use(expressSession(
     {
         secret: 'secret_key',
         store: new RedisStore({
-            host: "https://osamhack2021-web-digitalofpages-kukgicjobs-wr7vrj57w2wvp-3000.githubpreview.dev/",
+            host: "http://20.194.38.172/",
             port: 6379,
             client: client,
             prefix : "session:",
