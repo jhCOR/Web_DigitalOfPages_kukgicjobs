@@ -1,5 +1,5 @@
-var client_id = '89GJe6xA9xtO2UH7949D';
-var client_secret = '5cWawTQePf';
+var client_id = process.env.ID;
+var client_secret = process.env.PW;
 
 module.exports = function(router, passport) {
 
@@ -7,7 +7,6 @@ module.exports = function(router, passport) {
     router.route('/searchBooks').post(function (req, res) {
 
    var api_url = 'https://openapi.naver.com/v1/search/book.json?query=' + encodeURI(req.body.booktitle);  
-		
    var request = require('request');
    var options = {
        url: api_url,

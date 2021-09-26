@@ -134,5 +134,38 @@ var addHistoryOfBook = (req, res)=> {//네이버 api 이용해서 책을 찾은 
 var listHistoryOfBook =  (req, res)=>{
 	showListModule.listHistoryOfBook(req, res);
 }
+
+var deleteHistoryOfBook = function (req, res) {
+    var paramId = req.body.id || req.query.id || req.params.id;
+    var database = req.app.get('database');
+	console.log("deleteHistoryOfBook");
+    if (database.db) {
+			database.BookPostModel.load(paramId, function(err, results) {
+
+            if (err) {
+                res.writeHead('200', {
+                    'Contett-Type': 'text/html;charset =utf8'
+                });
+                res.write('<h2>삭제할 글 조회 중 오류 발생</h2>')
+                res.end();
+
+                return;
+			}
+			
+            if (results) {
+                console.log(results);
+                results.remove();
+                res.redirect('/historyofbook?page=0&perPage=8');
+            }
+        })
+    } else {
+        res.writeHead('200', {
+            'Content-Type': 'text/html;charset=utf8'
+        });
+        res.write('<h2>데이터베이스 연결 실패</h2>');
+        res.end();
+    }
+};
 module.exports.addHistoryOfBook = addHistoryOfBook;
 module.exports.listHistoryOfBook = listHistoryOfBook;
+module.exports.deleteHistoryOfBook = deleteHistoryOfBook;
