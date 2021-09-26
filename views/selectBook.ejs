@@ -61,15 +61,10 @@
 			}
 			
 			function send(i){
-				if(document.getElementById('next').innerText="책 찾기"){
-					var param="booktitle"+i;
-					var book=document.getElementById(param).value;//or innerText
-					insertTitle(book);
-					
-				}else{
+			
 					var param="bookForm"+i;
 				document.getElementById(param).submit();
-				}
+				
 				
 			}
 			
