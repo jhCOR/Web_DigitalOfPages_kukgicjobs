@@ -13,7 +13,7 @@ var expressErrorHandler = require('express-error-handler');
 
 // Session 미들웨어 불러오기
 var expressSession = require('express-session');
-  
+var cors=require('cors');
 const redis = require('redis');
 const RedisStore=require('connect-redis')(expressSession);
 
@@ -76,6 +76,8 @@ app.use(expressSession(
         resave: true // don't save session if unmodified
     }
 ));
+
+app.use(cors());
 // app.use(expressSession({
 // 	secret:'my key',
 // 	resave:true,
@@ -92,8 +94,7 @@ app.use(flash());
 var router = express.Router();
 route_loader.init(app, router);
 require('dotenv').config();
-var cors=require('cors');
-app.use(cors());
+
 // 패스포트 설정
 var configPassport = require('./config/passport');
 configPassport(app, passport);
