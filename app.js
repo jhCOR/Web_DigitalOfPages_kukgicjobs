@@ -6,11 +6,11 @@ const RedisStore=require('connect-redis')(expressSession);
 
 //===== Passport 사용 =====//
 var passport = require('passport');
-@@ -27,11 +29,10 @@ var database = require('./database/database');
+var database = require('./database/database');
 
 // 모듈로 분리한 라우팅 파일 불러오기
 var route_loader = require('./routes/route_loader');
-
+require('dotenv').config();
 var cors=require('cors');
 // 익스프레스 객체 생성
 var app = express();
@@ -19,7 +19,7 @@ var app = express();
 //===== 뷰 엔진 설정 =====//
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
-@@ -53,15 +54,42 @@ app.use(bodyParser.json())
+app.use(bodyParser.json())
 // public 폴더를 serveStatic으로 오픈
 app.use('/public', serveStatic(path.join(__dirname, 'public')));
 
@@ -68,7 +68,7 @@ app.use(expressSession({
 
 
 
-@@ -77,6 +105,17 @@ app.use(flash());
+app.use(flash());
 var router = express.Router();
 route_loader.init(app, router);
 
@@ -86,37 +86,13 @@ app.get('/session/get/', function(req, res) {
 
 // 패스포트 설정
 var configPassport = require('./config/passport');
-@@ -105,35 +144,6 @@ app.use( expressErrorHandler.httpError(404) );
+app.use( expressErrorHandler.httpError(404) );
 app.use( errorHandler );
 
 
 //===== 서버 시작 =====//
 
-// var moment = require('moment'); 
-// require('moment-timezone'); 
-// moment.tz.setDefault("Asia/Seoul"); 
-// var date = moment().format('YYYY-MM-DD HH:mm:ss');
-// console.log(date);
 
-// var cron = require('node-cron');
-
-// var term= parseInt(returndate-date / 86400000);
-// console.log(term);
-
-// cron.schedule('* * 2 * * *', () => {
-
-// 	var database = req.app.get('database');
-
-// 	if(req.isAuthenticated()){
-
-// 		if (database.db) {
-// 			database.ReservationModel.loadAll(function(err, results) {
-
-// 			});
-// 		}	
-// 	}
-
-// });
 
 
 //확인되지 않은 예외 처리 - 서버 프로세스 종료하지 않고 유지함
