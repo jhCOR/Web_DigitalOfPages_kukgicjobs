@@ -6,10 +6,9 @@ import { Link as RouterLink } from 'react-router-dom';
 import messageCircleFill from '@iconify/icons-eva/message-circle-fill';
 import starOutline from '@iconify/icons-eva/star-outline';
 // material
-import { alpha, styled } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import { Box, Link, Card, Grid, Avatar, Typography, CardContent } from '@mui/material';
 // utils
-// import { fDate } from '../../../utils/formatTime';
 import { fShortenNumber } from '../../../utils/formatNumber';
 //
 import SvgIconStyle from '../../SvgIconStyle';
@@ -63,8 +62,6 @@ BlogPostCard.propTypes = {
 
 export default function BlogPostCard({ post, index }) {
 	const { id, cover, title, view, comment, author, genres, score } = post;
-	const latestPostLarge = false; // index === 0;
-	const latestPost = false; // index === 1 || index === 2;
 
 	const POST_INFO = [
 		{ number: comment, icon: messageCircleFill },
@@ -73,29 +70,9 @@ export default function BlogPostCard({ post, index }) {
 	];
 
 	return (
-		<Grid item xs={12} sm={latestPostLarge ? 12 : 6} md={latestPostLarge ? 6 : 3}>
+		<Grid item xs={12} sm={6} md={3}>
 			<Card sx={{ position: 'relative' }}>
-				<CardMediaStyle
-					sx={{
-						...((latestPostLarge || latestPost) && {
-							pt: 'calc(100% * 4 / 3)',
-							'&:after': {
-								top: 0,
-								content: "''",
-								width: '100%',
-								height: '100%',
-								position: 'absolute',
-								bgcolor: (theme) => alpha(theme.palette.grey[900], 0.72),
-							},
-						}),
-						...(latestPostLarge && {
-							pt: {
-								xs: 'calc(100% * 4 / 3)',
-								sm: 'calc(100% * 3 / 4.66)',
-							},
-						}),
-					}}
-				>
+				<CardMediaStyle>
 					<SvgIconStyle
 						color="paper"
 						src="/static/icons/shape-avatar.svg"
@@ -105,21 +82,11 @@ export default function BlogPostCard({ post, index }) {
 							zIndex: 9,
 							bottom: -15,
 							position: 'absolute',
-							...((latestPostLarge || latestPost) && { display: 'none' }),
 						}}
 					/>
 					<AvatarStyle
 						alt={author.name}
 						src={author.avatarUrl}
-						sx={{
-							...((latestPostLarge || latestPost) && {
-								zIndex: 9,
-								top: 24,
-								left: 24,
-								width: 40,
-								height: 40,
-							}),
-						}}
 					/>
 
 					<CoverImgStyle alt={title} src={cover} />
@@ -128,11 +95,6 @@ export default function BlogPostCard({ post, index }) {
 				<CardContent
 					sx={{
 						pt: 4,
-						...((latestPostLarge || latestPost) && {
-							bottom: 0,
-							width: '100%',
-							position: 'absolute',
-						}),
 					}}
 				>
 					<Typography
@@ -144,18 +106,11 @@ export default function BlogPostCard({ post, index }) {
 					</Typography>
 
 					<TitleStyle
-						to="#"
 						color="inherit"
 						variant="subtitle2"
 						underline="hover"
 						component={RouterLink}
 						to={`/dashboard/detail/${id}`}
-						sx={{
-							...(latestPostLarge && { typography: 'h5', height: 60 }),
-							...((latestPostLarge || latestPost) && {
-								color: 'common.white',
-							}),
-						}}
 					>
 						{title}
 					</TitleStyle>
@@ -168,9 +123,6 @@ export default function BlogPostCard({ post, index }) {
 									display: 'flex',
 									alignItems: 'center',
 									ml: index === 0 ? 0 : 1.5,
-									...((latestPostLarge || latestPost) && {
-										color: 'grey.500',
-									}),
 								}}
 							>
 								<Box
@@ -189,5 +141,3 @@ export default function BlogPostCard({ post, index }) {
 		</Grid>
 	);
 }
-
-// <Link to={`/${id}`}></Link>
