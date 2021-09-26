@@ -36,7 +36,7 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 app.use(bodyParser.json())
 // public 폴더를 serveStatic으로 오픈
-app.use('/public', serveStatic(path.join(__dirname, 'public')));
+app.use('/public', static(path.join(__dirname, 'public')));
 
 
 if(process.env.NODE_ENV==='production'){
