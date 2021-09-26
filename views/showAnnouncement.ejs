@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
+		
+		<title>글 조회 페이지</title>
+		
+		<link href="/public/semantic.min.css" rel="stylesheet" >
+		
+		
+		<style>
+			* {
+				padding:0;
+				margin:0;
+				box-sizing:border-box;
+			}
+			
+			html {
+				width:100%;
+				height:100%;
+			}
+			
+			body {
+				width:100%;
+				height:100%;
+				color: #000;
+				background-color: #fff;
+			}
+					
+			.container {
+				margin-right: auto;
+				margin-left: auto;
+				padding-left: 20px;
+				padding-right: 20px;
+			}
+	
+			span {
+				color: #999;
+			}
+			
+			#titleOutput {
+				margin-bottom: 10px;
+				line-height: 1.2em;
+			}
+			
+			#contentsOutput {
+				margin-top: 10px;
+				margin-bottom: 10px;
+				line-height: 1.8em;
+			}
+	  
+			#board_title {
+				font-size:1.2em;
+				font-weight:bold;
+				color:teal;
+			}
+	.align{
+		float: left;
+	}
+	.align2{
+		float: right;
+		display: inline;
+	}
+	.hidedbutton{
+		display: none;
+	}
+	.box{
+		display: inline;
+	}
+		</style>
+		
+		<script src="/public/jquery-3.1.1.min.js"></script>
+		<script src="/public/semantic.min.js"></script>
+		<link href="/public/cleditor/jquery.cleditor.css" rel="stylesheet" />
+		<script src="/public/cleditor/jquery.cleditor.min.js"></script>
+		<script>
+			$(document).ready(function() {
+				var output = $("#contentsOutput").text();
+				console.log('output : ' + output);
+				
+				$("#contentsOutput").html(output);
+				 
+			});
+		</script>
+<script>
+	function show(idforcomment){
+		var visibility=  document.getElementById(idforcomment).style.display;
+		if(visibility=='none'){
+		 document.getElementById(idforcomment).style.display='block';
+		}else{
+		 document.getElementById(idforcomment).style.display='none';
+		}
+	}
+ </script>
+	</head>
+	<body>
+	
+		<div class="container">
+			<br>
+
+			<div class="ui raised segment">
+				<a class="ui blue ribbon label">게시판</a>
+      			<span id="board_title"><%=title %></span>
+							
+				<div class="ui blue fluid card">
+					 <div class="content">
+						<% 
+						   var curTitle = posts._doc.title;
+						   var curContents = posts._doc.contents;						  
+						   var curWriter = posts._doc.writer; 
+						   var curWriterName = posts._doc.group; 
+						   var curId = posts._doc._id; 
+						   
+						   var updated=posts._doc.updated_at;
+						   // html-entities module is required in post.js
+						   var entities = new Entities();
+						   var month=updated.getMonth()+1;
+						   var date=updated.getDate();
+						   var year=updated.getFullYear();
+						   var totalDate=year+'-'+month+'-'+date;
+						var unique= posts._doc.num;
+						var tem=curContents.replace(/<p>/gi,'');
+							<!-- var clearedContents=tem.replace(/</p>/gi,'');class="description" -->
+						   var decodedContents = entities.decode(tem);  
+						%>
+						
+						<div id="titleOutput" class="header"><%=curTitle %></div>
+	   					<div class="meta">
+	     						<span class="right floated time"> <%=totalDate %></span>
+	     						<span class="category">일반</span>
+	   					</div>
+	   					<div id="contentsOutput" class="description">
+							<%=decodedContents %>
+					    </div>
+					 </div>
+	  				<div class="extra content">
+	    				<div class="right floated author">
+	      					<img class="ui avatar image" src="/public/author.png"> <%=curWriterName %>
+	    				</div>
+	  				</div>
+					
+				</div>
+				
+                <div class="ui very relaxed selection celled list">
+					
+				<% 
+				var i=0;
+				var curPage=page;
+				%>
+					<a class="ui button"  href='/dev/announcement?page=0&perPage=2'>공지사항 목록</a>
+
+					<a class="ui button"  href='/dev/deleteAnnouncement/<%=posts._id %>'>삭제</a>
+		
+				
+				
+					
+                </div>
+			</div>
+			
+		</div>
+			
+	</body>
+</html>
+

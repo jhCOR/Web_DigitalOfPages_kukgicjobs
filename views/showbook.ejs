@@ -169,11 +169,7 @@
 					</form> 
 					<% }%>
 					<% if (user===curWriter) { %>
-
-					<form   class="align" height="70px" method="post" action="/process/deletepost">
-						<input hidden type="text" name="id" value="<%=posts._id %>">
-						<input   class="ui button"  type="submit" value="글 삭제" name="" />
-					</form> 
+						<a class="ui button"  href='/book/delete/<%=posts._id %>'>삭제</a>
 					<% }%>
 					<% if (isBorrow=='0') { %>
 						<form   class="align" height="70px" method="post" action="/book/lend">
@@ -232,8 +228,9 @@
 													<!-- 이건 나중에 하기 -->
 												</form> 
 												<% if (login_success&&user===curCommentWriter) { %>
-												<form    class="align2" method="post" action="/process/removecomment">
+												<form    class="align2" method="post" action="/review/removereview">
 													<input hidden type="text" name="delete" value="<%=i %>">
+													<input hidden type="text" name="id" value="<%=posts._doc._id %>">
 													<input type="submit" value="삭제" name="" />
 												</form> 
 												<% }%>
