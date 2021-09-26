@@ -20,10 +20,11 @@
   - src/pages/BookDetail
   - src/components/_dashboard/blog/BookList  
 - draft를 이용한 editor 작업 시작
+  - src/pages/Editor  
 ```
 npm install --save react-draft-wysiwyg draft-js
 ```
-  - src/pages/Editor  
+
     
 양재훈 :  
 - customizing frontend template  
