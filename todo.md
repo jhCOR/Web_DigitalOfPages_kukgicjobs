@@ -4,7 +4,7 @@
 - 게시판 기능(이미지 본문삽입,댓글 대댓글 등)
 안드로이드 스튜디오 개발(메모장 어플,퀴즈&설문어플등)
 플러터(간단한 수준), 인공지능(스타일 트렌스퍼 등을 적용해 프로필 사진에 변화를 주어 신선한 느낌을 줘 볼 수 있음, 사용 결정시 바로 적용 가능)  
-
+  
 김정호 :  
 - customizing frontend template (branch blog_product)  
   - components/dashboard/blog
@@ -19,7 +19,12 @@
   - src/components/_dashboard/detail/
   - src/pages/BookDetail
   - src/components/_dashboard/blog/BookList  
-  
+- draft를 이용한 editor 작업 시작
+```
+npm install --save react-draft-wysiwyg draft-js
+```
+  - src/pages/Editor  
+    
 양재훈 :  
 - customizing frontend template  
   - dashboard/app
