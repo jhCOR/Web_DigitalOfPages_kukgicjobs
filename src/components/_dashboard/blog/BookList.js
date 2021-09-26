@@ -1,5 +1,6 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
+import { Link as RouterLink } from 'react-router-dom';
 // material
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -16,13 +17,22 @@ BookList.propTypes = {
 };
 
 export default function BookList({ formInput }) {
+	// 검색 결과 반환
+	const match = POSTS.filter((book, index) => {
+		return book.title.match(formInput);
+	});
+
 	return (
 		<>
-			{POSTS.map((book, index) => 
-				<List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
-					<ListItem alignItems="flex-start">
+			{match.map((book, index) => (
+				<List sx={{ width: '100%', bgcolor: 'background.paper' }}>
+					<ListItem
+						alignItems="flex-start"
+						component={RouterLink}
+						to={`/dashboard/detail/${book.id}`}
+					>
 						<ListItemAvatar>
-							<Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+							<Avatar alt="book cover" src={book.cover} />
 						</ListItemAvatar>
 						<ListItemText
 							primary={book.title}
@@ -34,60 +44,16 @@ export default function BookList({ formInput }) {
 										variant="body2"
 										color="text.primary"
 									>
-										{formInput}
+										{book.score}
 									</Typography>
-									{" — I'll be in your neighborhood doing errands this…"}
+									{" — "}{book.genres}
 								</React.Fragment>
 							}
 						/>
 					</ListItem>
 					<Divider variant="inset" component="li" />
-					<ListItem alignItems="flex-start">
-						<ListItemAvatar>
-							<Avatar alt="Travis Howard" src="/static/images/avatar/2.jpg" />
-						</ListItemAvatar>
-						<ListItemText
-							primary="Summer BBQ"
-							secondary={
-								<React.Fragment>
-									<Typography
-										sx={{ display: 'inline' }}
-										component="span"
-										variant="body2"
-										color="text.primary"
-									>
-										to Scott, Alex, Jennifer
-									</Typography>
-									{" — Wish I could come, but I'm out of town this…"}
-								</React.Fragment>
-							}
-						/>
-					</ListItem>
-					<Divider variant="inset" component="li" />
-					<ListItem alignItems="flex-start">
-						<ListItemAvatar>
-							<Avatar alt="Cindy Baker" src="/static/images/avatar/3.jpg" />
-						</ListItemAvatar>
-						<ListItemText
-							primary="Oui Oui"
-							secondary={
-								<React.Fragment>
-									<Typography
-										sx={{ display: 'inline' }}
-										component="span"
-										variant="body2"
-										color="text.primary"
-									>
-										Sandra Adams
-									</Typography>
-									{' — Do you have Paris recommendations? Have you ever…'}
-								</React.Fragment>
-							}
-						/>
-					</ListItem>
 				</List>
-			)}
+			))}
 		</>
 	);
 }
-// ((formInput.test(book.title)) && {})
