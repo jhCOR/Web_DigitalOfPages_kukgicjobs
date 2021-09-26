@@ -67,7 +67,7 @@ app.use(expressSession(
         secret: 'secret_key',
         store: new RedisStore({
             host: "20.194.38.172",
-            port: 6379,
+            port: 6327,
             client: client,
             prefix : "session:",
             db : 0
