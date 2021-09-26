@@ -57,7 +57,7 @@ export default function Blog() {
 					<Button
 						variant="contained"
 						component={RouterLink}
-						to="#"
+						to={`/dashboard/edit`}
 						startIcon={<Icon icon={plusFill} />}
 					>
 						도서 신청

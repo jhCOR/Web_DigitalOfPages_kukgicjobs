@@ -18,18 +18,12 @@ const BookInfo = styled(Typography)(({ theme }) => ({
 		maxWidth: '100%',
 		flexBasis: '100%',
 	},
-	// position: 'absolute',
-	// right: '5%',
 }));
 
 const CardMediaStyle = styled('div')(({ theme }) => ({
 	display: 'flex',
 	flexWrap: 'wrap',
 	boxSizing: 'border-box',
-	// top: 0,
-	// width: 'calc(100% * 2 / 4)',
-	// position: 'relative',
-	// paddingTop: 'calc(100% * 3 / 4)',
 }));
 
 const CoverImgStyle = styled('img')(({ theme }) => ({
@@ -42,10 +36,6 @@ const CoverImgStyle = styled('img')(({ theme }) => ({
 		maxWidth: '100%',
 		flexBasis: '100%',
 	},
-	// top: 0,
-	// width: '100%',
-	// objectFit: 'cover',
-	// position: 'absolute',
 }));
 
 // ----------------------------------------------------------------------
@@ -65,7 +55,7 @@ export default function DetailContainer({ book }) {
 				<BookInfo variant="h3" gutterBottom>
 					{book.title}
 					<br />
-					<Typography variant='subtitle2' sx={{ color: 'text.disabled', display: 'block' }}>
+					<Typography variant='subtitle2' sx={{ pt: '13px',color: 'text.disabled', display: 'block' }}>
 						{book.genres}
 					</Typography>
 				</BookInfo>
@@ -73,14 +63,3 @@ export default function DetailContainer({ book }) {
 		</Container>
 	);
 }
-
-// <Paper>
-// 			<Typography gutterBottom align="center" variant="subtitle1">
-// 				Details
-// 			</Typography>
-// 			<Typography variant="body2" align="center">
-// 				No results found for &nbsp;
-// 				<strong>&quot;{book.title}&quot;</strong>. Try checking for typos or using complete
-// 				words.
-// 			</Typography>
-// 		</Paper>

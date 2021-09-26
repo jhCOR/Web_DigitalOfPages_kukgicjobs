@@ -11,6 +11,7 @@ import Blog from './pages/Blog';
 import User from './pages/User';
 import NotFound from './pages/Page404';
 import BookDetail from './pages/BookDetail';
+import EditorPage from './pages/Editor';
 
 // ----------------------------------------------------------------------
 
@@ -26,6 +27,7 @@ export default function Router() {
 				{ path: 'products', element: <Products /> },
 				{ path: 'blog', element: <Blog /> },
 				{ path: 'detail/:id', element: <BookDetail /> },
+				{ path: 'edit', element: <EditorPage /> },
 			],
 		},
 		{

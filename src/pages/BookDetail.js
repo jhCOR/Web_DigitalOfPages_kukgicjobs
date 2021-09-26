@@ -14,9 +14,7 @@ import POSTS from '../_mocks_/blog';
 
 export default function BookDetail() {
 	const { id } = useParams();
-	console.log(id, typeof id)
 	const bookInfo = POSTS.filter(book => book.id === id);
-	console.log(bookInfo);
 	
 	return (
 		<Page title="Dashboard: Library">
