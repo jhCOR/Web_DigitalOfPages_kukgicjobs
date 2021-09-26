@@ -62,20 +62,25 @@ if(process.env.NODE_ENV==='production'){
 app.use(cookieParser());
 
 var client = redis.createClient();
-app.use(expressSession(
-    {
-        secret: 'secret_key',
-        store: new RedisStore({
-            host: "20.194.38.172",
-            port: 6379,
-            client: client,
-            prefix : "session:",
-            db : 0
-        }),
-        saveUninitialized: false, // don't create session until something stored,
-        resave: true // don't save session if unmodified
-    }
-));
+// app.use(expressSession(
+//     {
+//         secret: 'secret_key',
+//         store: new RedisStore({
+//             host: "20.194.38.172",
+//             port: 6379,
+//             client: client,
+//             prefix : "session:",
+//             db : 0
+//         }),
+//         saveUninitialized: false, // don't create session until something stored,
+//         resave: true // don't save session if unmodified
+//     }
+// ));
+app.use(expressSession({
+	secret:'my key',
+	resave:true,
+	saveUninitialized:true
+}));
 //===== Passport 사용 설정 =====//
 // Passport의 세션을 사용할 때는 그 전에 Express의 세션을 사용하는 코드가 있어야 함
 app.use(passport.initialize());
@@ -111,17 +116,17 @@ var errorHandler = expressErrorHandler({
    '404': './public/404.html'
  }
 });
-router.get('/session/set/:value', function(req, res) {
-    req.session.redSession = req.params.value;
-    res.send('session written in Redis successfully');
-});
+// router.get('/session/set/:value', function(req, res) {
+//     req.session.redSession = req.params.value;
+//     res.send('session written in Redis successfully');
+// });
 
-app.get('/session/get/', function(req, res) {
-    if(req.session.redSession)
-        res.send('the session value stored in Redis is: ' + req.session.redSess);
-    else
-        res.send("no session value stored in Redis ");
-});
+// app.get('/session/get/', function(req, res) {
+//     if(req.session.redSession)
+//         res.send('the session value stored in Redis is: ' + req.session.redSess);
+//     else
+//         res.send("no session value stored in Redis ");
+// });
 app.use( expressErrorHandler.httpError(404) );
 app.use( errorHandler );
 
