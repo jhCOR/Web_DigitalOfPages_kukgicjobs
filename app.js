@@ -42,7 +42,7 @@ console.log('뷰 엔진이 ejs로 설정되었습니다.');
 
 //===== 서버 변수 설정 및 serveStatic으로 public 폴더 설정  =====//
 console.log('config.server_port : %d', config.server_port);
-app.set('port', process.env.PORT || 80);
+app.set('port', process.env.PORT || 3000);
  
 
 // body-parser를 이용해 application/x-www-form-urlencoded 파싱
@@ -67,7 +67,7 @@ app.use(expressSession(
         secret: 'secret_key',
         store: new RedisStore({
             host: "20.194.38.172",
-            port: 3000,
+            port: 3306,
             client: client,
             prefix : "session:",
             db : 0
