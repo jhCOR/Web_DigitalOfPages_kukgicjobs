@@ -18,11 +18,12 @@
 - add files(related to book details)
   - src/components/_dashboard/detail/
   - src/pages/BookDetail
+  - src/components/_dashboard/blog/BookList  
   
 양재훈 :  
 - customizing frontend template  
   - dashboard/app
-  - dashboard/user
+  - dashboard/user  
 
 ![image](https://user-images.githubusercontent.com/63538097/133967319-ec898419-a423-440e-86cd-51ba1965b924.png)
 
