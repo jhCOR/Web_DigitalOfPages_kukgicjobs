@@ -45,8 +45,6 @@ DetailContainer.propTypes = {
 };
 
 export default function DetailContainer({ book }) {
-	const latestPostLarge = true;
-	console.log(book);
 
 	return (
 		<Container>
