@@ -3,8 +3,6 @@ import androidFilled from '@iconify/icons-ant-design/android-filled';
 // material
 import { alpha, styled } from '@mui/material/styles';
 import { Card, Typography } from '@mui/material';
-// utils
-// import { fShortenNumber } from '../../../utils/formatNumber';
 
 // ----------------------------------------------------------------------
 
@@ -12,8 +10,8 @@ const RootStyle = styled(Card)(({ theme }) => ({
     boxShadow: 'none',
     textAlign: 'center',
     padding: theme.spacing(5, 5),
-    color: theme.palette.primary.darker,
-    backgroundColor: theme.palette.primary.lighter,
+    color: theme.palette.secondary.darker,
+    backgroundColor: theme.palette.secondary.lighter,
     minHeight: theme.spacing(50),
 	display: 'flex',
 	flexDirection: 'column',
@@ -30,9 +28,9 @@ const IconWrapperStyle = styled('div')(({ theme }) => ({
     height: theme.spacing(8),
     justifyContent: 'center',
     marginBottom: theme.spacing(3),
-    color: theme.palette.primary.dark,
-    backgroundImage: `linear-gradient(135deg, ${alpha(theme.palette.primary.dark, 0)} 0%, ${alpha(
-        theme.palette.primary.dark,
+    color: theme.palette.secondary.dark,
+    backgroundImage: `linear-gradient(135deg, ${alpha(theme.palette.secondary.dark, 0)} 0%, ${alpha(
+        theme.palette.secondary.dark,
         0.24
     )} 100%)`,
 }));

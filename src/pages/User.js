@@ -25,69 +25,75 @@ import Page from '../components/Page';
 import Label from '../components/Label';
 import Scrollbar from '../components/Scrollbar';
 import SearchNotFound from '../components/SearchNotFound';
-import { UserListHead, UserListToolbar, UserMoreMenu } from '../components/_dashboard/user';
+import { UserListHead, UserListToolbar } from '../components/_dashboard/user';
 //
 import USERLIST from '../_mocks_/user';
 
 // ----------------------------------------------------------------------
 
 const TABLE_HEAD = [
-    { id: 'rank', label: 'Rank', alignRight: false },
-    { id: 'name', label: 'Name', alignRight: false },
-    { id: 'company', label: 'Company', alignRight: false },
-    { id: 'role', label: 'Role', alignRight: false },
-    { id: 'isVerified', label: 'Verified', alignRight: false },
-    { id: 'amount', label: 'Amount', alignRight: false },
+    { id: 'rank', label: '랭킹', alignRight: false },
+    { id: 'name', label: '이름', alignRight: false },
+    { id: 'company', label: '소속', alignRight: false },
+    { id: 'role', label: '직무', alignRight: false },
+    { id: 'isVerified', label: '독후감', alignRight: false },
+    { id: 'amount', label: '대출권수', alignRight: false },
     { id: '' },
 ];
 
 // ----------------------------------------------------------------------
 
-function descendingComparator(a, b, orderBy) {
-    if (b[orderBy] < a[orderBy]) {
+function descendingComparator(a, b) {
+    if (b['amount'] < a['amount']) {
         return -1;
     }
-    if (b[orderBy] > a[orderBy]) {
+    if (b['amount'] > a['amount']) {
         return 1;
     }
     return 0;
 }
 
-function getComparator(order, orderBy) {
+function getComparator(order) {
+    // return func
     return order === 'desc'
-        ? (a, b) => descendingComparator(a, b, orderBy)
-        : (a, b) => -descendingComparator(a, b, orderBy);
+        ? (a, b) => descendingComparator(a, b)
+        : (a, b) => -descendingComparator(a, b);
 }
-
+// USERLIST, getComparator(order, orderBy) => (a, b) => descendingComparator(a, b, orderBy), filterName
 function applySortFilter(array, comparator, query) {
     const stabilizedThis = array.map((el, index) => [el, index]);
     stabilizedThis.sort((a, b) => {
         const order = comparator(a[0], b[0]);
         if (order !== 0) return order;
-        return a[1] - b[1];
+        return a[1] - b[1]; // using index => if equal, auto descending
     });
     if (query) {
         return filter(
             array,
+            // name에서 query가 있는 모든 user 반환!
             (_user) => _user.name.toLowerCase().indexOf(query.toLowerCase()) !== -1
         );
     }
     return stabilizedThis.map((el) => el[0]);
 }
 
+const goUserDetail = (event) => {
+    console.log(event.target)
+}
+
 export default function User() {
     const [page, setPage] = useState(0);
     const [order, setOrder] = useState('desc');
-    const [selected, setSelected] = useState([]);
-    const [orderBy, setOrderBy] = useState('amount');
+    // const [selected, setSelected] = useState([]);
+    // const [orderBy, setOrderBy] = useState('amount');
     const [filterName, setFilterName] = useState('');
-    const [rowsPerPage, setRowsPerPage] = useState(5);
+    const [rowsPerPage, setRowsPerPage] = useState(10);
 
-    const handleRequestSort = (event, property) => {
-        const isAsc = orderBy === property && order === 'asc';
-        setOrder(isAsc ? 'desc' : 'asc');
-        setOrderBy(property);
-    };
+    // const handleRequestSort = (event, property) => {
+    //     const isAsc = orderBy === property && order === 'asc';
+    //     setOrder(isAsc ? 'desc' : 'asc');
+    //     setOrderBy(property);
+    // };
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
@@ -104,7 +110,7 @@ export default function User() {
 
     const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - USERLIST.length) : 0;
 
-    const filteredUsers = applySortFilter(USERLIST, getComparator(order, orderBy), filterName);
+    const filteredUsers = applySortFilter(USERLIST, getComparator(order), filterName);
 
     const isUserNotFound = filteredUsers.length === 0;
 
@@ -116,7 +122,7 @@ export default function User() {
                 </Typography>
                 <Card>
                     <UserListToolbar
-                        numSelected={selected.length}
+                        // numSelected={selected.length}
                         filterName={filterName}
                         onFilterName={handleFilterByName}
                     />
@@ -126,16 +132,16 @@ export default function User() {
                             <Table>
                                 <UserListHead
                                     order={order}
-                                    orderBy={orderBy}
+                                    // orderBy={orderBy}
                                     headLabel={TABLE_HEAD}
                                     rowCount={USERLIST.length}
-                                    onRequestSort={handleRequestSort}
+                                    // onRequestSort={handleRequestSort}
                                     // onSelectAllClick={handleSelectAllClick}
                                 />
                                 <TableBody>
                                     {filteredUsers
                                         .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                                        .map((row) => {
+                                        .map((row, idx) => {
                                             const {
                                                 id,
                                                 name,
@@ -145,7 +151,8 @@ export default function User() {
                                                 avatarUrl,
                                                 isVerified,
                                             } = row;
-                                            const isItemSelected = selected.indexOf(name) !== -1;
+                                            const rank = page * rowsPerPage + (idx + 1);
+                                            // const isItemSelected = selected.indexOf(name) !== -1;
 
                                             return (
                                                 <TableRow
@@ -153,13 +160,11 @@ export default function User() {
                                                     key={id}
                                                     tabIndex={-1}
                                                     role="checkbox"
-                                                    selected={isItemSelected}
-                                                    aria-checked={isItemSelected}
+                                                    // selected={isItemSelected}
+                                                    // aria-checked={isItemSelected}
                                                 >
-                                                    <TableCell align="left">
-                                                        {amount}
-                                                    </TableCell>
-                                                        <TableCell
+                                                    <TableCell align="left">{rank}</TableCell>
+                                                    <TableCell
                                                         component="th"
                                                         scope="row"
                                                         padding="none"
@@ -180,12 +185,15 @@ export default function User() {
                                                     <TableCell align="left">
                                                         {isVerified ? 'Yes' : 'No'}
                                                     </TableCell>
-                                                    <TableCell align="left">
-                                                        {amount}
-                                                    </TableCell>
+                                                    <TableCell align="left">{amount}</TableCell>
 
-                                                    <TableCell align="right">
-                                                        <UserMoreMenu />
+                                                    <TableCell align="center" onClick={goUserDetail}>
+                                                        <Icon
+                                                            icon="akar-icons:arrow-right"
+                                                            width={20}
+                                                            height={20}
+                                                            
+                                                        />
                                                     </TableCell>
                                                 </TableRow>
                                             );
@@ -237,7 +245,7 @@ export default function User() {
 // const newSelecteds = USERLIST.map((n) => n.name);
 // setSelected(newSelecteds);
 // return;
-// 
+//
 //setSelected([]);
 // };
 // const handleClick = (event, name) => {
