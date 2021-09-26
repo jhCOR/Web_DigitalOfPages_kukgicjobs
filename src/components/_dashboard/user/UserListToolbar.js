@@ -40,26 +40,14 @@ const SearchStyle = styled(OutlinedInput)(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 UserListToolbar.propTypes = {
-  numSelected: PropTypes.number,
+  // numSelected: PropTypes.number,
   filterName: PropTypes.string,
   onFilterName: PropTypes.func
 };
 
-export default function UserListToolbar({ numSelected, filterName, onFilterName }) {
+export default function UserListToolbar({ filterName, onFilterName }) {
   return (
-    <RootStyle
-      sx={{
-        ...(numSelected > 0 && {
-          color: 'primary.main',
-          bgcolor: 'primary.lighter'
-        })
-      }}
-    >
-      {numSelected > 0 ? (
-        <Typography component="div" variant="subtitle1">
-          {numSelected} selected
-        </Typography>
-      ) : (
+    <RootStyle>
         <SearchStyle
           value={filterName}
           onChange={onFilterName}
@@ -70,21 +58,28 @@ export default function UserListToolbar({ numSelected, filterName, onFilterName 
             </InputAdornment>
           }
         />
-      )}
 
-      {numSelected > 0 ? (
-        <Tooltip title="Delete">
-          <IconButton>
-            <Icon icon={trash2Fill} />
-          </IconButton>
-        </Tooltip>
-      ) : (
-        <Tooltip title="Filter list">
-          <IconButton>
-            <Icon icon={roundFilterList} />
-          </IconButton>
-        </Tooltip>
-      )}
     </RootStyle>
   );
 }
+      // {numSelected > 0 ? (
+      //   <Tooltip title="Delete">
+      //     <IconButton>
+      //       <Icon icon={trash2Fill} />
+      //     </IconButton>
+      //   </Tooltip>
+      // ) : (
+      //   <Tooltip title="Filter list">
+      //     <IconButton>
+      //       <Icon icon={roundFilterList} />
+      //     </IconButton>
+      //   </Tooltip>
+      // )}
+// <RootStyle
+//   sx={{
+//     ...(numSelected > 0 && {
+//       color: 'primary.main',
+//       bgcolor: 'primary.lighter'
+//     })
+//   }}
+// >
