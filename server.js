@@ -1,9 +1,18 @@
 import express from 'express';
 import path from 'path';
 import { bookRouter } from './route';
+import bodyParser from 'body-parser';
+import cors from 'cors';
+
 const PORT = process.env.PORT || 3001;
 
 const app = express();
+
+app.use(bodyParser.json())
+// CORS 헤더를 서버에 추가하여 서버 응답에 대한 액세스 권한을 부여
+app.use(cors({
+    origin: 'https://osam-hackathon-client.run.goorm.io'
+}));
 
 // Have Node serve the files for our built React app
 // app.use(express.static(path.resolve(__dirname, '../my-app/build')));
