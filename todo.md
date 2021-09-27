@@ -25,6 +25,7 @@
 npm install --save react-draft-wysiwyg draft-js
 ```
 - backend (branch back/main)
+  - 현재 book과 관련된 기능들을 우선하여 이식 중입니다.  
     
 양재훈 :  
 - customizing frontend template  
