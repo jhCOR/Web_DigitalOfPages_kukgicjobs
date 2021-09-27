@@ -23,7 +23,7 @@ module.exports = function(router, passport) {
 			posts: jsonData.items,
 			next:'책 검색',
 		};			
-	//console.log(jsonData.items);
+	//console.log(context);
 		req.app.render('selectBook.ejs', context, function(err, html) {
 			if (err) {
 				console.error('응답 웹문서 생성 중 에러 발생 : ' + err.stack);

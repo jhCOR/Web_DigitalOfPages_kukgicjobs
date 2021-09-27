@@ -14,7 +14,7 @@ var showBookFun=(req,res)=>{
 		// 데이터베이스 객체가 초기화된 경우
 		if (database.db) {
 			// 1. 글 리스트
-
+				console.log(paramId+"fron show");
 			database.BookModel.load(paramId, function (err, results) {
 
 				if (err) {

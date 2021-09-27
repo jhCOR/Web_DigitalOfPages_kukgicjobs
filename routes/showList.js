@@ -213,21 +213,33 @@ var listHistoryOfBook = function (req, res) {
     }
 };
 
-var devAnnouncement = function (req, res) {
-    console.log('showList 모듈 안에 있는 devAnnouncement 호출됨.');
+var Announcement = function (req, res) {
+    console.log('showList 모듈 안에 있는 Announcement 호출됨.');
 
     var paramPage = req.body.page || req.query.page || '0';
-    var paramPerPage = 8;
-
+    var request =req.body.request || req.query.request || '0';
+	var RIGHT;
+	if(req.user.admin=='accepted'){
+		RIGHT='admin';
+	}
+	var adminORdev;
+	if(request=='dev'){
+		 console.log(request);
+		adminORdev={ group: 'ROOT'}
+	}else{
+		 console.log(request);
+		adminORdev={ group: req.user.group}
+	}
     var database = req.app.get('database');
-
+	
     // 데이터베이스 객체가 초기화된 경우
     if (database.db) {       
 
             // 1. 글 리스트
             var options = {
                 page: paramPage,
-                perPage: paramPerPage,
+                perPage: 8,
+				criteria: adminORdev,
             };
 
             database.AnnouncementModel.list(options, function (err, listresults) {
@@ -245,10 +257,11 @@ var devAnnouncement = function (req, res) {
                         title: '신청 목록',
                         posts: listresults,
                         page: parseInt(paramPage),
-                        pageCount: Math.ceil(listresults.length / paramPerPage),
-                        perPage: paramPerPage,
+                        pageCount: Math.ceil(listresults.length / 8),
+                        perPage: 8,
                         totalRecords: listresults.length,
-                        size: paramPerPage,
+                        size: 8,
+						rootORadmin:RIGHT,
                     };
 
                     printer.rendering(req, res, 'lists/listAnnouncement', context);
@@ -268,4 +281,4 @@ module.exports.reservationList = reservationList;
 module.exports.listapplybook = listapplybook;
 module.exports.requestlist = requestlist;
 module.exports.listHistoryOfBook = listHistoryOfBook;
-module.exports.devAnnouncement = devAnnouncement;
+module.exports.devAnnouncement = Announcement;

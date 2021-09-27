@@ -59,8 +59,8 @@
  
 			    <form action="/signup" method="post" id="submitform">
 			        <div class="form-group">
-			            <label>이메일</label>
-			            <input type="text" class="form-control" name="email" id="email">
+			            <label>이메일  <input type="text" class="form-control" name="email" id="email"></label>
+			           
 			        </div>
 			        <div class="form-group">
 			            <label>비밀번호</label>
@@ -72,15 +72,16 @@
 						<p id="alarm" style="color: red; display: none;">비밀번호가 일치하지 않습니다</p>
 			        </div>
 			        <div class="form-group">
-			            <label>별명</label>
-			            <input type="text" class="form-control" name="name">
+			            <label>별명  <input type="text" class="form-control" name="name"></label>
+			           
+			        </div>
+					  <div class="form-group">
+			            <label>보유번호/군번  <input type="text" class="form-control" name="own_number" id="own_number"></label>
+			           
 			        </div>
 					 <div class="form-group">
-			            <label>소속부대</label>
-						 
-			            <input type="text" class="form-control" readonly name="group" id="group" >
-						
-						
+			            <label>소속그룹/부대 <input type="text" class="form-control" readonly name="group" id="group" ></label>
+
 			        </div>
 					 <label>관리자 계정으로 가입하기</label>
 					<input type="checkbox" name="admin" onclick="makeReadOnly()">

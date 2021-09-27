@@ -13,7 +13,8 @@
 				<ul>
 					<li><a href="/public/generic.html">ABOUT US</a></li>
 					<li><a href="/public/contact.html">Contact</a></li>
-					<li><a href="/dev/announcement?page=0&perPage=2">개발자 공지사항</a></li>
+					<li><a href="/dev/announcement?page=0&request=dev">개발자 공지사항</a></li>
+					<li><a href="/admin/announcement?page=0&request=admin">관리자 공지사항</a></li>
 					<% if (login_success) { %>
 					<li><a href="/views/myPage">My Page</a></li>
 
@@ -25,9 +26,10 @@
 							<li><a href="/book/listpost?page=0&perPage=2">도서목록</a></li>
 							<li><a href="/book/listapplybook?page=0&perPage=2">신청도서목록</a></li>
 							<li>
-								<a class="btn btn-default" href="/user/requestlist?page=0&perPage=2"
-									>관리자 요청 계정 리스트</a
-								>
+								<a class="btn btn-default" href="/user/requestlist?page=0&perPage=2">관리자 요청 계정 리스트</a>
+							</li>
+							<li>
+								<a class="btn btn-default" href="#">소속원 등록</a>
 							</li>
 							<li>
 								<a class="btn btn-default" href="/views/addbook.ejs">도서등록</a>
@@ -38,7 +40,7 @@
 								>
 							</li>
 							<li>
-								<a class="btn btn-default" href="/views/bookHistoryGallery.ejs"
+								<a class="btn btn-default" href="/historyofbook?page=0&perPage=8"
 									>독서 발자취</a
 								>
 							</li>

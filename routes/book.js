@@ -31,7 +31,52 @@ var addReview = function (req, res) {
     console.log('book 모듈 안에 있는 addReview 호출됨.');
     AddReview.addReviewFun(req, res);
 };
+var removeReview = function(req, res) {
+	console.log('book 모듈 안에 있는 removeReview 호출됨.');
+ 
+	var paramId= req.body.id || req.query.id;
+	var reviewId=req.body.delete || req.query.delete;
+	var database = req.app.get('database');
 
+		if (database.db) {
+			database.BookModel.load(paramId, function(err, results) {
+				         
+            if (err) {
+                console.log('삭제할 글 조회 중 오류 발생 ' + err.stack);
+
+                res.writeHead('200', {'Contett-Type': 'text/html;charset =utf8'});
+                res.write('<h2>삭제할 글 조회 중 오류 발생</h2>')
+                res.end();
+
+                return;
+			}
+			
+             if (results.review[reviewId]) {
+
+					results.review[reviewId].remove();  
+				console.log(paramId);
+
+				database.BookModel.findByIdAndUpdate(paramId,{$set: {title : results.title , contents : results.contents, 
+					updated_at : Date.now(), review:  results.review}}, function(err){
+					if (err) {
+
+						makeerror('<h2>업데이트 에러 발생</h2>', err.stack,res);
+						return;
+					}
+					res.redirect('/book/showbook/' + paramId);
+				});
+        
+            }
+        })
+
+    } else {
+        res.writeHead('200', {
+            'Content-Type': 'text/html;charset=utf8'
+        });
+        res.write('<h2>데이터베이스 연결 실패</h2>');
+        res.end();
+    }
+}
 var reservation = function (req, res) {
     //예약신청
     console.log('book 모듈 안에 있는 reservation 호출됨.');
@@ -251,13 +296,45 @@ var acceptAdminRequest = function (req, res) {
         printer.errrendering(res);
     }
 };
+var deleteBookFun = function (req, res) {
+    var paramId = req.body.id || req.query.id || req.params.id;
+    var database = req.app.get('database');
 
+    if (database.db) {
+			database.BookModel.load(paramId, function(err, results) {
+
+            if (err) {
+                res.writeHead('200', {
+                    'Contett-Type': 'text/html;charset =utf8'
+                });
+                res.write('<h2>삭제할 글 조회 중 오류 발생</h2>')
+                res.end();
+
+                return;
+			}
+			
+            if (results) {
+                
+                results.remove();
+                res.redirect('/book/listpost?page=0&perPage=8');
+            }
+        })
+    } else {
+        res.writeHead('200', {
+            'Content-Type': 'text/html;charset=utf8'
+        });
+        res.write('<h2>데이터베이스 연결 실패</h2>');
+        res.end();
+    }
+};
 module.exports.addbook = addbook;
 module.exports.showbook = showbook;
 module.exports.borrow = borrow;
 module.exports.reservation = reservation;
 module.exports.addReview = addReview;
+module.exports.removeReview = removeReview;
 module.exports.giveBack = giveBack;
 module.exports.search = search;
 module.exports.acceptAdminRequest = acceptAdminRequest;
 module.exports.searchGroup = searchGroup;
+module.exports.deleteBookFun = deleteBookFun;

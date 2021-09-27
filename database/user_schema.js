@@ -17,6 +17,7 @@ Schema.createSchema = function (mongoose) {
 		hashed_password: { type: String, default: '' },
 		group: { type: String, index: 'hashed', default: '' },
 		name: { type: String, index: 'hashed', default: '' },
+		own_number: { type: String, default: '' },
 		reservationlist: [{ type: mongoose.Schema.ObjectId, ref: 'book' }],
 		myBookList: [{ type: mongoose.Schema.ObjectId, ref: 'reservation' }],
 		alert: { default: '' },

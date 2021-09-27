@@ -149,14 +149,10 @@
 				var i=0;
 				var curPage=page;
 				%>
-					<a class="ui button"  href='/dev/announcement?page=0&perPage=2'>공지사항 목록</a>
+					<a class="ui button"  href='/dev/announcement?page=0&request=dev'>공지사항 목록(개발자)</a>
+					<a class="ui button"  href='/dev/announcement?page=0&request=admin'>공지사항 목록(관리자)</a>
 
-				
-		
-					<form   class="align" height="70px" method="post" action="#">
-						<input hidden type="text" name="id" value="<%=posts._id %>">
-						<input   class="ui button"  type="submit" value="글 삭제" name="" />
-					</form> 
+					<a class="ui button"  href='/dev/deleteAnnouncement/<%=posts._id %>'>삭제</a>
 				
 					
                 </div>

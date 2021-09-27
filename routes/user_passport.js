@@ -119,7 +119,7 @@ module.exports = function (router, passport) {
         } else {
             console.log('reuest:' + req.query.request);
             console.log('사용자 인증된 상태임.');
-            res.render('addAnnouncement.ejs', { writer: "개발자", group: " " });
+            res.render('addAnnouncement.ejs', { writer: "개발자", group: 'ROOT' , link:'dev'});
         }
     });
     router.route('/admin/addAnnouncement.ejs').get(function (req, res) {
@@ -130,7 +130,7 @@ module.exports = function (router, passport) {
         } else {
             console.log('reuest:' + req.query.request);
             console.log('사용자 인증된 상태임.');
-            res.render('addAnnouncement.ejs', { writer: req.user.email, group: req.user.group });
+            res.render('addAnnouncement.ejs', { writer: req.user.email, group: req.user.group ,link:'admin'});
         }
     });
     router.route('/views/showpost.ejs').post(function (req, res) {
@@ -164,7 +164,7 @@ module.exports = function (router, passport) {
     });
 
     // 프로필 화면
-    router.route('/profile').get(function (req, res) {
+        router.route('/profile').get(function (req, res) {
         console.log('/profile 패스 요청됨.');
 
         // 인증된 경우, req.user 객체에 사용자 정보 있으며, 인증안된 경우 req.user는 false값임
@@ -176,8 +176,14 @@ module.exports = function (router, passport) {
         } else {
             console.log('사용자 인증된 상태임.');
             console.log('/profile 패스 요청됨.');
-            // console.dir(req.user);
-
+            console.dir(req.user);
+            
+            if (Array.isArray(req.user)) {
+                res.render('profile.ejs', { user: req.user[0]._doc });
+            } else {
+                res.render('profile.ejs', { user: req.user });
+            }
+            
             var user = req.user.email;
             var database = req.app.get('database');
         
@@ -189,13 +195,6 @@ module.exports = function (router, passport) {
         
                         return;
                     }
-        
-                        if (Array.isArray(req.user)) {
-                            res.render('profile.ejs', { user: req.user[0]._doc });
-                        } else {
-                            res.render('profile.ejs', { user: results });
-                        }
-                    
                 });
             } else {
                 printer.errrendering(res);

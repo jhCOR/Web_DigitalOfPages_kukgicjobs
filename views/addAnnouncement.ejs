@@ -72,9 +72,11 @@
 			
 			<div class="ui blue fluid card">
 				 <div class="content">
-			       		 
-					<form class="content ui form" method="post" action="/dev/addAnnouncement">
-						<h4 class="ui dividing header">도서 등록</h4>
+			       	
+					<form class="content ui form" method="post" action="/addAnnouncement">
+						<div class="field">
+				    		<input type="text" readonly name="request" value="<%=link%>">
+				  		</div>
 						
 						<div class="two fields">
 				    		<div class="field">
@@ -85,7 +87,7 @@
 						</div>
 
 						<div class="field">
-				    		<label>줄거리</label>
+				    		<label>내용</label>
 				    		<textarea id="contents" name="contents" rows="10" cols="80"></textarea>
 				  		</div>		
 								

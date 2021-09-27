@@ -9,7 +9,7 @@ var SchemaObj = {};
 SchemaObj.createSchema = function(mongoose) {
 	
 	// 글 스키마 정의
-	var BookSchema = mongoose.Schema({
+	var AnnouncementSchema = mongoose.Schema({
 	    title: {type: String, trim: true, 'default':''},		// 글 제목
 	    contents: {type: String, trim:true, 'default':''},			
 		group: {type: String, index: 'hashed', 'default':' '},//소속 부대			
@@ -20,10 +20,10 @@ SchemaObj.createSchema = function(mongoose) {
 	});
 	
 	// 필수 속성에 대한 'required' validation
-	BookSchema.path('title').required(true, '글 제목을 입력하셔야 합니다.');
-	BookSchema.path('contents').required(true, '글 내용을 입력하셔야 합니다.');
+	AnnouncementSchema.path('title').required(true, '글 제목을 입력하셔야 합니다.');
+	AnnouncementSchema.path('contents').required(true, '글 내용을 입력하셔야 합니다.');
 	// 스키마에 인스턴스 메소드 추가
-	BookSchema.methods = {
+	AnnouncementSchema.methods = {
 		savePost: function(callback) {		// 글 저장
 			var self = this;
 			
@@ -53,7 +53,7 @@ SchemaObj.createSchema = function(mongoose) {
 		}
 	}
 	
-	BookSchema.statics = {
+	AnnouncementSchema.statics = {
 		// ID로 글 찾기
 		load: function(id, callback) {
 			this.findOne({_id: id})
@@ -92,9 +92,9 @@ SchemaObj.createSchema = function(mongoose) {
         }
 	}
 	
-	console.log('BookSchema 정의함.');
+	console.log('AnnouncementSchema 정의함.');
 
-	return BookSchema;
+	return AnnouncementSchema;
 };
 
 // module.exports에 PostSchema 객체 직접 할당

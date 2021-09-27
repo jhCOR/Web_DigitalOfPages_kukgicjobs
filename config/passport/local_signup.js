@@ -18,8 +18,9 @@ module.exports = new LocalStrategy({
         var paramName = req.body.name || req.query.name;
 	 	var paramGroup = req.body.group || req.query.group;
 		var admin = req.body.admin || req.query.admin;
+		var own_number = req.body.own_number || req.query.own_number;
 	 	admin = admin=='on' ? 'adminRequset' : 'none';
-		console.log("admin:"+admin);
+		console.log("own_number:"+own_number);
 	    // findOne 메소드가 blocking되지 않도록 하고 싶은 경우, async 방식으로 변경
 	    process.nextTick(function() {
 			var database = req.app.get('database');
@@ -44,7 +45,7 @@ module.exports = new LocalStrategy({
 		            return done(null, false, req.flash('signupMessage', '계정이 이미 있습니다.'));  // 검증 콜백에서 두 번째 파라미터의 값을 false로 하여 인증 실패한 것으로 처리
 		        } else {
 		        	// 모델 인스턴스 객체 만들어 저장
-		        	var user = new database.UserModel({'email':email, 'password':password, 'name':paramName, 'group':paramGroup, 'admin':admin});
+		        	var user = new database.UserModel({'email':email, 'password':password, 'name':paramName, 'group':paramGroup, 'admin':admin, 'own_number':own_number});
 		        	user.save(function(err) {
 		        		if (err) {
 		        			throw err;
