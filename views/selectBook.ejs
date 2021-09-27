@@ -61,10 +61,17 @@
 			}
 			
 			function send(i){
-			
+				if(document.getElementById('next').innerText=="책 찾기"){
+					var param="booktitle"+i;
+					var book=document.getElementById(param).value;//or innerText
+					console.log("BOOK:"+book);
+					insertTitle(book);
+					
+				}else{
+					console.log("param:"+param);
 					var param="bookForm"+i;
 				document.getElementById(param).submit();
-				
+				}
 				
 			}
 			
@@ -91,7 +98,7 @@
     		
 			<div class="ui raised segment">
 				<a href='/book/listpost?page=0&perPage=2' id="next" class="ui blue ribbon label"><%=next%></a>
-      			<span id="board_title">책 목록</span>
+      			<span id="board_title"><%=title%></span>
 			
 				
 				<div class="ui blue fluid card">
