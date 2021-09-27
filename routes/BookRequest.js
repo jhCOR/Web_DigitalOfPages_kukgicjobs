@@ -1,7 +1,7 @@
 const ROUTEFUNCTIONPATH="../routeFunc";
 var printer = require("../utils/printer");
 var saver = require("../utils/saver");
-
+var RequestBook = require(ROUTEFUNCTIONPATH + '/requestBook');
 var applyBook = function(req, res) {
 	console.log('BookRequest 모듈 안에 있는 applyBook 호출됨.');
 
