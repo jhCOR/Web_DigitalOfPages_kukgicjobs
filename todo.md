@@ -31,6 +31,11 @@ npm install --save react-draft-wysiwyg draft-js
 - customizing frontend template  
   - dashboard/app
   - dashboard/user  
+- add files(related to book)
+  - src/pages/ApplyBook
+  - src/pages/RegisterBook
+  - _mocks_/books
+- Authentication & Authorization (login and signup)    
 
 ![image](https://user-images.githubusercontent.com/63538097/133967319-ec898419-a423-440e-86cd-51ba1965b924.png)
 
