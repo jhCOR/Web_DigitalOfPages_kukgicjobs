@@ -75,16 +75,19 @@
 					<form class="content ui form" method="post" action="/searchBooks">
 						<h4 class="ui dividing header">도서 신청</h4>
 						
+						<div class="field">
+				      			<label><input readonly type="text" name="next" id="next" value="<%=NEXT%>"></label>
+							
+						</div>
+						
 						<div class="two fields">
 				    		<div class="field">
 				      			<label>제목</label>
 								<input type="text" name="booktitle" placeholder="제목 입력">
 							</div>
-							<div class="field"></div>
+					
 						</div>
-
-
-								 
+ 
 						<input class="ui submit button" type="submit" value="검색" name="" />
 						<input class="ui button" type="button" value="취소" name="" onclick="javascript:history.back()" />
 					</form>

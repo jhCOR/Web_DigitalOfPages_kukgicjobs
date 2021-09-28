@@ -31,7 +31,6 @@ module.exports = {
 		,{file:'./book', path:'/searchGroup', method:'searchGroup', type:'get'}
 		,{file:'./book', path:'/book/delete/:id', method:'deleteBookFun', type:'get'}
 		
-		
 		,{file:'./BookRequest', path:'/book/applyBook', method:'applyBook', type:'post'}
 		,{file:'./BookRequest', path:'/requestBook', method:'requestBook', type:'post'}
 		,{file:'./BookRequest', path:'/book/acceptRequest/:id', method:'acceptRequest', type:'get'}

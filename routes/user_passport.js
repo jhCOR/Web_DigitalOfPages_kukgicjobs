@@ -11,47 +11,19 @@ module.exports = function (router, passport) {
 
     // 홈 화면
     router.route('/').get(function (req, res) {
-        console.log('/ 패스 요청됨.');
 
         tem = req.user;
 
         // 인증 안된 경우
         if (!req.user) {
-            console.log('사용자 인증 안된 상태임.');
+           
             res.render('index.ejs', { login_success: false });
         } else {
             console.log('사용자 인증된 상태임.');
-
             res.render('index.ejs', { login_success: true });
         }
     });
 
-    // 	 router.route('/searchGroup').get(function(req, res) {
-    // 		 	var database = req.app.get('database');
-
-    // 	if (database.db) {
-
-    // 		database.UserModel.findAll( function(err, results) {
-    // 			if (err) {
-
-    // 	return;
-    // 			}
-    // 			var groups=[];
-    // 			var num=0;
-
-    // 			for(var i=0;i<results.length;i++){
-
-    // 				if(!groups.includes(results[i]._doc.group)){
-    // 					groups[num]=results[i]._doc.group;
-    // 				num++;
-    // 				}
-
-    // 			}
-    //   		res.render('searchGroup.ejs', {groupList : groups});
-
-    //     });
-    // 	}
-    // });
 
     router.route('/addhistory').get(function (req, res) {
         res.render('history/historyOfBook.ejs', { writer: req.user.email, post: null });
@@ -59,7 +31,7 @@ module.exports = function (router, passport) {
 
     router.route('/views/bookHistoryGallery.ejs').get(function (req, res) {
         //기능 테스트 용도(사용전 테스트)
-        console.log('addWidget');
+    
 
         var database = req.app.get('database');
 
@@ -82,20 +54,20 @@ module.exports = function (router, passport) {
     router.route('/views/addpost.ejs').get(function (req, res) {
         // 인증 안된 경우
         if (!req.user) {
-            console.log('사용자 인증 안된 상태임.');
+            
             res.redirect('/process/listpost?page=0&perPage=8');
         } else {
-            console.log('사용자 인증된 상태임.');
+      
             res.render('addpost.ejs', { writer: req.user.email });
         }
     });
     router.route('/views/addbook.ejs').get(function (req, res) {
         // 인증 안된 경우
         if (!req.user) {
-            console.log('사용자 인증 안된 상태임.');
+           
             res.redirect('/book/listpost?page=0&perPage=8');
         } else {
-            console.log('사용자 인증된 상태임.');
+           
 
             res.render('addBook.ejs', { writer: req.user.email, group: req.user.group });
         }
@@ -103,12 +75,18 @@ module.exports = function (router, passport) {
     router.route('/views/applyNewBook.ejs').get(function (req, res) {
         // 인증 안된 경우
         if (!req.user) {
-            console.log('사용자 인증 안된 상태임.');
+         
             res.redirect('/');
         } else {
             console.log('reuest:' + req.query.request);
-            console.log('사용자 인증된 상태임.');
-            res.render('applyNewBook.ejs');
+			var NEXT;
+           if(req.query.request==0){
+			   NEXT="책 찾기";
+		   }else{
+			   NEXT="책 신청";
+		   }
+			
+            res.render('applyNewBook.ejs', { NEXT: NEXT});
         }
     });
     router.route('/dev/addAnnouncement.ejs').get(function (req, res) {
@@ -117,31 +95,25 @@ module.exports = function (router, passport) {
             console.log('사용자 인증 안된 상태임.');
             res.redirect('/');
         } else {
-            console.log('reuest:' + req.query.request);
-            console.log('사용자 인증된 상태임.');
+            
             res.render('addAnnouncement.ejs', { writer: "개발자", group: 'ROOT' , link:'dev'});
         }
     });
     router.route('/admin/addAnnouncement.ejs').get(function (req, res) {
         // 인증 안된 경우
         if (!req.user) {
-            console.log('사용자 인증 안된 상태임.');
+          
             res.redirect('/');
         } else {
-            console.log('reuest:' + req.query.request);
-            console.log('사용자 인증된 상태임.');
             res.render('addAnnouncement.ejs', { writer: req.user.email, group: req.user.group ,link:'admin'});
         }
     });
     router.route('/views/showpost.ejs').post(function (req, res) {
         // 인증 안된 경우
         if (!req.user) {
-            console.log('사용자 인증 안된 상태임(3).');
 
-            res.redirect('/process/addcomment');
+       	 res.redirect('/process/addcomment');
         } else {
-            console.log('사용자 인증된 상태임(3).');
-
             res.redirect('/process/addcomment');
         }
     });
@@ -165,19 +137,15 @@ module.exports = function (router, passport) {
 
     // 프로필 화면
         router.route('/profile').get(function (req, res) {
-        console.log('/profile 패스 요청됨.');
 
         // 인증된 경우, req.user 객체에 사용자 정보 있으며, 인증안된 경우 req.user는 false값임
 
         // 인증 안된 경우
         if (!req.user) {
-            console.log('사용자 인증 안된 상태임.');
+
             res.redirect('/');
         } else {
-            console.log('사용자 인증된 상태임.');
-            console.log('/profile 패스 요청됨.');
-            console.dir(req.user);
-            
+
             if (Array.isArray(req.user)) {
                 res.render('profile.ejs', { user: req.user[0]._doc });
             } else {

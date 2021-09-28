@@ -48,10 +48,10 @@ Schema.createSchema = function(mongoose) {
 	// 인증 메소드 - 입력된 비밀번호와 비교 (true/false 리턴)
 	AdminUserSchema.method('authenticate', function(plainText, inSalt, hashed_password) {
 		if (inSalt) {
-			console.log('authenticate 호출됨 : %s -> %s : %s', plainText, this.encryptPassword(plainText, inSalt), hashed_password);
+			
 			return this.encryptPassword(plainText, inSalt) === hashed_password;
 		} else {
-			console.log('authenticate 호출됨 : %s -> %s : %s', plainText, this.encryptPassword(plainText), this.hashed_password);
+			
 			return this.encryptPassword(plainText) === this.hashed_password;
 		}
 	});

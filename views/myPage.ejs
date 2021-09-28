@@ -81,20 +81,23 @@
 						
 							
 						<div >
-							<h3></span>대출 중인 도서</h3>
+							<h3>대출 중인 도서</h3>
 							<div>
 								<ul>
 									<% for (var i = 0; i < posts.reservationlist.length; i++) {%>
 
-										   <li><a href='/book/showbook/<%=posts.reservationlist[i]._id %>'>제목 : <%=posts.reservationlist[i].title%>, 저자 : <%=posts.reservationlist[i].author%></a>
-											<a class="btn btn-default" href='/book/return/<%=posts.reservationlist[i]._id %>'>반납</a></li>
+										<li><a href='/book/showbook/<%=posts.reservationlist[i]._id %>'>제목 : <%=posts.reservationlist[i].title%>, 저자 : <%=posts.reservationlist[i].author%></a>
+											<a class="btn btn-default" href='/book/return/<%=posts.reservationlist[i]._id %>'>반납</a>
+											<a class="btn btn-default" href='/book/loanByQrcode/<%=posts.reservationlist[i]._id %>?request=borrow'>QRcode_return</a>
+										</li>
+								
 									<% } %>	
 								</ul>
 							</div>
 								<P></P>
 								<a href='/' class="button">홈</a>
 
-			                </p>
+			               
 						</div>	
 
 						<br>

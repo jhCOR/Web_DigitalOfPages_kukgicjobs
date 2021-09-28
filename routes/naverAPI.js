@@ -16,14 +16,20 @@ module.exports = function(router, passport) {
      if (!error && response.statusCode == 200) {
 		 
 		var jsonData=JSON.parse(response.body);
-		 //console.log(jsonData.items);
-		 
+		 var nextLink;
+			console.log("next:"+req.body.next);
+		 if(req.body.next=="책 찾기"){
+			 nextLink=req.body.next;
+		 }else{
+		 var nextLink='책 신청'; 
+		 }
 		var context = {
 			title: '책 목록',
 			posts: jsonData.items,
-			next:'책 검색',
+			next:nextLink,
+			
 		};			
-	//console.log(context);
+		 console.log( jsonData.items[0]);
 		req.app.render('selectBook.ejs', context, function(err, html) {
 			if (err) {
 				console.error('응답 웹문서 생성 중 에러 발생 : ' + err.stack);

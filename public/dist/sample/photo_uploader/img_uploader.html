@@ -33,12 +33,13 @@
                     $('#photoOutput').attr('src', e.target.result);
                     }
                     reader.readAsDataURL(input.files[0]);
-                 
+                    document.getElementById("form").submit();
                 }
             } 
 
             window.onload=function(){
-            document.getElementById("submit_img").onclick=async function(){        
+            document.getElementById("submit_img").onclick=function(){ 
+
                 let today = new Date(); 
                 let year = today.getFullYear(); // 년도
                 let month = today.getMonth() + 1;  // 월
@@ -46,19 +47,24 @@
                 let day = today.getDay();  // 요일
                 let hours = today.getHours();
                 var distintString=year+""+month+""+date+day+hours;
+               
+               //document.getElementById("form").submit();
 
-                var files=$('input[name="photo"]')[0].files;
+                var imgages=[];
+               var files=$('input[name="photo"]')[0].files;
                 for(var i= 0; i<files.length; i++){
-                    var name=files[i].name;
-                    var realname=name.substring(0,name.length-4);
-                    var extint=name.substring(name.length-4);
-                
-                opener.parent.pasteHTML(realname+distintString+extint);
-                }                
-                 document.getElementById("form").submit();
+                   var name=files[i].name;
+                   var realname=name.substring(0,name.length-4);
+                   var extint=name.substring(name.length-4);
+                    imgages[i]=realname+distintString+extint;
                 }
-            } 
+                for(var j=0;j<files.length;j++){
+                    opener.parent.pasteHTML( imgages[j]);
+                }
            
+            } 
+              
+           }
         </script>
 	</head>
     <body>
@@ -70,7 +76,7 @@
                 </tr>
             </table>
            
-            <input type='button' id="submit_img" value='저장'/>
+            <input type='button' id="submit_img"value='저장'/>
             <input type='button' onclick="javascript: self.close(); " value='취소'/>
         </form>
     </body>

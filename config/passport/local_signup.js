@@ -20,7 +20,7 @@ module.exports = new LocalStrategy({
 		var admin = req.body.admin || req.query.admin;
 		var own_number = req.body.own_number || req.query.own_number;
 	 	admin = admin=='on' ? 'adminRequset' : 'none';
-		console.log("own_number:"+own_number);
+		
 	    // findOne 메소드가 blocking되지 않도록 하고 싶은 경우, async 방식으로 변경
 	    process.nextTick(function() {
 			var database = req.app.get('database');

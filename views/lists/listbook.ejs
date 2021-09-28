@@ -113,7 +113,7 @@
 									if( curTitle.indexOf(searchcontext)>=0){
 										calculatedItem+=1;
 										calculatedPage=Math.ceil(calculatedItem/8);
-										console.log('calculatedItem : ' + calculatedItem);
+									//	console.log('calculatedItem : ' + calculatedItem);
 								   %>
 								    <div class="item">
 										<div class="ui grid">
@@ -184,7 +184,7 @@
 					 		%>
 					 		<% 
 					 			var initial = Math.floor(page / 10) * 10;
-					 			console.log('initial : ' + initial);
+					 			//console.log('initial : ' + initial);
 					 			
 					 			var max = pageCount - initial;
 					 			if (max > 10) {
@@ -192,7 +192,7 @@
 					 			} else {
 					 				max = initial + max;
 					 			}
-					 			console.log('max : ' + max);
+					 			//console.log('max : ' + max);
 					 			
 					 			for (var i = initial; i < max; i++) {
 					 				if (i != page) {

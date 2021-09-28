@@ -7,12 +7,14 @@ var addAnnounceFun=(req, res)=>{
     const paramWriter =req.user.email;
 	
 	console.log('addAnnounceFun실행중');
+
 	var database = req.app.get('database');
 	var GROUP;
 	if(request=='dev'){
-		
+	
 		GROUP='ROOT';
 	}else{
+		
 		GROUP=req.user.group;
 	}
 	// 데이터베이스 객체가 초기화된 경우
@@ -30,7 +32,7 @@ var addAnnounceFun=(req, res)=>{
 				writer : paramWriter,
 				group:GROUP,
 			});
-			
+			console.log(announcement);
 			saver.saving(announcement,res,'/announce/show/' + announcement._id);
             
 		

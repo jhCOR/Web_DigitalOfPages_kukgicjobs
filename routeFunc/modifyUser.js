@@ -19,7 +19,7 @@ var modifyFunc = (req, res)=>{
 			}
 			
 			database.UserModel.findByIdAndUpdate(req.user._id,{$set: {name:writerName}},  function(err, theresult) {
-				console.log('theresult:'+writerName);
+				//console.log('theresult:'+writerName);
 				if (err) {
 					  printer.errrendering(res,err);
 					return;

@@ -53,7 +53,7 @@ var listPostFun=(req,res)=>{
 					currentPage=context.page;
 					req.session.passport.user.PreviousPage = context.page;
 					req.session.save();
-					console.log(req.session);
+					//console.log(req.session);
 					body=context;
 					//console.log('요청 파라미터(currentPage) ------> ' +currentPage);
 				printer.rendering(req,res,'lists/listbook.ejs',context);				

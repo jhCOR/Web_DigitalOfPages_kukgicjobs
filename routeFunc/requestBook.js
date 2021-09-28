@@ -50,7 +50,7 @@ var requestFun=(req,res)=>{
 
                     return;
                 }
-			   console.log(result);
+			   //console.log(result);
 				
 			    database.AppplyBookModel.load(result._id, function (err, results) {
 

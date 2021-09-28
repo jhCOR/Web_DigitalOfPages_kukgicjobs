@@ -35,7 +35,7 @@ Schema.createSchema = function (mongoose) {
 			this._password = password;
 			this.salt = this.makeSalt();
 			this.hashed_password = this.encryptPassword(password);
-			console.log('virtual password 호출됨 : ' + this.hashed_password);
+			
 		})
 		.get(function () {
 			return this._password;
@@ -59,20 +59,10 @@ Schema.createSchema = function (mongoose) {
 	// 인증 메소드 - 입력된 비밀번호와 비교 (true/false 리턴)
 	UserSchema.method('authenticate', function (plainText, inSalt, hashed_password) {
 		if (inSalt) {
-			console.log(
-				'authenticate 호출됨 : %s -> %s : %s',
-				plainText,
-				this.encryptPassword(plainText, inSalt),
-				hashed_password
-			);
+		
 			return this.encryptPassword(plainText, inSalt) === hashed_password;
 		} else {
-			console.log(
-				'authenticate 호출됨 : %s -> %s : %s',
-				plainText,
-				this.encryptPassword(plainText),
-				this.hashed_password
-			);
+	
 			return this.encryptPassword(plainText) === this.hashed_password;
 		}
 	});
@@ -119,7 +109,9 @@ Schema.createSchema = function (mongoose) {
 	
 	UserSchema.static('load2', function(options, callback) {
 		options.select = options.select || 'email';
-		this.findOne({ email: options.email }).select(options.select).exec(callback);
+		this.findOne({ email: options.email })
+			.select(options.select)
+			.exec(callback);
 	});
 	UserSchema.static('load', function (options, callback) {
 		options.select = options.select || 'name';

@@ -63,15 +63,11 @@ app.use(expressSession({
 	saveUninitialized:true
 }));
 
-
-
 //===== Passport 사용 설정 =====//
 // Passport의 세션을 사용할 때는 그 전에 Express의 세션을 사용하는 코드가 있어야 함
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
- 
-
 
 //라우팅 정보를 읽어들여 라우팅 설정
 var router = express.Router();
