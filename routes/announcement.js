@@ -14,10 +14,8 @@ var addAnnounceFun=(req, res)=>{
 	
 		GROUP='ROOT';
 	}else{
-		
 		GROUP=req.user.group;
 	}
-	// 데이터베이스 객체가 초기화된 경우
 	if (database.db) {
 		if(req.isAuthenticated==false){
 			return res.redirect('/'); 
@@ -25,7 +23,6 @@ var addAnnounceFun=(req, res)=>{
 		if(paramTitle==null||paramContents==null){
 			return res.redirect('/dev/announcement?page=0&request=dev'); 
 		}
-		
 			var announcement = new database.AnnouncementModel({
 				title: paramTitle,
 				contents: paramContents,

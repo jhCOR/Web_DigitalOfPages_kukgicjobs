@@ -18,16 +18,19 @@ module.exports = function(router, passport) {
 		var jsonData=JSON.parse(response.body);
 		 var nextLink;
 			console.log("next:"+req.body.next);
-		 if(req.body.next=="책 찾기"){
-			 nextLink=req.body.next;
-		 }else{
-		 var nextLink='책 신청'; 
-		 }
+		 
+		 // if(req.body.next=="책 찾기"){
+		 // nextLink=req.body.next;
+		 // }else if(req.body.next=="책 신청"){
+		 // nextLink='책 신청'; 
+		 // }else if(req.body.next=="ISBN 검색"){
+		 // nextLink='ISBN 검색'; 
+		 // }
+		 
 		var context = {
 			title: '책 목록',
 			posts: jsonData.items,
-			next:nextLink,
-			
+			next:req.body.next,
 		};			
 		 console.log( jsonData.items[0]);
 		req.app.render('selectBook.ejs', context, function(err, html) {

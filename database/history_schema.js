@@ -11,6 +11,7 @@ SchemaObj.createSchema = function(mongoose) {
 		group: {type: String, index: 'hashed', 'default':''},//소속 부대				
 	    writer: {type: mongoose.Schema.ObjectId, ref: 'user7'},	// 글쓴 사람
         bookinfo: {type: String, trim:true, 'default':''},
+		range: {type: String, trim:true, 'default':'비공개'},
 		
 		hits: {type: Number, 'default': 0},   // 조회수
 	    created_at: {type: Date, index: {unique: false}, 'default': Date.now},

@@ -145,7 +145,7 @@ var requestlist = function (req, res) {
 var listHistoryOfBook = function (req, res) {
     console.log('showList 모듈 안에 있는 listHistoryOfBook 호출됨.');
 
-    var paramPage = req.body.page || req.query.page || '0';
+    var paramPage = req.body.page || req.query.page;
     var paramPerPage = 8;
 
     var database = req.app.get('database');
@@ -185,18 +185,18 @@ var listHistoryOfBook = function (req, res) {
                     printer.errrendering(res, err);
                     return;
                 }
-
-                if (listresults) {
+			database.BookPostModel.count().exec(function(err, count) {
+				  if (listresults) {
                     res.writeHead('200', { 'Content-Type': 'text/html;charset=utf8' });
-
+					//console.log(listresults);
                     // 뷰 템플레이트를 이용하여 렌더링한 후 전송
                     var context = {
                         title: '신청 목록',
                         posts: listresults,
                         page: parseInt(paramPage),
-                        pageCount: Math.ceil(listresults.length / paramPerPage),
+                        pageCount: Math.ceil(count / paramPerPage),
                         perPage: paramPerPage,
-                        totalRecords: listresults.length,
+                        totalRecords: count,
                         size: paramPerPage,
                     };
 
@@ -206,6 +206,8 @@ var listHistoryOfBook = function (req, res) {
                     res.write('<h2>글 목록 조회  실패</h2>');
                     res.end();
                 }
+			});
+              
             });
         });
     } else {
@@ -219,16 +221,21 @@ var Announcement = function (req, res) {
     var paramPage = req.body.page || req.query.page || '0';
     var request =req.body.request || req.query.request || '0';
 	var RIGHT;
+	
 	if(req.user.admin=='accepted'){
 		RIGHT='admin';
 	}
 	var adminORdev;
+	var file;
 	if(request=='dev'){
 		 console.log(request);
 		adminORdev={ group: 'ROOT'}
+		file = 'lists/listAnnouncement';
+		
 	}else{
 		 console.log(request);
 		adminORdev={ group: req.user.group}
+		file = 'lists/listAnnouncement_admin';
 	}
     var database = req.app.get('database');
 	
@@ -248,28 +255,31 @@ var Announcement = function (req, res) {
                     printer.errrendering(res, err);
                     return;
                 }
+				console.log(listresults);
+				database.AnnouncementModel.find({group:adminORdev.group}).count().exec(function(err, count) {
+					if (listresults) {
+						res.writeHead('200', { 'Content-Type': 'text/html;charset=utf8' });
+						console.log(count);
+						// 뷰 템플레이트를 이용하여 렌더링한 후 전송
+						var context = {
+							title: '신청 목록',
+							posts: listresults,
+							page: parseInt(paramPage),
+							pageCount: Math.ceil(count / 8),
+							perPage: 8,
+							totalRecords: count,
+							size: 8,
+							rootORadmin:RIGHT,
+						};
 
-                if (listresults) {
-                    res.writeHead('200', { 'Content-Type': 'text/html;charset=utf8' });
-
-                    // 뷰 템플레이트를 이용하여 렌더링한 후 전송
-                    var context = {
-                        title: '신청 목록',
-                        posts: listresults,
-                        page: parseInt(paramPage),
-                        pageCount: Math.ceil(listresults.length / 8),
-                        perPage: 8,
-                        totalRecords: listresults.length,
-                        size: 8,
-						rootORadmin:RIGHT,
-                    };
-
-                    printer.rendering(req, res, 'lists/listAnnouncement', context);
-                } else {
-                    res.writeHead('200', { 'Content-Type': 'text/html;charset=utf8' });
-                    res.write('<h2>글 목록 조회  실패</h2>');
-                    res.end();
-                }
+						printer.rendering(req, res, file, context);
+						
+					} else {
+						res.writeHead('200', { 'Content-Type': 'text/html;charset=utf8' });
+						res.write('<h2>글 목록 조회  실패</h2>');
+						res.end();
+					}
+				});
             });
         
     } else {

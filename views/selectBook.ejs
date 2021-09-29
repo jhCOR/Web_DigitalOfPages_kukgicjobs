@@ -64,15 +64,28 @@
 				
 				if(document.getElementById('next').innerText=="책 찾기"){
 						
-					var param="booktitle"+i;
+					var param="bookimg"+i;
 					var book=document.getElementById(param).value;//or innerText
 					
 					insertTitle(book);
 					
-				}else{
+				}else if(document.getElementById('next').innerText=="책 신청"){
 					//alert("param:"+param);
 					var param="bookForm"+i;
 				document.getElementById(param).submit();
+				}else if(document.getElementById('next').innerText=="ISBN 검색"){
+					
+					var param1="booktitle"+i;
+					var param2="bookauthor"+i;
+					var param3="bookcontents"+i;
+					var param4="bookisbn"+i;
+					
+					var book1=document.getElementById(param).value;//or innerText
+					var book2=document.getElementById(param).value;
+					var book3=document.getElementById(param).value;
+					var book4=document.getElementById(param).value;
+					alert(title+author+contents+isbn);
+					insertISBN(book1,book2,book3,book4);
 				}
 				
 			}
@@ -83,8 +96,16 @@
 			
 				
 			await closeWindow();
-			
 		}
+		async function insertISBN(title,author,contents,isbn){
+			alert(title+author+contents+isbn);
+			opener.document.getElementById("title").value = title;
+			opener.document.getElementById("author").value = author;
+			opener.document.getElementById("contents").value = contents;
+			opener.document.getElementById("isbn").value = isbn;
+			
+			await closeWindow();
+		}	
 			
 		function closeWindow(){
 			
@@ -153,11 +174,11 @@
 												
 													<form class="btn btn-default btn-sm" id="bookForm<%=i %>" method="post" action="/book/applyBook">
 									
-														<input hidden type="text" name="title" value="<%=title %>">
-														<input hidden type="text" name="author" value="<%=author %>">
-														<input hidden type="text" name="link" id="booktitle<%=i %>" value="<%=imgpath %>">
-														<input hidden type="text" name="description" value="<%=description %>">
-														
+														<input hidden type="text" name="title" id="booktitle<%=i %>" value="<%=title %>">
+														<input hidden type="text" name="author" id="bookauthor<%=i %>" value="<%=author %>">
+														<input hidden type="text" name="link" id="bookimg<%=i %>" value="<%=imgpath %>">
+														<input hidden type="text" name="description" id="bookcontents<%=i %>" value="<%=description %>">
+														<input hidden type="text" name="isbn" id="bookisbn<%=i %>" value="<%=isbn %>">
 													</form>
 													
 													

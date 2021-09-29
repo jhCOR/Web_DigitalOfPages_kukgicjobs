@@ -17,6 +17,7 @@ SchemaObj.createSchema = function(mongoose) {
 		reservation: {type: String, trim:true, 'default':''},		
 		author: {type: String, trim:true, 'default':''},				
 	    writer: {type: mongoose.Schema.ObjectId, ref: 'user7'},	// 글쓴 사람
+		isbn:{type: String, trim:true, 'default':''},
 	    review: [{		// 리뷰
 	    	contents: {type: String, trim:true, 'default': ''},				// 댓글 내용
 			writer: {type: String, trim:true, 'default': ''},

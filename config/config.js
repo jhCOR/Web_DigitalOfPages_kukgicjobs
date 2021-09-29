@@ -32,7 +32,7 @@ module.exports = {
 		,{file:'./book', path:'/book/delete/:id', method:'deleteBookFun', type:'get'}
 		
 		,{file:'./BookRequest', path:'/book/applyBook', method:'applyBook', type:'post'}
-		,{file:'./BookRequest', path:'/requestBook', method:'requestBook', type:'post'}
+		,{file:'./BookRequest', path:'/requestBook', method:'requestBook', type:'post'} 
 		,{file:'./BookRequest', path:'/book/acceptRequest/:id', method:'acceptRequest', type:'get'}
 		
 		,{file:'./user', path:'/user/modifyUser', method:'modifyUser', type:'post'}
@@ -42,6 +42,7 @@ module.exports = {
 		
 		,{file:'./HistoryOfBook', path:'/post/addHistoryOfBook', method:'addHistoryOfBook', type:'post'}
 		,{file:'./HistoryOfBook', path:'/post/addHistoryOfBook/:id', method:'addHistoryOfBook', type:'get'}
+		,{file:'./HistoryOfBook', path:'/history/:id', method:'showHistory', type:'get'}
 		,{file:'./HistoryOfBook', path:'/historyofbook', method:'listHistoryOfBook', type:'get'}
 
 		,{file:'./HistoryOfBook', path:'/post/deleteHistoryOfBook/:id', method:'deleteHistoryOfBook', type:'get'}

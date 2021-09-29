@@ -5,25 +5,20 @@ var showListModule = require('./showList');
 var addHistoryOfBook = (req, res)=> {//네이버 api 이용해서 책을 찾은 후에 저장?
 	console.log('HistoryOfBook 모듈 호출됨');
 
- 	if(req.body){//post방식
-		
 	var paramContents = req.body.contents || req.query.contents||'0';
 	var bookInformation = req.body.booktitle || req.query.booktitle;
 	var paramTitle = req.body.title || req.query.title||paramContents.substring(0,10);
-	var paramId =  req.body.id || req.query.id || req.params.id;
 	
-	}else{
+	var range =  req.body.range || req.query.range || req.params.range;
 		
-	}
+	console.log(range);
+	
 	var paramWriter =req.user.email;
 	
 	var database = req.app.get('database');
 	
 	// 데이터베이스 객체가 초기화된 경우
-
-	
-	var saveHistory = () =>{
-		database.UserModel.findByEmail(paramWriter, function(err, results) {
+	database.UserModel.findByEmail(paramWriter, function(err, results) {
 			
 			if (err) {
 				//err= new Error("의도적에러");
@@ -50,26 +45,30 @@ var addHistoryOfBook = (req, res)=> {//네이버 api 이용해서 책을 찾은 
 				contents: paramContents,
 				writer: userObjectId,
 				bookinfo: bookInformation,
-				group:req.user.group
+				group:req.user.group,
+				range:range,
 			});
-			
-			post.savePost(function(err, result) {
-				if (err) {
 
-				printer.errrendering(res,err);
-				return;
-				}
-				var content={post:post}	
+			saver.saving(post,res,'/history/' + post._id);
+			// post.savePost(function(err, result) {
+			// 	if (err) {
+
+			// 	printer.errrendering(res,err);
+			// 	return;
+			// 	}
+			// 	var content={post:post}	
 			  
-				printer.rendering(req,res,'history/historyOfBook.ejs',content);	
-
-			});
+			// 	// printer.rendering(req,res,'history/historyOfBook.ejs',content);	
+				
+			// });
 			
 		});
-	}
+
+};
+var showHistory = (req, res)=>{
+	var paramId =  req.body.id || req.query.id || req.params.id;
+		var database = req.app.get('database');
 	
-	var showHistory = ()=>{
-			
 		database.BookPostModel.load(paramId, function (err, results) {
 
 				if (err) {
@@ -105,7 +104,7 @@ var addHistoryOfBook = (req, res)=> {//네이버 api 이용해서 책을 찾은 
 					};
 					console.log(results);
 			   
-				printer.rendering(req,res,'history/historyOfBook.ejs',context);	
+				printer.rendering(req,res,'history/historyOfBook_show.ejs',context);	
 				} else {
 					res.writeHead('200', { 'Content-Type': 'text/html;charset=utf8' });
 					res.write('<h2>글 조회  실패</h2>');
@@ -113,24 +112,6 @@ var addHistoryOfBook = (req, res)=> {//네이버 api 이용해서 책을 찾은 
 				}
 			});
 	}
-	if (database.db) {
-	//console.log("paramContents:"+paramContents);
- 	if(paramContents!='0'){
-
-	saveHistory();
-	}else if(paramId){
-		showHistory();
-		
-	}else{
-		
-	}
-		
-		
-	} else {
-		printer.errrendering(res);
-	}
-};
-
 var listHistoryOfBook =  (req, res)=>{
 	showListModule.listHistoryOfBook(req, res);
 }
@@ -167,5 +148,6 @@ var deleteHistoryOfBook = function (req, res) {
     }
 };
 module.exports.addHistoryOfBook = addHistoryOfBook;
+module.exports.showHistory = showHistory;
 module.exports.listHistoryOfBook = listHistoryOfBook;
 module.exports.deleteHistoryOfBook = deleteHistoryOfBook;

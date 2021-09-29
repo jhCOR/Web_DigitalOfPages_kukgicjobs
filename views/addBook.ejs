@@ -49,7 +49,14 @@
 		<script src="/public/jquery-3.1.1.min.js"></script>
 		<script src="/public/semantic.min.js"></script>
 		<script src="/public/ckeditor/ckeditor.js"></script>
-		
+		<script>
+		function search(){
+			var isbn=document.getElementById('isbn').value;
+				win=open("/views/applyNewBook.ejs?request=2","new page","width=400,height=300");
+				win.moveTo(500,100);
+
+		}
+		</script>
 	</head>
 <body>
 	
@@ -57,33 +64,36 @@
 	    <br>
      
 		<div class="ui raised segment">
-			<a class="ui blue ribbon label">게시판</a>
-     			<span id="board_title">글쓰기</span>
-		
+			<a class="ui blue ribbon label">도서 등록</a>
 			
 			<div class="ui blue fluid card">
 				 <div class="content">
-			       		 
+			       		 <button onclick="search()">검색</button>
 					<form class="content ui form" method="post" action="/book/addbook">
 						<h4 class="ui dividing header">도서 등록</h4>
 						
 						<div class="two fields">
+						
+							<div class="field" >
+							<label style="display:inline-block">ISBN<input type="text" hidden name="isbn" id="isbn" placeholder="isbn 입력"></label>
+						
+						</div>	
+						<div class="two fields">
 				    		<div class="field">
 				      			<label>제목</label>
-								<input type="text" name="title" placeholder="제목 입력">
+								<input type="text" name="title" id="title" placeholder="제목 입력">
 							</div>
-							<div class="field"></div>
-						</div>
+						</div>	
 						<div class="two fields">
 				    		<div class="field">
 				      			<label>저자</label>
-								<input type="text" name="author" placeholder="저자 입력">
+								<input type="text" name="author" id="author" placeholder="저자 입력">
 							</div>
 							<div class="field"></div>
 						</div>	
 						<div class="field">
 				    		<label>줄거리</label>
-				    		<textarea id="contents" name="contents" rows="10" cols="80"></textarea>
+				    		<textarea id="contents" name="contents" id="contents" rows="10" cols="80"></textarea>
 				  		</div>		
 								
 						<div class="two fields">

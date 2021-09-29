@@ -56,7 +56,7 @@
 		
 		<script>
 			function listpost(page, perPage) {
-				document.location = '/book/listapplybook?page=' + page + '&perPage=' + perPage;
+				document.location = '/dev/announcement?page=' + page + '&request=dev';
 			}
 		</script>
 		
@@ -192,9 +192,7 @@
 						<div class="menu">
 						
 							<a class="ui button"  href='/dev/addAnnouncement.ejs'>개발자 글쓰기</a>
-							<% if(rootORadmin=='admin'){%>
-							<a class="ui button"  href='/admin/addAnnouncement.ejs'>관리자 글쓰기</a>
-							<%}%>
+							
 						<a class="ui button"  href='/'>홈으로</a>
 						
 					</div>

@@ -56,9 +56,7 @@ var listPostFun=(req,res)=>{
 					//console.log(req.session);
 					body=context;
 					//console.log('요청 파라미터(currentPage) ------> ' +currentPage);
-				printer.rendering(req,res,'lists/listbook.ejs',context);				
-
-					
+				printer.rendering(req,res,'lists/listbook.ejs',context);
 				});
 				
 			} else {

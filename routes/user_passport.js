@@ -82,8 +82,14 @@ module.exports = function (router, passport) {
 			var NEXT;
            if(req.query.request==0){
 			   NEXT="책 찾기";
-		   }else{
+		   }else if(req.query.request==1){
 			   NEXT="책 신청";
+		   }else if(req.query.request==2){
+			   NEXT="ISBN 검색"
+		   }else{
+			   	res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
+        		res.write('<h2>검색 오류</h2>');
+        		res.end();
 		   }
 			
             res.render('applyNewBook.ejs', { NEXT: NEXT});

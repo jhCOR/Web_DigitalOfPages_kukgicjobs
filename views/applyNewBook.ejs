@@ -48,17 +48,7 @@
 		
 		<script src="/public/jquery-3.1.1.min.js"></script>
 		<script src="/public/semantic.min.js"></script>
-		<script src="/public/ckeditor/ckeditor.js"></script>
-		
-		<script>
-			
-			$(document).ready(function() { 
-				CKEDITOR.config.extraPlugins = 'colorbutton';
-				CKEDITOR.env.isCompatible = true;
-				CKEDITOR.replace('contents');
-			});
-			
-		</script>
+
 	</head>
 <body>
 	
@@ -66,15 +56,12 @@
 	    <br>
      
 		<div class="ui raised segment">
-     			<span id="board_title">도서 신청</span>
-		
 			
 			<div class="ui blue fluid card">
 				 <div class="content">
 			       		 
 					<form class="content ui form" method="post" action="/searchBooks">
-						<h4 class="ui dividing header">도서 신청</h4>
-						
+
 						<div class="field">
 				      			<label><input readonly type="text" name="next" id="next" value="<%=NEXT%>"></label>
 							
@@ -82,8 +69,12 @@
 						
 						<div class="two fields">
 				    		<div class="field">
+								<%if(NEXT!="ISBN 검색"){%>
 				      			<label>제목</label>
-								<input type="text" name="booktitle" placeholder="제목 입력">
+								<%}else{%>
+								<label>ISBN</label>
+								<%}%>
+								<input type="text" name="booktitle" placeholder="검색어 입력">
 							</div>
 					
 						</div>
