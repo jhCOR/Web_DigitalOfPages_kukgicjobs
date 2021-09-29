@@ -1,10 +1,12 @@
 # What am I doing now?  
-  
-정지혁 :  
-- 게시판 기능(이미지 본문삽입,댓글 대댓글 등)
-안드로이드 스튜디오 개발(메모장 어플,퀴즈&설문어플등)
-플러터(간단한 수준), 인공지능(스타일 트렌스퍼 등을 적용해 프로필 사진에 변화를 주어 신선한 느낌을 줘 볼 수 있음, 사용 결정시 바로 적용 가능)  
-  
+  ![image](https://user-images.githubusercontent.com/63538097/133967319-ec898419-a423-440e-86cd-51ba1965b924.png)
+
+DIGITAL OF PAGES
+2021년 9월 18일 
+
+
+# 정지혁, 양재훈, 김정호(**TEAM kukgic jobs**)
+
 김정호 :  
 - customizing frontend template (branch front/book)  
   - components/dashboard/blog
@@ -37,13 +39,6 @@ npm install --save react-draft-wysiwyg draft-js
   - _mocks_/books
 - Authentication & Authorization (login and signup)    
 
-![image](https://user-images.githubusercontent.com/63538097/133967319-ec898419-a423-440e-86cd-51ba1965b924.png)
-
-DIGITAL OF PAGES
-2021년 9월 18일 
-
-
-# 정지혁, 양재훈, 김정호(**TEAM kukgic jobs**)
 
  2021.09.29 개발 내용(정지혁)
  -리스트 관련 오류를 수정하였음
