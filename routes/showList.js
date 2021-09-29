@@ -147,9 +147,12 @@ var listHistoryOfBook = function (req, res) {
 
     var paramPage = req.body.page || req.query.page;
     var paramPerPage = 8;
-
+	var range=req.body.range || req.query.range;
     var database = req.app.get('database');
+	console.log(range);
+	var options;
 
+	
     // 데이터베이스 객체가 초기화된 경우
     if (database.db) {
         database.UserModel.findByEmail(req.user.email, function (err, results) {
@@ -171,12 +174,21 @@ var listHistoryOfBook = function (req, res) {
             }
 
             var userObjectId = results[0]._doc._id;
-
+			options= { writer: userObjectId};
+				if(range=="my"){
+					options= { writer: userObjectId};
+				}else if(range=="group"){
+					options= { group: req.user.group,
+							 	range:"그룹공개"};
+				}else if(range=="all"){
+					options= {range:"전체공개"};
+				}
+			//console.log(options);
             // 1. 글 리스트
             var options = {
                 page: paramPage,
                 perPage: paramPerPage,
-                criteria: { writer: userObjectId},
+                criteria: options,
             };
 
             database.BookPostModel.list(options, function (err, listresults) {
@@ -185,7 +197,7 @@ var listHistoryOfBook = function (req, res) {
                     printer.errrendering(res, err);
                     return;
                 }
-			database.BookPostModel.count().exec(function(err, count) {
+			database.BookPostModel.find(options).count().exec(function(err, count) {
 				  if (listresults) {
                     res.writeHead('200', { 'Content-Type': 'text/html;charset=utf8' });
 					//console.log(listresults);

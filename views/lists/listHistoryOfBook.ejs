@@ -69,9 +69,9 @@
     		<br>
     		
 			<div class="ui raised segment">
-				<a href='/book/listapplybook?page=0&perPage=2' class="ui blue ribbon label">게시판</a>
-      			
-			
+				<a href='/historyofbook?page=0&range=my' class="ui blue ribbon label">나의 발자취</a>
+      			<a href='/historyofbook?page=0&range=group' class="ui blue ribbon label">그룹 발자취</a>
+				<a href='/historyofbook?page=0&range=all' class="ui blue ribbon label">모두의 발자취</a>
 				
 				<div class="ui blue fluid card">
 					 <div class="content">
@@ -97,7 +97,7 @@
 								    <div class="item">
 										<div class="ui grid">
 						    				<div class="two wide column" ><%=curNo %></div>
-						    				<div class="fourteen wide column" onclick="javascript:window.location='/post/addHistoryOfBook/<%=posts[i]._id %>'">
+						    				<div class="fourteen wide column" onclick="javascript:window.location='/history/<%=posts[i]._id %>'">
 						    					<div class="ui header">
 										    		<h4 class="ui left aligned header">
 										    			<%=curTitle %>
