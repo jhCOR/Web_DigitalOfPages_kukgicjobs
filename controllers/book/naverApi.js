@@ -2,8 +2,8 @@ import { BookModel, UserModel, ApplyBookModel } from '../../models';
 import { saver, printer } from '../../utils';
 import request from 'request';
 
-const client_id = '89GJe6xA9xtO2UH7949D';
-const client_secret = '5cWawTQePf';
+const client_id = process.env.ID || '89GJe6xA9xtO2UH7949D';
+const client_secret = process.env.PW || '5cWawTQePf';
 
 export default function naverApi(req, res) {
 	const api_url =
