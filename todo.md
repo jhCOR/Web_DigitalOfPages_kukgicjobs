@@ -53,6 +53,11 @@ npm install --save react-draft-wysiwyg draft-js
  ![image](https://user-images.githubusercontent.com/63538097/135265173-65020f9e-7f1b-48c0-b5d3-210bea21f13a.png)
  ![image](https://user-images.githubusercontent.com/63538097/135265562-d0cb2af4-dbb5-4570-8821-8bcdfed21167.png)
  ![image](https://user-images.githubusercontent.com/63538097/135265625-33d79357-a750-4c1c-82ab-51b670466663.png)
+ 
+ 2021.09.30(정지혁)
+ -개인정보처리방침 추가!
+ [image](https://user-images.githubusercontent.com/63538097/135434473-3c11edbc-c227-4168-ba3c-e77ecdccdd61.png)
+
 
  
 ------------------------------------------------------------------------------------------------------------------------------------
