@@ -15,6 +15,7 @@ var showBookFun=(req,res)=>{
 		if (database.db) {
 			// 1. 글 리스트
 				//console.log(paramId+"fron show");
+			
 			database.BookModel.load(paramId, function (err, results) {
 
 				if (err) {
@@ -57,7 +58,8 @@ var showBookFun=(req,res)=>{
 						user:userEmail,
 						Entities: Entities
 					};
-					//console.log("num:"+results.num);
+					
+					console.log(results);
 					body = context;
 
 					database.UserModel.load(userEmail, function(err, results) {
