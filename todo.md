@@ -74,7 +74,6 @@ npm install --save react-draft-wysiwyg draft-js
 1주차
 관리자 페이지 (로그인시 소속원 정보기입가능하도록)
 리뷰(책마다 리뷰가 아닌 같은 책이면 리뷰 공유,isbn추가)
-contact us 미완성[쉬움]
 --------
 2주차
 알림기능[약간 어려움]
@@ -83,14 +82,5 @@ contact us 미완성[쉬움]
 3주차
 기능,디자인 검토
 발표영상,가이드 제작 후 제출
------------------------------
-
-
-
-**추가 고려 사항**
-도메인 구입(약자인 dop는 대부분 구입 불가)
-![image](https://user-images.githubusercontent.com/63538097/133967424-529a26d5-c437-4b08-9e5a-d038bc9da6a9.png)
-![image](https://user-images.githubusercontent.com/63538097/133967444-58448712-8008-468d-b014-eacfa2744367.png)
-
 
 
