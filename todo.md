@@ -74,12 +74,12 @@ npm install --save react-draft-wysiwyg draft-js
 ![image](https://user-images.githubusercontent.com/63538097/135572518-346b878e-8e1f-4ecc-a4c9-683b9c72ec7c.png)
 
 * 제출 1주전 까지
- * 관리자 페이지 (로그인시 소속원 정보기입가능하도록)
- * 알림기능[약간 어려움]
+  - 관리자 페이지 (로그인시 소속원 정보기입가능하도록)
+  - 알림기능[약간 어려움]
 
 * 마지막 주
- * 기능,디자인 검토
- * 발표영상,가이드 제작 후 제출
+  - 기능,디자인 검토
+  - 발표영상,가이드 제작 후 제출
 
 
 
