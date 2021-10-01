@@ -67,6 +67,12 @@ npm install --save react-draft-wysiwyg draft-js
 ![image](https://user-images.githubusercontent.com/63538097/135550643-3d960900-f86e-4e88-a9fd-da79958500a7.png)
 두번째 사진(showbook.js)과 같이 isbn으로 리뷰를 검색하여 book스키마에 삽입하는 방식으로 동일 isbn의 모든 리뷰를 취급함.
 
+* 로그인, 오류핸들링 기능 추가.500번 서버 오류 핸들링 기능 추가 및 비 로그인 주소 요청을 차단하여 로그인 화면으로 이동하도록 수정.
+![image](https://user-images.githubusercontent.com/63538097/135572333-0a43a005-4249-41e4-bfd5-f0d2457aa1f6.png)
+위 화면의 주소 요청(책 내용을 보려는 요청)이 로그인 해제 상태로 이루어져 로그인을 해야한다는 메세지와 함께 로그인 화면으로 이동하도록 수정(app.js의 76~106번쨰 줄 참조)
+- 예시:
+![image](https://user-images.githubusercontent.com/63538097/135572518-346b878e-8e1f-4ecc-a4c9-683b9c72ec7c.png)
+
 1주차
 관리자 페이지 (로그인시 소속원 정보기입가능하도록)
 --------
