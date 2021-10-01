@@ -186,15 +186,33 @@
 						<input hidden type="text" name="id" value="<%=posts._id %>">
 						<input   class="ui button"  type="submit" value="예약" name="" />
 					</form> 
-
+					
+				<div>
+                    <form class="content ui form" method="post" action="/book/addreview">
+						<div class="field">
+							<label>리뷰</label>
+							
+							<textarea type="text" name="contents" rows="4" style="width: 600px;" placeholder="리뷰 입력"></textarea>
+				  		</div>		
+						<input hidden type="text" name="writerforalert" value="<%=curWriter %>">
+                        <input hidden type="text" name="id" value="<%=curId %>">
+						<input class="ui submit button" type="submit" value="리뷰 추가" name="" />
+					</form>
+                </div>
                     <%  
-                        for (var i = 0; i < posts._doc.review.length; i++){
-                           var curCommentContents = posts._doc.review[i].contents;
+						   for (var i = 0; i < posts._doc.review.length; i++){
+						   var curCommentContents = posts._doc.review[i].contents;
 						   var curCommentWriter = posts._doc.review[i].writer;
 						   var curCommentWriterName = posts._doc.review[i].writername;
 						   var curCommentId=posts._doc.review[i]._id;
 						   var idforcomment=i;
-
+					// if(posts._doc.reviewID){
+ 						// for (var i = 0; i < posts._doc.reviewID.review.length; i++){
+ 						// var curCommentContents = posts._doc.reviewID.review[i].contents;
+ 						// var curCommentWriter = posts._doc.reviewID.review[i].writer;
+ 						// var curCommentWriterName = posts._doc.reviewID.review[i].writername;
+ 						// var curCommentId=posts._doc.reviewID.review[i]._id;
+ 						// var idforcomment=i;
                            %>
                             <div class="item">
                                 <div class="ui grid">
@@ -229,39 +247,28 @@
 												</form> 
 												<% if (login_success&&user===curCommentWriter) { %>
 												<form    class="align2" method="post" action="/review/removereview">
-													<input hidden type="text" name="delete" value="<%=i %>">
-													<input hidden type="text" name="id" value="<%=posts._doc._id %>">
+													<input hidden type="text" name="delete" value="<%=posts._doc.reviewID._id %>">
+													<input hidden type="text" name="content" value="<%= posts._doc._id %>">
+													<input hidden type="text" name="id" value="<%=i%>">
 													<input type="submit" value="삭제" name="" />
 												</form> 
 												<% }%>
-												<form   class="align" height="70px" method="post" action="/book/translate">
-													<input hidden type="text" name="review" value="<%=curCommentContents %>">
-													<input   class="ui button"  type="submit" value="번역(테스트용)" name="" />
-												</form> 
+									
 												
 											</div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                    <% } %>	
+                    <% }
+					//}
+					%>	
 
                 </div>
 
                 
                 
-                <div>
-                    <form class="content ui form" method="post" action="/book/addreview">
-						<div class="field">
-							<label>리뷰</label>
-							<input type="Integer" name="star" placeholder="점수">
-							<textarea type="text" name="contents" rows="4" style="width: 600px;" placeholder="리뷰 입력"></textarea>
-				  		</div>		
-						<input hidden type="text" name="writerforalert" value="<%=curWriter %>">
-                        <input hidden type="text" name="id" value="<%=curId %>">
-						<input class="ui submit button" type="submit" value="리뷰 추가" name="" />
-					</form>
-                </div>
+               
                 
 			
 				

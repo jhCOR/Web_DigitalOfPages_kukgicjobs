@@ -15,6 +15,7 @@ var showBookFun=(req,res)=>{
 		if (database.db) {
 			// 1. 글 리스트
 				//console.log(paramId+"fron show");
+			
 			database.BookModel.load(paramId, function (err, results) {
 
 				if (err) {
@@ -42,13 +43,29 @@ var showBookFun=(req,res)=>{
 
 					});
 
-					//+
 					res.writeHead('200', { 'Content-Type': 'text/html;charset=utf8' });
 					if(results===null){
 						res.redirect('/');
 					}
+					var review_list=[];
+					database.ReviewModel.loadByIsbn(results._doc.reviewID.isbn, function (err, review_results) {
 
+						if (err) {
+							console.log('error');
+							console.error('게시판 글 조회 중 에러 발생 : ' + err.stack);
+
+							printer.errrendering(res,err);
+
+							return;
+						}
+						
+						review_results.map((review_result)=>{review_list.push(...review_result.review)});
+						
+						//console.log("end:"+review_list);
+						
 					// 뷰 템플레이트를 이용하여 렌더링한 후 전송
+					console.log(results._doc.review=review_list);
+					//console.log(results._doc.reviewID=review_list);
 					var context = {
 						title: '글 조회 ',
 						posts: results,
@@ -57,13 +74,16 @@ var showBookFun=(req,res)=>{
 						user:userEmail,
 						Entities: Entities
 					};
-					//console.log("num:"+results.num);
+					
+					
 					body = context;
 
 					database.UserModel.load(userEmail, function(err, results) {
 						printer.rendering(req,res,'showbook.ejs',context);			
 
 					});
+					});	
+			
 				} else {
 					res.writeHead('200', { 'Content-Type': 'text/html;charset=utf8' });
 					res.write('<h2>글 조회  실패</h2>');

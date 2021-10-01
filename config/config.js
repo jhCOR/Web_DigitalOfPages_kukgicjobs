@@ -5,6 +5,7 @@ module.exports = {
         {file:'./user_schema', collection:'user7', schemaName:'UserSchema', modelName:'UserModel'}
 		,{file:'./user_schema_admin', collection:'adminuser', schemaName:'AdminUserSchema', modelName:'AdminUserModel'}
 		,{file:'./book_schema', collection:'book', schemaName:'BookSchema', modelName:'BookModel'}
+		,{file:'./review_schema', collection:'review', schemaName:'ReviewSchema', modelName:'ReviewModel'}
 		,{file:'./reservation_schema', collection:'reservation', schemaName:'ReservationSchema', modelName:'ReservationModel'}
 		,{file:'./applybook_schema', collection:'AppplyBook', schemaName:'AppplyBookSchema', modelName:'AppplyBookModel'}
 		,{file:'./history_schema', collection:'bookpost', schemaName:'BookPostSchema', modelName:'BookPostModel'}
@@ -52,6 +53,5 @@ module.exports = {
 		,{file:'./announcement', path:'/dev/deleteAnnouncement/:id', method:'deleteAnnounceFun', type:'get'}
 		,{file:'./announcement', path:'/addAnnouncement', method:'addAnnounceFun', type:'post'}
 		,{file:'./announcement', path:'/admin/deleteAnnouncement/:id', method:'deleteAnnounceFun', type:'get'}
-		
 	],
 };

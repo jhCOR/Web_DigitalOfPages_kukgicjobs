@@ -32,7 +32,7 @@ module.exports = function(router, passport) {
 			posts: jsonData.items,
 			next:req.body.next,
 		};			
-		 console.log( jsonData.items[0]);
+		
 		req.app.render('selectBook.ejs', context, function(err, html) {
 			if (err) {
 				console.error('응답 웹문서 생성 중 에러 발생 : ' + err.stack);

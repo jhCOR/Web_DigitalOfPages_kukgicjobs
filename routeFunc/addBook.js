@@ -5,6 +5,7 @@ var addBookFun=(req, res)=>{
 	const paramWriter =req.user.email;
 	const paramTitle = req.body.title || req.query.title;
 	const paramAuthor = req.body.author || req.query.author;
+	const paramIsbn = req.body.isbn || req.query.isbn;
 		 
 	var database = req.app.get('database');
 	
@@ -34,8 +35,20 @@ var addBookFun=(req, res)=>{
 			}
 			
 			var userObjectId = results[0]._doc._id;
-			
-
+			var review = new database.ReviewModel({
+				group:req.user.group,
+				isbn:paramIsbn,
+			});
+		
+		review.savePost(function(err, result) {
+				if(err) {
+					console.error('응답 웹문서 생성 중 에러 발생 : ' + err.stack);
+					printer.rendering(res,err);
+					return;
+				}
+		
+				
+			});
 			var book = new database.BookModel({
 				title: paramTitle,
 				contents: paramContents,
@@ -44,9 +57,19 @@ var addBookFun=(req, res)=>{
 				author:paramAuthor,
 				num: '0',
 				group:req.user.group,
+				isbn:paramIsbn,
+				reviewID:review.id,
 			});
-			
-			saver.saving(book,res,'/book/showbook/' + book._id);
+
+			book.savePost(function(err, result) {
+				if(err) {
+					console.error('응답 웹문서 생성 중 에러 발생 : ' + err.stack);
+					printer.rendering(res,err);
+					return;
+				}
+		
+				return res.redirect('/book/showbook/' + book._id); 
+			});
 		});
 		
 	} else {

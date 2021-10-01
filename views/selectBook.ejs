@@ -80,11 +80,11 @@
 					var param3="bookcontents"+i;
 					var param4="bookisbn"+i;
 					
-					var book1=document.getElementById(param).value;//or innerText
-					var book2=document.getElementById(param).value;
-					var book3=document.getElementById(param).value;
-					var book4=document.getElementById(param).value;
-					alert(title+author+contents+isbn);
+					var book1=document.getElementById(param1).value;//or innerText
+					var book2=document.getElementById(param2).value;
+					var book3=document.getElementById(param3).value;
+					var book4=document.getElementById(param4).value;
+					
 					insertISBN(book1,book2,book3,book4);
 				}
 				
@@ -98,7 +98,7 @@
 			await closeWindow();
 		}
 		async function insertISBN(title,author,contents,isbn){
-			alert(title+author+contents+isbn);
+			
 			opener.document.getElementById("title").value = title;
 			opener.document.getElementById("author").value = author;
 			opener.document.getElementById("contents").value = contents;
@@ -180,8 +180,6 @@
 														<input hidden type="text" name="description" id="bookcontents<%=i %>" value="<%=description %>">
 														<input hidden type="text" name="isbn" id="bookisbn<%=i %>" value="<%=isbn %>">
 													</form>
-													
-													
 												</div>
 						    				</div>
 						    			</div>

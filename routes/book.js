@@ -33,41 +33,71 @@ var addReview = function (req, res) {
 };
 var removeReview = function(req, res) {
 	console.log('book 모듈 안에 있는 removeReview 호출됨.');
- 
+ 	var contentId= req.body.content || req.query.content;
 	var paramId= req.body.id || req.query.id;
 	var reviewId=req.body.delete || req.query.delete;
 	var database = req.app.get('database');
-
+		console.log('reviewId' +reviewId);
+	console.log('paramId' +paramId);
 		if (database.db) {
-			database.BookModel.load(paramId, function(err, results) {
+			database.ReviewModel.load(reviewId, function(err, results) {
 				         
-            if (err) {
-                console.log('삭제할 글 조회 중 오류 발생 ' + err.stack);
+			if (err) {
+			console.log('삭제할 글 조회 중 오류 발생 ' + err.stack);
 
-                res.writeHead('200', {'Contett-Type': 'text/html;charset =utf8'});
-                res.write('<h2>삭제할 글 조회 중 오류 발생</h2>')
-                res.end();
+			res.writeHead('200', {'Contett-Type': 'text/html;charset =utf8'});
+			res.write('<h2>삭제할 글 조회 중 오류 발생</h2>')
+			res.end();
 
-                return;
+			return;
 			}
-			
-             if (results.review[reviewId]) {
-
-					results.review[reviewId].remove();  
-				console.log(paramId);
-
-				database.BookModel.findByIdAndUpdate(paramId,{$set: {title : results.title , contents : results.contents, 
-					updated_at : Date.now(), review:  results.review}}, function(err){
+				
+			if (results) {
+				console.log('results->' +results.review);
+				results.review[paramId].remove();  
+				console.log('results->' +results);
+				database.ReviewModel.findByIdAndUpdate(reviewId,{$set: {review:  results.review}}, function(err){
 					if (err) {
 
 						makeerror('<h2>업데이트 에러 발생</h2>', err.stack,res);
 						return;
 					}
-					res.redirect('/book/showbook/' + paramId);
+					res.redirect('/book/showbook/' + contentId);
 				});
         
-            }
-        })
+			}
+			})
+			
+			
+			// database.BookModel.load(paramId, function(err, results) {
+				         
+			// if (err) {
+			// console.log('삭제할 글 조회 중 오류 발생 ' + err.stack);
+
+			// res.writeHead('200', {'Contett-Type': 'text/html;charset =utf8'});
+			// res.write('<h2>삭제할 글 조회 중 오류 발생</h2>')
+			// res.end();
+
+			// return;
+			// }
+				
+			// if (results.review[reviewId]) {
+
+			// 		results.review[reviewId].remove();  
+			// 	console.log(paramId);
+
+			// 	database.BookModel.findByIdAndUpdate(paramId,{$set: {title : results.title , contents : results.contents, 
+			// 		updated_at : Date.now(), review:  results.review}}, function(err){
+			// 		if (err) {
+
+			// 			makeerror('<h2>업데이트 에러 발생</h2>', err.stack,res);
+			// 			return;
+			// 		}
+			// 		res.redirect('/book/showbook/' + paramId);
+			// 	});
+        
+			// }
+			// })
 
     } else {
         res.writeHead('200', {

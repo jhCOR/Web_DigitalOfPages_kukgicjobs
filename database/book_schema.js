@@ -1,3 +1,4 @@
+
 /**
  * 게시판을 위한 데이터베이스 스키마를 정의하는 모듈
  */
@@ -18,12 +19,13 @@ SchemaObj.createSchema = function(mongoose) {
 		author: {type: String, trim:true, 'default':''},				
 	    writer: {type: mongoose.Schema.ObjectId, ref: 'user7'},	// 글쓴 사람
 		isbn:{type: String, trim:true, 'default':''},
-	    review: [{		// 리뷰
-	    	contents: {type: String, trim:true, 'default': ''},				// 댓글 내용
+		review: [{		// 리뷰
+		contents: {type: String, trim:true, 'default': ''},				// 댓글 내용
 			writer: {type: String, trim:true, 'default': ''},
 			writername: {type: String, trim:true, 'default': ''},
 			created_at: {type: Date, 'default': Date.now},
 		}],
+		reviewID: {type: mongoose.Schema.ObjectId, ref: 'review'},
 		num: {type: String, trim: true, 'default':'0'},//대출(1)비대출(0)예약(2)	    tags: {type: [], 'default': ''},
         hits: {type: Number, 'default': 0},   // 조회수
 	    created_at: {type: Date, index: {unique: false}, 'default': Date.now},
@@ -70,6 +72,13 @@ SchemaObj.createSchema = function(mongoose) {
 		load: function(id, callback) {
 			this.findOne({_id: id})
 				.populate('writer', 'name provider email')
+				.populate('reviewID', 'group isbn review')
+				.exec(callback);
+		},
+		load3: function(id, callback) {
+			this.findOne({_id: id})
+				.populate('writer', 'name provider email')
+				.populate('reviewID', 'group isbn review')
 				.exec(callback);
 		},
 		load2: function(number, callback) {
