@@ -8,7 +8,7 @@ var showBookFun=(req,res)=>{
 	currentId = paramId;
 	var login = req.isAuthenticated();
     var userEmail=req.user.email;
-	
+	 console.log('req.auth=>', req.isAuthenticated());
 	var database = req.app.get('database');
 	if(req.isAuthenticated()){
 		// 데이터베이스 객체가 초기화된 경우
@@ -64,7 +64,8 @@ var showBookFun=(req,res)=>{
 						//console.log("end:"+review_list);
 						
 					// 뷰 템플레이트를 이용하여 렌더링한 후 전송
-					console.log(results._doc.review=review_list);
+					results._doc.review=review_list
+					//console.log();
 					//console.log(results._doc.reviewID=review_list);
 					var context = {
 						title: '글 조회 ',

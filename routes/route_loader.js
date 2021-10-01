@@ -11,6 +11,10 @@ var route_loader = {};
 
 var config = require('../config/config');
 
+var checkLogin=(req,res,Module)=>{
+	console.log(req.isAuthenticated())
+	return Module;
+}
 
 route_loader.init = function(app, router) {
 	console.log('route_loader.init 호출됨.');
@@ -33,7 +37,9 @@ function initRoutes(app, router) {
 		if (curItem.type == 'get') {
             router.route(curItem.path).get(curModule[curItem.method]);
 		} else if (curItem.type == 'post') {
+			
             router.route(curItem.path).post(curModule[curItem.method]);
+	
 		} else {
 			router.route(curItem.path).post(curModule[curItem.method]);
 		}

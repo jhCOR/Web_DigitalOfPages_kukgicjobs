@@ -7,8 +7,10 @@ var saving = (Model,res,link) => {
             printer.rendering(res,err);
             return;
         }
+		if(link){
+			return res.redirect(link); 
+		}
 		
-		return res.redirect(link); 
 	
 	});
 }

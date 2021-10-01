@@ -63,6 +63,7 @@ module.exports = function (router, passport) {
     });
     router.route('/views/addbook.ejs').get(function (req, res) {
         // 인증 안된 경우
+		 console.log('req.auth=>', req.isAuthenticated());
         if (!req.user) {
            
             res.redirect('/book/listpost?page=0&perPage=8');

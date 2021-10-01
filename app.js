@@ -43,6 +43,7 @@ console.log('config.server_port : %d', config.server_port);
 app.set('port', process.env.PORT || 3000);
  
 
+
 // body-parser를 이용해 application/x-www-form-urlencoded 파싱
 //app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.urlencoded({ extended: true }))
@@ -69,10 +70,45 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 
+
 //라우팅 정보를 읽어들여 라우팅 설정
+
+app.use('/book', function (req, res, next) {
+  console.log('Request Type:', req.method);
+	  console.log('로그인(book) :', req.isAuthenticated());
+	if(!req.isAuthenticated()){
+		// res.redirect('/login');
+			res.render('login.ejs', { message:'로그인 상태가 아닙니다. 로그인을 진행해 주세요.' });
+	}else{
+		next();
+	}
+  
+});
+app.use('/user', function (req, res, next) {
+  console.log('Request Type:', req.method);
+	  console.log('로그인 :', req.isAuthenticated());
+	if(!req.isAuthenticated()){
+		// res.redirect('/login');
+			res.render('login.ejs', { message: '로그인 상태가 아닙니다. 로그인을 진행해 주세요.' });
+	}else{
+		next();
+	}
+  
+});
+app.use('/post', function (req, res, next) {
+  console.log('Request Type:', req.method);
+	  console.log('로그인 :', req.isAuthenticated());
+	if(!req.isAuthenticated()){
+		// res.redirect('/login');
+			res.render('login.ejs', { message: '로그인 상태가 아닙니다. 로그인을 진행해 주세요.' });
+	}else{
+		next();
+	}
+  
+ 
+});
 var router = express.Router();
 route_loader.init(app, router);
-
 
 // 패스포트 설정
 var configPassport = require('./config/passport');
@@ -100,6 +136,10 @@ var errorHandler = expressErrorHandler({
 app.use( expressErrorHandler.httpError(404) );
 app.use( errorHandler );
 
+app.use((err, req, res, next) => { // 에러 처리 부분
+  console.error(err.stack); // 에러 메시지 표시
+  res.status(500).send('서버 에러!'); // 500 상태 표시 후 에러 메시지 전송
+});
 
 //===== 서버 시작 =====//
 

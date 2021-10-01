@@ -37,8 +37,7 @@ var removeReview = function(req, res) {
 	var paramId= req.body.id || req.query.id;
 	var reviewId=req.body.delete || req.query.delete;
 	var database = req.app.get('database');
-		console.log('reviewId' +reviewId);
-	console.log('paramId' +paramId);
+
 		if (database.db) {
 			database.ReviewModel.load(reviewId, function(err, results) {
 				         
@@ -356,7 +355,7 @@ var deleteBookFun = function (req, res) {
         res.write('<h2>데이터베이스 연결 실패</h2>');
         res.end();
     }
-};
+}; 
 module.exports.addbook = addbook;
 module.exports.showbook = showbook;
 module.exports.borrow = borrow;

@@ -100,7 +100,7 @@ Schema.createSchema = function (mongoose) {
 
 	// 스키마에 static 메소드 추가
 	UserSchema.static('findByEmail', function (email, callback) {
-		return this.find({ email: email }, callback);
+		return this.findOne({ email: email }).populate('reservationlist', 'title author created_at').exec(callback);
 	});
 
 	UserSchema.static('findAll', function (callback) {

@@ -10,14 +10,14 @@ var listpost = (req, res) => {
 };
 
 var reservationList = function (req, res) {
-    //반납 알림& 예약자에게 알림 해주는 기능
+    //반납 알림 & 예약자에게 알림 해주는 기능
     console.log('showList 모듈 안에 있는 reservationList 호출됨.');
-
+	
     var user = req.user.email;
     var database = req.app.get('database');
-
+ console.log('user:'+user);
     if (database.db) {
-        database.UserModel.load(user, function (err, results) {
+        database.UserModel.findByEmail(user, function (err, results) {
             if (err) {
                 console.error('게시판 글 추가 중 에러 발생 : ' + err.stack);
                 printer.errrendering(res, err);
@@ -28,7 +28,7 @@ var reservationList = function (req, res) {
             var context = {
                 posts: results,
             };
-                console.log(context);
+                console.log(results);
             printer.rendering(req, res, 'myPage.ejs', context);
         });
     } else {

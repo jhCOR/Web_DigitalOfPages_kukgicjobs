@@ -42,6 +42,7 @@ console.log('user 모듈 안에 있는 deleteUser 호출됨.');
 
 var modifyUser = function(req, res) {
 	ModifyUser.modifyFunc(req,res);
+	 console.log('req.auth=>', req.isAuthenticated());
 };
 
 var acceptAdminRequest = function(req, res) {

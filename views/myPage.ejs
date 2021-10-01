@@ -14,6 +14,7 @@
         	body        { padding-top:80px; }
 			.right-img{float: right;
 			margin-right: 25px;}
+			
     	</style>
 	<script src="/public/assets/js/jquery.min.js"></script>
 	<script src="/public/assets/js/jquery.dropotron.min.js"></script>
@@ -75,7 +76,7 @@
 			<br>
 		    <div class="row">
 		
-		        <div class="col-sm-6">
+		        <div class="sm-6">
 		            <div class="well">
 		            
 						
@@ -84,17 +85,55 @@
 							<h3>대출 중인 도서</h3>
 							<div>
 								<ul>
-									<% for (var i = 0; i < posts.reservationlist.length; i++) {%>
+									<% for (var i = 0; i < posts.reservationlist.length; i++) {
+										var borrow_day = posts.reservationlist[i].created_at;
+										var today = new Date();
+										var dateTerm = Math.ceil((today.getTime()-borrow_day.getTime())/(1000*3600*24));
+										if(borrow_day.getMonth==today.getMonth){
+											dateTerm=(today.getDate()-borrow_day.getDate());
+										}
+										if(dateTerm<=14){
+										%>
 
 										<li><a href='/book/showbook/<%=posts.reservationlist[i]._id %>'>제목 : <%=posts.reservationlist[i].title%>, 저자 : <%=posts.reservationlist[i].author%></a>
 											<a class="btn btn-default" href='/book/return/<%=posts.reservationlist[i]._id %>'>반납</a>
 											<a class="btn btn-default" href='/book/loanByQrcode/<%=posts.reservationlist[i]._id %>?request=borrow'>QRcode_return</a>
+											
 										</li>
 								
-									<% } %>	
+									<%}
+									} %>	
 								</ul>
 							</div>
 								<P></P>
+							<h3>연체 중인 도서</h3>
+							<div>
+								<ul>
+									<% for (var i = 0; i < posts.reservationlist.length; i++) {
+										var borrow_day = posts.reservationlist[i].created_at;
+										var today = new Date();
+										
+										// today.setDate(today.getDate() + 16);
+										// console.log(today);
+										// var dateTerm = Math.ceil((today.getTime()-borrow_day.getTime())/(1000*3600*24));
+										// console.log(dateTerm);
+										var dateTerm = Math.ceil((today.getTime()-borrow_day.getTime())/(1000*3600*24));
+										if(borrow_day.getMonth==today.getMonth){
+											dateTerm=(today.getDate()-borrow_day.getDate());
+										}
+										if(dateTerm>14){
+										%>
+
+										<li><a href='/book/showbook/<%=posts.reservationlist[i]._id %>'>제목 : <%=posts.reservationlist[i].title%>, 저자 : <%=posts.reservationlist[i].author%></a>
+											<a class="btn btn-default" href='/book/return/<%=posts.reservationlist[i]._id %>'>반납</a>
+											<a class="btn btn-default" href='/book/loanByQrcode/<%=posts.reservationlist[i]._id %>?request=borrow'>QRcode_return</a>
+											
+										</li>
+								
+									<% }
+									} %>	
+								</ul>
+							</div>
 								<a href='/' class="button">홈</a>
 
 			               

@@ -50,8 +50,8 @@ module.exports = {
 
 		,{file:'./showAnnouncement', path:'/announce/show/:id', method:'showAnnounceFun', type:'get'}
 		
-		,{file:'./announcement', path:'/dev/deleteAnnouncement/:id', method:'deleteAnnounceFun', type:'get'}
+		,{file:'./announcement', path:'/deleteAnnouncement/dev/:id', method:'deleteAnnounceFun', type:'get'}
 		,{file:'./announcement', path:'/addAnnouncement', method:'addAnnounceFun', type:'post'}
-		,{file:'./announcement', path:'/admin/deleteAnnouncement/:id', method:'deleteAnnounceFun', type:'get'}
+		,{file:'./announcement', path:'/deleteAnnouncement/admin/:id', method:'deleteAnnounceFun', type:'get'}
 	],
 };
