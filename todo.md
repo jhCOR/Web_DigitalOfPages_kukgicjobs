@@ -43,7 +43,7 @@ npm install --save react-draft-wysiwyg draft-js
  *공지사항 및 독서 발자취에 cleditor과 네이버 스마트 에디어2.0을 이용해 HTML태그를 해석하도록 수정하였음.
  *독서발자취기능 오류 수정
  
- 2021.09.29 개발 내용(정지혁)
+ 2021.09.29 개발 내용(정지혁) : EJS/list브랜치
  *리스트 관련 오류를 수정하였음
  *독서발자취기능 오류 수정(데이터 저장과 보여주는 기능의 주소를 하나로 같이 쓰면서 보는 화면에서 새로고침시 계속 추가 저장이 되는 문제 수정)
  
@@ -60,7 +60,7 @@ npm install --save react-draft-wysiwyg draft-js
  *개인정보처리방침 추가
  ![image](https://user-images.githubusercontent.com/63538097/135434798-47a2ff98-7748-41ad-8046-cf0d0c59eb13.png)
 
-2021.10.01(정지혁)
+2021.10.01(정지혁) : EJS/sharedReview브랜치
 *동일한 책인데 게시판처럼 각각의 책당 각각의 리뷰를 갖는 것은 책을 선택하는 입장에서 좋지 않다고 판단. 리뷰를 같은 isbn을 동일한 책끼리는 리뷰를 공유하도록 수정하였음. review_schema.js에 리뷰를 담는 방식으로 수정(하단의 사진 참조), 단 리뷰가 얼마나 많이 달릴지에 따라 너무 많을 경우 과도한 로딩시간과 불편한 ui가 초래될 수 있어 그룹간 리뷰공유를 막을 지 결정해야함. 
 
 ![image](https://user-images.githubusercontent.com/63538097/135550562-2307bde6-326d-458b-9e8a-6824b2071585.png)
