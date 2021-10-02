@@ -76,6 +76,9 @@ npm install --save react-draft-wysiwyg draft-js
 * 연체도서 알림 기능 추가(시간을 체크하여 14일 이상 대출했을 경우 연체 중인 도서로 이동, myPage.ejs파일 수정)
 ![image](https://user-images.githubusercontent.com/63538097/135585920-7cfaafb8-6867-4b73-b64d-3f8563e74967.png)
 
+2021.10.02(정지혁) : 
+* 프로필 수정(탈퇴 기능 추가,연체 도서 개수 표시), 디자인 일부 수정
+
 * 제출 1주전 까지
   - 관리자 페이지 (로그인시 소속원 정보기입가능하도록)
   - 알림기능[약간 어려움]
