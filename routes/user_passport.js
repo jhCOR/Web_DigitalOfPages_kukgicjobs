@@ -146,35 +146,39 @@ module.exports = function (router, passport) {
         router.route('/profile').get(function (req, res) {
 
         // 인증된 경우, req.user 객체에 사용자 정보 있으며, 인증안된 경우 req.user는 false값임
-
+ var database = req.app.get('database');
         // 인증 안된 경우
         if (!req.user) {
 
             res.redirect('/');
         } else {
-
-            if (Array.isArray(req.user)) {
-                res.render('profile.ejs', { user: req.user[0]._doc });
-            } else {
-                res.render('profile.ejs', { user: req.user });
-            }
-            
-            var user = req.user.email;
-            var database = req.app.get('database');
-        
-            if (database.db) {
-                database.UserModel.load(user, function (err, results) {
+    		if (database.db) {
+				
+                database.UserModel.load({email:req.user.email}, function (err, results) {
                     if (err) {
                         console.error('게시판 글 추가 중 에러 발생 : ' + err.stack);
                         printer.errrendering(res, err);
         
                         return;
                     }
+					console.log("results:"+results);
+					 res.render('profile.ejs', { user: req.user, posts:results });
                 });
+				
             } else {
                 printer.errrendering(res);
             }
-           
+			
+			
+            // if (Array.isArray(req.user)) {
+            //     res.render('profile.ejs', { user: req.user[0]._doc });
+            // } else {
+            //     res.render('profile.ejs', { user: req.user });
+            // }
+            
+            var user = req.user.email;
+            var database = req.app.get('database');
+    
         }
     });
 

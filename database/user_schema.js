@@ -108,13 +108,13 @@ Schema.createSchema = function (mongoose) {
 	});
 	
 	UserSchema.static('load2', function(options, callback) {
-		options.select = options.select || 'email';
+		options.select = options.select ;
 		this.findOne({ email: options.email })
 			.select(options.select)
 			.exec(callback);
 	});
 	UserSchema.static('load', function (options, callback) {
-		options.select = options.select || 'name';
+		options.select = options.select ;
 		this.findOne(options.criteria)
 			.populate('reservationlist', 'title author created_at')
 			.select(options.select)

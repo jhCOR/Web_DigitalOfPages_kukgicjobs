@@ -37,7 +37,7 @@ module.exports = {
 		,{file:'./BookRequest', path:'/book/acceptRequest/:id', method:'acceptRequest', type:'get'}
 		
 		,{file:'./user', path:'/user/modifyUser', method:'modifyUser', type:'post'}
-		,{file:'./user', path:'/userRequest/deleteUser', method:'deleteUser', type:'post'}
+		,{file:'./user', path:'/user/deleteUser', method:'deleteUser', type:'post'}
 		,{file:'./user', path:'/user/acceptAdminRequest/:id', method:'acceptAdminRequest', type:'get'}
 		,{file:'./showQRcode', path:'/book/loanByQrcode/:id', method:'loanByQrcode', type:'get'}
 		

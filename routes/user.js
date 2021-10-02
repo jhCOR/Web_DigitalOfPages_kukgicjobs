@@ -16,9 +16,11 @@ console.log('user 모듈 안에 있는 deleteUser 호출됨.');
 	};
 	// 데이터베이스 객체가 초기화된 경우
 	if (database.db) {
+		 database.UserModel.findAll(function (err, results) {
+					 console.log("총 가입자:"+results);
 		
 		// 1. 아이디를 이용해 사용자 검색
-		database.UserModel.load2(options, function(err, results) {
+		database.UserModel.load2(options,async function(err, results) {
 			if (err) {
                 printer.errrendering(res,err);
                 return;
@@ -30,11 +32,12 @@ console.log('user 모듈 안에 있는 deleteUser 호출됨.');
 				
 				return;
 			}
-		
-			results.remove();
-			res.redirect('/logout');
+			console.log('results:'+results);
+			await results.remove();
+			console.log('result->'+results);
+			await res.redirect('/logout');
 		});
-		
+		});
 	} else {
  		printer.errrendering(res);
 	}
