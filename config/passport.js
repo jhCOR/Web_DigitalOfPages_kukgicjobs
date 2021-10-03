@@ -5,7 +5,7 @@ var local_signup_admin = require('./passport/local_signup_admin');
 
 module.exports = function (app, passport) {
 	passport.serializeUser(function (user, done) {
-		console.log('serializeUser() 호출됨.');
+		
 		done(null, user);
 	});
 	var email;

@@ -13,14 +13,13 @@ module.exports = function (router, passport) {
     router.route('/').get(function (req, res) {
 
         tem = req.user;
-
         // 인증 안된 경우
         if (!req.user) {
            
-            res.render('index.ejs', { login_success: false });
+            res.render('index.ejs', { login_success: false});
         } else {
             console.log('사용자 인증된 상태임.');
-            res.render('index.ejs', { login_success: true });
+            res.render('index.ejs', { login_success: true, admin:req.user.admin  });
         }
     });
 
@@ -63,7 +62,6 @@ module.exports = function (router, passport) {
     });
     router.route('/views/addbook.ejs').get(function (req, res) {
         // 인증 안된 경우
-		 console.log('req.auth=>', req.isAuthenticated());
         if (!req.user) {
            
             res.redirect('/book/listpost?page=0&perPage=8');
@@ -79,7 +77,6 @@ module.exports = function (router, passport) {
          
             res.redirect('/');
         } else {
-            console.log('reuest:' + req.query.request);
 			var NEXT;
            if(req.query.request==0){
 			   NEXT="책 찾기";
@@ -124,7 +121,13 @@ module.exports = function (router, passport) {
             res.redirect('/process/addcomment');
         }
     });
-
+	
+  	router.route('/vue').get(function (req, res) {
+       
+		console.log('/vue 패스 요청됨.');
+        res.render('vue.ejs');
+    });
+	
     // 로그인 화면
     router.route('/login').get(function (req, res) {
         console.log('/login 패스 요청됨.');
@@ -161,27 +164,20 @@ module.exports = function (router, passport) {
         
                         return;
                     }
-					console.log("results:"+results);
-					 res.render('profile.ejs', { user: req.user, posts:results });
+					 res.render('profile.ejs', { user: req.user,  admin:req.user.admin, posts:results, login_success: true,   });
                 });
 				
             } else {
                 printer.errrendering(res);
             }
-			
-			
-            // if (Array.isArray(req.user)) {
-            //     res.render('profile.ejs', { user: req.user[0]._doc });
-            // } else {
-            //     res.render('profile.ejs', { user: req.user });
-            // }
+
             
             var user = req.user.email;
             var database = req.app.get('database');
     
         }
     });
-
+	
     // 로그아웃
     router.route('/logout').get(function (req, res) {
         console.log('/logout 패스 요청됨.');
@@ -215,12 +211,4 @@ module.exports = function (router, passport) {
         })
     );
 };
-// module.exports =function(){
-//     if (!tem) {
-//            console.log('사용자 인증 안된 상태임(4).');
-//            return 0;
-//        } else {
-//            console.log('사용자 인증된 상태임(4).');
-//            return tem.email;
-//        }
-// }
+

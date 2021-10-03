@@ -1,21 +1,21 @@
 <header id="header" class="alt">
-	<h1><a href="/">Digital Of Pages</a> by 국직 잡스</h1>
+	<h1 ><a href="/"><span style="color: black;">Digital Of Pages</span></a><span style="color: black;"> by 국직 잡스</span></h1>
 	<nav id="nav">
 		<ul>
 			<% if (login_success) { %>
-			<li><a href="/logout">Logout</a></li>
+			<li><a href="/logout"><span style="color: black;">Logout</span></a></li>
 			<% } %>
-			<li><a href="/">Home</a></li>
+			<li><a href="/"><span style="color: black;">Home</span></a></li>
 
 			<li>
-				<a href="#" class="icon solid fa-angle-down">Menu</a>
+				<a href="#" class="icon solid fa-angle-down"><span style="color: black;">Menu</span></a>
 
 				<ul>
-					<li><a href="/public/generic.html">ABOUT US</a></li>
-					<li><a href="/public/contact.html">Contact</a></li>
-					<li><a href="/vue">vue</a></li>
-					<li><a href="/dev/announcement?page=0&request=dev">개발자 공지사항</a></li>
-					<li><a href="/admin/announcement?page=0&request=admin">관리자 공지사항</a></li>
+					<li><a href="/public/generic.html"><span style="color: black;">ABOUT US</span></a></li>
+					<li><a href="/public/contact.html"><span style="color: black;">Contact</span></a></li>
+				
+					<li><a href="/dev/announcement?page=0&request=dev"><span style="color: black;">개발자 공지사항</span></a></li>
+					<li><a href="/admin/announcement?page=0&request=admin"><span style="color: black;">관리자 공지사항</span></a></li>
 					<% if (login_success) { %>
 					<li><a href="/views/myPage">My Page</a></li>
 

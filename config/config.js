@@ -3,7 +3,6 @@ module.exports = {
 	db_url: 'mongodb://localhost:27017/admin',
 	db_schemas: [
         {file:'./user_schema', collection:'user7', schemaName:'UserSchema', modelName:'UserModel'}
-		,{file:'./user_schema_admin', collection:'adminuser', schemaName:'AdminUserSchema', modelName:'AdminUserModel'}
 		,{file:'./book_schema', collection:'book', schemaName:'BookSchema', modelName:'BookModel'}
 		,{file:'./review_schema', collection:'review', schemaName:'ReviewSchema', modelName:'ReviewModel'}
 		,{file:'./reservation_schema', collection:'reservation', schemaName:'ReservationSchema', modelName:'ReservationModel'}
@@ -12,7 +11,7 @@ module.exports = {
 		,{file:'./announcement_schema', collection:'announcement', schemaName:'AnnouncementSchema', modelName:'AnnouncementModel'}
 	],
 	route_info: [
-
+{file:'./vue_router', path:'/api/movies', method:'movie', type:'get'},
 		{file:'./showList', path:'/book/listpost', method:'listpost', type:'get'}
 		,{file:'./showList', path:'/views/myPage', method:'reservationList', type:'get'}
 		,{file:'./showList', path:'/book/listapplybook', method:'listapplybook', type:'get'}

@@ -11,7 +11,6 @@ var modifyFunc = (req, res)=>{
 	if (database.db) {
 		// 1. 아이디를 이용해 사용자 검색
 		database.UserModel.findByEmail(paramWriter, function(err, result) {
-			//console.log('results-'+result);
 			if (err) {
 				  printer.errrendering(res,err);
                 
@@ -19,7 +18,7 @@ var modifyFunc = (req, res)=>{
 			}
 			
 			database.UserModel.findByIdAndUpdate(req.user._id,{$set: {name:writerName}},  function(err, theresult) {
-				//console.log('theresult:'+writerName);
+			
 				if (err) {
 					  printer.errrendering(res,err);
 					return;

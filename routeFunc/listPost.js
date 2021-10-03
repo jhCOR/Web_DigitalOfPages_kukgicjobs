@@ -28,8 +28,7 @@ var listPostFun=(req,res)=>{
             }
 			
 			if (results) {
-				//console.log('###요청 파라미터(result):\n ' +results);
-				//console.dir(results);
+				
 				for(var i=0;i<results.length;i++){
 					if(results[i].writer==null){
 						;
@@ -53,9 +52,9 @@ var listPostFun=(req,res)=>{
 					currentPage=context.page;
 					req.session.passport.user.PreviousPage = context.page;
 					req.session.save();
-					//console.log(req.session);
+					
 					body=context;
-					//console.log('요청 파라미터(currentPage) ------> ' +currentPage);
+				
 				printer.rendering(req,res,'lists/listbook.ejs',context);
 				});
 				

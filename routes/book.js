@@ -52,9 +52,7 @@ var removeReview = function(req, res) {
 			}
 				
 			if (results) {
-				console.log('results->' +results.review);
 				results.review[paramId].remove();  
-				console.log('results->' +results);
 				database.ReviewModel.findByIdAndUpdate(reviewId,{$set: {review:  results.review}}, function(err){
 					if (err) {
 
@@ -252,7 +250,7 @@ var searchGroup = (req, res) => {
     } else {
         var option = {};
     }
-	console.log(search);
+	console.log("search:"+search);
     const database = req.app.get('database');
 
     if (database.db) {
@@ -282,21 +280,27 @@ var searchGroup = (req, res) => {
                         num++;
                     }
                 }
-                res.writeHead('200', { 'Content-Type': 'text/html;charset=utf8' });
+				if(groups.length<1){
+						res.send('-');
+				}else{
+						res.send(groups);
+				}
+			
+                // res.writeHead('200', { 'Content-Type': 'text/html;charset=utf8' });
 
-                // 뷰 템플레이트를 이용하여 렌더링한 후 전송
-                var context = {
-                    title: '그룹 검색',
-                    groupList: groups,
-                    page: parseInt(paramPage),
-                    pageCount: Math.ceil(results.length / paramPerPage),
-                    perPage: paramPerPage,
-                    totalRecords: results.length,
-                    size: paramPerPage,
-                    searchcontext: search,
-                };
+                // // 뷰 템플레이트를 이용하여 렌더링한 후 전송
+                // var context = {
+                //     title: '그룹 검색',
+                //     groupList: groups,
+                //     page: parseInt(paramPage),
+                //     pageCount: Math.ceil(results.length / paramPerPage),
+                //     perPage: paramPerPage,
+                //     totalRecords: results.length,
+                //     size: paramPerPage,
+                //     searchcontext: search,
+                // };
 
-                printer.rendering(req, res, page, context);
+                // printer.rendering(req, res, page, context);
             }
         });
     }

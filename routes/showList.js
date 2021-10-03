@@ -15,7 +15,7 @@ var reservationList = function (req, res) {
 	
     var user = req.user.email;
     var database = req.app.get('database');
- console.log('user:'+user);
+ 
     if (database.db) {
         database.UserModel.findByEmail(user, function (err, results) {
             if (err) {
@@ -28,7 +28,7 @@ var reservationList = function (req, res) {
             var context = {
                 posts: results,
             };
-                console.log(results);
+                //res.redirect('/views/myPage?data=datas');
             printer.rendering(req, res, 'myPage.ejs', context);
         });
     } else {

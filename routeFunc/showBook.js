@@ -8,13 +8,13 @@ var showBookFun=(req,res)=>{
 	currentId = paramId;
 	var login = req.isAuthenticated();
     var userEmail=req.user.email;
-	 console.log('req.auth=>', req.isAuthenticated());
+	
 	var database = req.app.get('database');
 	if(req.isAuthenticated()){
 		// 데이터베이스 객체가 초기화된 경우
 		if (database.db) {
 			// 1. 글 리스트
-				//console.log(paramId+"fron show");
+				
 			
 			database.BookModel.load(paramId, function (err, results) {
 
@@ -33,10 +33,10 @@ var showBookFun=(req,res)=>{
 				if (results) {
 
 					database.BookModel.incrHits(results._doc._id, function (err2, results2) {
-						console.log('incrHits executed.');
+						
 
 						if (err2) {
-							console.log('incrHits 실행 중 에러 발생.');
+						
 							console.dir(err2);
 							return;
 						}
@@ -61,12 +61,10 @@ var showBookFun=(req,res)=>{
 						
 						review_results.map((review_result)=>{review_list.push(...review_result.review)});
 						
-						//console.log("end:"+review_list);
 						
 					// 뷰 템플레이트를 이용하여 렌더링한 후 전송
 					results._doc.review=review_list
-					//console.log();
-					//console.log(results._doc.reviewID=review_list);
+				
 					var context = {
 						title: '글 조회 ',
 						posts: results,

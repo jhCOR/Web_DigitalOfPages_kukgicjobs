@@ -11,7 +11,7 @@ module.exports = new LocalStrategy({
 		passwordField : 'password',
 		passReqToCallback : true   // 이 옵션을 설정하면 아래 콜백 함수의 첫번째 파라미터로 req 객체 전달됨
 	}, function(req, email, password, done) { 
-		//console.log('passport의 local-login 호출됨 : ' + email + ', ' + password);
+		
 		
 		var database = req.app.get('database');
 	    database.AdminUserModel.findOne({ 'email' :  email }, function(err, user) {

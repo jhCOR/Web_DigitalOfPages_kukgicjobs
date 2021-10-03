@@ -17,16 +17,7 @@ module.exports = function(router, passport) {
 		 
 		var jsonData=JSON.parse(response.body);
 		 var nextLink;
-			console.log("next:"+req.body.next);
-		 
-		 // if(req.body.next=="책 찾기"){
-		 // nextLink=req.body.next;
-		 // }else if(req.body.next=="책 신청"){
-		 // nextLink='책 신청'; 
-		 // }else if(req.body.next=="ISBN 검색"){
-		 // nextLink='ISBN 검색'; 
-		 // }
-		 
+	
 		var context = {
 			title: '책 목록',
 			posts: jsonData.items,
@@ -52,7 +43,28 @@ module.exports = function(router, passport) {
      } else {
 		 
        res.status(response.statusCode).end();
-       console.log('error = ' + response.statusCode);
+		 
+     }
+   });
+ });
+ router.route('/vue/searchBooks').post(function (req, res) {
+
+   var api_url = 'https://openapi.naver.com/v1/search/book.json?query=' + encodeURI(req.body.booktitle);  
+   var request = require('request');
+   var options = {
+       url: api_url,
+       headers: {'X-Naver-Client-Id':client_id, 'X-Naver-Client-Secret': client_secret}
+    };
+   request.get(options, function (error, response, body) {
+     if (!error && response.statusCode == 200) {
+		 
+		var jsonData=JSON.parse(response.body);
+		 var nextLink;
+
+		res.send( jsonData.items);
+     } else {
+		 
+       res.status(response.statusCode).end();
 		 
      }
    });

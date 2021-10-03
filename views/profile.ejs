@@ -34,61 +34,8 @@
 	   
 	   </script>
 	</head>
-	<body>
-		<header id="header" class="alt">
-			<h1><a href="/">Digital Of Pages</a> by 국직 잡스</h1>
-			<nav id="nav">
-				<ul>
-					
-					<li><a href="/logout">Logout</a></li>
-					<li><a href="/">Home</a></li>
-
-					<li>
-						<a href="#" class="icon solid fa-angle-down">Menu</a>
-
-						<ul>
-							<li><a href="/public/generic.html">ABOUT US</a></li>
-							<li><a href="/public/contact.html">Contact</a></li>
-							<li><a href="/dev/announcement?page=0&request=dev">개발자 공지사항</a></li>
-							<li><a href="/admin/announcement?page=0&request=admin">관리자 공지사항</a></li>
-						
-							<li><a href="/views/myPage">My Page</a></li>
-
-							<li>
-								<a href="#">Submenu</a>
-								<ul>
-									<li><a href="/profile">프로필</a></li>
-
-									<li><a href="/book/listpost?page=0&perPage=2">도서목록</a></li>
-									<li><a href="/book/listapplybook?page=0&perPage=2">신청도서목록</a></li>
-									<li>
-										<a class="btn btn-default" href="/user/requestlist?page=0&perPage=2">관리자 요청 계정 리스트</a>
-									</li>
-									<li>
-										<a class="btn btn-default" href="#">소속원 등록</a>
-									</li>
-									<li>
-										<a class="btn btn-default" href="/views/addbook.ejs">도서등록</a>
-									</li>
-									<li>
-										<a class="btn btn-default" href="/views/applyNewBook.ejs?request=1"
-											>도서신청</a
-										>
-									</li>
-									<li>
-										<a class="btn btn-default" href="/historyofbook?page=0&perPage=8"
-											>독서 발자취</a
-										>
-									</li>
-								</ul>
-							</li>
-							
-						</ul>
-					</li>
-				
-				</ul>
-			</nav>
-		</header>
+	<body >
+			<% include ./header_dark.ejs %>
 		<br /><br />
 
 		<div class="container mt-4">
@@ -121,11 +68,11 @@
 									<span class="badge badge-pill badge-success" onclick="javascript:window.location='/views/myPage'"><%=posts.reservationlist.length%></span></small
 								>
 							<% for (var i = 0; i < posts.reservationlist.length; i++) {
-									console.log( posts.reservationlist);
+									
 										var borrow_day = posts.reservationlist[i].created_at;
 										var today = new Date();
 									
-									console.log("today:"+today);
+								
 										var delayed_book=0;
 										var dateTerm = Math.ceil((today.getTime()-borrow_day.getTime())/(1000*3600*24));
 										if(borrow_day.getMonth==today.getMonth){
@@ -157,4 +104,12 @@
 		<!-- Footer -->
 		<% include ./footer.ejs %>
 	</body>
+			<script src="/public/assets/js/jquery.min.js"></script>
+			<script src="/public/assets/js/jquery.dropotron.min.js"></script>
+			<script src="/public/assets/js/jquery.scrollex.min.js"></script>
+			<script src="/public/assets/js/browser.min.js"></script>
+			<script src="/public/assets/js/breakpoints.min.js"></script>
+			<script src="/public/assets/js/util.js"></script>
+			<script src="/public/assets/js/main.js"></script>
+
 </html>

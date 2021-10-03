@@ -3,4 +3,6 @@
 .env
 .vscode
 app.js
+/views/vue.ejs
+/routes/vue_router.js
 **/build
