@@ -11,7 +11,7 @@ module.exports = {
 		,{file:'./announcement_schema', collection:'announcement', schemaName:'AnnouncementSchema', modelName:'AnnouncementModel'}
 	],
 	route_info: [
-{file:'./vue_router', path:'/api/movies', method:'movie', type:'get'},
+
 		{file:'./showList', path:'/book/listpost', method:'listpost', type:'get'}
 		,{file:'./showList', path:'/views/myPage', method:'reservationList', type:'get'}
 		,{file:'./showList', path:'/book/listapplybook', method:'listapplybook', type:'get'}

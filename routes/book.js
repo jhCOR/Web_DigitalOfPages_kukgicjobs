@@ -64,37 +64,6 @@ var removeReview = function(req, res) {
         
 			}
 			})
-			
-			
-			// database.BookModel.load(paramId, function(err, results) {
-				         
-			// if (err) {
-			// console.log('삭제할 글 조회 중 오류 발생 ' + err.stack);
-
-			// res.writeHead('200', {'Contett-Type': 'text/html;charset =utf8'});
-			// res.write('<h2>삭제할 글 조회 중 오류 발생</h2>')
-			// res.end();
-
-			// return;
-			// }
-				
-			// if (results.review[reviewId]) {
-
-			// 		results.review[reviewId].remove();  
-			// 	console.log(paramId);
-
-			// 	database.BookModel.findByIdAndUpdate(paramId,{$set: {title : results.title , contents : results.contents, 
-			// 		updated_at : Date.now(), review:  results.review}}, function(err){
-			// 		if (err) {
-
-			// 			makeerror('<h2>업데이트 에러 발생</h2>', err.stack,res);
-			// 			return;
-			// 		}
-			// 		res.redirect('/book/showbook/' + paramId);
-			// 	});
-        
-			// }
-			// })
 
     } else {
         res.writeHead('200', {
