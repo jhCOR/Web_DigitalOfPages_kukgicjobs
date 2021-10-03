@@ -80,7 +80,7 @@ npm install --save react-draft-wysiwyg draft-js
 * 프로필 수정(탈퇴 기능 추가,연체 도서 개수 표시;profile.ejs & user.js), 디자인 일부 수정
 * 
 2021.10.03(정지혁) : VUE/findGroup
-signUp.ejs파일에서 소속그룹 검색하는 기능에 Vue 적용하여 ui개선
+* signUp.ejs파일에서 소속그룹 검색하는 기능에 Vue 적용하여 ui개선
 
 
 * 제출 1주전 까지
