@@ -81,10 +81,9 @@ var searchadminpage =async function(req, res) {
 
 	console.log('searchquery'+searchquery);
 	if(searchquery==0||searchquery==1){
-		var option = { group: req.user.group, num:'1' };
+		var option = {  num:"1",group: req.user.group, };
 		if (database.db) {
-		database.BookModel.load4(option, async function(err, result) {
-			
+		database.BookModel.find(option, async function(err, result) {
 		
 			
 		var context = {
@@ -116,9 +115,6 @@ var searchadminpage =async function(req, res) {
 		});
 		}
 	}
-
-	
-	
 };
 module.exports.adminpage = adminpage;
 module.exports.searchadminpage = searchadminpage;
