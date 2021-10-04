@@ -12,8 +12,8 @@
 
 				<ul>
 					<li><a href="/public/generic.html">ABOUT US</a></li>
-					<li><a href="/public/contact.html">Contact</a></li>
-					<li><a href="/vue">vue</a></li>
+				
+					<!-- <li><a href="/vue">vue</a></li> -->
 					<li><a href="/dev/announcement?page=0&request=dev">개발자 공지사항</a></li>
 					<li><a href="/admin/announcement?page=0&request=admin">관리자 공지사항</a></li>
 					<% if (login_success) { %>
@@ -27,19 +27,19 @@
 							<li><a href="/book/listpost?page=0&perPage=2">도서목록</a></li>
 							<% if (admin=='accepted') { %>
 							<li><a href="/book/listapplybook?page=0&perPage=2">신청도서목록</a></li>
-						
+								<%}%>
 							<li>
 								<a class="btn btn-default" href="/user/requestlist?page=0&perPage=2">관리자 요청 계정 리스트</a>
 							</li>
 							
 							<li>
-								<a class="btn btn-default" href="#">소속원 등록</a>
+								<a class="btn btn-default" href="/user/admin">관리자 페이지</a>
 							</li>
 							
 							<li>
 								<a class="btn btn-default" href="/views/addbook.ejs">도서등록</a>
 							</li>
-							<%}%>
+					
 							<li>
 								<a class="btn btn-default" href="/views/applyNewBook.ejs?request=1"
 									>도서신청</a

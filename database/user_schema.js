@@ -100,7 +100,7 @@ Schema.createSchema = function (mongoose) {
 
 	// 스키마에 static 메소드 추가
 	UserSchema.static('findByEmail', function (email, callback) {
-		return this.findOne({ email: email }).populate('reservationlist', 'title author created_at').exec(callback);
+		return this.findOne({ email: email }).populate('reservationlist', 'title author created_at updated_at').exec(callback);
 	});
 
 	UserSchema.static('findAll', function (callback) {
@@ -116,11 +116,17 @@ Schema.createSchema = function (mongoose) {
 	UserSchema.static('load', function (options, callback) {
 		options.select = options.select ;
 		this.findOne(options.criteria)
-			.populate('reservationlist', 'title author created_at')
+			.populate('reservationlist', 'title author updated_at')
 			.select(options.select)
 			.exec(callback);
 	});
-
+UserSchema.static('load4', function (options, callback) {
+		options.select = options.select ;
+		this.find(options.criteria)
+			.populate('reservationlist', 'title author updated_at')
+			.select(options.select)
+			.exec(callback);
+	});
 	UserSchema.static('list', function (options, callback) {
 		var criteria = options.criteria || {};
 

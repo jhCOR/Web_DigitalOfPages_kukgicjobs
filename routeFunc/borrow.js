@@ -13,7 +13,7 @@ var borrowFun=(req, res)=>{
 		saver.saving(reservation);
 
 
-		database.BookModel.findByIdAndUpdate(paramId,{$set: {num : '1'}}, function(err){
+		database.BookModel.findByIdAndUpdate(paramId,{$set: {num : '1', updated_at : Date.now()}}, function(err,re){
 			if (err) {
                 console.error('업데이트 중 에러 발생 : ' + err.stack);
                 
@@ -21,7 +21,7 @@ var borrowFun=(req, res)=>{
                 
                 return;
 			}
-			
+			console.log("borror:"+re);
 			res.redirect('/book/showbook/' + paramId); 
 		});
 

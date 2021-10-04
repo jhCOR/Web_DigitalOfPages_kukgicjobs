@@ -102,7 +102,7 @@
 						
 								<ul>
 									<% for (var i = 0; i < posts.reservationlist.length; i++) {
-										var borrow_day = posts.reservationlist[i].created_at;
+										var borrow_day = posts.reservationlist[i].updated_at;
 										var today = new Date();
 										var dateTerm = Math.ceil((today.getTime()-borrow_day.getTime())/(1000*3600*24));
 										if(borrow_day.getMonth==today.getMonth){
@@ -128,7 +128,7 @@
 							<div>
 								<ul>
 									<% for (var i = 0; i < posts.reservationlist.length; i++) {
-										var borrow_day = posts.reservationlist[i].created_at;
+										var borrow_day = posts.reservationlist[i].updated_at;
 										var today = new Date();
 										
 										var dateTerm = Math.ceil((today.getTime()-borrow_day.getTime())/(1000*3600*24));

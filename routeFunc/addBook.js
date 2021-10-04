@@ -18,7 +18,7 @@ var addBookFun=(req, res)=>{
 			return res.redirect('/book/listpost?page=0&perPage=8'); 
 		}
 		// 1. 아이디를 이용해 사용자 검색
-		database.UserModel.findByEmail(paramWriter, function(err, results) {
+		database.UserModel.load({email:paramWriter}, function(err, results) {
 			if (err) {
                 console.error('게시판 글 추가 중 에러 발생 : ' + err.stack);
 				printer.errrendering(res,err);
@@ -33,8 +33,8 @@ var addBookFun=(req, res)=>{
 				
 				return;
 			}
-			
-			var userObjectId = results[0]._doc._id;
+			console.log(results);
+			var userObjectId = results._doc._id;
 			var review = new database.ReviewModel({
 				group:req.user.group,
 				isbn:paramIsbn,

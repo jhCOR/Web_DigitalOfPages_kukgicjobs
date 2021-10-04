@@ -86,7 +86,13 @@ SchemaObj.createSchema = function(mongoose) {
 				.populate('writer', 'name provider email')
 				.exec(callback);
 		},
-		
+		load4:function (options, callback) {
+		options.select = options.select ;
+		this.find(options.criteria)
+			.populate('writer', 'name provider email')
+			.select(options.select)
+			.exec(callback);
+		},
 		searchList: function(options, callback) {
 			var criteria = options.criteria || {};
 			

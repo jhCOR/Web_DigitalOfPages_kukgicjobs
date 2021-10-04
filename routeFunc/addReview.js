@@ -30,6 +30,7 @@
 // 		res.end();
 // 	}
 // }
+//var Lstm=require('../routest/reviewLstm.js');
 var addReviewFun=(req,res)=>{
 	console.log('book 모듈 안에 있는 addReviewFun 호출됨.');
  
@@ -38,7 +39,9 @@ var addReviewFun=(req,res)=>{
     var paramWriter = req.user.email;
 	var Writer = req.user.name;
 	var database = req.app.get('database');
-
+	// var grade = Lstm(paramContents.split("."));
+	// console('grade:'+grade);
+	
 	if (database.db) {
 			database.BookModel.load(paramId, function (err, results) {
 

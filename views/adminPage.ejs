@@ -1,0 +1,169 @@
+<!DOCTYPE HTML>
+<!--
+	Alpha by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>관리자 페이지</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link rel="stylesheet" href="/public/assets/css/main.css" />
+	 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.3.4"></script>
+
+	</head>
+	<body class="is-preload">
+		<div id="page-wrapper">
+
+			<!-- Header -->
+<header id="header" class="alt">
+	<h1 ><a href="/"><span style="color: black;">Digital Of Pages</span></a><span style="color: black;"> by 국직 잡스</span></h1>
+	<nav id="nav">
+		<ul>
+			<li><a href="/"><span style="color: black;">Home</span></a></li>
+			<li><a href="/book/listapplybook?page=0&perPage=2" style="color: black;">신청도서목록</a></li>
+			<li><a class="btn btn-default" style="color: black;" href="#">소속원 등록</a></li>
+			<li><a class="btn btn-default" style="color: black;" href="/views/addbook.ejs">도서등록</a></li>
+			<li><a href="/admin/announcement?page=0&request=admin"><span style="color: black;">관리자 공지사항</span></a></li>
+	
+		</ul>
+	</nav>
+</header>
+			<!-- Main -->
+				<section id="main" class="container">
+					<header>
+						<h2>관리자 페이지</h2>
+						<h3 >보유 장서 수 : <%=totalbook%></h3>
+					</header>
+					<div class="box" id="app-6">
+						<span class="image featured"><img src="images/laptopWithNote.png" alt="" /></span>
+						
+						
+							<div class="row">
+						<div class="col-6 col-12-narrower" >
+					
+							<section class="box special">
+								
+								<% var delayed_book=0; 
+								for (var i = 0; i < books.length; i++) {
+									console.log("book0:"+books[20]);
+									var borrow_day = books[i].updated_at;
+									var today = new Date();
+									console.log("borrow_day:"+borrow_day);
+									console.log("today:"+today);
+									
+									var dateTerm = Math.ceil((today.getTime()-borrow_day.getTime())/(1000*3600*24));
+									console.log("dateTerm:"+dateTerm);
+									if(dateTerm>14){
+										delayed_book++;
+										console.log("delayed_book:"+delayed_book);
+									}
+								%>
+								
+								<%}%>
+								
+							
+							<h3  v-on:click="getData(0)">대출 중인 도서 수 : <%=borrowedbook%></h3>
+							<h3  v-on:click="getInfo(1)">연체 중인 도서 수 : <%=delayed_book%></h3>
+							<h3  v-on:click="getData(2)">회원 수 : <%=totalUser%></h3>
+							</section>
+
+						</div>
+						<div class="col-6 col-12-narrower">
+
+							<section class="box special">
+							
+							<div >
+									
+								INFORMATION
+								<ul>
+									<li v-if=" data.title" v-for="data in datas" >
+										 제목: {{ data.title }}
+									</li>
+									<li v-if=" data.reservationlist" v-for="data in datas" >
+										 이름: {{ data.name }}
+									</li>
+								</ul>
+							</div>
+
+							</section>
+
+						</div>
+					</div>
+						<div class="row">
+							<div class="row-6 row-12-mobilep">
+						
+								
+							</div>
+							<div class="row-6 row-12-mobilep">
+								<h3></h3>
+								<p></p>
+							</div>
+						</div>
+					</div>
+				</section>
+
+			<!-- Footer -->
+			<% include ./footer.ejs %>
+
+		</div>
+		<script>
+		var app6 = new Vue({
+		  el: '#app-6',
+		  data: {
+			datas: [],
+			message:''
+		  },
+
+        methods: {
+			getData: function(num) {
+				this.$http.get('/user/adminpage?search='+num) // 해당 url에서 제공하는 데이터를 가져옴.
+					.then(function(response) {
+					  console.log("res:"+response[0]);    // 버튼을 클릭하여 해당 URL로 HTTP GET 요청을 보내면 response 출력.
+
+					  this.datas = response.data
+				console.log("clicked!");
+
+					});
+			  },
+			getInfo: function(num) {
+				 this.datas=[];
+					console.log("clicked!!");
+				this.$http.get('/user/adminpage?search='+num) // 해당 url에서 제공하는 데이터를 가져옴.
+					.then(function(response) {
+					// 버튼을 클릭하여 해당 URL로 HTTP GET 요청을 보내면 response 출력.
+ 				
+
+					var delayed_book=0; 
+					for (var i = 0; i <  response.body.length; i++) {
+				
+					var borrow_day = response.body[i].updated_at;
+						
+					var today = new Date();
+		
+					var dateTerm = Math.ceil((today.getTime()-new Date(borrow_day).getTime())/(1000*3600*24));
+						//console.log("dateTerm"+dateTerm);
+						if(dateTerm>14){
+							//console.log( response.body[i]);
+							  this.datas.push( response.body[i]);
+						}
+					}
+					});
+			
+			  },
+    	},
+
+		});
+
+		</script>
+			<script src="/public/assets/js/jquery.min.js"></script>
+			<script src="/public/assets/js/jquery.dropotron.min.js"></script>
+			<script src="/public/assets/js/jquery.scrollex.min.js"></script>
+			<script src="/public/assets/js/browser.min.js"></script>
+			<script src="/public/assets/js/breakpoints.min.js"></script>
+			<script src="/public/assets/js/util.js"></script>
+			<script src="/public/assets/js/main.js"></script>
+	</body>
+</html>

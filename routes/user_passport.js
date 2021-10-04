@@ -121,7 +121,11 @@ module.exports = function (router, passport) {
             res.redirect('/process/addcomment');
         }
     });
-	
+	// router.route('/user/admin').get(function (req, res) {
+		
+	// res.render('adminPage.ejs');
+      
+	// });
   	router.route('/vue').get(function (req, res) {
        
 		console.log('/vue 패스 요청됨.');

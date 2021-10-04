@@ -11,7 +11,7 @@ module.exports = {
 		,{file:'./announcement_schema', collection:'announcement', schemaName:'AnnouncementSchema', modelName:'AnnouncementModel'}
 	],
 	route_info: [
-
+{file:'./vue_router', path:'/api/movies', method:'movie', type:'get'},
 		{file:'./showList', path:'/book/listpost', method:'listpost', type:'get'}
 		,{file:'./showList', path:'/views/myPage', method:'reservationList', type:'get'}
 		,{file:'./showList', path:'/book/listapplybook', method:'listapplybook', type:'get'}
@@ -38,6 +38,8 @@ module.exports = {
 		,{file:'./user', path:'/user/modifyUser', method:'modifyUser', type:'post'}
 		,{file:'./user', path:'/user/deleteUser', method:'deleteUser', type:'post'}
 		,{file:'./user', path:'/user/acceptAdminRequest/:id', method:'acceptAdminRequest', type:'get'}
+		,{file:'./user_admin', path:'/user/admin', method:'adminpage', type:'get'}
+		,{file:'./user_admin', path:'/user/adminpage', method:'searchadminpage', type:'get'}
 		,{file:'./showQRcode', path:'/book/loanByQrcode/:id', method:'loanByQrcode', type:'get'}
 		
 		,{file:'./HistoryOfBook', path:'/post/addHistoryOfBook', method:'addHistoryOfBook', type:'post'}
