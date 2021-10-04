@@ -78,9 +78,15 @@ npm install --save react-draft-wysiwyg draft-js
 
 2021.10.02(정지혁) : EJS/profile
 * 프로필 수정(탈퇴 기능 추가,연체 도서 개수 표시;profile.ejs & user.js), 디자인 일부 수정
-* 
+
 2021.10.03(정지혁) : VUE/findGroup
 * signUp.ejs파일에서 소속그룹 검색하는 기능에 Vue 적용하여 ui개선
+
+2021.10.04(정지혁) : Vue/adminpage
+* 관리자 페이지 추가(총 보유 장서 수, 회원 수, 연체 도서 수, 대출 중인 도서 수와 회원/연체도서/대출도서 이름 조회 기능)
+![image](https://user-images.githubusercontent.com/63538097/135795588-e2a74180-798d-4f05-8f15-fac4e635cdc0.png)
+좌측의 문구 클릭시 오른쪽 화면이 vue로 렌더링 됨
+![image](https://user-images.githubusercontent.com/63538097/135797030-98a6ef53-8bc7-4b8a-ae6c-33531686724b.png)
 
 
 * 제출 1주전 까지
