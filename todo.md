@@ -91,7 +91,7 @@ npm install --save react-draft-wysiwyg draft-js
 ![image](https://user-images.githubusercontent.com/63538097/135979633-27655c78-8463-4c5e-9fc6-5e74111d7cd6.png)
 
 2021.10.05(정지혁) : 
-
+* 첫화면에 로그인시 공지사항과 더불어 신간을 노출하도록 수정
 * 제출 1주전 까지
   - 관리자 페이지 (로그인시 소속원 정보기입가능하도록)
   - 알림기능[약간 어려움]
