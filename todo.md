@@ -87,7 +87,10 @@ npm install --save react-draft-wysiwyg draft-js
 ![image](https://user-images.githubusercontent.com/63538097/135795588-e2a74180-798d-4f05-8f15-fac4e635cdc0.png)
 좌측의 문구 클릭시 오른쪽 화면이 vue로 렌더링 됨
 ![image](https://user-images.githubusercontent.com/63538097/135797030-98a6ef53-8bc7-4b8a-ae6c-33531686724b.png)
+* 첫 화면에 의미 없는 내용 제거(로그인시 첫화면에 관리자 공지사항 추가)
+![image](https://user-images.githubusercontent.com/63538097/135979633-27655c78-8463-4c5e-9fc6-5e74111d7cd6.png)
 
+2021.10.05(정지혁) : 
 
 * 제출 1주전 까지
   - 관리자 페이지 (로그인시 소속원 정보기입가능하도록)
