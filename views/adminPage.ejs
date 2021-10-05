@@ -48,17 +48,16 @@
 								
 								<% var delayed_book=0; 
 								for (var i = 0; i < books.length; i++) {
-									console.log("book0:"+books[20]);
+									
 									var borrow_day = books[i].updated_at;
 									var today = new Date();
-									console.log("borrow_day:"+borrow_day);
-									console.log("today:"+today);
+									
 									
 									var dateTerm = Math.ceil((today.getTime()-borrow_day.getTime())/(1000*3600*24));
-									console.log("dateTerm:"+dateTerm);
+									
 									if(dateTerm>14){
 										delayed_book++;
-										console.log("delayed_book:"+delayed_book);
+										
 									}
 								%>
 								
@@ -79,6 +78,8 @@
 									
 								INFORMATION
 								<ul>
+									<input placeholder="검색어 입력" v-model="keywords">
+								
 									<li v-if=" data.title" v-for="data in datas" >
 										 제목: {{ data.title }}
 									</li>
@@ -114,14 +115,21 @@
 		  el: '#app-6',
 		  data: {
 			datas: [],
-			message:''
+			message:'',
+			keywords:''
 		  },
-
+			// computed: {
+			// filteredList() {
+			//   return this.datas.filter(data => {
+			// 	data.title.toLowerCase().includes(this.keywords.toLowerCase())
+			//   })
+			// }
+			// },
         methods: {
 			getData: function(num) {
 				this.$http.get('/user/adminpage?search='+num) // 해당 url에서 제공하는 데이터를 가져옴.
 					.then(function(response) {
-					  console.log("res:"+response[0]);    // 버튼을 클릭하여 해당 URL로 HTTP GET 요청을 보내면 response 출력.
+					  //console.log("res:"+response[0]);    // 버튼을 클릭하여 해당 URL로 HTTP GET 요청을 보내면 response 출력.
 
 					  this.datas = response.data
 				console.log("clicked!");
@@ -130,7 +138,7 @@
 			  },
 			getInfo: function(num) {
 				 this.datas=[];
-					console.log("clicked!!");
+					//console.log("clicked!!");
 				this.$http.get('/user/adminpage?search='+num) // 해당 url에서 제공하는 데이터를 가져옴.
 					.then(function(response) {
 					// 버튼을 클릭하여 해당 URL로 HTTP GET 요청을 보내면 response 출력.

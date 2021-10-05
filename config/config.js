@@ -54,5 +54,8 @@ module.exports = {
 		,{file:'./announcement', path:'/deleteAnnouncement/dev/:id', method:'deleteAnnounceFun', type:'get'}
 		,{file:'./announcement', path:'/addAnnouncement', method:'addAnnounceFun', type:'post'}
 		,{file:'./announcement', path:'/deleteAnnouncement/admin/:id', method:'deleteAnnounceFun', type:'get'}
+		
+		,{file:'./index_supply', path:'/index/announce', method:'insertAnnouncement', type:'get'}
+		,{file:'./index_supply', path:'/index/newBook', method:'insertNewBook', type:'get'}
 	],
 };

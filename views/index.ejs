@@ -10,6 +10,8 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="/public/assets/css/main.css" />
+		 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.3.4"></script>
 	<script>
 		window.onload=function(){
 		var response = window.matchMedia("(min-width: 430px)");
@@ -33,17 +35,7 @@
 
 			<!-- Banner -->
 				<section id="banner">
-					<h2>Digital Of Pages</h2>
-					<p>보다 큰 도서관, DOP</p>
-					<ul class="actions special">
-						<% if (login_success) { %>
-						<li><a href="#target" class="button">Start!</a></li>
-						
-						<% } else { %>
-						
-						<li><a href="/login" class="button">Login OR SignUp</a></li>
-						<% } %>
-					</ul>
+					
 				</section>
 
 			<!-- Main -->
@@ -51,39 +43,50 @@
 
 					<section class="box special">
 						<header class="major">
-							<h2>어떤 도서관이든 쉽게 도서 관리 체계를 구축하다.
-							<br />
-							</h2>
-							<p>도서 관리 체계의 보급에 사용자 데이터 가공까지 All in One</p>
+				
+						<div id="app-6">
+								<h2 >공지사항</h2>
+								<div  v-if="!datas">
+							DOP, 어떤 도서관이든 쉽게 도서 관리 체계를 구축하다.
+							</div>	
+							<div v-else>
+								
+								<ul>
+								
+									<li v-for="data in datas"   v-on:click="show(data._id)">
+										{{ data.title}}
+									</li>
+								</ul>
+							</div>
+						
+						</div>
+
 						</header>
 						<span class="image featured"><img src="images/book.png" alt="" /></span>
 					</section>
 
-					<section id="responsible" class="box special features">
-						<div class="features-row">
-							<section>
-								<span class="icon solid major fa-bolt accent2"></span>
-								<h3>도서 대출/예약/반납</h3>
-								<p>SubMenu에서 손쉬운 도서 대출/반납과 예약 기능을 누려보세요!</p>
-							</section>
-							<section>
-								<span class="icon solid major fa-chart-area accent3"></span>
-								<h3>관리자 모드</h3>
-								<p>관리자 계정으로 회원가입하시면 도서와 소속을 등록할 수 있습니다.</p>
-							</section>
+					<section class="box special">
+						<header class="major">
+				
+						<div id="app-7">
+								<h2 >신간</h2>
+								<div  v-if="!Bookdatas">
+							도서 관리 체계의 보급에 사용자 데이터 가공까지 All in One.
+							</div>	
+							<div v-else>
+								
+								<ul>
+								
+									<li v-for="Bookdata in Bookdatas"   v-on:click="show(Bookdata._id)">
+										{{ Bookdata.title}}
+									</li>
+								</ul>
+							</div>
+						
 						</div>
-						<div class="features-row">
-							<section>
-								<span class="icon solid major fa-cloud accent4"></span>
-								<h3>도서 추천</h3>
-								<p>당신의 리뷰와 다른 유저들의 리뷰를 분석하여 최적의 도서를 추천해드립니다.</p>
-							</section>
-							<section>
-								<span class="icon solid major fa-share accent5"></span>
-								<h3>도서 나눔</h3>
-								<p>같은 도서가 쌓여 있다면? 서로 나누고 바꿔쓰고!</p>
-							</section>
-						</div>
+
+						</header>
+						<span class="image featured"><img src="images/book.png" alt="" /></span>
 					</section>
 
 					<div class="row">
@@ -143,6 +146,78 @@
 			<% include ./footer.ejs %>
 
 		</div>
+		<script>
+		var app6 = new Vue({
+		  el: '#app-6',
+		  data: {
+			datas: [],
+		  },
+	mounted() {
+ 		 this.$nextTick(function () {
+			 
+	  		console.log("sended");
+    		this.$http.get('/index/announce') 
+					.then(function(response) {
+					  console.log(response);   
+					  this.datas = response.data
+		
+
+					});
+  })
+},
+        methods: {
+			show:function(id){
+				window.location='/announce/show/'+id;
+				
+			},
+			getData: function() {
+		console.log("sended");
+    		this.$http.get('/index/announce') 
+					.then(function(response) {
+					  console.log(response);  
+
+					  this.datas = response.data
+		
+
+					});
+			  },
+    	},
+
+		});
+
+		</script>
+		<script>
+		var app7 = new Vue({
+		  el: '#app-7',
+		  data: {
+			Bookdatas: [],
+		  },
+	mounted() {
+ 		 this.$nextTick(function () {
+			 
+	  		console.log("send!!");
+    		this.$http.get('/index/newBook') 
+					.then(function(response) {
+				 console.log('response'); 
+					  console.log(response);    
+
+					  this.Bookdatas = response.data
+		
+
+					});
+  })
+},
+        methods: {
+			show:function(id){
+				window.location='/book/showbook/'+id;
+				
+			},
+
+    	},
+
+		});
+
+		</script>
 			<script src="/public/assets/js/jquery.min.js"></script>
 			<script src="/public/assets/js/jquery.dropotron.min.js"></script>
 			<script src="/public/assets/js/jquery.scrollex.min.js"></script>

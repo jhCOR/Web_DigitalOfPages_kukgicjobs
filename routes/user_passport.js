@@ -15,7 +15,7 @@ module.exports = function (router, passport) {
         tem = req.user;
         // 인증 안된 경우
         if (!req.user) {
-           
+           //res.render('test.ejs', { login_success: false});
             res.render('index.ejs', { login_success: false});
         } else {
             console.log('사용자 인증된 상태임.');
