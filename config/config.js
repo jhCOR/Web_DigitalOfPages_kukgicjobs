@@ -9,6 +9,7 @@ module.exports = {
 		,{file:'./applybook_schema', collection:'AppplyBook', schemaName:'AppplyBookSchema', modelName:'AppplyBookModel'}
 		,{file:'./history_schema', collection:'bookpost', schemaName:'BookPostSchema', modelName:'BookPostModel'}
 		,{file:'./announcement_schema', collection:'announcement', schemaName:'AnnouncementSchema', modelName:'AnnouncementModel'}
+		,{file:'./group_schema', collection:'group', schemaName:'GroupSchema', modelName:'GroupModel'}
 	],
 	route_info: [
 {file:'./vue_router', path:'/api/movies', method:'movie', type:'get'},
@@ -30,6 +31,9 @@ module.exports = {
 		,{file:'./book', path:'/book/search', method:'search', type:'get'}
 		,{file:'./book', path:'/searchGroup', method:'searchGroup', type:'get'}
 		,{file:'./book', path:'/book/delete/:id', method:'deleteBookFun', type:'get'}
+		
+		,{file:'./modifyBook', path:'/book/modify', method:'updatepost', type:'post'}
+		,{file:'./modifyBook', path:'/book/update', method:'saveupdatedpost', type:'post'}
 		
 		,{file:'./BookRequest', path:'/book/applyBook', method:'applyBook', type:'post'}
 		,{file:'./BookRequest', path:'/requestBook', method:'requestBook', type:'post'} 

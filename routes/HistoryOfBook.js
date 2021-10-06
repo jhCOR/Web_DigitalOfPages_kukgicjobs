@@ -38,7 +38,7 @@ var addHistoryOfBook = (req, res)=> {//네이버 api 이용해서 책을 찾은 
 				return;
 			}
 			
-			var userObjectId = results[0]._doc._id;
+			var userObjectId = results._id;
 			
 			var post = new database.BookPostModel({
 				title: paramTitle,

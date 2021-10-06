@@ -45,8 +45,11 @@ var adminpage =async function(req, res) {
 			console.log("2:"+count);	
 			// 뷰 템플레이트를 이용하여 렌더링한 후 전송
 			listCount.push(count);
-				database.BookModel.find({num:'1'}).countDocuments().exec(async function(err, count) {
+				database.BookModel.find({num:'1',group:req.user.group}).countDocuments().exec(async function(err, count) {
 				console.log("3:"+count);		
+					database.BookModel.find({num:'1',group:req.user.group}).populate('borrowUser', 'name group provider email').exec(async function(err, result) {
+							console.log("3_detail:"+result);		
+					});
 				// 뷰 템플레이트를 이용하여 렌더링한 후 전송
 				await listCount.push(count);
 					database.BookModel.find({group:req.user.group}, async function(err, result) {

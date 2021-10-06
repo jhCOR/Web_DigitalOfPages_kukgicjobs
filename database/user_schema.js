@@ -16,6 +16,7 @@ Schema.createSchema = function (mongoose) {
 		admin: { type: String, default: 'none' },
 		hashed_password: { type: String, default: '' },
 		group: { type: String, index: 'hashed', default: '' },
+		groupInfo: { type: mongoose.Schema.ObjectId, ref: 'group' },
 		name: { type: String, index: 'hashed', default: '' },
 		own_number: { type: String, default: '' },
 		reservationlist: [{ type: mongoose.Schema.ObjectId, ref: 'book' }],
@@ -110,6 +111,7 @@ Schema.createSchema = function (mongoose) {
 	UserSchema.static('load2', function(options, callback) {
 		options.select = options.select ;
 		this.findOne({ email: options.email })
+		.populate('reservationlist', 'title author updated_at')
 			.select(options.select)
 			.exec(callback);
 	});

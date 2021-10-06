@@ -120,7 +120,7 @@ var giveBack = function (req, res) {
             }
         });
 
-        database.UserModel.load(user, function (err, results) {
+        database.UserModel.findOne({email:req.user.email}).populate('reservationlist', 'title author updated_at').exec(function (err, results) {
             if (err) {
                 console.error('게시판 글 추가 중 에러 발생 : ' + err.stack);
                 printer.errrendering(res, err);
@@ -230,7 +230,8 @@ var searchGroup = (req, res) => {
             criteria: option,
         };
 
-        database.UserModel.list(options, (err, results) => {
+		
+		    database.GroupModel.find().exec((err, results) => {
             if (err) {
                 console.error('게시판 글 목록 조회 중 에러 발생 : ' + err.stack);
 
@@ -240,19 +241,19 @@ var searchGroup = (req, res) => {
             }
 
             if (results) {
-                var groups = [];
-                var num = 0;
+				// var groups = [];
+				// var num = 0;
 
-                for (var i = 0; i < results.length; i++) {
-                    if (!groups.includes(results[i]._doc.group)) {
-                        groups[num] = results[i]._doc.group;
-                        num++;
-                    }
-                }
-				if(groups.length<1){
+				// for (var i = 0; i < results.length; i++) {
+				// if (!groups.includes(results[i]._doc.group)) {
+				// groups[num] = results[i]._doc.group;
+				// num++;
+				// }
+				// }
+				if(results.length<1){
 						res.send('-');
 				}else{
-						res.send(groups);
+						res.send(results);
 				}
 			
                 // res.writeHead('200', { 'Content-Type': 'text/html;charset=utf8' });
@@ -272,6 +273,48 @@ var searchGroup = (req, res) => {
                 // printer.rendering(req, res, page, context);
             }
         });
+				// database.UserModel.list(options, (err, results) => {
+				// if (err) {
+				// console.error('게시판 글 목록 조회 중 에러 발생 : ' + err.stack);
+
+				// printer.errrendering(res, err);
+
+				// return;
+				// }
+
+				// if (results) {
+				// var groups = [];
+				// var num = 0;
+
+				// for (var i = 0; i < results.length; i++) {
+				// if (!groups.includes(results[i]._doc.group)) {
+				// groups[num] = results[i]._doc.group;
+				// num++;
+				// }
+				// }
+				// if(groups.length<1){
+				// 		res.send('-');
+				// }else{
+				// 		res.send(groups);
+				// }
+			
+				// // res.writeHead('200', { 'Content-Type': 'text/html;charset=utf8' });
+
+				// // // 뷰 템플레이트를 이용하여 렌더링한 후 전송
+				// // var context = {
+				// //     title: '그룹 검색',
+				// //     groupList: groups,
+				// //     page: parseInt(paramPage),
+				// //     pageCount: Math.ceil(results.length / paramPerPage),
+				// //     perPage: paramPerPage,
+				// //     totalRecords: results.length,
+				// //     size: paramPerPage,
+				// //     searchcontext: search,
+				// // };
+
+				// // printer.rendering(req, res, page, context);
+				// }
+				// });
     }
 };
 var acceptAdminRequest = function (req, res) {

@@ -10,36 +10,21 @@ var SchemaObj = {};
 SchemaObj.createSchema = function(mongoose) {
 	
 	// 글 스키마 정의
-	var BookSchema = mongoose.Schema({
-	    title: {type: String, trim: true, 'default':''},		// 글 제목
-	    contents: {type: String, trim:true, 'default':''},		
-		which: {type: String, trim:true, 'default':''},		// 등록자
-		group: {type: String, index: 'hashed', 'default':''},//소속 부대
-		reservation: {type: String, trim:true, 'default':''},		
-		author: {type: String, trim:true, 'default':''},				
-	    writer: {type: mongoose.Schema.ObjectId, ref: 'user7'},
-		borrowUser: {type: mongoose.Schema.ObjectId, ref: 'user7'},// 글쓴 사람
-		isbn:{type: String, trim:true, 'default':''},
-		img:{type: String, trim:true, 'default':''},
-		review: [{		// 리뷰
-		contents: {type: String, trim:true, 'default': ''},				// 댓글 내용
-			writer: {type: String, trim:true, 'default': ''},
-			writername: {type: String, trim:true, 'default': ''},
-			created_at: {type: Date, 'default': Date.now},
-		}],
-		reviewID: {type: mongoose.Schema.ObjectId, ref: 'review'},
-		num: {type: String, trim: true, 'default':'0'},//대출(1)비대출(0)예약(2)	    tags: {type: [], 'default': ''},
-        hits: {type: Number, 'default': 0},   // 조회수
+	var GroupSchema = mongoose.Schema({		
+		groupName: { type: String, default: '' },
+		groupBookMax: { type: String, default: '7' },
+		groupadmin: {type: mongoose.Schema.ObjectId, ref: 'user7'},				
+
 	    created_at: {type: Date, index: {unique: false}, 'default': Date.now},
 	    updated_at: {type: Date, index: {unique: false}, 'default': Date.now}
 	});
 	
 	// 필수 속성에 대한 'required' validation
-	BookSchema.path('title').required(true, '글 제목을 입력하셔야 합니다.');
-	BookSchema.path('contents').required(true, '글 내용을 입력하셔야 합니다.');
-	BookSchema.path('author').required(true, '저자를 입력하셔야 합니다.');
+	
+	GroupSchema.path('groupName').required(true, '저자를 입력하셔야 합니다.');
 	// 스키마에 인스턴스 메소드 추가
-	BookSchema.methods = {
+	
+	GroupSchema.methods = {
 		savePost: function(callback) {		// 글 저장
 			var self = this;
 			
@@ -69,7 +54,8 @@ SchemaObj.createSchema = function(mongoose) {
 		}
 	}
 	
-	BookSchema.statics = {
+	
+	GroupSchema.statics = {
 		// ID로 글 찾기
 		load: function(id, callback) {
 			this.findOne({_id: id})
@@ -78,26 +64,7 @@ SchemaObj.createSchema = function(mongoose) {
 				.populate('borrowUser', 'name group provider email')
 				.exec(callback);
 		},
-		load3: function(id, callback) {
-			this.findOne({_id: id})
-				.populate('writer', 'name provider email')
-				.populate('reviewID', 'group isbn review')
-				.exec(callback);
-		},
-		load2: function(number, callback) {
-			this.findOne({num: number})
-				.populate('writer', 'name provider email')
-				.exec(callback);
-		},
-		load4:function (options, callback) {
-			
-		options.select = options.select ;
-			console.log("/"+options.select);
-		this.find(options.criteria)
-			.populate('writer', 'name provider email')
-			.select(options.select)
-			.exec(callback);
-		},
+
 		searchList: function(options, callback) {
 			var criteria = options.criteria || {};
 			
@@ -125,9 +92,9 @@ SchemaObj.createSchema = function(mongoose) {
         }
 	}
 	
-	console.log('BookSchema 정의함.');
+	console.log('GroupSchema 정의함.');
 
-	return BookSchema;
+	return GroupSchema;
 };
 
 // module.exports에 PostSchema 객체 직접 할당

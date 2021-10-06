@@ -79,13 +79,15 @@
 					var param2="bookauthor"+i;
 					var param3="bookcontents"+i;
 					var param4="bookisbn"+i;
+					var param5="bookimg"+i;
 					
 					var book1=document.getElementById(param1).value;//or innerText
 					var book2=document.getElementById(param2).value;
 					var book3=document.getElementById(param3).value;
 					var book4=document.getElementById(param4).value;
+					var book5=document.getElementById(param5).value;
 					
-					insertISBN(book1,book2,book3,book4);
+					insertISBN(book1,book2,book3,book4,book5);
 				}
 				
 			}
@@ -97,12 +99,13 @@
 				
 			await closeWindow();
 		}
-		async function insertISBN(title,author,contents,isbn){
+		async function insertISBN(title,author,contents,isbn,img){
 			
 			opener.document.getElementById("title").value = title;
 			opener.document.getElementById("author").value = author;
 			opener.document.getElementById("contents").value = contents;
 			opener.document.getElementById("isbn").value = isbn;
+			opener.document.getElementById("img").value = img;
 			
 			await closeWindow();
 		}	

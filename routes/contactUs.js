@@ -31,7 +31,12 @@ var sendMessage = (req, res)=> {//네이버 api 이용해서 책을 찾은 후�
 				return;
 			}
 			
-			var userObjectId = results[0]._doc._id;
+			var userObjectId;
+			if (Array.isArray(results)) {
+				userObjectId = results[0]._doc._id;
+			} else {
+				userObjectId = results._id;
+			}
 			
 			var post = new database.BookPostModel({
 				title: paramTitle,

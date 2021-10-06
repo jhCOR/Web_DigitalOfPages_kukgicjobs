@@ -4,16 +4,24 @@ var borrowFun=(req, res)=>{
 	var paramId = req.body.id || req.query.id || req.params.id;
 	var user=req.user.email;
 	var database = req.app.get('database');
-
+	console.log('user->'+user);
 	if (database.db) {
 		var reservation = new database.ReservationModel({
 			bookInfo:paramId,
 			user:user,
 		});
 		saver.saving(reservation);
+		
 
-
-		database.BookModel.findByIdAndUpdate(paramId,{$set: {num : '1', updated_at : Date.now()}}, function(err,re){
+		database.UserModel.findOne({email:user}, function(err, results) {
+			if (err) {
+                console.error('게시판 글 추가 중 에러 발생 : ' + err.stack);
+                printer.errrendering(res,err);
+                
+                return;
+			}
+			console.log("ss"+results);
+			database.BookModel.findByIdAndUpdate(paramId,{$set: {num : '1', updated_at : Date.now(), borrowUser : results._id }}, function(err,re){
 			if (err) {
                 console.error('업데이트 중 에러 발생 : ' + err.stack);
                 
@@ -21,29 +29,22 @@ var borrowFun=(req, res)=>{
                 
                 return;
 			}
-			console.log("borror:"+re);
-			res.redirect('/book/showbook/' + paramId); 
-		});
-
-		database.UserModel.load(user, function(err, results) {
-			if (err) {
-                console.error('게시판 글 추가 중 에러 발생 : ' + err.stack);
-                printer.errrendering(res,err);
-                
-                return;
-			}
-			
-			database.UserModel.findByIdAndUpdate(results._id,	{'$push': {'reservationlist':paramId}},
+			console.log("borrow:"+re);
+					database.UserModel.findByIdAndUpdate(results._id,	{'$push': {'reservationlist':paramId}},
 			{'new':true, 'upsert':true},  function(err, results2) {
-			
+			console.log("Afterborrow:"+results2);
 			if (err) {
 				console.error('게시판 글 추가 중 에러 발생 : ' + err.stack);
 				printer.errrendering(res,err);
 				
 				return;
 			}
-			
+			res.redirect('/book/showbook/' + paramId); 
 			});
+			
+		});
+			
+		
 		});
 		
 	} else {

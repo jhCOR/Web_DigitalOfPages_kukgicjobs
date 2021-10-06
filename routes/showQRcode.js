@@ -18,8 +18,13 @@ var loanByQrcode=(req,res)=>{
                 
                 return;
 			}
-			
-			const data = results[0]._id+"/"+paramId+'/'+paramRequest; 
+			var id;
+			if(Array.isArray(results)){
+				id=results[0]._id;
+			}else{
+				id=results._id;
+			}
+			const data = id+"/"+paramId+'/'+paramRequest; 
 			QRCode.toDataURL( data , function(err , url) { //res.send(url);
 				var data = url.replace(/.*,/ , ''); 
 			

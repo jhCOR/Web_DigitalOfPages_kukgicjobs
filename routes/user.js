@@ -11,16 +11,14 @@ console.log('user 모듈 안에 있는 deleteUser 호출됨.');
 	console.log('deleteuser:'+paramWriter);
     
 	var database = req.app.get('database');
-	var options={
-		email:paramWriter,
-	};
+
 	// 데이터베이스 객체가 초기화된 경우
 	if (database.db) {
 		 database.UserModel.findAll(function (err, results) {
 					 console.log("총 가입자:"+results);
 		
 		// 1. 아이디를 이용해 사용자 검색
-		database.UserModel.load2(options,async function(err, results) {
+		database.UserModel.findOne({email:req.user.email}).populate('reservationlist', 'title author updated_at').exec(async function (err, results) {
 			if (err) {
                 printer.errrendering(res,err);
                 return;

@@ -19,6 +19,7 @@ module.exports = new LocalStrategy({
 	 	var paramGroup = req.body.group || req.query.group;
 		var admin = req.body.admin || req.query.admin;
 		var own_number = req.body.own_number || req.query.own_number;
+		var group_id = req.body.group_id || req.query.group_id;
 	 	admin = admin=='on' ? 'adminRequset' : 'none';
 		
 	    // findOne 메소드가 blocking되지 않도록 하고 싶은 경우, async 방식으로 변경
@@ -45,7 +46,22 @@ module.exports = new LocalStrategy({
 		            return done(null, false, req.flash('signupMessage', '계정이 이미 있습니다.'));  // 검증 콜백에서 두 번째 파라미터의 값을 false로 하여 인증 실패한 것으로 처리
 		        } else {
 		        	// 모델 인스턴스 객체 만들어 저장
-		        	var user = new database.UserModel({'email':email, 'password':password, 'name':paramName, 'group':paramGroup, 'admin':admin, 'own_number':own_number});
+					
+					if(admin=="adminRequset"){
+						var group = new database.GroupModel({groupName:paramGroup});
+						group.save(function(err,results) {
+							if (err) {
+								throw err;
+							}
+
+							console.log("그룹 데이터 추가함.");
+							console.log(results);
+							 // 검증 콜백에서 두 번째 파라미터의 값을 user 객체로 넣어 인증 성공한 것으로 처리
+						});
+					}
+					var groupID=group_id||group._id;
+		        	var user = new database.UserModel({'email':email, 'password':password, 'name':paramName, 'group':paramGroup,'groupInfo':groupID, 'admin':admin, 'own_number':own_number});
+					
 		        	user.save(function(err) {
 		        		if (err) {
 		        			throw err;
@@ -54,6 +70,9 @@ module.exports = new LocalStrategy({
 		        	    console.log("사용자 데이터 추가함.");
 		        	    return done(null, user);  // 검증 콜백에서 두 번째 파라미터의 값을 user 객체로 넣어 인증 성공한 것으로 처리
 		        	});
+					
+					
+					
 		        }
 			});    
 		

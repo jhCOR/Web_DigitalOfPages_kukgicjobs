@@ -69,28 +69,36 @@
 			<div class="ui blue fluid card">
 				 <div class="content">
 			       		 <button onclick="search()">검색</button>
-					<form class="content ui form" method="post" action="/book/addbook">
+					<form class="content ui form" method="post" action="/book/update">
 						<h4 class="ui dividing header">도서 등록</h4>
 						
 						<div class="two fields">
 							<label style="display:inline-block">ISBN<input type="text" hidden name="isbn" id="isbn" placeholder="isbn 입력"></label>
-							<label style="display:inline-block">이미지 링크<input type="text" hidden name="img" id="img" placeholder="img 입력"></label>
 						</div>	
+						<%
+						var curContents = posts._doc.contents;
+						var curTitle = posts._doc.title;
+						var writer = posts._doc.writer.email;
+						var group = posts._doc.group;
+						var curAuthor = posts._doc.author;
+                        var entities = new Entities();
+						var decodedContents = entities.decode(curContents);
+						%>
 						<div class="two fields">
 				    		<div class="field">
 				      			<label>제목</label>
-								<input type="text" name="title" id="title" placeholder="제목 입력">
+								 <input type="text" name="title" value= "<%=curTitle%>" placeholder="제목 입력">
 							</div>
 						</div>	
 						<div class="two fields">
 				    		<div class="field">
 				      			<label>저자</label>
-								<input type="text" name="author" id="author" placeholder="저자 입력">
+								<input type="text" name="author" value= "<%=curAuthor%>"  id="author" placeholder="저자 입력">
 							</div>
 						</div>	
 						<div class="field">
 				    		<label>줄거리</label>
-				    		<textarea id="contents" name="contents" id="contents" rows="10" cols="80"></textarea>
+				    		<textarea id="contents" name="contents" rows="10" cols="80"><%=decodedContents%></textarea>
 				  		</div>
 						<div class="two fields">
                             <div class="field">
@@ -99,7 +107,7 @@
 							</div>
 						</div>
 								 
-						<input class="ui submit button" type="submit" value="추가" name="" />
+						<input class="ui submit button" type="submit" value="수정완료" name="" />
 						<input class="ui button" type="button" value="취소" name="" onclick="javascript:history.back()" />
 					</form>
 					

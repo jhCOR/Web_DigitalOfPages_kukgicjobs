@@ -22,7 +22,7 @@ var insertAnnouncement = function (req, res) {
 						printer.errrendering(res, err);
 						return;
 					}
-				console.log("list==>"+listresults);
+				
 						if (listresults) {
 
 
@@ -69,7 +69,6 @@ var insertNewBook = function (req, res) {
 						printer.errrendering(res, err);
 						return;
 					}
-				console.log("list==>"+listresults);
 						if (listresults) {
 
 

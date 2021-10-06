@@ -32,8 +32,13 @@ var requestFun=(req,res)=>{
 				
 				return;
 			}
+			var userObjectId;
+			if (Array.isArray(results)) {
+				userObjectId = results[0]._doc._id;
+			} else {
+				userObjectId = results._id;
+			}
 			
-			var userObjectId = results[0]._doc._id;
 			
 			var book = new database.AppplyBookModel({
 				title: paramTitle,

@@ -4,7 +4,7 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
 		
-		<title>글 조회 페이지</title>
+		<title>유저 조회 페이지</title>
 		
 		<link href="/public/semantic.min.css" rel="stylesheet" >
 		
@@ -111,7 +111,6 @@
 					 <div class="content">
 						<% 
 						   var curTitle = posts._doc.title;
-						  var IMG = posts._doc.img;
 						 var group = posts._doc.group;
 						  var borrowUser = posts._doc.borrowUser;
 						   var curContents = posts._doc.contents;						  
@@ -141,9 +140,6 @@
 	   					<div class="meta">
 	     						<span class="right floated time"> <%=totalDate %></span>
 	     				</div>
-						 <div >
-							<img src="<%=IMG %>" style="width:70px">
-					    </div>
 	   					<div id="contentsOutput" class="description">
 							<%=decodedContents %>
 					    </div>
@@ -153,9 +149,6 @@
 	      					<img class="ui avatar image" src="/public/author.png"> <%=curWriterName %>
 	    				</div>
 						 <div >소속부대 <%=group %></div>
-						<%if(borrowUser){%>
-						 <div > <%= "대출자: "+borrowUser.name+" | email: "+borrowUser.email %></div>
-						<%}%>
 						
 	  				</div>
 					
@@ -167,18 +160,19 @@
 				var i=0;
 				var curPage=page;
 				%>
-					<a class="ui button"  href='/book/listpost?page=<%=curPage %>&perPage=8'>글 목록</a>
 
 				
 					<% if (login_success&&user===curWriter) { %>
-					<form class="align"  method="post" action="/book/modify">
-						<input hidden type="text" name="id" value="<%=posts._id %>">
-						<input hidden type="text" name="id" value="<%=curWriter %>">
-						<input   class="ui button"  type="submit" value="글 수정" name="" />
-					</form> 
+						<form class="btn btn-default btn-sm"  method="post" action="/user/modifyUser">
+									<input style="display:inline-block; width:50%" type="text" id="modifyId" readonly name="idmodify" value="<%= user.name %>">
+									<input type="button" id="modifyButton" style="float:right;" value="수정" onclick="modify()" />
+									<input type="submit" id="modifyButton2"  style="float:right; display:none;" value="완료" onclick="modify()" />
+						</form>
 					<% }%>
 					<% if (user===curWriter) { %>
-						<a class="ui button"  href='/book/delete/<%=posts._id %>'>삭제</a>
+							<form class="btn btn-default btn-sm"  method="post" action="/user/deleteUser">
+									<input type="submit" id="modifyButton" style="float:right;" value="탈퇴" />
+								</form>
 					<% }%>
 					<% if (isBorrow=='0') { %>
 						<form   class="align" height="70px" method="post" action="/book/lend">

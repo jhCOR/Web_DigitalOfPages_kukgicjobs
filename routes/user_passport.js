@@ -35,7 +35,7 @@ module.exports = function (router, passport) {
         var database = req.app.get('database');
 
         if (database.db) {
-            database.UserModel.load(req.user.email, function (err, results) {
+            database.UserModel.findOne({email:req.user.email}).populate('reservationlist', 'title author updated_at').exec(function (err, results) {
                 if (err) {
                     console.error('게시판 글 추가 중 에러 발생 : ' + err.stack);
                     // printer.errrendering(res,err);
@@ -161,13 +161,16 @@ module.exports = function (router, passport) {
         } else {
     		if (database.db) {
 				
-                database.UserModel.load({email:req.user.email}, function (err, results) {
+                database.UserModel.findOne({email:req.user.email}).populate('reservationlist', 'title author updated_at').exec(function (err, results) {
                     if (err) {
                         console.error('게시판 글 추가 중 에러 발생 : ' + err.stack);
                         printer.errrendering(res, err);
         
                         return;
                     }
+					console.log("profile?");
+					console.log( req.user);
+						console.log("results?"+results);
 					 res.render('profile.ejs', { user: req.user,  admin:req.user.admin, posts:results, login_success: true,   });
                 });
 				

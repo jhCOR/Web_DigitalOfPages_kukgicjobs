@@ -6,7 +6,8 @@ var addBookFun=(req, res)=>{
 	const paramTitle = req.body.title || req.query.title;
 	const paramAuthor = req.body.author || req.query.author;
 	const paramIsbn = req.body.isbn || req.query.isbn;
-		 
+	const paramImg = req.body.img || req.query.img;
+		 console.log("IMGPATH:"+paramImg);
 	var database = req.app.get('database');
 	
 	// 데이터베이스 객체가 초기화된 경우
@@ -18,7 +19,7 @@ var addBookFun=(req, res)=>{
 			return res.redirect('/book/listpost?page=0&perPage=8'); 
 		}
 		// 1. 아이디를 이용해 사용자 검색
-		database.UserModel.load({email:paramWriter}, function(err, results) {
+		database.UserModel.findOne({email:req.user.email}).populate('reservationlist', 'title author updated_at').exec(function (err, results) {
 			if (err) {
                 console.error('게시판 글 추가 중 에러 발생 : ' + err.stack);
 				printer.errrendering(res,err);
@@ -58,6 +59,7 @@ var addBookFun=(req, res)=>{
 				num: '0',
 				group:req.user.group,
 				isbn:paramIsbn,
+				img:paramImg,
 				reviewID:review.id,
 			});
 

@@ -78,9 +78,9 @@
 									
 								INFORMATION
 								<ul>
-									<input placeholder="검색어 입력" v-model="keywords">
+									
 								
-									<li v-if=" data.title" v-for="data in datas" >
+									<li v-if=" data.title" v-for="data in datas"  v-on:click="show(data._id)">
 										 제목: {{ data.title }}
 									</li>
 									<li v-if=" data.reservationlist" v-for="data in datas" >
@@ -161,6 +161,10 @@
 					});
 			
 			  },
+			show:function(id){
+				window.location='/book/showbook/'+id;
+				
+			},
     	},
 
 		});

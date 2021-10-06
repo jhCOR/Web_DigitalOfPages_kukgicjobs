@@ -17,14 +17,14 @@ var reservationList = function (req, res) {
     var database = req.app.get('database');
  
     if (database.db) {
-        database.UserModel.findByEmail(user, function (err, results) {
+        database.UserModel.findOne({email:req.user.email}).populate('reservationlist', 'title author updated_at').exec(function (err, results) {
             if (err) {
                 console.error('게시판 글 추가 중 에러 발생 : ' + err.stack);
                 printer.errrendering(res, err);
 
                 return;
             }
-
+			console.log("myPage_rendering\n"+results);
             var context = {
                 posts: results,
             };
@@ -155,7 +155,7 @@ var listHistoryOfBook = function (req, res) {
 	
     // 데이터베이스 객체가 초기화된 경우
     if (database.db) {
-        database.UserModel.findByEmail(req.user.email, function (err, results) {
+        database.UserModel.findOne({email:req.user.email}, function (err, results) {
             if (err) {
                 //err= new Error("의도적에러");
                 console.error('게시판 글 추가 중 에러 발생 : ' + err.stack);
@@ -173,7 +173,7 @@ var listHistoryOfBook = function (req, res) {
                 return;
             }
 
-            var userObjectId = results[0]._doc._id;
+            var userObjectId = results._id;
 			options= { writer: userObjectId};
 				if(range=="my"){
 					options= { writer: userObjectId};
@@ -181,8 +181,8 @@ var listHistoryOfBook = function (req, res) {
 					options= { group: req.user.group,
 							 	range:"그룹공개"};
 				}else if(range=="all"){
-					options= {range:"전체공개"};
-				}
+					options= {$or: [{range:"전체공개" }, { range:"그룹공개"}]};
+				} 
 			//console.log(options);
             // 1. 글 리스트
             var options = {
