@@ -61,5 +61,8 @@ module.exports = {
 		
 		,{file:'./index_supply', path:'/index/announce', method:'insertAnnouncement', type:'get'}
 		,{file:'./index_supply', path:'/index/newBook', method:'insertNewBook', type:'get'}
+		
+		,{file:'./profile', path:'/user/profile_reivew', method:'profile_review', type:'get'}
+		,{file:'./profile', path:'/user/profile_bookLog', method:'profile_bookLog', type:'get'}
 	],
 };

@@ -12,6 +12,7 @@ SchemaObj.createSchema = function(mongoose) {
 	var ReviewSchema = mongoose.Schema({
 		group: {type: String, trim:true, 'default': ''},
 		isbn: {type: String, trim:true, 'default': ''},
+		bookID: {type: mongoose.Schema.ObjectId},
 	    review: [{		// 리뷰
 			contents: {type: String, trim:true, 'default': ''},				// 댓글 내용
 			writer: {type: String, trim:true, 'default': ''},

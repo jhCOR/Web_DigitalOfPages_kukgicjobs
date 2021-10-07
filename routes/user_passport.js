@@ -160,7 +160,8 @@ module.exports = function (router, passport) {
             res.redirect('/');
         } else {
     		if (database.db) {
-				
+				 
+				 
                 database.UserModel.findOne({email:req.user.email}).populate('reservationlist', 'title author updated_at').exec(function (err, results) {
                     if (err) {
                         console.error('게시판 글 추가 중 에러 발생 : ' + err.stack);
@@ -168,9 +169,7 @@ module.exports = function (router, passport) {
         
                         return;
                     }
-					console.log("profile?");
-					console.log( req.user);
-						console.log("results?"+results);
+					
 					 res.render('profile.ejs', { user: req.user,  admin:req.user.admin, posts:results, login_success: true,   });
                 });
 				

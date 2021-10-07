@@ -46,21 +46,9 @@ module.exports = new LocalStrategy({
 		            return done(null, false, req.flash('signupMessage', '계정이 이미 있습니다.'));  // 검증 콜백에서 두 번째 파라미터의 값을 false로 하여 인증 실패한 것으로 처리
 		        } else {
 		        	// 모델 인스턴스 객체 만들어 저장
-					
-					if(admin=="adminRequset"){
-						var group = new database.GroupModel({groupName:paramGroup});
-						group.save(function(err,results) {
-							if (err) {
-								throw err;
-							}
 
-							console.log("그룹 데이터 추가함.");
-							console.log(results);
-							 // 검증 콜백에서 두 번째 파라미터의 값을 user 객체로 넣어 인증 성공한 것으로 처리
-						});
-					}
-					var groupID=group_id||group._id;
-		        	var user = new database.UserModel({'email':email, 'password':password, 'name':paramName, 'group':paramGroup,'groupInfo':groupID, 'admin':admin, 'own_number':own_number});
+
+		        	var user = new database.UserModel({'email':email, 'password':password, 'name':paramName, 'group':paramGroup, 'admin':admin, 'own_number':own_number});
 					
 		        	user.save(function(err) {
 		        		if (err) {

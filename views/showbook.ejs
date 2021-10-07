@@ -95,7 +95,9 @@
 		   
 
 	}
-
+	function alarm(){
+		alert("대출 불가 : 대출 권수가 초과되었습니다.");
+	}
  </script>
 	</head>
 	<body>
@@ -180,12 +182,20 @@
 					<% if (user===curWriter) { %>
 						<a class="ui button"  href='/book/delete/<%=posts._id %>'>삭제</a>
 					<% }%>
-					<% if (isBorrow=='0') { %>
+					<% if (isBorrow=='0') {
+						if(userBookNum>=7){%>
+						
+							<input   class="ui button align"  type="button" value="대출" name="" onclick="alarm()" />
+						
+						<%}else{%>
 						<form   class="align" height="70px" method="post" action="/book/lend">
 							<input hidden type="text" name="id" value="<%=posts._id %>">
 							<input   class="ui button"  type="submit" value="대출" name="" />
 						</form> 
 						 <a class="ui button"  href='/book/loanByQrcode/<%=posts._id %>?request=borrow'>QrCodeLoanSystem</a>
+						<%}%>
+					
+						
 					<% }else if(isBorrow=='2'){%>
 						<input   class="ui button"  type="submit" value="예약 중" name="" />
 					<%}else{%>

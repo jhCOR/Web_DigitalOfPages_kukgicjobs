@@ -60,6 +60,17 @@ var addReviewFun=(req,res)=>{
 						res.redirect('/');
 					}
 					
+					database.ReviewModel.findByIdAndUpdate(results.reviewID,{$set: {'bookID':paramId}},
+					function(err, results) {
+						if (err) {
+							console.error('게시판 댓글 추가 중 에러 발생 : ' + err.stack);
+							printer.errrendering(res,err);
+							return;
+						}
+						
+						
+						
+					 });
 					
 					database.ReviewModel.findByIdAndUpdate(results.reviewID,
 					{'$push': {'review':{'contents':paramContents, 'writer':paramWriter, 'writername':Writer}}},
@@ -70,7 +81,7 @@ var addReviewFun=(req,res)=>{
 							printer.errrendering(res,err);
 							return;
 						}
-						
+						console.log("findByIdAndUpdate"+results);
 						return res.redirect('/book/showbook/' + paramId); 
 					 });
 					

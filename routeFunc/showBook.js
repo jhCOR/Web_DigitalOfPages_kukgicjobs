@@ -71,7 +71,8 @@ var showBookFun=(req,res)=>{
 						page: req.user.PreviousPage,
 						login_success: login,
 						user:userEmail,
-						Entities: Entities
+						Entities: Entities,
+						userBookNum:req.user.reservationlist.length,
 					};
 					
 					
