@@ -5,7 +5,7 @@ var filter = function(data,email,bookID){
 		if(data.review[i].writer==email){
 			data.review[i]._id=bookID;
 			filteredData.push(data.review[i]);
-			console.log(data.review[i]);
+			//console.log(data.review[i]);
 		}
 		
 			
@@ -22,13 +22,10 @@ var profile_review = (req, res) => {
         
                 return;
             }
-		 console.log("user_review:\n");
-		
-		 console.log(results[0].review);
-		  console.log("filtered:\n");
+
 		 var review_log=[];
 		 for(var j=0;j<results.length;j++){
-			 console.log("ID:"+results[j].bookID);
+			 //console.log("ID:"+results[j].bookID);
 			await review_log.push(...filter(results[j],req.user.email,results[j].bookID));
 		 }
 		  // console.log(review_log);
