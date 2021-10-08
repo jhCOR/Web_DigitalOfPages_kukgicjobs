@@ -10,7 +10,6 @@ SchemaObj.createSchema = function(mongoose) {
 		user: {type: String, trim:true, 'default': ''},
 		userId: {type: mongoose.Schema.ObjectId, ref: 'user7'},
 		created_at: {type: Date, index: {unique: false}, 'default': Date.now},
-		updated_at: {type: Date, index: {unique: false}, 'default': Date.now},
 		group: {type: String, index: 'hashed', 'default':''}
 	});
 

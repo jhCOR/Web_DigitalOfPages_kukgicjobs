@@ -150,10 +150,10 @@ module.exports = function (router, passport) {
     });
 
     // 프로필 화면
-        router.route('/profile').get(function (req, res) {
+    router.route('/profile').get(function (req, res) {
 
         // 인증된 경우, req.user 객체에 사용자 정보 있으며, 인증안된 경우 req.user는 false값임
- var database = req.app.get('database');
+		 var database = req.app.get('database');
         // 인증 안된 경우
         if (!req.user) {
 

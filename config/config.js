@@ -63,6 +63,10 @@ module.exports = {
 		,{file:'./index_supply', path:'/index/newBook', method:'insertNewBook', type:'get'}
 		
 		,{file:'./profile', path:'/user/profile_reivew', method:'profile_review', type:'get'}
+		,{file:'./profile', path:'/user/friend_profile_reivew', method:'friend_profile_review', type:'get'}
 		,{file:'./profile', path:'/user/profile_bookLog', method:'profile_bookLog', type:'get'}
+		,{file:'./profile', path:'/user/friend_profile_bookLog', method:'friend_profile_bookLog', type:'get'}
+		
+		,{file:'./findFriend', path:'/user/friend', method:'findFriends', type:'post'}
 	],
 };
