@@ -93,10 +93,20 @@ npm install --save react-draft-wysiwyg draft-js
 2021.10.05(정지혁) : 
 * 첫화면에 로그인시 공지사항과 더불어 신간을 노출하도록 수정
 
-2021.10.05(정지혁) : 
+2021.10.07(정지혁) : 
 프로필에 작성한 리뷰가 시간순으로 뜨도록 개선했으며 디자인도 개선함
 ![image](https://user-images.githubusercontent.com/63538097/136374223-4ca9544a-913c-4a58-b88c-1b4da405bbda.png)
 
+2021.10.08(정지혁) : 
+* 프로필에 리뷰에 더해 과거에 대출한 책 대여 기록 화면 추가
+![image](https://user-images.githubusercontent.com/63538097/136552580-df48f24d-22e3-47fa-969c-494826928355.png)
+* 친구 검색 기능 추가
+![image](https://user-images.githubusercontent.com/63538097/136552664-c2856dee-e39b-4c64-9532-708635fae0e9.png)
+위화면처럼 친구 이메일(아이디) 검색하면 아래의 화면이 뜨며, 친구의 리뷰와 책 대여 기록을 공유받을 수 있음.
+![image](https://user-images.githubusercontent.com/63538097/136552759-4271da4e-91d5-42ad-b588-e9d4ea84f155.png)
+*향후 친구 추가 기능을 추가하여 허가된 친구만 자신의 프로필 열람이 가능하도록 수정할 것
+
+2021
 * 제출 1주전 까지
   - 관리자 페이지 (로그인시 소속원 정보기입가능하도록)
   - 알림기능[약간 어려움]
