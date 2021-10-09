@@ -1,12 +1,17 @@
 # PROJECT NAME
-Digital Of Pages ; D.P
+Digital Of Pages ; DoP
 
 ## 프로젝트 소개
 - 저희 Digital Of Pages는 파편화된 각 부대 도서관의 관리 체계를 통합하여 더 편리한 도서 체계를 구축하기 위한 프로젝트입니다. 수기로 대출과 반납을 관리하여 도서를 제대로 관리하지 못하고 누락 및 위조가 빈번히 발생하고 특정 병사가 반납을 하지 않는 현상이 발생하는 고질적인 문제가 많았습니다. 그러다보니 자연스레 독서 의지가 떨어지거나 같은 책을 계속 반복하여 구비해야 합니다. 이 같은 현상을 계속 목격하면서 예산의 낭비를 막고 장병들의 복지를 향상 시키기 위해 준비한 프로젝트가 바로 Digital Of Pages입니다. 저희는 저희의 프로젝트를 통해 낭비되는 예산의 집행을 예방하고 아무런 효용도 갖지 못하고 사라지던 장병들의 도서 이용 데이터들을 유용하게 사용하려고 합니다. 교육 자료를 준비할 때 도서 이용 데이터를 제공하여 공감대를 형성할 수 있고 필요없는 도서를 구매하지 않아 해당 도서들이 읽히지 않고 자리만 차지하는 일을 막을 수 있으리라 기대하고 있습니다.
 
 
 ## 기능 설명
- - 설명 기입
+ - 도서 대출/반납
+ - 마이페이지 : 대출 중인 도서 목록 확인 및 연체 중인 도서 목록 확인
+ - 프로필 : 유저 회원가입 정보 및 닉네임 수정 기능, 대출 기록 및 작성한 리뷰 기록 확인 + 친구 조회와 친구 추가 기능
+ - 관리자 페이지 및 관리자 기능 : 신청 도서 목록 확인, 도서관 전체 도서 수/대출 중인 수/회원 수 확인, 도서 등록 등의 관리자 기능
+ - 독서 발자취 : 독서 발자취(독서록)작성 및 비공개/그룹공개/전체공개 등 열람 범위 설정 및 점위에 따른 타 유저 독서 발자취 열람
+ - 도서 검색 기능 외 다수의 편의 기능 
 
 ## 컴퓨터 구성 / 필수 조건 안내 (Prerequisites)
 * ECMAScript 6 지원 브라우저 사용
@@ -19,7 +24,7 @@ Digital Of Pages ; D.P
  - Database : MongoDB, mongoose
  
 ### Front-end
- - 	ejs, HTML5, CSS3
+ - 	ejs, HTML5, CSS3, Vue.js
  -  부트스트랩
  - Alpha template(http://html5up.net)
 
@@ -29,29 +34,30 @@ Digital Of Pages ; D.P
 $ git clone git https://github.com/osamhack2021/Web_DigitalOfPages_kukgicjobs.git
 $ npm install
 $ npm start
-
 ```
 서버에서 서비스 하려는 경우 아래 코드 입력(세번째 줄에서 -i 뒤의 숫자는 컴퓨팅 자원에 따라 상이, --name은 선택사항이며 dop는 임의로 정한 이름)
 ```bash
 $ git clone git https://github.com/osamhack2021/Web_DigitalOfPages_kukgicjobs.git
 $ npm install
 $ pm2 start app.js -i 10 --name dop
-
+```
+몽고디비 실행(data폴더 위치에 따라 --dbpath위치는 상이, 아래의 경로는 workspace 바로 아래 data폴더와 본 프로게트 폴더가 있는 상황을 가정함;)
+```bash
+mongodb --dbpath data
 ```
 ## 프로젝트 사용법 (Getting Started)
-**마크다운 문법을 이용하여 자유롭게 기재**
+ * [메인 화면] 프로젝트 사용을 위해 우 상단의 로그인 버튼 클릭
+ * ![image](https://user-images.githubusercontent.com/63538097/136648258-a9f86395-2098-45c1-a6f4-04e4f2439884.png)
+ * [프로필 화면] 
+ ** 상단의 친구 추가 시 자신의 프로필을 열람할 수 있는 유저를 추가할 수 있음 조회 기능 사용시 친구의 프로필을 열람할 수 있음
+ * ![image](https://user-images.githubusercontent.com/63538097/136648304-2253039a-4c88-40d6-a2da-0c2c9949ffce.png)
 
-잘 모를 경우
-구글 검색 - 마크다운 문법
-[https://post.naver.com/viewer/postView.nhn?volumeNo=24627214&memberNo=42458017](https://post.naver.com/viewer/postView.nhn?volumeNo=24627214&memberNo=42458017)
 
- 편한 마크다운 에디터를 찾아서 사용
- 샘플 에디터 [https://stackedit.io/app#](https://stackedit.io/app#)
  
 ## 팀 정보 (Team Information)
 - jung ji hyeok (jhjung9759@gmail.com), Github Id: jhCOR
 - kim jeong ho (suji999@gmail.com), Github Id: suji999
-- yang jae hoon (suji999@gmail.com), Github Id: suji999
+
 ## 저작권 및 사용권 정보 (Copyleft / End User License)
  * [MIT](https://github.com/osam2020-WEB/Sample-ProjectName-TeamName/blob/master/license.md)
 
