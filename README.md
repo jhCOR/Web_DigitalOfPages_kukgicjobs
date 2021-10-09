@@ -49,7 +49,7 @@ mongodb --dbpath data
  * [메인 화면] 프로젝트 사용을 위해 우 상단의 로그인 버튼 클릭
  * ![image](https://user-images.githubusercontent.com/63538097/136648258-a9f86395-2098-45c1-a6f4-04e4f2439884.png)
  * [프로필 화면] 
- ** 상단의 친구 추가 시 자신의 프로필을 열람할 수 있는 유저를 추가할 수 있음 조회 기능 사용시 친구의 프로필을 열람할 수 있음
+  **상단의 친구 추가 시 자신의 프로필을 열람할 수 있는 유저를 추가할 수 있음 조회 기능 사용시 친구의 프로필을 열람할 수 있음
  * ![image](https://user-images.githubusercontent.com/63538097/136648304-2253039a-4c88-40d6-a2da-0c2c9949ffce.png)
 
 
