@@ -35,16 +35,19 @@ $ git clone git https://github.com/osamhack2021/Web_DigitalOfPages_kukgicjobs.gi
 $ npm install
 $ npm start
 ```
-서버에서 서비스 하려는 경우 아래 코드 입력(세번째 줄에서 -i 뒤의 숫자는 컴퓨팅 자원에 따라 상이, --name은 선택사항이며 dop는 임의로 정한 이름)
+서버에서 서비스 하려는 경우(세번째 줄에서 -i 뒤의 숫자는 컴퓨팅 자원에 따라 상이, --name은 선택사항이며 dop는 임의로 정한 이름)
+1. env 파일에서 NODE_ENV값 'production'으로 수정(helmet 및 hpp활성화)
+2. 몽고디비 실행(data폴더 위치에 따라 --dbpath위치는 상이, 아래의 경로는 workspace 바로 아래 data폴더와 본 프로게트 폴더가 있는 상황을 가정함;)
+```bash
+mongodb --dbpath data
+```
+3. 서버 
 ```bash
 $ git clone git https://github.com/osamhack2021/Web_DigitalOfPages_kukgicjobs.git
 $ npm install
 $ pm2 start app.js -i 10 --name dop
 ```
-몽고디비 실행(data폴더 위치에 따라 --dbpath위치는 상이, 아래의 경로는 workspace 바로 아래 data폴더와 본 프로게트 폴더가 있는 상황을 가정함;)
-```bash
-mongodb --dbpath data
-```
+
 ## 프로젝트 사용법 (Getting Started)
  * [메인 화면] 프로젝트 사용을 위해 우 상단의 로그인 버튼 클릭
  * ![image](https://user-images.githubusercontent.com/63538097/136648258-a9f86395-2098-45c1-a6f4-04e4f2439884.png)
