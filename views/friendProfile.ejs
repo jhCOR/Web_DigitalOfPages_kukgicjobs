@@ -70,8 +70,8 @@
 	}
 		</style>
 	
-				<link rel="stylesheet" href="/public/assets/css/main.css" />
-				 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js"></script>
+	<link rel="stylesheet" href="/public/assets/css/main.css" />
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.3.4"></script>
 		<script src="/public/jquery-3.1.1.min.js"></script>
 		<script src="/public/semantic.min.js"></script>
@@ -94,8 +94,14 @@
 		<div class="container" id="app-6">
 		
 			<div class="ui raised segment">
-				<a class="ui blue ribbon label">친구 찾기</a> 
 		
+				 <label style="display:inline">
+					<a class="ui blue ribbon label" >친구 찾기</a> 
+					<form class="btn-default btn-sm"  method="post" action="/user/friend">
+					<input type="text" style="width:20%; heigt:1.5em; float:left;" name="friend"  >
+					<button type="submit" class="btn btn-warning " >찾기</button>
+					</form>	 
+				</label> 
 				<div class="ui blue fluid card">
 					 <div class="content">
 
@@ -112,7 +118,6 @@
 	      					
 	    				</div>
 	  				</div>
-					
 				</div> 
 				<input   class="ui button align" type="button" value="북 히스토리" name="" v-on:click="getData()" v-if="!bookLog" />
 				<input   class="ui button align"  style="color:orange;" type="button" value="북 히스토리" name="" v-on:click="getData()" v-if="bookLog"/>
@@ -175,7 +180,7 @@
 			  showInput:false
 		  },
 		mounted() {
-			 this.$nextTick(function () {
+			this.$nextTick(function () {
 				var friendEmail = document.getElementById('id_email').innerText;
 				console.log("sended");
 				this.$http.get('/user/friend_profile_reivew?email='+friendEmail) 
@@ -184,9 +189,9 @@
 						  this.datas = response.data
 
 
-						});
+				});
 				 
-		  })
+		    })
 		},
         methods: {
 			show:function(id){
@@ -194,11 +199,11 @@
 				
 			},
 			
-			
 			turntoreview:function(){
 				  this.bookLog = false;
 				
 			},
+			
 			getData: function() {
 				var friendEmail = document.getElementById('id_email').innerText;
 		console.log(friendEmail);

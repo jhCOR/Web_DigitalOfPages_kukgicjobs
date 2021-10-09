@@ -78,6 +78,7 @@
 				<link rel="stylesheet" href="/public/assets/css/main.css" />
 				 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.3.4"></script>
+		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 		<script src="/public/jquery-3.1.1.min.js"></script>
 		<script src="/public/semantic.min.js"></script>
 		<link href="/public/cleditor/jquery.cleditor.css" rel="stylesheet" />
@@ -119,13 +120,22 @@
 		
 			<div class="ui raised segment">
 				<!-- <a class="ui blue ribbon label">프로필</a> -->
-      			 <label style="display:inline">친구 검색
-					<form class="btn-default btn-sm"  method="post" action="/user/friend">
-					<input type="text" style="width:20%; float:left;" name="friend"  >
-					<button type="submit" class="btn btn-warning btn-lg">찾기</button>
+				<div  class="row">
+				<label style="display:inline">
+					<form class="btn-default"  method="post" action="/user/friend">
+					<input  style="width:70%; heigt:1.5em; float:left;" name="friend" placeholder="친구 검색" >
+					<button type="submit" class="btn btn-warning">친구 조회</button>
+						
 					</form>	 
 				</label> 
-						
+				<label style="display:inline">
+					{{message}}
+      			<input v-model="query" style="width:70%; heigt:1.5em; float:left;" placeholder="친구 아이디를 입력해주세요">
+					
+					<button  class="btn btn-warning " v-on:click="plusFriends()" >친구 추가</button>
+					
+					</label> 
+				</div>	
 				<div class="ui blue fluid card">
 					 <div class="content">
 						
@@ -178,12 +188,17 @@
 	  				</div>
 					
 				</div> 
-				<input   class="ui button align" type="button" value="북 히스토리" name="" v-on:click="getData()" v-if="!bookLog" />
-				<input   class="ui button align"  style="color:orange;" type="button" value="북 히스토리" name="" v-on:click="getData()" v-if="bookLog"/>
-				<input   class="ui button align" type="button" value="리뷰 히스토리" name="" v-on:click="turntoreview()"  v-if="bookLog" />
-				<input   class="ui button align"   style="color:orange;" type="button" value="리뷰 히스토리" name="" v-on:click="turntoreview()"  v-if="!bookLog" />
+				
+				<input   class="ui button align" type="button" value="북 히스토리" name="" v-on:click="getData()" v-if="where!='bookLog'" />
+				<input   class="ui button align"  style="color:orange;" type="button" value="북 히스토리" name="" v-on:click="getData()" v-if="where=='bookLog'"/>
+				<input   class="ui button align" type="button" value="리뷰 히스토리" name="" v-on:click="turntoreview()"  v-if="where!='review'" />
+				<input   class="ui button align"   style="color:orange;" type="button" value="리뷰 히스토리" name="" v-on:click="turntoreview()"  v-if="where=='review'" />
+				<input   class="ui button align" type="button" value="친구 목록" name="" v-on:click="friendList()"   v-if="where!='friendlist'"/>
+				<input   class="ui button align" type="button"   style="color:orange;" value="친구 목록" name="" v-on:click="friendList()"    v-if="where=='friendlist'"/>
+			
+				
 				<div  style="overflow:scroll; width:100%; height:400px;">
-					<div class="ui blue fluid card"  v-if="!bookLog" v-for="data in datas"   v-on:click="show(data._id)">
+					<div class="ui blue fluid card"  v-if="where=='review'"  v-for="data in datas"   v-on:click="show(data._id)">
                                 <div class="content">
                                     <div class="sixteen wide column">
                                         <div class="ui header" style="inline-block">
@@ -196,13 +211,11 @@
 												
                                         </div>
 										
-                                    </div>
-									
-										
+                                    </div>	
                                 </div>
                             </div>
 					
-						<div class="ui blue fluid card" v-if="bookLog" v-for="booklog in BookLogdatas"   v-on:click="show(booklog.bookInfo._id)">
+						<div class="ui blue fluid card" v-if="where=='bookLog'" v-for="booklog in BookLogdatas"  v-on:click="show(booklog.bookInfo._id)">
                                 <div class="content">
                                     <div class="sixteen wide column">
                                         <div class="ui header" style="inline-block">
@@ -218,6 +231,22 @@
                                     </div>
 									
 										
+                                </div>
+                            </div>
+					<div class="ui blue fluid card" v-for="(friend,index) in friends"   v-if="where=='friendlist'" v-on:click="accessFriends(friend)">
+                                <div class="content">
+                                    <div class="sixteen wide column">
+                                        <div class="ui header" style="inline-block">
+                                            <h4 class="ui left aligned header ">
+                                                {{friend}}
+                                            </h4>
+                                      <h5 class="ui left aligned header ">
+                                               
+                                            </h5>
+												
+                                        </div>
+										
+                                    </div>	
                                 </div>
                             </div>
 	
@@ -236,8 +265,11 @@
 		  data: {
 			datas: [],
 			 BookLogdatas: [],
-			  bookLog:false,
-			  showInput:false
+			  where:'review',
+			  showInput:false,
+			  query:'',
+			  friends:[],
+			  message:''
 		  },
 		mounted() {
 			 this.$nextTick(function () {
@@ -259,21 +291,50 @@
 				
 			},
 			
-			
+			accessFriends:  function(friend) {
+				console.log("accessFriends");
+     		 axios.post('/user/friend',{ friend: friend.friends })
+       		 .then(function(response) {
+         	
+       		 })
+        	.catch(function(error) {
+         	
+       		 });
+    		},
+			plusFriends:function(){
+					console.log("sendTo");
+				
+    		this.$http.get('/user/plusfriend?addfriend='+this.query) 
+					.then(function(response) {
+				console.log( response.data);
+					  this.friends = response.data.post.friends;
+		
+ 				this.message = response.data.message;
+					});
+			  },
+				
+			friendList:function(){
+			console.log("friendlist_send");
+				  this.where = 'friendlist';
+    		this.$http.get('/user/loadfriends') 
+					.then(function(response) { 
+
+					  this.friends = response.data[0].friends;
+				  
+					});
+			  },
 			turntoreview:function(){
-				  this.bookLog = false;
+				  this.where = 'review';
 				
 			},
 			getData: function() {
 		console.log("send");
-				  this.bookLog = true;
+				   this.where = 'bookLog';
     		this.$http.get('/user/profile_bookLog') 
 					.then(function(response) {
-					  console.log(response.data);  
 
 					  this.BookLogdatas = response.data;
 		
- 					console.log( this.BookLogdatas[0].bookInfo);  
 					});
 			  },
     	},

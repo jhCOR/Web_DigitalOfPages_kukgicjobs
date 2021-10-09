@@ -12,7 +12,7 @@ if (database.db) {
         
              return;
         }
-			console.log(results);		
+			console.log('findFriends'+results);		
 	res.render('friendProfile.ejs', { user:results, login_success: true });
 		
     });

@@ -10,12 +10,7 @@ var modifyFunc = (req, res)=>{
 	// 데이터베이스 객체가 초기화된 경우
 	if (database.db) {
 		// 1. 아이디를 이용해 사용자 검색
-		database.UserModel.findByEmail(paramWriter, function(err, result) {
-			if (err) {
-				  printer.errrendering(res,err);
-                
-                return;
-			}
+	
 			
 			database.UserModel.findByIdAndUpdate(req.user._id,{$set: {name:writerName}},  function(err, theresult) {
 			
@@ -30,7 +25,7 @@ var modifyFunc = (req, res)=>{
             res.redirect('/profile');
         });
 			});
-		});
+	
 
 		
 	} else {

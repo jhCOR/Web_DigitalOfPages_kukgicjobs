@@ -50,17 +50,6 @@ var addHistoryOfBook = (req, res)=> {//네이버 api 이용해서 책을 찾은 
 			});
 
 			saver.saving(post,res,'/history/' + post._id);
-			// post.savePost(function(err, result) {
-			// 	if (err) {
-
-			// 	printer.errrendering(res,err);
-			// 	return;
-			// 	}
-			// 	var content={post:post}	
-			  
-			// 	// printer.rendering(req,res,'history/historyOfBook.ejs',content);	
-				
-			// });
 			
 		});
 
@@ -82,17 +71,6 @@ var showHistory = (req, res)=>{
 				
 				if (results) {
 
-					// database.BookModel.incrHits(results._doc._id, function (err2, results2) {
-					// 	console.log('incrHits executed.');
-
-					// 	if (err2) {
-					// 		console.log('incrHits 실행 중 에러 발생.');
-					// 		console.dir(err2);
-					// 		return;
-					// 	}
-
-					// });
-
 					res.writeHead('200', { 'Content-Type': 'text/html;charset=utf8' });
 					if(results===null){
 						res.redirect('/');
@@ -100,9 +78,10 @@ var showHistory = (req, res)=>{
 					// 뷰 템플레이트를 이용하여 렌더링한 후 전송
 					var context = {
 						title: '내 독서 기록 보기',
-						post: results
+						post: results,
+						login: req.user.email,
 					};
-					console.log(results);
+					console.log("history"+results);
 			   
 				printer.rendering(req,res,'history/historyOfBook_show.ejs',context);	
 				} else {

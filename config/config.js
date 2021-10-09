@@ -12,7 +12,6 @@ module.exports = {
 		,{file:'./group_schema', collection:'group', schemaName:'GroupSchema', modelName:'GroupModel'}
 	],
 	route_info: [
-{file:'./vue_router', path:'/api/movies', method:'movie', type:'get'},
 		{file:'./showList', path:'/book/listpost', method:'listpost', type:'get'}
 		,{file:'./showList', path:'/views/myPage', method:'reservationList', type:'get'}
 		,{file:'./showList', path:'/book/listapplybook', method:'listapplybook', type:'get'}
@@ -66,7 +65,9 @@ module.exports = {
 		,{file:'./profile', path:'/user/friend_profile_reivew', method:'friend_profile_review', type:'get'}
 		,{file:'./profile', path:'/user/profile_bookLog', method:'profile_bookLog', type:'get'}
 		,{file:'./profile', path:'/user/friend_profile_bookLog', method:'friend_profile_bookLog', type:'get'}
+		,{file:'./profile', path:'/user/loadfriends', method:'friend_list', type:'get'}
 		
 		,{file:'./findFriend', path:'/user/friend', method:'findFriends', type:'post'}
+		,{file:'./plusFriend', path:'/user/plusfriend', method:'plusFriends', type:'get'}
 	],
 };
