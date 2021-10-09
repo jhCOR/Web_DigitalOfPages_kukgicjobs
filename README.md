@@ -41,7 +41,7 @@ $ npm start
 ```bash
 mongodb --dbpath data
 ```
-3. 서버 
+3. 서버 실행
 ```bash
 $ git clone git https://github.com/osamhack2021/Web_DigitalOfPages_kukgicjobs.git
 $ npm install
