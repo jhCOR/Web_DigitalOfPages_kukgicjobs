@@ -197,6 +197,8 @@
 				<input   class="ui button align" type="button"   style="color:orange;" value="친구 목록" name="" v-on:click="friendList()"    v-if="where=='friendlist'"/>
 				<input   class="ui button align" type="button" value="메세지 함" name="" v-on:click="messageBox()"  v-if="where!='messageBox'"/>
 				<input   class="ui button align" type="button"   style="color:orange;" value="메세지 함" v-on:click="messageBox()"  name=""  v-if="where=='messageBox'"/>
+				<input   class="ui button align" type="button" value="메세지 작성" name="" v-on:click="turntoLetter()"  v-if="where!='writeLetter'"/>
+				<input   class="ui button align" type="button"   style="color:orange;" value="메세지 작성" v-on:click="turntoLetter()"  name=""  v-if="where=='writeLetter'"/>
 				
 				<div  style="overflow:scroll; width:100%; height:400px;">
 					<div class="ui blue fluid card"  v-if="where=='review'"  v-for="data in datas"   v-on:click="show(data._id)">
@@ -234,7 +236,7 @@
 										
                                 </div>
                             </div>
-					<div class="ui blue fluid card" v-for="(friend,index) in friends"   v-if="where=='friendlist'" >
+					<div class="ui blue fluid card" v-for="(friend,index) in friends"   v-if="where=='friendlist'" v-on:click="write(friend)">
                                 <div class="content">
                                     <div class="sixteen wide column">
                                         <div class="ui header" style="inline-block">
@@ -264,7 +266,17 @@
                                     </div>	
                                 </div>
                             </div>
-	
+							<div class="ui fluid card"  v-if="where=='writeLetter'" >
+                                <div class="content">
+                                    <div class="sixteen  column">
+                                        <div class=" " style="inline-block">
+                                        <input v-model="email" style="width:52%; heigt:1.5em; float:left;" name="friend" placeholder="이메일을 입력해 주세요!" >
+										<textarea v-model="content" type="text" name="contents" rows="4" style="width: 600px;" placeholder="메세지 입력"></textarea>
+                                        </div>
+										<input class="ui submit button" type="submit" value="작성 완료" name="" v-on:click="sendMessages()"/>
+                                    </div>	
+                                </div>
+                            </div>
 				</div>
 				
        
@@ -286,6 +298,8 @@
 			  friends:[],
 			  message:'',
 			  MESSAGES:[],
+			  email:'',
+			  content:''
 		  },
 		mounted() {
 			 this.$nextTick(function () {
@@ -306,7 +320,10 @@
 				window.location='/book/showbook/'+id;
 				
 			},
-			
+			write:function(email){
+				this.where = 'writeLetter';
+				this.email = email;
+			},
 			accessFriends:  function(friend) {
 				console.log("accessFriends");
      		 axios.post('/user/friend',{ friend: friend.friends })
@@ -317,6 +334,7 @@
          	
        		 });
     		},
+			
 			plusFriends:function(){
 					console.log("sendTo");
 				
@@ -328,7 +346,26 @@
  				this.message = response.data.message;
 					});
 			  },
-				
+			
+			sendMessages:function(){
+					
+				if(this.email==''){
+					alert('수신인을 입력해 주세요');
+				}else{
+
+					 axios.post('/user/sendRecommand',{ friend: this.email, content: this.content})
+					 .then(function(response) {
+						
+					 })
+					.catch(function(error) {
+
+					 });
+								
+				alert("메세지 전송 완료");
+				}
+				this.content='';
+			},
+			
 			friendList:function(){
 			console.log("friendlist_send");
 				  this.where = 'friendlist';
@@ -341,6 +378,10 @@
 			  },
 			turntoreview:function(){
 				  this.where = 'review';
+				
+			},
+			turntoLetter:function(){
+				  this.where = 'writeLetter';
 				
 			},
 			messageBox:function(){
