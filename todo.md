@@ -109,6 +109,7 @@ npm install --save react-draft-wysiwyg draft-js
 2021.10.10(정지혁) : Vue/recommand
 * 친구 추가 기능을 추가하여 허가된 친구만 자신의 프로필 열람이 가능하도록 수정
 * 도서 추천 기능 추가 및 메세지 함(도서 추천 확인) 추가
+* 첫 화면 베너 높이 조정
 ![image](https://user-images.githubusercontent.com/63538097/136679963-68e2ad8a-1d33-4f96-b091-c2f9250cb69b.png)
 ![image](https://user-images.githubusercontent.com/63538097/136679988-7843f230-0642-4851-ae01-ceee1cc7e9eb.png)
 
