@@ -57,8 +57,7 @@ $ pm2 start app.js -i 10 --name dop
  샘플 에디터 [https://stackedit.io/app#](https://stackedit.io/app#)
  
 ## 팀 정보 (Team Information)
-- hong gil dong (hong999@gmail.com), Github Id: gildong999
-- kim su ji (suji999@gmail.com), Github Id: suji999
+- ji hyeok jung (jhjung9759@gmail.com), Github Id: jhCOR
 
 ## 저작권 및 사용권 정보 (Copyleft / End User License)
  * [MIT](https://github.com/osam2020-WEB/Sample-ProjectName-TeamName/blob/master/license.md)
