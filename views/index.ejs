@@ -34,7 +34,7 @@
 			<% include ./header.ejs %>
 
 			<!-- Banner -->
-				<section id="banner" style="padding:7em;">
+				<section id="banner" style="padding:8em;">
 					
 				</section>
 
@@ -69,7 +69,7 @@
 						<header class="major">
 				
 						<div id="app-7">
-								<h2 >신간</h2>
+								<h2 >인기 도서</h2>
 								<div  v-if="!Bookdatas">
 							도서 관리 체계의 보급에 사용자 데이터 가공까지 All in One.
 							</div>	
@@ -95,15 +95,12 @@
 							<section class="box special">
 								<span class="image featured"><img src="/public/images/notes.png" alt="" /></span>
 								<h3>Book History</h3>
-								<p>각자의 독서 역사를 기록해 보세요! 매번 새로운 독서 기록을 적는게 아닙니다! 여려분들의 책을 만들어 나가는 거죠!</p>
+								<p>각자의 독서 역사를 기록해 보세요! </p>
 								
 								<ul class="actions special">
-									<% if (!login_success) { %>
-									 <li><a href="#" class="button alt">Learn More</a></li>
-									<% } else { %>
-						
-									<li><a href="/addhistory" class="button">start</a></li>
-									<% } %>
+									<% if (login_success) { %>
+									 	<li><a href="/addhistory" class="button">start</a></li>
+									<% }%>
 									
 								</ul>
 							</section>
@@ -113,10 +110,12 @@
 
 							<section class="box special">
 								<span class="image featured"><img src="/public/images/lucky.png" alt="" /></span>
-								<h3>Today's Book?</h3>
-								<p>뭘 읽을지 모르겠다구요? 저희를 믿어보세요! 오늘 소중한 당신에게 소개될 운 좋은 책의 주인공은 어떤게 될까 기대됩니다!</p>
+								<h3>With Friends!</h3>
+								<p>친구와 함께하는 독서 라이프!</p>
 								<ul class="actions special">
-									<li><a href="#" class="button alt">Today's Lucky Book</a></li>
+									<% if (login_success) { %>
+									 	<li><a href="/profile" class="button">start</a></li>
+									<% }%>
 								</ul>
 							</section>
 

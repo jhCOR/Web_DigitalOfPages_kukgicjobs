@@ -195,7 +195,8 @@
 				<input   class="ui button align"   style="color:orange;" type="button" value="리뷰 히스토리" name="" v-on:click="turntoreview()"  v-if="where=='review'" />
 				<input   class="ui button align" type="button" value="친구 목록" name="" v-on:click="friendList()"   v-if="where!='friendlist'"/>
 				<input   class="ui button align" type="button"   style="color:orange;" value="친구 목록" name="" v-on:click="friendList()"    v-if="where=='friendlist'"/>
-			
+				<input   class="ui button align" type="button" value="메세지 함" name="" v-on:click="messageBox()"  v-if="where!='messageBox'"/>
+				<input   class="ui button align" type="button"   style="color:orange;" value="메세지 함" v-on:click="messageBox()"  name=""  v-if="where=='messageBox'"/>
 				
 				<div  style="overflow:scroll; width:100%; height:400px;">
 					<div class="ui blue fluid card"  v-if="where=='review'"  v-for="data in datas"   v-on:click="show(data._id)">
@@ -233,17 +234,31 @@
 										
                                 </div>
                             </div>
-					<div class="ui blue fluid card" v-for="(friend,index) in friends"   v-if="where=='friendlist'" v-on:click="accessFriends(friend)">
+					<div class="ui blue fluid card" v-for="(friend,index) in friends"   v-if="where=='friendlist'" >
                                 <div class="content">
                                     <div class="sixteen wide column">
                                         <div class="ui header" style="inline-block">
                                             <h4 class="ui left aligned header ">
                                                 {{friend}}
                                             </h4>
-                                      <h5 class="ui left aligned header ">
-                                               
+                                        </div>
+										
+                                    </div>	
+                                </div>
+                    </div>
+							<div class="ui blue fluid card" v-for="(MESSAGE,index) in MESSAGES"   v-on:click="show(MESSAGE.bookID._id)"  v-if="where=='messageBox'" >
+                                <div class="content">
+                                    <div class="sixteen  column">
+                                        <div class=" " style="inline-block">
+                                            <h4 class="left aligned  ">
+                                                내용:{{MESSAGE.content}}
+											</h4>
+											<h5 class=" left aligned header " v-if="MESSAGE.bookID">
+                                                추천된 도서:{{MESSAGE.bookID.title}}
                                             </h5>
-												
+											<h5 class=" left aligned header ">
+                                                발신자:{{MESSAGE.from}}
+                                            </h5>
                                         </div>
 										
                                     </div>	
@@ -269,7 +284,8 @@
 			  showInput:false,
 			  query:'',
 			  friends:[],
-			  message:''
+			  message:'',
+			  MESSAGES:[],
 		  },
 		mounted() {
 			 this.$nextTick(function () {
@@ -326,6 +342,15 @@
 			turntoreview:function(){
 				  this.where = 'review';
 				
+			},
+			messageBox:function(){
+				this.where = 'messageBox';
+				this.$http.get('/user/loadmessage') 
+					.then(function(response) { 
+					console.log(response.data);
+					  this.MESSAGES = response.data;
+				  
+					});
 			},
 			getData: function() {
 		console.log("send");

@@ -10,6 +10,7 @@ module.exports = {
 		,{file:'./history_schema', collection:'bookpost', schemaName:'BookPostSchema', modelName:'BookPostModel'}
 		,{file:'./announcement_schema', collection:'announcement', schemaName:'AnnouncementSchema', modelName:'AnnouncementModel'}
 		,{file:'./group_schema', collection:'group', schemaName:'GroupSchema', modelName:'GroupModel'}
+		,{file:'./message_schema', collection:'message', schemaName:'MessageSchema', modelName:'MessageModel'}
 	],
 	route_info: [
 		{file:'./showList', path:'/book/listpost', method:'listpost', type:'get'}
@@ -69,5 +70,7 @@ module.exports = {
 		
 		,{file:'./findFriend', path:'/user/friend', method:'findFriends', type:'post'}
 		,{file:'./plusFriend', path:'/user/plusfriend', method:'plusFriends', type:'get'}
+		,{file:'./message', path:'/user/loadmessage', method:'loadmessage', type:'get'}
+		,{file:'./recommandFriend', path:'/user/sendRecommand', method:'sendRecommand', type:'post'}
 	],
 };

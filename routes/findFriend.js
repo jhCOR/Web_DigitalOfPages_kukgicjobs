@@ -1,5 +1,5 @@
 var findFriends = (req, res) => {
-    console.log('book 모듈 안에 있는 findFriends 호출됨.');
+    console.log('findFriends 모듈 안에 있는 findFriends 호출됨.');
 	var paramUser = req.body.friend || req.query.friend || req.params.friend;
 	console.log(paramUser);	
 	var database = req.app.get('database');		
