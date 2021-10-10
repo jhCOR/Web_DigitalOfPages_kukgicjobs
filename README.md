@@ -3,7 +3,7 @@
 
 
 # Digital Of Pages!
-file:///tmp/guest-83p5cq/%ED%85%9C%ED%94%8C%EB%A6%BF/Digital%20Of%20Pages_logo.png![image](https://user-images.githubusercontent.com/63538097/136686191-cc001383-e056-4112-b3a1-4a17b19befe2.png)
+![image](https://user-images.githubusercontent.com/63538097/136686191-cc001383-e056-4112-b3a1-4a17b19befe2.png)
 
 프로젝트명 또는 프로젝트 로고 이미지 **(택1)**
 
