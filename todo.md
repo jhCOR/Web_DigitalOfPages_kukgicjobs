@@ -112,6 +112,9 @@ npm install --save react-draft-wysiwyg draft-js
 * 첫 화면 베너 높이 조정
 ![image](https://user-images.githubusercontent.com/63538097/136679963-68e2ad8a-1d33-4f96-b091-c2f9250cb69b.png)
 ![image](https://user-images.githubusercontent.com/63538097/136679988-7843f230-0642-4851-ae01-ceee1cc7e9eb.png)
+* 메세지 전송 기능 추가
+![image](https://user-images.githubusercontent.com/63538097/136680586-87bbf457-8500-4538-97ad-b17e7ca69e8a.png)
+![image](https://user-images.githubusercontent.com/63538097/136680595-35adb551-38b8-4569-8b7c-e4713271abcf.png)
 
 
 2021
