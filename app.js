@@ -200,7 +200,7 @@ process.on('SIGTERM', function () {
 app.on('close', function () {
 	console.log("Express 서버 객체가 종료됩니다.");
 	if (database.db) {
-		database.db.close();
+// 		database.db.close();
 	}
 });
 
