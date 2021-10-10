@@ -129,7 +129,7 @@
 					</form>	 
 				</label> 
 				<label style="display:inline">
-					{{message}}
+					
       			<input v-model="query" style="width:70%; heigt:1.5em; float:left;" placeholder="친구 아이디를 입력해주세요">
 					
 					<button  class="btn btn-warning " v-on:click="plusFriends()" >친구 추가</button>
@@ -344,7 +344,9 @@
 					  this.friends = response.data.post.friends;
 		
  				this.message = response.data.message;
+				alert(this.message);
 					});
+				
 			  },
 			
 			sendMessages:function(){
