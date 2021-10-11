@@ -1,9 +1,3 @@
-/**
- * 패스포트 설정 파일
- * 
- * 로컬 인증방식을 사용하는 패스포트 설정
- */
-
 var LocalStrategy = require('passport-local').Strategy;
 
 module.exports = new LocalStrategy({

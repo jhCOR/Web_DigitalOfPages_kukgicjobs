@@ -21,6 +21,7 @@ SchemaObj.createSchema = function(mongoose) {
 		borrowUser: {type: mongoose.Schema.ObjectId, ref: 'user7'},// 글쓴 사람
 		isbn:{type: String, trim:true, 'default':''},
 		img:{type: String, trim:true, 'default':''},
+		classification:{type: String, trim:true, 'default':'지정되지 않음'},
 		review: [{		// 리뷰
 		contents: {type: String, trim:true, 'default': ''},				// 댓글 내용
 			writer: {type: String, trim:true, 'default': ''},

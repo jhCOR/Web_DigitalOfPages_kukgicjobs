@@ -73,6 +73,7 @@
 	<link rel="stylesheet" href="/public/assets/css/main.css" />
 	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.3.4"></script>
+				<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 		<script src="/public/jquery-3.1.1.min.js"></script>
 		<script src="/public/semantic.min.js"></script>
 		<link href="/public/cleditor/jquery.cleditor.css" rel="stylesheet" />
@@ -94,14 +95,12 @@
 		<div class="container" id="app-6">
 		
 			<div class="ui raised segment">
-		
-				 <label style="display:inline">
-					<a class="ui blue ribbon label" >친구 찾기</a> 
+				
 					<form class="btn-default btn-sm"  method="post" action="/user/friend">
-					<input type="text" style="width:20%; heigt:1.5em; float:left;" name="friend"  >
+					<input  style="width:20%; heigt:1.5em; float:left;" name="friend"  >
 					<button type="submit" class="btn btn-warning " >찾기</button>
 					</form>	 
-				</label> 
+				
 				<div class="ui blue fluid card">
 					 <div class="content">
 
@@ -113,10 +112,8 @@
 	     				</div>
 	   						
 					 </div>
-	  				<div class="extra content">
-	    				<div class="right floated author">
-	      					
-	    				</div>
+	  				<div class="extra content" v-if="!datas">
+	    					<input type="button" value="친구요청"  v-on:click="request()"/>
 	  				</div>
 				</div> 
 				<input   class="ui button align" type="button" value="북 히스토리" name="" v-on:click="getData()" v-if="!bookLog" />
@@ -206,17 +203,27 @@
 			
 			getData: function() {
 				var friendEmail = document.getElementById('id_email').innerText;
-		console.log(friendEmail);
+		
 				  this.bookLog = true;
     		this.$http.get('/user/friend_profile_bookLog?email='+friendEmail) 
 					.then(function(response) {
-					  console.log(response.data);  
-
 					  this.BookLogdatas = response.data;
 		
- 					console.log( this.BookLogdatas[0].bookInfo);  
+ 				
 					});
 			  },
+			request: function() {
+				var friendEmail = document.getElementById('id_email').innerText;
+    		
+				axios.post('/user/sendRecommand',{ request: friendEmail})
+					 .then(function(response) {
+						
+					 })
+					.catch(function(error) {
+
+					 });
+				alert('요청 완료');
+			},
     	},
 
 		});

@@ -4,14 +4,26 @@ var sendRecommand = (req, res) => {
 	var friendEmail = req.body.friend || req.query.friend || req.params.friend;
 	var recommandContent = req.body.content || req.query.content || req.params.content;
 	var bookID = req.body.bookID || req.query.bookID || req.params.bookID;
-	console.log("POST:"+friendEmail+"/"+recommandContent+"/"+bookID);
+	var email = req.body.request || req.query.request || req.params.request;
+	
+	var link='친구 추가 요청';
+	if(email){
+		
+		friendEmail=email;
+		recommandContent="친구 추가 요청입니다.";
+		
+	}
+	
+	console.log("POST:"+friendEmail+"/"+recommandContent+"/"+bookID+"/"+link);
+	
 	var database = req.app.get('database');
 	if (database.db) {
 			var message = new database.MessageModel({
 				from:req.user.email,
 				to:friendEmail,
 				content:recommandContent,
-				bookID:bookID
+				bookID:bookID,
+				link:link,
 			});
 		
 		message.savePost(function(err, result) {
@@ -21,7 +33,7 @@ var sendRecommand = (req, res) => {
 					return;
 				}
 		
-				console.log(result);
+				console.log("recommanresult"+result);
 			});
 		res.send('전송 완료');
 	} else {

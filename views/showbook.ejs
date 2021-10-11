@@ -76,6 +76,7 @@
 		<script src="/public/cleditor/jquery.cleditor.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js"></script>
 		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+		  <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.3.4"></script>
 		<script>
 			$(document).ready(function() {
 				var output = $("#contentsOutput").text();
@@ -94,8 +95,6 @@
 		}else{
 		 document.getElementById(idforcomment).style.display='none';
 		}
-		   
-
 	}
 	function alarm(){
 		alert("대출 불가 : 대출 권수가 초과되었습니다.");
@@ -110,7 +109,10 @@
 			<div class="ui raised segment">
 				<a class="ui blue ribbon label">게시판</a>
       			<span id="board_title"><%=title %></span>
-								
+				
+				<p style="padding:0;">이 책을 읽은 사람 : <span v-for="user in users" v-on:click="show(user.user)">{{user.userId.name}}</span></p>
+					
+
 				<div class="ui blue fluid card">
 					 <div class="content">
 						<% 
@@ -155,15 +157,15 @@
 					 </div>
 	  				<div class="extra content">
 	    				<div class="right floated author">
-	      					<img class="ui avatar image" src="/public/author.png"> <%=curWriterName %>
+	      					<img class="ui avatar image" src="/public/images/lucky.png"> <%=curWriterName %>
 	    				</div>
 						 <div >소속부대 <%=group %></div>
 						<%if(borrowUser){%>
 						 <div > <%= "최근 대출자: "+borrowUser.name+" | email: "+borrowUser.email %></div>
 						<%}%>
-						
-	  				</div>
 					
+	  				</div>
+				
 				</div>
 				
                 <div class="ui very relaxed selection celled list">
@@ -197,15 +199,15 @@
 						</form> 
 						 <a class="ui button"  href='/book/loanByQrcode/<%=posts._id %>?request=borrow'>QrCodeLoanSystem</a>
 						<%}%>
-					
-						
+
 					<% }else if(isBorrow=='2'){%>
 						<input   class="ui button"  type="submit" value="예약 중" name="" />
 					<%}else{%>
 						<input   class="ui button"  type="submit" value="대출 불가" name="" />
 					<%}%>
-				<input class="ui button"  type="button" value="도서 추천" name="" v-on:click="turntorecommand()" v-if="where=='review'"/>
-				<input class="ui button"  type="button" value="리뷰 작성" name="" v-on:click="turntoreview()" v-else />
+				<input class="ui button"  type="button" value="도서 추천" name=""  v-on:click="turntorecommand()" v-if="where=='review'"/>
+				<input class="ui button"  type="button" value="리뷰 작성" name="" v-on:click="turntoreview()" v-if="where=='recommand'" />
+			
 				<div>
 					<div v-if="where=='review'">
 						<form class="content ui form" method="post" action="/book/addreview">
@@ -215,11 +217,11 @@
 								<textarea type="text" name="contents" rows="4" style="width: 600px;" placeholder="리뷰 입력"></textarea>
 							</div>		
 							<input hidden type="text" name="writerforalert" value="<%=curWriter %>">
-							<input hidden type="text" name="id" value="<%=curId %>">
+							<input hidden type="text" name="id"  value="<%=curId %>">
 							<input class="ui submit button" type="submit" value="리뷰 추가" name="" />
 						</form>
 					</div>	
-					<div v-else class="content ui form">
+					<div v-if="where=='recommand'" class="content ui form">
 						
 							<div class="field" style="width:50%;">
 								<label>도서 추천</label>
@@ -301,10 +303,25 @@
 			email: '',
 			content:'',
 			  where:'review',
-			  alarm:''
+			  alarm:'',
+			  friends:[],
+			  users:[],
 		  },
-
+		mounted() {
+ 		 this.$nextTick(function () {
+			 var bookID=document.getElementById('bookID').value;
+	  		console.log("sended");
+    		this.$http.get('/user/readuser?bookID='+bookID)
+					.then(function(response) {
+					  
+					  this.users = response.data;
+					});
+		  })
+		},
         methods: {
+			show:function(email){
+				window.location='/user/friend?friend='+email;
+			},
 			turntoreview:function(){
 				  this.where = 'review';
 					this.email='';
@@ -312,29 +329,31 @@
 			},
 			
 			turntorecommand:function(){
-				console.log('turntorecommand');
+				
 				  this.where = 'recommand';
 				
 			},
 			
 			sendRecommand:  function() {
 			
-			if(this.email==''){
-				alert('수신인을 입력해 주세요');
-			}else{
-			var bookID=document.getElementById('bookID').value;
-				
-     		 axios.post('/user/sendRecommand',{ friend: this.email, content: this.content,bookID:bookID })
-       		 .then(function(response) {
-        	console.log("receive");
-       		 })
-        	.catch(function(error) {
-         	
-       		 });
-			alert("메세지 전송 완료");
-			}
+				if(this.email==''){
+					 alert('수신인을 입력해 주세요');
+				}else{
+					 var bookID=document.getElementById('bookID').value;
+
+					 axios.post('/user/sendRecommand',{ friend: this.email, content: this.content,bookID:bookID })
+					 .then(function(response) {
+
+					 })
+					.catch(function(error) {
+
+					 });
+					alert("메세지 전송 완료");
+					}
 
     		},
+			
+		
 					
     	},
 

@@ -154,7 +154,7 @@ var giveBack = function (req, res) {
 
 var search = (req, res) => {
     console.log('book 모듈 안에 있는 search 호출됨.');
-    const paramPage = req.body.page || req.query.page || '0';
+    const paramPage = '0'||req.body.page || req.query.page ;
     const search = req.body.search || req.query.search;
     const paramPerPage = 8;
 

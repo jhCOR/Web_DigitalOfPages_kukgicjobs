@@ -69,8 +69,10 @@ module.exports = {
 		,{file:'./profile', path:'/user/loadfriends', method:'friend_list', type:'get'}
 		
 		,{file:'./findFriend', path:'/user/friend', method:'findFriends', type:'post'}
+		,{file:'./findFriend', path:'/user/friend', method:'findFriends', type:'get'}
 		,{file:'./plusFriend', path:'/user/plusfriend', method:'plusFriends', type:'get'}
 		,{file:'./message', path:'/user/loadmessage', method:'loadmessage', type:'get'}
 		,{file:'./recommandFriend', path:'/user/sendRecommand', method:'sendRecommand', type:'post'}
+		,{file:'./whoelseread', path:'/user/readuser', method:'readuser', type:'get'}
 	],
 };

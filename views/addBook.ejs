@@ -68,14 +68,28 @@
 			
 			<div class="ui blue fluid card">
 				 <div class="content">
-			       		 <button onclick="search()">검색</button>
+			       		
 					<form class="content ui form" method="post" action="/book/addbook">
 						<h4 class="ui dividing header">도서 등록</h4>
 						
 						<div class="two fields">
-							<label style="display:inline-block">ISBN<input type="text" hidden name="isbn" id="isbn" placeholder="isbn 입력"></label>
-							<label style="display:inline-block">이미지 링크<input type="text" hidden name="img" id="img" placeholder="img 입력"></label>
+							<label style="display:inline-block"><input type="text" hidden name="isbn" id="isbn" placeholder="isbn 입력"></label>
+							<label style="display:inline-block"><input type="text" hidden name="img" id="img" placeholder="img 입력"></label>
 						</div>	
+						<select name="classification"  style="width:10%; hight:5px;;">
+							<option value="지정하지 않음">지정하지 않음</option>
+							<option value="총류">총류</option>
+							<option value="철학">철학</option>
+							<option value="종교">종교</option>
+							<option value="사회과학">사회과학</option>
+							<option value="자연과학">자연과학</option>
+							<option value="기술과학">기술과학</option>
+								<option value="예술">예술</option>
+							<option value="언어">언어</option>
+							<option value="문학">문학</option>
+							<option value="역사">역사</option>
+						</select>
+						
 						<div class="two fields">
 				    		<div class="field">
 				      			<label>제목</label>
@@ -101,8 +115,9 @@
 								 
 						<input class="ui submit button" type="submit" value="추가" name="" />
 						<input class="ui button" type="button" value="취소" name="" onclick="javascript:history.back()" />
-					</form>
 					
+					</form>
+					<button style="margin-top:1%; " class="ui button" onclick="search()">도서 검색</button>	 
 					<br><br>
 					
 				</div>

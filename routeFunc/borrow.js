@@ -9,6 +9,8 @@ var borrowFun=(req, res)=>{
 		var reservation = new database.ReservationModel({
 			bookInfo:paramId,
 			user:user,
+			userId:req.user._id,
+			group:req.user.group
 		});
 		saver.saving(reservation);
 		
@@ -32,7 +34,7 @@ var borrowFun=(req, res)=>{
 		
 					database.UserModel.findByIdAndUpdate(results._id,	{'$push': {'reservationlist':paramId}},
 			{'new':true, 'upsert':true},  function(err, results2) {
-			console.log("Afterborrow:"+results2);
+			
 			if (err) {
 				console.error('게시판 글 추가 중 에러 발생 : ' + err.stack);
 				printer.errrendering(res,err);

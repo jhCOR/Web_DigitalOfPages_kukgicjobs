@@ -7,7 +7,9 @@ var addBookFun=(req, res)=>{
 	const paramAuthor = req.body.author || req.query.author;
 	const paramIsbn = req.body.isbn || req.query.isbn;
 	const paramImg = req.body.img || req.query.img;
-		 console.log("IMGPATH:"+paramImg);
+	const paramClass= req.body.classification || req.query.classification;
+
+	
 	var database = req.app.get('database');
 	
 	// 데이터베이스 객체가 초기화된 경우
@@ -61,6 +63,7 @@ var addBookFun=(req, res)=>{
 				isbn:paramIsbn,
 				img:paramImg,
 				reviewID:review.id,
+				classification:paramClass,
 			});
 
 			book.savePost(function(err, result) {
@@ -69,7 +72,7 @@ var addBookFun=(req, res)=>{
 					printer.rendering(res,err);
 					return;
 				}
-		
+			console.log("paramClass=>"+result);
 				return res.redirect('/book/showbook/' + book._id); 
 			});
 		});

@@ -14,6 +14,7 @@ SchemaObj.createSchema = function(mongoose) {
 		to: {type: String, trim:true, 'default': ''},
 		bookID: {type: mongoose.Schema.ObjectId, ref: 'book' },
 	    content: { type: String, default: '' },
+		link: { type: String, default: '' },
 		created_at: {type: Date, 'default': Date.now},
 		updated_at: {type: Date, index: {unique: false}, 'default': Date.now}
 	});

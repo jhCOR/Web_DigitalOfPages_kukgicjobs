@@ -26,7 +26,7 @@ var listPostFun=(req,res)=>{
                 
                 return;
             }
-			
+			console.log(results[0]);
 			if (results) {
 				
 				for(var i=0;i<results.length;i++){
@@ -35,7 +35,7 @@ var listPostFun=(req,res)=>{
 						results[i].writer={name:'(알수없음)',email:'unknown'};}
 				}
 				// 전체 문서 객체 수 확인
-				database.BookModel.count().exec(function(err, count) {
+				database.BookModel.find({group:req.user.group}).countDocuments().exec(function(err, count) {
 
 					res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
 					
@@ -47,7 +47,8 @@ var listPostFun=(req,res)=>{
 						pageCount: Math.ceil(count / paramPerPage),
 						perPage: paramPerPage, 
 						totalRecords: count,
-						size: paramPerPage						
+						size: paramPerPage,
+					
 					};
 					currentPage=context.page;
 					req.session.passport.user.PreviousPage = context.page;

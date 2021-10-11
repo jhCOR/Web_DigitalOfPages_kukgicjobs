@@ -65,8 +65,6 @@ var friend_profile_review = (req, res) => {
      var database = req.app.get('database');
 	var User=req.body.email || req.query.email|| req.params.email;
 	
-	 console.log("paramUser:"+User);
-	 console.log("req.user.email:"+req.user.email);
 	database.UserModel.find({email:User},{_id:1, "friends":1}).exec( function (err, result) {
 		  if (err) {
                 console.error('데이터 베이스 로드 중 중 에러 발생 : ' + err.stack);
@@ -74,9 +72,7 @@ var friend_profile_review = (req, res) => {
         
                 return;
             }
-		console.log('FRIENDS:'+result);
-		console.log("result.friends: "+Object.keys(result)[0]);
-		console.log("result.friends: "+result[0].friends);
+	
 			console.log("result.friends"+typeof result[0].friends);
 		
 		if(result[0].friends.includes(req.user.email)){
@@ -101,7 +97,6 @@ var friend_profile_review = (req, res) => {
     	return a.created_at - b.created_at;
 		});
 		 
-		 console.log("friends:"+sortedFriendResult);
 		 res.send(sortedFriendResult);
 		}); 
 	}else{

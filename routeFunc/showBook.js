@@ -79,7 +79,7 @@ var showBookFun=(req,res)=>{
 					body = context;
 
 					database.UserModel.findOne({email:req.user.email}).populate('reservationlist', 'title author updated_at').exec(function (err, results) {
-						console.log("showBOOK:"+results);
+						
 						printer.rendering(req,res,'showbook.ejs',context);			
 
 					});

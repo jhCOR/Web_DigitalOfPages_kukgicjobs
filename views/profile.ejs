@@ -124,7 +124,7 @@
 				<label style="display:inline">
 					<form class="btn-default"  method="post" action="/user/friend">
 					<input  style="width:70%; heigt:1.5em; float:left;" name="friend" placeholder="친구 검색" >
-					<button type="submit" class="btn btn-warning">친구 조회</button>
+					<button type="submit" class="btn btn-outline-secondary ">친구 조회</button>
 						
 					</form>	 
 				</label> 
@@ -132,7 +132,7 @@
 					
       			<input v-model="query" style="width:70%; heigt:1.5em; float:left;" placeholder="친구 아이디를 입력해주세요">
 					
-					<button  class="btn btn-warning " v-on:click="plusFriends()" >친구 추가</button>
+					<button class="btn btn-outline-secondary " v-on:click="plusFriends()" >친구 추가</button>
 					
 					</label> 
 				</div>	
@@ -199,7 +199,7 @@
 				<input   class="ui button align" type="button"   style="color:orange;" value="메세지 함" v-on:click="messageBox()"  name=""  v-if="where=='messageBox'"/>
 				<input   class="ui button align" type="button" value="메세지 작성" name="" v-on:click="turntoLetter()"  v-if="where!='writeLetter'"/>
 				<input   class="ui button align" type="button"   style="color:orange;" value="메세지 작성" v-on:click="turntoLetter()"  name=""  v-if="where=='writeLetter'"/>
-				
+		
 				<div  style="overflow:scroll; width:100%; height:400px;">
 					<div class="ui blue fluid card"  v-if="where=='review'"  v-for="data in datas"   v-on:click="show(data._id)">
                                 <div class="content">
@@ -248,15 +248,18 @@
                                     </div>	
                                 </div>
                     </div>
-							<div class="ui blue fluid card" v-for="(MESSAGE,index) in MESSAGES"   v-on:click="show(MESSAGE.bookID._id)"  v-if="where=='messageBox'" >
+							<div class="ui blue fluid card" v-for="(MESSAGE,index) in MESSAGES"    v-if="where=='messageBox'" >
                                 <div class="content">
                                     <div class="sixteen  column">
                                         <div class=" " style="inline-block">
                                             <h4 class="left aligned  ">
                                                 내용:{{MESSAGE.content}}
 											</h4>
-											<h5 class=" left aligned header " v-if="MESSAGE.bookID">
+											<h5 class=" left aligned header " v-if="MESSAGE.bookID"  v-on:click="show(MESSAGE.bookID._id)">
                                                 추천된 도서:{{MESSAGE.bookID.title}}
+                                            </h5>
+											<h5 class=" left aligned header " v-if="MESSAGE.link" >
+                                                친구 요청입니다. <button class="btn btn-outline-secondary " v-on:click="getplusFriends(MESSAGE.from)" >수락하기</button>
                                             </h5>
 											<h5 class=" left aligned header ">
                                                 발신자:{{MESSAGE.from}}
@@ -336,19 +339,30 @@
     		},
 			
 			plusFriends:function(){
-					console.log("sendTo");
+				console.log("sendTo");
 				
-    		this.$http.get('/user/plusfriend?addfriend='+this.query) 
+    			this.$http.get('/user/plusfriend?addfriend='+this.query) 
 					.then(function(response) {
-				console.log( response.data);
-					  this.friends = response.data.post.friends;
-		
- 				this.message = response.data.message;
-				alert(this.message);
-					});
+					console.log( response.data);
+						  this.friends = response.data.post.friends;
+
+					this.message = response.data.message;
+					alert(this.message);
+						});
 				
-			  },
-			
+			    },
+			getplusFriends:function(from){
+				console.log("sendTo");
+				
+    			this.$http.get('/user/plusfriend?addfriend='+from) 
+					.then(function(response) {
+				this.friends = response.data.post.friends;
+
+					
+					alert('친구 요청을 수락하였습니다.');
+						});
+				
+			    },
 			sendMessages:function(){
 					
 				if(this.email==''){
@@ -405,6 +419,7 @@
 		
 					});
 			  },
+			
     	},
 
 		});
