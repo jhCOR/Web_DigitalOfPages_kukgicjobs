@@ -144,19 +144,19 @@
 					 			if (page > 0) {
 					 		%>
 					 				<div class="ui icon button" onclick="listpost(0, <%=perPage %>)">
-										<i class="backward icon"></i>
+										<img style="width:10px;" src="/public/images/arrow3.png">
 									</div>
 									<div class="ui icon button" onclick="listpost(<%=(page-1) %>, <%=perPage %>)">
-										<i class="left chevron icon"></i>
+										<img style="width:10px;" src="/public/images/arrow2.png">
 									</div>
 					 		<%
 					 			} else {
 					 		%>
 					 				<div class="ui disabled icon button">
-										<i class="backward icon"></i>
+										<img style="width:10px;" src="/public/images/arrow3.png">
 									</div>
 									<div class="ui disabled icon button">
-										<i class="left chevron icon"></i>
+										<img style="width:10px;" src="/public/images/arrow2.png">
 									</div>
 					 		<%
 					 			}
@@ -193,19 +193,19 @@
 					 			if ((page+1) < pageCount) {
 					 		%>
 					 				<div class="ui icon button" onclick="listpost(<%=(page+1) %>, <%=perPage %>)">
-										<i class="right chevron icon"></i>
+										<img style="width:10px;" src="/public/images/arrow.png">
 									</div>
 									<div class="ui icon button" onclick="listpost(<%=(pageCount-1) %>, <%=perPage %>)">
-										<i class="forward icon"></i>
+										<img style="width:10px;" src="/public/images/arrow4.png">
 									</div>
 					 		<%
 					 			} else {
 					 		%>
 					 				<div class="ui disabled icon button">
-										<i class="right chevron icon"></i>
+										<img style="width:10px;" src="/public/images/arrow.png">
 									</div>
 									<div class="ui disabled icon button">
-										<i class="forward icon"></i>
+										<img style="width:10px;" src="/public/images/arrow4.png">
 									</div>
 					 		<%
 					 			}

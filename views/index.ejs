@@ -44,7 +44,7 @@
 			<!-- Main -->
 				<section id="main" class="container ">
 
-					<section class="box special">
+					<section  class="ui blue fluid card" style=" background-color: white;">
 						<header class="major">
 				
 						<div id="app-6">
@@ -66,20 +66,17 @@
 
 						</header>
 						<span class="image featured"><img src="images/book.png" alt="" /></span>
-					</section>
-
-					<section class="box special">
+			
 						<header class="major">
 				
 						<div id="app-7">
-								<h2 >인기 도서</h2>
+								<h2 >최근 들어온 도서</h2>
 								<div  v-if="!Bookdatas">
 							도서 관리 체계의 보급에 사용자 데이터 가공까지 All in One.
 							</div>	
 							<div v-else>
 								
 								<ul>
-								
 									<li v-for="Bookdata in Bookdatas"   v-on:click="show(Bookdata._id)">
 										{{ Bookdata.title}}
 									</li>

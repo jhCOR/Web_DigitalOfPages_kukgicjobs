@@ -128,13 +128,7 @@
 						
 					</form>	 
 				</label> 
-				<label style="display:inline">
-					
-      			<input v-model="query" style="width:70%; heigt:1.5em; float:left;" placeholder="친구 아이디를 입력해주세요">
-					
-					<button class="btn btn-outline-secondary " v-on:click="plusFriends()" >친구 추가</button>
-					
-					</label> 
+			
 				</div>	
 				<div class="ui blue fluid card">
 					 <div class="content">
@@ -236,7 +230,14 @@
 										
                                 </div>
                             </div>
-					<div class="ui blue fluid card" v-for="(friend,index) in friends"   v-if="where=='friendlist'" v-on:click="write(friend)">
+					
+					<div v-if="where=='friendlist'"> 
+						
+					<label style="display:inline;">
+						<input v-model="query"style="width:70%; heigt:1.5em; float:left;" placeholder="친구 아이디를 입력해주세요">
+						<button class="btn btn-outline-secondary " v-on:click="plusFriends()" >친구 추가</button>
+					</label> 
+								<div class="ui blue fluid card" v-for="(friend,index) in friends"    v-on:click="write(friend)">
                                 <div class="content">
                                     <div class="sixteen wide column">
                                         <div class="ui header" style="inline-block">
@@ -248,6 +249,8 @@
                                     </div>	
                                 </div>
                     </div>
+					</div>
+			
 							<div class="ui blue fluid card" v-for="(MESSAGE,index) in MESSAGES"    v-if="where=='messageBox'" >
                                 <div class="content">
                                     <div class="sixteen  column">

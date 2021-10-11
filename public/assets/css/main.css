@@ -3459,7 +3459,7 @@
 		/* Box */
 
 			.box {
-				padding: 3em 2em;
+				padding: 3em 0;
 			}
 
 				.box.features > section {

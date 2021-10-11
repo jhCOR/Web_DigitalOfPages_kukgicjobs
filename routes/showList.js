@@ -61,7 +61,7 @@ var listapplybook = function (req, res) {
             }
 
             if (results) {
-                database.AppplyBookModel.count().exec(function (err, count) {
+                database.AppplyBookModel.find({ group: req.user.group }).count().exec(function (err, count) {
                     //count??
                     res.writeHead('200', { 'Content-Type': 'text/html;charset=utf8' });
 

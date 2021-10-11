@@ -145,7 +145,7 @@
 						<p>저자:<%=author %></p>
 						
 	   					<div class="meta">
-	     						<span class="right floated time"> <%=totalDate %></span>
+	     						<span class="right floated time"></span>
 	     				</div>
 						 <div >
 							<img src="<%=IMG %>" style="width:70px">
@@ -161,7 +161,7 @@
 	    				</div>
 						 <div >소속부대 <%=group %></div>
 						<%if(borrowUser){%>
-						 <div > <%= "최근 대출자: "+borrowUser.name+" | email: "+borrowUser.email %></div>
+						 <div > <%= "최근 대출자: "+borrowUser.name+" | email: "+borrowUser.email %>  <%= "최근 대출일 : "+totalDate %></div>
 						<%}%>
 					
 	  				</div>
