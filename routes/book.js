@@ -320,7 +320,7 @@ var deleteBookFun = function (req, res) {
                 results.remove();
                 res.redirect('/book/listpost?page=0&perPage=8');
             }
-        })
+        });
     } else {
         res.writeHead('200', {
             'Content-Type': 'text/html;charset=utf8'

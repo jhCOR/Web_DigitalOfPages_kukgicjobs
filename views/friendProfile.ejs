@@ -112,7 +112,7 @@
 	     				</div>
 	   						
 					 </div>
-	  				<div class="extra content" v-if="!datas">
+	  				<div class="extra content" v-if="datas[0]=='none'">
 	    					<input type="button" value="친구요청"  v-on:click="request()"/>
 	  				</div>
 				</div> 
@@ -203,14 +203,17 @@
 			
 			getData: function() {
 				var friendEmail = document.getElementById('id_email').innerText;
-		
-				  this.bookLog = true;
+					if(this.datas[0]!='none'){
+							  this.bookLog = true;
     		this.$http.get('/user/friend_profile_bookLog?email='+friendEmail) 
 					.then(function(response) {
 					  this.BookLogdatas = response.data;
 		
  				
 					});
+						
+					}
+			
 			  },
 			request: function() {
 				var friendEmail = document.getElementById('id_email').innerText;

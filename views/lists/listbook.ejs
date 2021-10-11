@@ -69,7 +69,16 @@
 
 			<div class="ui raised segment">
 				<a href='/book/listpost?page=0&perPage=2' class="ui blue ribbon label">도서 리스트</a>
-						
+				<a href='/book/listpost?page=0&perPage=2&class=총류' class="ui   label">총류</a>
+				<a href='/book/listpost?page=0&perPage=2&class=철학' class="ui   label">철학</a>
+				<a href='/book/listpost?page=0&perPage=2&class=종교' class="ui   label">종교</a>
+				<a href='/book/listpost?page=0&perPage=2&class=사회과학' class="ui   label">사회과학</a>
+				<a href='/book/listpost?page=0&perPage=2&class=자연과학' class="ui   label">자연과학</a>
+				<a href='/book/listpost?page=0&perPage=2&class=기술과학' class="ui   label">기술과학</a>
+				<a href='/book/listpost?page=0&perPage=2&class=예술' class="ui   label">예술</a>
+				<a href='/book/listpost?page=0&perPage=2&class=언어' class="ui   label">언어</a>
+				<a href='/book/listpost?page=0&perPage=2&class=문학' class="ui   label">문학</a>
+				<a href='/book/listpost?page=0&perPage=2&class=역사' class="ui   label">역사</a>
 				
 				<div class="ui blue fluid card">
 					 <div class="content">
@@ -124,7 +133,7 @@
 										    			<%=curTitle %>
 										    		</h4>
 											      	<h5 class="ui right aligned orange header">
-														<%classfy%>
+														<%=classfy%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 															<%=available %>
 											      			<%=curWriter %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 															<%=totalDate %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -145,7 +154,7 @@
 										    			<%=curTitle %>
 										    		</h4>
 											      	<h5 class="ui right aligned orange header">
-														<%=available %>
+														<%=classfy%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 															<%=available %>
 											      			<%=curWriter %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 															<%=totalDate %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -240,6 +249,7 @@
 							
 						<a class="ui button"  href='/'>홈으로</a>
 						<form  method="post" class="align" style="display:inline;" width="100%" height="100%" action="/book/search">
+				
 							<input class="center" type="text" name="search" minlength="2" placeholder="검색어 입력"> 
 							
 							<input type="submit" value="검색" name="" />

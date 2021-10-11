@@ -260,6 +260,7 @@
                                             </h5>
 											<h5 class=" left aligned header " v-if="MESSAGE.link" >
                                                 친구 요청입니다. <button class="btn btn-outline-secondary " v-on:click="getplusFriends(MESSAGE.from)" >수락하기</button>
+												<button class="btn btn-outline-secondary " v-on:click="deleteMessage(MESSAGE._id,index)" >삭제하기</button>
                                             </h5>
 											<h5 class=" left aligned header ">
                                                 발신자:{{MESSAGE.from}}
@@ -307,10 +308,9 @@
 		mounted() {
 			 this.$nextTick(function () {
 
-				console.log("sended");
 				this.$http.get('/user/profile_reivew') 
 						.then(function(response) {
-						  console.log(response);   
+						     
 						  this.datas = response.data
 
 
@@ -328,7 +328,7 @@
 				this.email = email;
 			},
 			accessFriends:  function(friend) {
-				console.log("accessFriends");
+			
      		 axios.post('/user/friend',{ friend: friend.friends })
        		 .then(function(response) {
          	
@@ -339,11 +339,11 @@
     		},
 			
 			plusFriends:function(){
-				console.log("sendTo");
+			
 				
     			this.$http.get('/user/plusfriend?addfriend='+this.query) 
 					.then(function(response) {
-					console.log( response.data);
+					
 						  this.friends = response.data.post.friends;
 
 					this.message = response.data.message;
@@ -383,7 +383,7 @@
 			},
 			
 			friendList:function(){
-			console.log("friendlist_send");
+			
 				  this.where = 'friendlist';
     		this.$http.get('/user/loadfriends') 
 					.then(function(response) { 
@@ -404,13 +404,13 @@
 				this.where = 'messageBox';
 				this.$http.get('/user/loadmessage') 
 					.then(function(response) { 
-					console.log(response.data);
+					
 					  this.MESSAGES = response.data;
 				  
 					});
 			},
 			getData: function() {
-		console.log("send");
+		
 				   this.where = 'bookLog';
     		this.$http.get('/user/profile_bookLog') 
 					.then(function(response) {
@@ -419,7 +419,17 @@
 		
 					});
 			  },
-			
+			deleteMessage: function(id,index) {
+		console.log("deleteMessage"+id);
+				
+    		this.$http.get('/user/deleteMessage/'+id) 
+					.then(function(response) {
+		
+					});
+				alert('삭제되었습니다.');
+				this.MESSAGES.splice(index,1);
+			  },
+		
     	},
 
 		});

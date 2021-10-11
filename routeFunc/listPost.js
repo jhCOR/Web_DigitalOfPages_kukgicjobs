@@ -3,10 +3,21 @@ var printer = require("../utils/printer");
 
 var listPostFun=(req,res)=>{
 	var paramPage = req.body.page || req.query.page||'err';
+	var paramClass = req.body.class || req.query.class;
 	var paramPerPage = 8
-	
-	// req.body.perPage || req.query.perPage;
-	
+
+	var option;
+	if(paramClass){
+		option={
+			group:req.user.group,
+			classification:paramClass
+		}
+	}else{
+		option={
+			group:req.user.group
+			
+		}
+	}
 	var database = req.app.get('database');
 
     // 데이터베이스 객체가 초기화된 경우
@@ -15,7 +26,7 @@ var listPostFun=(req,res)=>{
 		var options = {
 			page: paramPage,
 			perPage: paramPerPage,
-			criteria:{group:req.user.group},
+			criteria:option,
 		}
 		
 		database.BookModel.list(options, function(err, results) {
@@ -35,7 +46,7 @@ var listPostFun=(req,res)=>{
 						results[i].writer={name:'(알수없음)',email:'unknown'};}
 				}
 				// 전체 문서 객체 수 확인
-				database.BookModel.find({group:req.user.group}).countDocuments().exec(function(err, count) {
+				database.BookModel.find(option).countDocuments().exec(function(err, count) {
 
 					res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
 					

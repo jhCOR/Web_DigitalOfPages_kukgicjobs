@@ -100,7 +100,7 @@ var friend_profile_review = (req, res) => {
 		 res.send(sortedFriendResult);
 		}); 
 	}else{
-		 res.send(['아직 친구가 아닙니다.']);
+		 res.send(['none']);
 	}
 	});
   
@@ -134,7 +134,7 @@ var friend_profile_bookLog = (req, res) => {
 				await res.send(filteredLog);
 			}); 
 		}else{
-			 res.send(['아직 친구가 아닙니다.']);
+			 res.send(['none']);
 		}	
 	});
 };
