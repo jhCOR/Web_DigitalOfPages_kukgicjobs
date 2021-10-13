@@ -116,6 +116,10 @@ npm install --save react-draft-wysiwyg draft-js
 ![image](https://user-images.githubusercontent.com/63538097/136680586-87bbf457-8500-4538-97ad-b17e7ca69e8a.png)
 ![image](https://user-images.githubusercontent.com/63538097/136680595-35adb551-38b8-4569-8b7c-e4713271abcf.png)
 
+2021.10.13(정지혁) :
+* 프로필 이미지 기능 추가
+* ![image](https://user-images.githubusercontent.com/63538097/137116003-f694b08d-a17a-4f1d-99a7-41e1ab49774c.png)
+* ![image](https://user-images.githubusercontent.com/63538097/137116087-2a46d43f-78d9-4db0-a842-30ac5d818e52.png)
 
 2021
 
