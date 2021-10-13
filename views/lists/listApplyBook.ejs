@@ -106,12 +106,14 @@
 						    				<div class="fourteen wide column" onclick="javascript:window.location='#">
 						    					<div class="ui header">
 										    		<h4 class="ui left aligned header">
-										    			<%=curTitle %>
+										    			<%=curTitle %><%="(저자: "+posts[i]._doc.author +")"%>
 										    		</h4>
 											      	<h5 class="ui right aligned orange header">
-											      			<%=curUser %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+											      			<%='신청자 ID : '+curUser.email %><%=' 신청자 : '+curUser.name %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 															<%=isAccepted %>
+															<% if (admin=='accepted') { %>
 															<a class="ui button"  href='/book/acceptRequest/<%=posts[i]._id%> '>신청 수락</a>
+														<%}%>
 											      	</h5>
 													
 												</div>
@@ -198,9 +200,6 @@
 						 	  
 						<br><br>
 						<div class="menu">
-						
-			
-							
 						<a class="ui button"  href='/'>홈으로</a>
 						
 					</div>

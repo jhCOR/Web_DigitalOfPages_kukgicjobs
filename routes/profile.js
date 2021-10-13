@@ -51,9 +51,7 @@ var profile_bookLog = (req, res) => {
         
                 return;
             }
-		 //console.log("user_bookLog:\n");
-					  
-		 //console.log("beforefiltering:"+results);
+
 		 var filteredLog=[]
 		await results.map((result)=>{if(result.bookInfo!=null){filteredLog.push(result);}});
 		

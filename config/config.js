@@ -75,5 +75,6 @@ module.exports = {
 		,{file:'./message', path:'/user/deleteMessage/:id', method:'deletemessage', type:'get'}
 		,{file:'./recommandFriend', path:'/user/sendRecommand', method:'sendRecommand', type:'post'}
 		,{file:'./whoelseread', path:'/user/readuser', method:'readuser', type:'get'}
+	
 	],
 };

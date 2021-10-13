@@ -21,6 +21,7 @@ Schema.createSchema = function (mongoose) {
 		friends: [{ type: String, default: '' }],
 		recommanedBook: [{  type: mongoose.Schema.ObjectId, ref: 'book' }],
 		own_number: { type: String, default: '' },
+		profile_path: { type: String, default: '/public/images/pic05.jpg' },
 		reservationlist: [{ type: mongoose.Schema.ObjectId, ref: 'book' }],
 		myBookList: [{ type: mongoose.Schema.ObjectId, ref: 'reservation' }],
 		alert: { default: '' },
