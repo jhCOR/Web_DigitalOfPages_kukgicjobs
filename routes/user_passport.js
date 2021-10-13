@@ -1,12 +1,8 @@
 
-/**
- * 패스포트 라우팅 함수 정의
- *
- * @date 2016-11-10
- * @author Mike
- */
+
 var tem;
 module.exports = function (router, passport) {
+	var fs=require('fs');
     console.log('user_passport 호출됨.');
 
     // 홈 화면
@@ -151,9 +147,12 @@ module.exports = function (router, passport) {
 
     // 프로필 화면
     router.route('/profile').get(function (req, res) {
-
+		const directory= 'uploads'; 
+		
+		
+		
         // 인증된 경우, req.user 객체에 사용자 정보 있으며, 인증안된 경우 req.user는 false값임
-		 var database = req.app.get('database');
+		var database = req.app.get('database');
         // 인증 안된 경우
         if (!req.user) {
 
@@ -169,8 +168,15 @@ module.exports = function (router, passport) {
         
                         return;
                     }
-					
-					 res.render('profile.ejs', { user: req.user,  admin:req.user.admin, posts:results, login_success: true,   });
+					fs.readdir(directory, function(err, filelist){
+
+						if(filelist.includes(results.profile_path)){
+							res.render('profile.ejs', { user: req.user,  admin:req.user.admin, posts:results, login_success: true, profile:'uploads/'+results.profile_path  });
+						}else{
+							res.render('profile.ejs', { user: req.user,  admin:req.user.admin, posts:results, login_success: true,  profile:'uploads/public/images/pic05.jpg'  });
+						}
+					});
+					 
                 });
 				
             } else {

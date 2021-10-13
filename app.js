@@ -20,7 +20,7 @@ const RedisStore=require('connect-redis')(expressSession);
 //===== Passport 사용 =====//
 var passport = require('passport');
 var flash = require('connect-flash');
-
+var multer=require('multer');
 // 모듈로 분리한 설정 파일 불러오기
 var config = require('./config/config');
 
@@ -55,7 +55,8 @@ app.use(bodyParser.json())
 require('dotenv').config();
 // public 폴더를 static으로 오픈
 app.use('/public', static(path.join(__dirname, 'public')));
- 
+app.use('/uploads', static(path.join(__dirname, 'uploads')));
+
 // cookie-parser 설정
 app.use(cookieParser());
 
@@ -97,6 +98,50 @@ app.use(passport.session());
 app.use(flash());
 
 
+
+var storage = multer.diskStorage({
+	destination: function (req, file, callback) {
+		callback(null, 'uploads')
+		
+    },
+  filename: function (req, file, callback) {
+
+	
+    var extension = path.extname(file.originalname);
+	  
+	  callback(null, 'profile_'+req.user._id + extension);
+  }
+});
+
+var upload = multer({ 
+  storage: storage,
+  limits: {
+  files: 2,
+  fileSize: 1024 * 1024 * 1024
+}
+});
+
+app.post('/user/profile_img', upload.single('photo'), (req, res) => {
+
+	var database = req.app.get('database');
+		if (database.db) {
+		database.UserModel.findByIdAndUpdate(req.user._id,{$set: {profile_path : req.file.filename}}, function(err,re){
+			if (err) {
+                console.error('업데이트 중 에러 발생 : ' + err.stack);
+                printer.errrendering(res,err);
+                
+                return;
+			}
+
+		});
+		
+		res.redirect("/profile"); 
+	} else {
+		res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
+		res.write('<h2>데이터베이스 연결 실패</h2>');
+		res.end();
+	}
+});
 //라우팅 정보를 읽어들여 라우팅 설정
 
 app.use('/book', function (req, res, next) {
@@ -176,8 +221,6 @@ app.use((err, req, res, next) => { // 에러 처리 부분
   console.error(err.stack); // 에러 메시지 표시
   res.status(500).send('서버 에러!'); // 500 상태 표시 후 에러 메시지 전송
 });
-
-//===== 서버 시작 =====//
 
 
 //확인되지 않은 예외 처리 - 서버 프로세스 종료하지 않고 유지함
