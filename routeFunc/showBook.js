@@ -8,7 +8,7 @@ var showBookFun=(req,res)=>{
 	currentId = paramId;
 	var login = req.isAuthenticated();
     var userEmail=req.user.email;
-	
+	console.log('paramId:'+paramId);
 	var database = req.app.get('database');
 	if(req.isAuthenticated()){
 		// 데이터베이스 객체가 초기화된 경우

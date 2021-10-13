@@ -74,6 +74,7 @@ var listapplybook = function (req, res) {
                         perPage: paramPerPage,
                         totalRecords: count,
                         size: paramPerPage,
+						admin:req.user.admin
                     };
 
                     printer.rendering(req, res, 'lists/listApplyBook', context);

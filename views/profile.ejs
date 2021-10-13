@@ -7,8 +7,7 @@
 		<title>유저 조회 페이지</title>
 		
 		<link href="/public/semantic.min.css" rel="stylesheet" >
-		
-		
+
 		<style>
 			* {
 				padding:0;
@@ -86,12 +85,12 @@
 		<script>
 			$(document).ready(function() {
 				var output = $("#contentsOutput").text();
-				
-				
 				$("#contentsOutput").html(output);
 				 
 			});
-
+			window.onload=()=>{
+				document.getElementById("profileimg").src = document.getElementById("photopath").value;
+			}
 		</script>
 
 		<script>
@@ -111,7 +110,13 @@
 		   
 			}
 			   
-	   
+	   function makeClick()  {
+ 		 document.getElementById('photoInput').click();
+		    document.getElementById('photoInput').onchange=function(){
+				document.getElementById('profile_img').submit();
+			}
+		}
+	
 	   </script>
 	</head>
 	<body>
@@ -132,19 +137,26 @@
 				</div>	
 				<div class="ui blue fluid card">
 					 <div class="content">
+						 
+						<form style="margin:0px;" id="profile_img" enctype="multipart/form-data" method="post"  action="/user/profile_img">
+							<span class="image featured left floated author"><img class="ui  image" id="profileimg" onclick="makeClick()" style="width:5em; heigt:5em; margin-top:5%; margin-left:20%;" src='' alt="" /><input hidden name="photo" id="photoInput"  type="file" accept="image/*">
+								<input hidden id="photopath"  type="text" value="<%=profile%>">
+							 </span>
+						</form>
 						
-						
+					
+						 <br>
 								<form class="btn btn-default btn-sm"  method="post" action="/user/modifyUser">
 									<input style="display:inline-block; width:50%" type="text" id="modifyId" readonly name="idmodify" value="<%= user.name %>">
 									<input type="button" id="modifyButton" style="float:right;" value="수정" onclick="modify()" />
 									<input type="submit" id="modifyButton2"  style="float:right; display:none;" value="완료" onclick="modify()" />
 								</form>
-							
-								
+						
+					
 								<form class="btn btn-default btn-sm"  method="post" action="/user/deleteUser">
 									<input type="submit" id="modifyButton" style="float:right;" value="탈퇴" />
 								</form>
-							
+
 	   					<div class="meta">
 	     					<p class="card-text">아이디: <strong><%= user.email %></strong></p>
 							<p class="card-text">소속 부대: <strong><%= user.group %></strong></p>
@@ -306,7 +318,8 @@
 			  message:'',
 			  MESSAGES:[],
 			  email:'',
-			  content:''
+			  content:'',
+			  img:''
 		  },
 		mounted() {
 			 this.$nextTick(function () {
@@ -423,7 +436,7 @@
 					});
 			  },
 			deleteMessage: function(id,index) {
-		console.log("deleteMessage"+id);
+		
 				
     		this.$http.get('/user/deleteMessage/'+id) 
 					.then(function(response) {
@@ -432,7 +445,7 @@
 				alert('삭제되었습니다.');
 				this.MESSAGES.splice(index,1);
 			  },
-		
+
     	},
 
 		});

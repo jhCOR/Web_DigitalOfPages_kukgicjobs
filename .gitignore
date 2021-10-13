@@ -2,6 +2,6 @@
 /packge-lock.json
 .env
 .vscode
-
+/uploads
 
 **/build
