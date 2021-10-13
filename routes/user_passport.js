@@ -173,7 +173,7 @@ module.exports = function (router, passport) {
 						if(filelist.includes(results.profile_path)){
 							res.render('profile.ejs', { user: req.user,  admin:req.user.admin, posts:results, login_success: true, profile:'uploads/'+results.profile_path  });
 						}else{
-							res.render('profile.ejs', { user: req.user,  admin:req.user.admin, posts:results, login_success: true,  profile:'uploads/public/images/pic05.jpg'  });
+							res.render('profile.ejs', { user: req.user,  admin:req.user.admin, posts:results, login_success: true,  profile:'/public/images/pic05.jpg'  });
 						}
 					});
 					 
