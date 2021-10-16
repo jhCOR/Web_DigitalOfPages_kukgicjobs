@@ -62,7 +62,7 @@ var friend_profile_review = (req, res) => {
     console.log('profile 모듈 안에 있는 friend_profile_review 호출됨.');
      var database = req.app.get('database');
 	var User=req.body.email || req.query.email|| req.params.email;
-	
+		console.log(User);
 	database.UserModel.find({email:User},{_id:1, "friends":1}).exec( function (err, result) {
 		  if (err) {
                 console.error('데이터 베이스 로드 중 중 에러 발생 : ' + err.stack);
@@ -70,10 +70,9 @@ var friend_profile_review = (req, res) => {
         
                 return;
             }
-	
-			console.log("result.friends"+typeof result[0].friends);
-		
-		if(result[0].friends.includes(req.user.email)){
+				console.log(result);
+		if(result.length>0){
+			if(result[0].friends.includes(req.user.email)){
 			
 			database.ReviewModel.find({"review":{$elemMatch: {writer:User.trim() }}}).exec(async function (err, results) {
 		 
@@ -100,6 +99,8 @@ var friend_profile_review = (req, res) => {
 	}else{
 		 res.send(['none']);
 	}
+		}
+		
 	});
   
 };
@@ -115,6 +116,7 @@ var friend_profile_bookLog = (req, res) => {
         
                 return;
             }
+			if(result.length>0){
 		if(result[0].friends.includes(req.user.email)){
 			 database.ReservationModel.find({user:User.trim()}).populate('bookInfo', 'title contents author').exec(async function (err, results) {
 					if (err) {
@@ -133,7 +135,8 @@ var friend_profile_bookLog = (req, res) => {
 			}); 
 		}else{
 			 res.send(['none']);
-		}	
+		}
+			}
 	});
 };
 

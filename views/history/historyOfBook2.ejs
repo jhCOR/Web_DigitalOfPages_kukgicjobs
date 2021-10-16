@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<!-- <meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1"> -->
+		
+  		<!-- <link href="/public/semantic.min.css" rel="stylesheet" > -->
+		 	
+		<title>Digital Of Pages</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="/public/assets/css/main.css" />
+	
+		
+		<script src="/public/jquery-3.1.1.min.js"></script>
+		<!-- <script src="/public/semantic.min.js"></script> -->
+		<script type="text/javascript" src="/public/dist/js/service/HuskyEZCreator.js" charset="utf-8"></script>
+
+		<script type="text/javascript">
+		
+			var oEditors = [];
+			$.getScript("/public/dist/js/service/HuskyEZCreator.js",function(){
+				
+			nhn.husky.EZCreator.createInIFrame({
+			 oAppRef: oEditors,
+			 elPlaceHolder: "contents",
+			 sSkinURI: "/public/dist/SmartEditor2Skin.html",
+			 fCreator: "createSEditor2"
+			});
+			
+		});
+			function submitContents() {
+		// 에디터의 내용이 textarea에 적용된다.
+		oEditors.getById["contents"].exec("UPDATE_CONTENTS_FIELD", []);
+		
+		// 에디터의 내용에 대한 값 검증은 이곳에서
+		// document.getElementById("ir1").value를 이용해서 처리한다.
+		};
+			function searchBook(code){
+				win=open("/views/applyNewBook.ejs?request=0","new page","width=400,height=300");
+				win.moveTo(500,100);
+				
+			}
+			window.onload=()=>{
+				document.getElementById("img").src = document.getElementById("imgPath").href;
+			}
+			</script>
+			<script>
+			$(document).ready(function() {
+				var output = $("#contentsOutput").text();
+			
+				
+				$("#contentsOutput").html(output);
+				 
+			});
+		</script>
+		
+		</head>
+<body class="is-preload">
+
+			<!-- Main -->
+				<section class="container" style="margin-top:1em">
+					
+					<%if(!post){%>
+						<button onclick="searchBook()"> 책 검색</button>
+					<%}%>
+					
+					<form class="content ui form" method="post" action="/post/addHistoryOfBook">
+						<h4 class="ui dividing header">History Of Book</h4>
+		
+						<select name="range"  style="width:20%; hight:5px;;">
+							<option value="비공개">비공개</option>
+							<option value="그룹공개">그룹공개</option>
+							<option value="전체공개">전체공개</option>
+						</select>
+						
+						<div class="two fields">
+				    		<div >
+				      			<label>제목</label>
+								<%if(post){%>
+								<p>
+									<%=post.title%>
+								</p>
+									
+								<%}else{%>
+									<input type="text" style="width: 99%;" name="title" id="title" placeholder="제목 입력">
+								<%}%>
+								
+							</div>
+								<%if(post){%>
+								<a href="<%=post.bookinfo%>" id="imgPath">
+									<img scr="" width="148" height="210" id="img">
+								</a>
+									
+								<%}else{%>
+									<input type="text" style="width: 99%;" readonly name="booktitle" id="booktitle" placeholder="책 검색 버튼을 눌러 책 정보를 채워 주세요">
+								<%}%>
+								
+						</div>
+								
+						<div id="contextfiled">
+							<label>내용</label>
+				    	
+								<%if(post){%>
+							<div id="contentsOutput" class="description">	<%=post.contents%></div>
+									
+								<%}else{%>
+									
+									<textarea id="contents" name="contents" class="contents" minlength="1"  rows="10" cols="80"></textarea>
+								<%}%>
+						</div>		
+				<br>
+
+							<%if(post){%>
+								<a class="ui button" href="/">Home</a>
+								<a class="ui button"  href='/post/deleteHistoryOfBook/<%=post._id %>'>삭제</a>
+							<%}else{%>
+									<input class="ui submit button" type="submit" value="저장" name="" onclick="submitContents()" />
+						<input class="ui button" type="button" value="취소" name="" onclick="javascript:history.back()" />
+							<%}%>
+						
+					</form>
+				</section>
+
+			<!-- Footer -->
+
+			<% include ../footer.ejs %>
+	<br><br>
+	
+			<script src="/public/assets/js/jquery.min.js"></script>
+			<script src="/public/assets/js/jquery.dropotron.min.js"></script>
+			<script src="/public/assets/js/jquery.scrollex.min.js"></script>
+			<script src="/public/assets/js/browser.min.js"></script>
+			<script src="/public/assets/js/breakpoints.min.js"></script>
+			<script src="/public/assets/js/util.js"></script>
+			<script src="/public/assets/js/main.js"></script>
+</body>
+
+</html>

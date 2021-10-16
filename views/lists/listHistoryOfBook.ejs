@@ -7,7 +7,8 @@
 		<title>글 리스트</title>
 		<link rel="SHORTCUT ICON" href="/public/images/faviconlogo.png"/>
   		<link href="/public/semantic.min.css" rel="stylesheet" >
-		
+				<link href="/public/bootstrap/css/bootstrap.min.css" rel="stylesheet" >
+		<script src="/public/bootstrap/js/bootstrap.min.js"></script>
 		<style>
 			* {
 				padding:0;
@@ -69,10 +70,14 @@
     		<br>
     		
 			<div class="ui raised segment">
-				<a href='/historyofbook?page=0&range=my' class="ui blue ribbon label">나의 발자취</a>
-      			<a href='/historyofbook?page=0&range=group' class="ui blue ribbon label">그룹 발자취</a>
-				<a href='/historyofbook?page=0&range=all' class="ui blue ribbon label">모두의 발자취</a>
 				
+				
+				<div class="btn-group" role="group" >
+
+				<a href='/historyofbook?page=0&range=my'class="btn btn-outline-primary">나의 발자취</a>
+      			<a href='/historyofbook?page=0&range=group' class="btn btn-outline-primary">그룹 발자취</a>
+				<a href='/historyofbook?page=0&range=all'class="btn btn-outline-primary">모두의 발자취</a>
+				</div>
 				<div class="ui blue fluid card">
 					 <div class="content">
        		

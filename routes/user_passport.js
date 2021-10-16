@@ -12,10 +12,19 @@ module.exports = function (router, passport) {
         // 인증 안된 경우
         if (!req.user) {
            //res.render('test.ejs', { login_success: false});
-            res.render('index.ejs', { login_success: false});
+            res.render('index.ejs', { login_success: false,  admin:'none',posts:[]});
         } else {
-            console.log('사용자 인증된 상태임.');
-            res.render('index.ejs', { login_success: true, admin:req.user.admin  });
+			var database = req.app.get('database');
+ 
+    if (database.db) {
+        database.UserModel.findOne({email:req.user.email}).populate('reservationlist', 'title author updated_at img').exec(function (err, results) {
+ 			console.log('사용자 인증된 상태임.');
+			console.log(results);
+            res.render('index.ejs', { login_success: true, admin:req.user.admin ,posts:results.reservationlist });
+
+        });
+    }
+           
         }
     });
 
@@ -86,7 +95,7 @@ module.exports = function (router, passport) {
         		res.end();
 		   }
 			
-            res.render('applyNewBook.ejs', { NEXT: NEXT});
+            res.render('applyNewBook.ejs', { NEXT: NEXT,login_success: true, admin:req.user.admin  });
         }
     });
     router.route('/dev/addAnnouncement.ejs').get(function (req, res) {
@@ -173,7 +182,7 @@ module.exports = function (router, passport) {
 						if(filelist.includes(results.profile_path)){
 							res.render('profile.ejs', { user: req.user,  admin:req.user.admin, posts:results, login_success: true, profile:'uploads/'+results.profile_path  });
 						}else{
-							res.render('profile.ejs', { user: req.user,  admin:req.user.admin, posts:results, login_success: true,  profile:'/public/images/pic05.jpg'  });
+							res.render('profile.ejs', { user: req.user,  admin:req.user.admin, posts:results, login_success: true,  profile:'/public/images/pic05.png'  });
 						}
 					});
 					 
@@ -200,7 +209,7 @@ module.exports = function (router, passport) {
     // 로그인 인증
     router.route('/login').post(
         passport.authenticate('local-login', {
-            successRedirect: '/profile',
+            successRedirect: '/',
             failureRedirect: '/login',
             failureFlash: true,
         })

@@ -1,106 +1,62 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
+
 <html>
 	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
-		
-		<title>마이페이지</title>
-		<link rel="SHORTCUT ICON" href="/public/images/faviconlogo.png"/>
+		<title>Digital Of Pages</title>
+		<meta charset="utf-8" />
+		<meta property="og:image" content="/public/Digital Of Pages_logo.png">
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="SHORTCUT ICON" href="/public/Digital Of Pages_logo.png"/>
+		 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.3.4"></script>
+		<link href="/public/bootstrap/css/bootstrap.min.css" rel="stylesheet" >
+		<script src="/public/bootstrap/js/bootstrap.min.js"></script>
+  		<link href="/public/semantic.min.css" rel="stylesheet" >
+		<script src="/public/jquery-3.1.1.min.js"></script>
+		<script src="/public/semantic.min.js"></script>
+	<script>
+		window.onload=function(){
+		var response = window.matchMedia("(min-width: 430px)");
 
-		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
-    	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
-    			<link rel="stylesheet" href="/public/assets/css/main.css" />
-    	<style>
-        	body        { padding-top:80px; }
-			.right-img{float: right;
-			margin-right: 25px;}
+		if (response.matches) {
+
+		} else {
 			
-    	</style>
-	<script src="/public/assets/js/jquery.min.js"></script>
-	<script src="/public/assets/js/jquery.dropotron.min.js"></script>
-	<script src="/public/assets/js/jquery.scrollex.min.js"></script>
-	<script src="/public/assets/js/browser.min.js"></script>
-	<script src="/public/assets/js/breakpoints.min.js"></script>
-	<script src="/public/assets/js/util.js"></script>
-	<script src="/public/assets/js/main.js"></script>
+			document.getElementById("responsible").style.display="none";
+			
+		}
+		}
 
+</script>
+			<style>
+ul{
+   list-style:none;
+   }
+</style>
 	</head>
-	<body  class="landing is-preload">
-		
-		<div id="page-wrapper" class="container">			
-					
+<body  class="landing is-preload">
+			<% include ./header.ejs %>
+		<div id="page-wrapper" class="container" >			
+				
 			<div class="page-header text-center">
 		
 		        <h1>마이페이지</h1>
 		      
 		    </div>
-				<header id="header" class="alt">
-			<h1><a href="/">Digital Of Pages</a> by 국직 잡스</h1>
-			<nav id="nav">
-				<ul>
-					
-					<li><a href="/logout">Logout</a></li>
-					<li><a href="/">Home</a></li>
-
-					<li>
-						<a href="#" class="icon solid fa-angle-down">Menu</a>
-
-						<ul>
-							<li><a href="/public/generic.html">ABOUT US</a></li>
-							<li><a href="/public/contact.html">Contact</a></li>
-							<li><a href="/dev/announcement?page=0&request=dev">개발자 공지사항</a></li>
-							<li><a href="/admin/announcement?page=0&request=admin">관리자 공지사항</a></li>
-						
-							<li><a href="/views/myPage">My Page</a></li>
-
-							<li>
-								<a href="#">Submenu</a>
-								<ul>
-									<li><a href="/profile">프로필</a></li>
-
-									<li><a href="/book/listpost?page=0&perPage=2">도서목록</a></li>
-									<li><a href="/book/listapplybook?page=0&perPage=2">신청도서목록</a></li>
-									<li>
-										<a class="btn btn-default" href="/user/requestlist?page=0&perPage=2">관리자 요청 계정 리스트</a>
-									</li>
-									<li>
-										<a class="btn btn-default" href="#">소속원 등록</a>
-									</li>
-									<li>
-										<a class="btn btn-default" href="/views/addbook.ejs">도서등록</a>
-									</li>
-									<li>
-										<a class="btn btn-default" href="/views/applyNewBook.ejs?request=1"
-											>도서신청</a
-										>
-									</li>
-									<li>
-										<a class="btn btn-default" href="/historyofbook?page=0&perPage=8"
-											>독서 발자취</a
-										>
-									</li>
-								</ul>
-							</li>
-							
-						</ul>
-					</li>
-				
-				</ul>
-			</nav>
-		</header>
+			
 			<br>
 		    <div class="row">
 		
 		        <div class="sm-6">
-		            <div class="well">
+		            <div class="card text-center" >
 		            
 						
 							
-						<div >
+						<div  class="card-body">
 							<h3>대출 중인 도서</h3>
-							<div>
+							<div class="card-body">
 						
-								<ul>
+								<ul class="list-group">
 									<% 
 									for (var i = 0; i < posts.reservationlist.length; i++) {
 										var borrow_day = posts.reservationlist[i].updated_at;
@@ -112,10 +68,15 @@
 										if(dateTerm<=14){
 										%>
 
-										<li>
-											<a href='/book/showbook/<%=posts.reservationlist[i]._id %>'>제목 : <%=posts.reservationlist[i].title%>, 저자 : 		  		<%=posts.reservationlist[i].author%></a>
-											<a class="btn btn-default" href='/book/return/<%=posts.reservationlist[i]._id %>'>반납</a>
-											<a class="btn btn-default" href='/book/loanByQrcode/<%=posts.reservationlist[i]._id %>?request=borrow'>QRcode_return</a>
+										<li  >
+											<a class="btn" style="width:60%;" href='/book/showbook/<%=posts.reservationlist[i]._id %>'>제목 : <%=posts.reservationlist[i].title%>, 저자 : 		  		<%=posts.reservationlist[i].author%></a>
+											
+												<a  class="btn btn-primary" href='/book/return/<%=posts.reservationlist[i]._id %>'>반납</a>
+												<a  class="btn btn-primary" href='/book/loanByQrcode/<%=posts.reservationlist[i]._id %>?request=borrow'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-upc-scan" viewBox="0 0 16 16">
+  <path d="M1.5 1a.5.5 0 0 0-.5.5v3a.5.5 0 0 1-1 0v-3A1.5 1.5 0 0 1 1.5 0h3a.5.5 0 0 1 0 1h-3zM11 .5a.5.5 0 0 1 .5-.5h3A1.5 1.5 0 0 1 16 1.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 1-.5-.5zM.5 11a.5.5 0 0 1 .5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 1 0 1h-3A1.5 1.5 0 0 1 0 14.5v-3a.5.5 0 0 1 .5-.5zm15 0a.5.5 0 0 1 .5.5v3a1.5 1.5 0 0 1-1.5 1.5h-3a.5.5 0 0 1 0-1h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 1 .5-.5zM3 4.5a.5.5 0 0 1 1 0v7a.5.5 0 0 1-1 0v-7zm2 0a.5.5 0 0 1 1 0v7a.5.5 0 0 1-1 0v-7zm2 0a.5.5 0 0 1 1 0v7a.5.5 0 0 1-1 0v-7zm2 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-7zm3 0a.5.5 0 0 1 1 0v7a.5.5 0 0 1-1 0v-7z"/>
+</svg>QR로 반납하기</a>
+											
+										
 										</li>
 								
 									<%}
@@ -149,7 +110,8 @@
 									} %>	
 								</ul>
 							</div>
-								<a href='/' class="button">홈</a>
+					
+								
 
 			               
 						</div>	
@@ -165,6 +127,4 @@
 			
 			
 	</body>
-
-
 </html>

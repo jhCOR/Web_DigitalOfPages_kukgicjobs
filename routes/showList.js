@@ -10,7 +10,6 @@ var listpost = (req, res) => {
 };
 
 var reservationList = function (req, res) {
-    //반납 알림 & 예약자에게 알림 해주는 기능
     console.log('showList 모듈 안에 있는 reservationList 호출됨.');
 	
     var user = req.user.email;
@@ -27,9 +26,11 @@ var reservationList = function (req, res) {
 			console.log("myPage_rendering\n"+results);
             var context = {
                 posts: results,
+				login_success: true,
+				admin:req.user.admin 
             };
                 //res.redirect('/views/myPage?data=datas');
-            printer.rendering(req, res, 'myPage.ejs', context);
+            printer.rendering(req, res, 'myPage.ejs', context,);
         });
     } else {
         printer.errrendering(res);
@@ -275,7 +276,6 @@ var Announcement = function (req, res) {
 						console.log(count);
 						// 뷰 템플레이트를 이용하여 렌더링한 후 전송
 						var context = {
-							title: '신청 목록',
 							posts: listresults,
 							page: parseInt(paramPage),
 							pageCount: Math.ceil(count / 8),

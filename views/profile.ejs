@@ -82,6 +82,10 @@
 		<script src="/public/semantic.min.js"></script>
 		<link href="/public/cleditor/jquery.cleditor.css" rel="stylesheet" />
 		<script src="/public/cleditor/jquery.cleditor.min.js"></script>
+		
+		<link href="/public/bootstrap/css/bootstrap.min.css" rel="stylesheet" >
+		<script src="/public/bootstrap/js/bootstrap.min.js"></script>
+
 		<script>
 			$(document).ready(function() {
 				var output = $("#contentsOutput").text();
@@ -119,50 +123,52 @@
 	
 	   </script>
 	</head>
-	<body>
-	
-		<div class="container" id="app-6">
+	<body class="card">
+		<% include ./header.ejs %>
+		<div class="container" id="app-6" style="margin-top:20px; ">
 		
 			<div class="ui raised segment">
 				<!-- <a class="ui blue ribbon label">프로필</a> -->
-				<div  class="row">
-				<label style="display:inline">
+				
+				
 					<form class="btn-default"  method="post" action="/user/friend">
-					<input  style="width:70%; heigt:1.5em; float:left;" name="friend" placeholder="친구 검색" >
-					<button type="submit" class="btn btn-outline-secondary ">친구 조회</button>
-						
-					</form>	 
-				</label> 
-			
-				</div>	
+					<div class="input-group mb-3">
+						<input type="text" class="form-control" name="friend"  placeholder="친구 검색" >
+						<button type="submit" class="input-group-text btn-primary"  id="basic-addon2">친구 조회</button>
+					</div>
+					</form>
+
 				<div class="ui blue fluid card">
 					 <div class="content">
-						 
+						
 						<form style="margin:0px;" id="profile_img" enctype="multipart/form-data" method="post"  action="/user/profile_img">
-							<span class="image featured left floated author"><img class="ui  image" id="profileimg" onclick="makeClick()" style="width:5em; heigt:5em; margin-top:5%; margin-left:20%;" src='' alt="" /><input hidden name="photo" id="photoInput"  type="file" accept="image/*">
+							<span class="image featured left floated author">
+					
+								<img class="img-fluid" id="profileimg"  style="width:8em; heigt:8em; margin-top:5%; margin-left:20%;" src="" alt="프로필 사진 선택"  /><input hidden name="photo" id="photoInput"  type="file" accept="image/*">
 								<input hidden id="photopath"  type="text" value="<%=profile%>">
 							 </span>
 						</form>
 						
-					
-						 <br>
-								<form class="btn btn-default btn-sm"  method="post" action="/user/modifyUser">
-									<input style="display:inline-block; width:50%" type="text" id="modifyId" readonly name="idmodify" value="<%= user.name %>">
-									<input type="button" id="modifyButton" style="float:right;" value="수정" onclick="modify()" />
-									<input type="submit" id="modifyButton2"  style="float:right; display:none;" value="완료" onclick="modify()" />
-								</form>
+					 <br> <br><br>
 						
-					
-								<form class="btn btn-default btn-sm"  method="post" action="/user/deleteUser">
-									<input type="submit" id="modifyButton" style="float:right;" value="탈퇴" />
+								<form class="btn btn-default btn-sm" class="form-control"  method="post" action="/user/modifyUser">
+									
+									<input style="display:inline-block; width:50%" type="text" id="modifyId" readonly  class="form-control" name="idmodify" value="<%= user.name %>">
+									<input type="button" id="modifyButton" class="input-group-text" style="float:right;" value="수정" onclick="modify()" />
+									<input type="submit" id="modifyButton2" class="input-group-text" style="float:right; display:none;" value="완료" onclick="modify()" />
 								</form>
-
-	   					<div class="meta">
-	     					<p class="card-text">아이디: <strong><%= user.email %></strong></p>
-							<p class="card-text">소속 부대: <strong><%= user.group %></strong></p>
-							<p class="card-text">고유 번호/군번: <strong><%= user.own_number %></strong></p>
-	     				</div>
-	   						<p class="card-text">
+								<form class="btn btn-default btn-sm"  method="post" action="/user/deleteUser">
+									<input type="submit" id="modifyButton" class="input-group-text" style="float:right;" value="탈퇴" />
+								</form>
+ <br> <br>
+						 <div class="card" >
+						  <ul class="list-group list-group-flush">
+							<li class="list-group-item">아이디: <strong><%= user.email %></strong></li>
+							<li class="list-group-item">소속 부대: <strong><%= user.group %></strong></li>
+							<li class="list-group-item">고유 번호/군번: <strong><%= user.own_number %></strong></li>
+						  </ul>
+						</div>
+	   						<p class="card-text" style="margin-top:5px;">
 								<small class="text-muted"
 									>총 대출 권 수 :
 									<span class="badge badge-pill badge-success" onclick="javascript:window.location='/views/myPage'"><%=posts.reservationlist.length%></span></small
@@ -194,17 +200,23 @@
 	  				</div>
 					
 				</div> 
+				<nav class="nav nav-pills flex-column flex-sm-row">
+				 	<input   class="btn btn-outline-primary" type="button" value="북 히스토리" name="" v-on:click="getData()" v-if="where!='bookLog'" />
+					<input   class="btn btn-warning"  type="button" value="북 히스토리" name="" v-on:click="getData()" v-if="where=='bookLog'"/>
+					<input   class="btn btn-outline-primary" type="button" value="리뷰 히스토리" name="" v-on:click="turntoreview()"  v-if="where!='review'" />
+					<input   class="btn btn-warning"   st type="button" value="리뷰 히스토리" name="" v-on:click="turntoreview()"  v-if="where=='review'" />
+					<input   class="btn btn-outline-primary" type="button" value="친구 목록" name="" v-on:click="friendList()"   v-if="where!='friendlist'"/>
+					<input   class="btn btn-warning" type="button"  value="친구 목록" name="" v-on:click="friendList()"    v-if="where=='friendlist'"/>
+					<input   class="btn btn-outline-primary" type="button" value="메세지 함" name="" v-on:click="messageBox()"  v-if="where!='messageBox'"/>
+					<input   class="btn btn-warning" type="button"    value="메세지 함" v-on:click="messageBox()"  name=""  v-if="where=='messageBox'"/>
+					<input   class="btn btn-outline-primary" type="button" value="메세지 작성" name="" v-on:click="turntoLetter()"  v-if="where!='writeLetter'"/>
+					<input   class="btn btn-warning" type="button"   value="메세지 작성" v-on:click="turntoLetter()"  name=""  v-if="where=='writeLetter'"/>
 				
-				<input   class="ui button align" type="button" value="북 히스토리" name="" v-on:click="getData()" v-if="where!='bookLog'" />
-				<input   class="ui button align"  style="color:orange;" type="button" value="북 히스토리" name="" v-on:click="getData()" v-if="where=='bookLog'"/>
-				<input   class="ui button align" type="button" value="리뷰 히스토리" name="" v-on:click="turntoreview()"  v-if="where!='review'" />
-				<input   class="ui button align"   style="color:orange;" type="button" value="리뷰 히스토리" name="" v-on:click="turntoreview()"  v-if="where=='review'" />
-				<input   class="ui button align" type="button" value="친구 목록" name="" v-on:click="friendList()"   v-if="where!='friendlist'"/>
-				<input   class="ui button align" type="button"   style="color:orange;" value="친구 목록" name="" v-on:click="friendList()"    v-if="where=='friendlist'"/>
-				<input   class="ui button align" type="button" value="메세지 함" name="" v-on:click="messageBox()"  v-if="where!='messageBox'"/>
-				<input   class="ui button align" type="button"   style="color:orange;" value="메세지 함" v-on:click="messageBox()"  name=""  v-if="where=='messageBox'"/>
-				<input   class="ui button align" type="button" value="메세지 작성" name="" v-on:click="turntoLetter()"  v-if="where!='writeLetter'"/>
-				<input   class="ui button align" type="button"   style="color:orange;" value="메세지 작성" v-on:click="turntoLetter()"  name=""  v-if="where=='writeLetter'"/>
+				</nav>
+				
+				
+				
+				
 		
 				<div  style="overflow:scroll; width:100%; height:400px;">
 					<div class="ui blue fluid card"  v-if="where=='review'"  v-for="data in datas"   v-on:click="show(data._id)">
@@ -245,10 +257,11 @@
 					
 					<div v-if="where=='friendlist'"> 
 						
-					<label style="display:inline;">
-						<input v-model="query"style="width:70%; heigt:1.5em; float:left;" placeholder="친구 아이디를 입력해주세요">
-						<button class="btn btn-outline-secondary " v-on:click="plusFriends()" >친구 추가</button>
+					<label style="display:inline;" >
+						<input v-model="query"  class="form-control"  style="width:70%; heigt:1.5em; float:left;  margin-top:5px; " placeholder="친구 아이디를 입력해주세요">
+						<button class="btn btn-outline-secondary " v-on:click="plusFriends()"  style="margin-top:5px; ">친구 추가</button>
 					</label> 
+						
 								<div class="ui blue fluid card" v-for="(friend,index) in friends"    v-on:click="write(friend)">
                                 <div class="content">
                                     <div class="sixteen wide column">
@@ -264,22 +277,24 @@
 					</div>
 			
 							<div class="ui blue fluid card" v-for="(MESSAGE,index) in MESSAGES"    v-if="where=='messageBox'" >
-                                <div class="content">
+                                <div class="content" >
                                     <div class="sixteen  column">
                                         <div class=" " style="inline-block">
-                                            <h4 class="left aligned  ">
+                                            <h4 class="left aligned  " >
                                                 내용:{{MESSAGE.content}}
+												<button class="btn btn-outline-secondary " style="float:right;" v-if="!MESSAGE.link"  v-on:click="deleteMessage(MESSAGE._id,index)" >삭제하기</button>
 											</h4>
 											<h5 class=" left aligned header " v-if="MESSAGE.bookID"  v-on:click="show(MESSAGE.bookID._id)">
                                                 추천된 도서:{{MESSAGE.bookID.title}}
                                             </h5>
 											<h5 class=" left aligned header " v-if="MESSAGE.link" >
-                                                친구 요청입니다. <button class="btn btn-outline-secondary " v-on:click="getplusFriends(MESSAGE.from)" >수락하기</button>
+                                                친구 요청입니다. <button class="btn btn-outline-secondary " v-on:click="getplusFriends(MESSAGE.from,index,MESSAGE._id)" >수락하기</button>
 												<button class="btn btn-outline-secondary " v-on:click="deleteMessage(MESSAGE._id,index)" >삭제하기</button>
                                             </h5>
 											<h5 class=" left aligned header ">
-                                                발신자:{{MESSAGE.from}}
+                                                발신자:{{MESSAGE.from}}  
                                             </h5>
+											
                                         </div>
 										
                                     </div>	
@@ -288,10 +303,11 @@
 							<div class="ui fluid card"  v-if="where=='writeLetter'" >
                                 <div class="content">
                                     <div class="sixteen  column">
-                                        <div class=" " style="inline-block">
-                                        <input v-model="email" style="width:52%; heigt:1.5em; float:left;" name="friend" placeholder="이메일을 입력해 주세요!" >
-										<textarea v-model="content" type="text" name="contents" rows="4" style="width: 600px;" placeholder="메세지 입력"></textarea>
-                                        </div>
+                                       
+                                        <input v-model="email"  class="form-control"  style="width:52%; heigt:1.5em; float:left;" name="friend" placeholder="이메일을 입력해 주세요!" >  
+									
+										<textarea v-model="content"  class="form-control" type="text" name="contents" rows="4" style="width:52%;" placeholder="메세지 입력"></textarea>
+                                      
 										<input class="ui submit button" type="submit" value="작성 완료" name="" v-on:click="sendMessages()"/>
                                     </div>	
                                 </div>
@@ -300,8 +316,7 @@
 				
        
 			</div>
-					<button type="button" class="btn btn-outline-secondary mt-2" onclick="location.href='/'">Home</button>
-		<!-- Footer -->
+
 	
 		</div>
 			
@@ -367,15 +382,14 @@
 						});
 				
 			    },
-			getplusFriends:function(from){
+			getplusFriends:function(from,index,id){
 				console.log("sendTo");
 				
-    			this.$http.get('/user/plusfriend?addfriend='+from) 
+    			this.$http.get('/user/plusfriend?addfriend='+from+"&id="+id) 
 					.then(function(response) {
 				this.friends = response.data.post.friends;
-
-					
 					alert('친구 요청을 수락하였습니다.');
+					this.MESSAGES.splice(index,1);
 						});
 				
 			    },
@@ -444,6 +458,14 @@
 					});
 				alert('삭제되었습니다.');
 				this.MESSAGES.splice(index,1);
+			  },
+			read: function(id,index) {
+		
+				
+    		this.$http.get('/user/readMessage/'+id) 
+					.then(function(response) {
+		
+					});
 			  },
 
     	},

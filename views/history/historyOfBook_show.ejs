@@ -10,11 +10,12 @@
 		<title>Digital Of Pages</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="/public/assets/css/main.css" />
-	
-		
+				<link href="/public/bootstrap/css/bootstrap.min.css" rel="stylesheet" >
+		<script src="/public/bootstrap/js/bootstrap.min.js"></script>
+  		<link href="/public/semantic.min.css" rel="stylesheet" >
 		<script src="/public/jquery-3.1.1.min.js"></script>
-		<!-- <script src="/public/semantic.min.js"></script> -->
+		<script src="/public/semantic.min.js"></script>
+	
 		<script type="text/javascript" src="/public/dist/js/service/HuskyEZCreator.js" charset="utf-8"></script>
 
 		<script type="text/javascript">
@@ -25,6 +26,7 @@
 				
 			}
 			window.onload=()=>{
+			
 				console.log("imgPath"+document.getElementById("imgPath").href)
 				if(document.getElementById("imgPath").href==''){
 					document.getElementById("img").style.display='none';
@@ -47,56 +49,68 @@
 		</style>
 		</head>
 <body class="is-preload">
-	
-    <div id="page-wrapper">
-
-		<div id="page-wrapper">
-			<!-- Main -->
-				<section id="main" class="container">
-					
-					<%if(!post){%>
-						<button onclick="searchBook()"> 책 검색</button>
-					<%}%>
-					
-				
-						<h4 class="ui dividing header">History Of Book</h4>
+  <div class="container">
+	    <br>
+     
+		<div class="ui raised segment">
+			
+     		<h4 class="ui dividing header">History Of Book</h4>
 		
-						<select name="range"  style="width:20%; hight:5px;;">
-							<option value="비공개">비공개</option>
-							<option value="그룹공개">그룹공개</option>
-							<option value="전체공개">전체공개</option>
-						</select>
-						
-						<div class="two fields">
-				    		<div >
-				      			<label>제목</label>
-								<%if(post){%>
-								<p>
-									<%=post.title%>
-								</p>
-								<%}%>
-								
-							</div>
-								<%if(post.bookinfo){%>
-								<a href="<%=post.bookinfo%>" id="imgPath">
-									<img scr="" width="148" height="210" id="img">
-								</a>
-									
-								<%}%>
-									
-								
+			
+			<div class="ui blue fluid card">
+				 <div class="content">
+			       
+					
+			<div class="card mb-3">
+				<div class="row g-0">
+					<div class="col-md-4">
+						<%if(post.bookinfo){%>
+						<a href="<%=post.bookinfo%>" id="imgPath">
+							<img scr="" width="148" height="210" id="img" />
+						</a>
+
+						<%}%>
+					</div>
+					<div class="col-md-8">
+						<div class="card-body">
+							<h2 class="card-title"><%if(post){%> <%=post.title%> <%}%></h2>
+
+							<p class="card-text" id="contentsOutput"><%if(post){%> <%=post.contents%> <%}%></p>
+							
 						</div>
-								
-						<div id="contextfiled">
-							<label>내용</label>
-				    	
-								<%if(post){%>
-							<div id="contentsOutput" class="description">	<%=post.contents%></div>
-									
-								<%}%>
-								
-						</div>		
+						<div class="card-body">
+						
+						
+							</div>
+					</div>
+				</div>
+			</div>
+						
+					
 				<br>
+					 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+					  <div class="modal-dialog">
+						<div class="modal-content">
+						  <div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLabel"><%=post.writer.name %></h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						  </div>
+						  <div class="modal-body">
+								<img  class="img-fluid" style="border: 2px solid;" src="<%=profile%>">
+						  </div>
+						  <div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+							<button type="button" class="btn btn-primary" onclick="javascript:window.location='/user/friend?friend=<%=post.writer.email %>'">프로필 보러가기</button>
+						  </div>
+						</div>
+					  </div>
+					</div>
+					 
+					 <div class="right floated author" data-bs-toggle="modal" data-bs-target="#exampleModal">
+	      					<img class="ui avatar image" style="border: 2px solid;" src="<%=profile%>"> <%=post.writer.name %>
+	    				</div>
+					 
+						
 							<a class="ui button" href="/">Home</a>
 							<%if(post.writer.email==login){%>
 								
@@ -105,25 +119,12 @@
 								
 						
 				
-				</section>
+				</div>
+			</div>
+	  </div>
 
-			<!-- Footer -->
-
-			<% include ../footer.ejs %>
-
-
-		</div>
 	</div>
-	
-	<br><br>
-	
-			<script src="/public/assets/js/jquery.min.js"></script>
-			<script src="/public/assets/js/jquery.dropotron.min.js"></script>
-			<script src="/public/assets/js/jquery.scrollex.min.js"></script>
-			<script src="/public/assets/js/browser.min.js"></script>
-			<script src="/public/assets/js/breakpoints.min.js"></script>
-			<script src="/public/assets/js/util.js"></script>
-			<script src="/public/assets/js/main.js"></script>
+
 </body>
 
 </html>

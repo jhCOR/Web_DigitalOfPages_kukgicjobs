@@ -159,12 +159,9 @@ var search = (req, res) => {
     const paramPerPage = 8;
 
     let page = 'lists/listbook';
-    if (req.body.search) {
+
         var option = { group: req.user.group, title: new RegExp(search) };
-        
-    } else {
-        var option = { title: new RegExp(search) };
-    }
+    
 
     const database = req.app.get('database');
 

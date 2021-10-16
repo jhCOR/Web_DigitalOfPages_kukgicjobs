@@ -227,8 +227,13 @@
 						
 							<div class="field" style="width:50%;">
 								<label>도서 추천</label>
-																
-								<input v-model="email" style="width:65%; heigt:1.5em; float:left;" name="friend" placeholder="이메일을 입력해 주세요!" >
+									
+								<input class="form-control"  v-model="email" name="friend"  list="datalistOptions" id="DataList" placeholder="이메일을 입력해 주세요">
+								<datalist id="datalistOptions">
+									<%for(var i=0;i<friends.length;i++){%>
+									  <option value="<%=friends[i]%>">
+									<%}%>
+								</datalist>
 								<textarea v-model="content" type="text" name="contents" rows="4" style="width: 600px;" placeholder="추천하는 한마디를 입력해 주세요!"></textarea>
 							</div>		
 							<input class="ui submit button" type="submit" value="작성 완료" name="" v-on:click="sendRecommand"/>

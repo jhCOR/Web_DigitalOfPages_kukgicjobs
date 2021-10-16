@@ -1,9 +1,5 @@
 <!DOCTYPE HTML>
-<!--
-	Alpha by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
+
 <html>
 	<head>
 		<title>Digital Of Pages</title>
@@ -11,140 +7,343 @@
 		<meta property="og:image" content="/public/Digital Of Pages_logo.png">
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="SHORTCUT ICON" href="/public/Digital Of Pages_logo.png"/>
+		<script src="https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js"></script>
+    	<script src="https://cdn.jsdelivr.net/npm/vue-resource@1.3.4"></script>
 		
-		<link rel="stylesheet" href="/public/assets/css/main.css" />
-		 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.3.4"></script>
-	<script>
-		window.onload=function(){
-		var response = window.matchMedia("(min-width: 430px)");
+		<link href="/public/bootstrap/css/bootstrap.min.css" rel="stylesheet" >
+		<script src="/public/bootstrap/js/bootstrap.min.js"></script>
+		
+  		<link href="/public/semantic.min.css" rel="stylesheet" >
+		<script src="/public/jquery-3.1.1.min.js"></script>
+		<script src="/public/semantic.min.js"></script>
 
-		if (response.matches) {
-
-		} else {
-			
-			document.getElementById("responsible").style.display="none";
-			
-		}
-		}
-
-</script>
+		<style>
+		ul{
+		   list-style:none;
+		   }
+		</style>
+		<link href="/public/cleditor/jquery.cleditor.css" rel="stylesheet" />
+		<script src="/public/cleditor/jquery.cleditor.min.js"></script>
+		<script>
+			$(document).ready(function() {
+				console.log("loed");
+				var output = $("#contentsOutput").text();	
+				$("#contentsOutput").html(output);
+				 
+			});
+		</script>
 	</head>
 	<body class="landing is-preload">
 		<div id="page-wrapper">
 
 			<!-- Header -->
-			<% include ./header.ejs %>
+		<% include ./header.ejs %>
 
-			<!-- Banner -->
-				<section id="banner" style="padding:8em;">
+<svg  data-bs-toggle="offcanvas" href="#offcanvasExample" style="margin-left:10px;" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-bell-fill" viewBox="0 0 16 16">
+  <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z"/>
+</svg>
+
+
+<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+  <div class="offcanvas-header">
+     <h5 class="card-title" onclick="javascript:window.location='/book/listpost?page=0&perPage=2'">
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-newspaper" viewBox="0 0 16 16">
+					  <path d="M0 2.5A1.5 1.5 0 0 1 1.5 1h11A1.5 1.5 0 0 1 14 2.5v10.528c0 .3-.05.654-.238.972h.738a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 1 1 0v9a1.5 1.5 0 0 1-1.5 1.5H1.497A1.497 1.497 0 0 1 0 13.5v-11zM12 14c.37 0 .654-.211.853-.441.092-.106.147-.279.147-.531V2.5a.5.5 0 0 0-.5-.5h-11a.5.5 0 0 0-.5.5v11c0 .278.223.5.497.5H12z"/>
+					  <path d="M2 3h10v2H2V3zm0 3h4v3H2V6zm0 4h4v1H2v-1zm0 2h4v1H2v-1zm5-6h2v1H7V6zm3 0h2v1h-2V6zM7 8h2v1H7V8zm3 0h2v1h-2V8zm-3 2h2v1H7v-1zm3 0h2v1h-2v-1zm-3 2h2v1H7v-1zm3 0h2v1h-2v-1z"/>
+					</svg>
+					 NEWS</h5>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body" id="app-8" >
+      <div class="card">
+
+				<div class="card-body text-center" >
+				
+					<div class="card-body" >
+
+						<div  v-if="!news">
+							 <p class="card-text">DOP, 어떤 도서관이든 쉽게 도서 관리 체계를 구축하다.</p>
+						</div>	
+						<div v-else>
+							<!-- <ul class="list-group">
+								<li v-for="new_s in news" v-on:click="show(new_s._id)">
+									{{ new_s.title}}
+								</li>
+							</ul> -->
+							<div class="card mb-3" style="max-width: 540px;" v-for="(new_s,index) in news" v-on:click="show(new_s._id)">
+							  <div class="row g-0">
+								<div class="col-md-4">
+								  <img :src="new_s.bookinfo" class="img-fluid rounded-start" >
+								</div>
+								<div class="col-md-8">
+								  <div class="card-body">
+									<h5 class="card-title">	{{ new_s.title}}</h5>
+									<p class="card-text"  v-html="new_s.contents">	</p>
+									<p class="card-text"><small class="text-muted">{{ new_s.writer.name}}</small></p>
+								  </div>
+								</div>
+							  </div>
+							</div>
+							
+						</div>
+						
+					</div>
+					
+				</div>
+			  </div>
+			<div class="card-body text-center" >
+				<svg xmlns="http://www.w3.org/2000/svg" v-on:click="getMoreData"  width="32" height="32" fill="currentColor" class="bi bi-arrow-bar-down" viewBox="0 0 16 16">
+				  <path fill-rule="evenodd" d="M1 3.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13a.5.5 0 0 1-.5-.5zM8 6a.5.5 0 0 1 .5.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 0 1 .708-.708L7.5 12.293V6.5A.5.5 0 0 1 8 6z"/>
+				</svg>
+			</div>
+  </div>
+</div>
+		
+				<section id="main" class="container " >
+				
+					<div class="card text-center">
+						<div class="card-body" id="app-6" >
+							 <h5 class="card-title">
+								 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-megaphone" viewBox="0 0 16 16">
+								  <path d="M13 2.5a1.5 1.5 0 0 1 3 0v11a1.5 1.5 0 0 1-3 0v-.214c-2.162-1.241-4.49-1.843-6.912-2.083l.405 2.712A1 1 0 0 1 5.51 15.1h-.548a1 1 0 0 1-.916-.599l-1.85-3.49a68.14 68.14 0 0 0-.202-.003A2.014 2.014 0 0 1 0 9V7a2.02 2.02 0 0 1 1.992-2.013 74.663 74.663 0 0 0 2.483-.075c3.043-.154 6.148-.849 8.525-2.199V2.5zm1 0v11a.5.5 0 0 0 1 0v-11a.5.5 0 0 0-1 0zm-1 1.35c-2.344 1.205-5.209 1.842-8 2.033v4.233c.18.01.359.022.537.036 2.568.189 5.093.744 7.463 1.993V3.85zm-9 6.215v-4.13a95.09 95.09 0 0 1-1.992.052A1.02 1.02 0 0 0 1 7v2c0 .55.448 1.002 1.006 1.009A60.49 60.49 0 0 1 4 10.065zm-.657.975 1.609 3.037.01.024h.548l-.002-.014-.443-2.966a68.019 68.019 0 0 0-1.722-.082z"/>
+								</svg>
+								 공지사항</h5>
+
+								<div  v-if="!datas">
+									 <p class="card-text">DOP, 어떤 도서관이든 쉽게 도서 관리 체계를 구축하다.</p>
+								</div>	
+								<div v-else>
+									<ul class="list-group">
+										<li v-for="data in datas" v-on:click="show(data._id)">
+											{{ data.title}}
+										</li>
+									</ul>
+								</div>
+
+						</div>
+					</div>	
+<img src="/public/images/library4.png" style="height:380px;" class="img-fluid" alt="...">
+			<div class="card-group">
+			  <div class="card">
+
+				<div class="card-body text-center" id="app-7">
+				 <h5 class="card-title" onclick="javascript:window.location='/book/listpost?page=0&perPage=2'">
+					 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-book" viewBox="0 0 16 16">
+					  <path d="M1 2.828c.885-.37 2.154-.769 3.388-.893 1.33-.134 2.458.063 3.112.752v9.746c-.935-.53-2.12-.603-3.213-.493-1.18.12-2.37.461-3.287.811V2.828zm7.5-.141c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.923c-.918-.35-2.107-.692-3.287-.81-1.094-.111-2.278-.039-3.213.492V2.687zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z"/>
+					</svg>최근 들어온 도서</h5>
+					<div v-if="!Bookdatas">
+						 <p class="card-text">도서 관리 체계의 보급에 사용자 데이터 가공까지</p>
+					</div>
+					<div v-else>
+						<ul class="list-group">
+							<li v-for="Bookdata in Bookdatas" v-on:click="show(Bookdata._id)">
+								{{ Bookdata.title}}
+							</li>
+						</ul>
+					</div>
+				</div>
+			  </div>
+			  <div class="card text-center">
+
+				<div class="card-body"  onclick="javascript:window.location='/addhistory'">
+					<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-pencil"  viewBox="0 0 16 16">
+					  <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
+					</svg>
+				  <h5 class="card-title">독서 발자취</h5>
+				  <p class="card-text">각자의 독서 역사를 기록해 보세요! </p>
+				</div>
+			  </div>
+			  <div class="card text-center">
+
+				<div class="card-body"  onclick="javascript:window.location='/profile'">
+					<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
+			  <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+			  <path fill-rule="evenodd" d="M5.216 14A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216z"/>
+			  <path d="M4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/>
+			</svg>
+				  <h5 class="card-title">With friends!</h5>
+				  <p class="card-text">대화 주제를 찾을 필요 없습니다! 관심사를 공유하고 시작하니까요</p>
+				</div>
+			  </div>
+			</div>
+
 					
 				</section>
-
-			<!-- Main -->
-				<section id="main" class="container ">
-
-					<section  class="ui blue fluid card" style=" background-color: white;">
-						<header class="major">
-				
-						<div id="app-6">
-								<h2 >공지사항</h2>
-								<div  v-if="!datas">
-							DOP, 어떤 도서관이든 쉽게 도서 관리 체계를 구축하다.
-							</div>	
-							<div v-else>
-								
-								<ul>
-								
-									<li v-for="data in datas"   v-on:click="show(data._id)">
-										{{ data.title}}
-									</li>
-								</ul>
-							</div>
-						
-						</div>
-
-						</header>
-						<span class="image featured"><img src="images/book.png" alt="" /></span>
 			
-						<header class="major">
+			<section  class="container " id="app-5" >
+				<div class="card-group">
+			  <div class="card" v-if="message">
 				
-						<div id="app-7">
-								<h2 >최근 들어온 도서</h2>
-								<div  v-if="!Bookdatas">
-							도서 관리 체계의 보급에 사용자 데이터 가공까지 All in One.
-							</div>	
-							<div v-else>
-								
-								<ul>
-									<li v-for="Bookdata in Bookdatas"   v-on:click="show(Bookdata._id)">
-										{{ Bookdata.title}}
-									</li>
-								</ul>
-							</div>
+				<div class="card-body text-center "  style="overflow:scroll;overflow-x: hidden; max-height:200px" >
+					<h6 v-on:click="extiMessageBox"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">
+					  <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2zm13 2.383-4.758 2.855L15 11.114v-5.73zm-.034 6.878L9.271 8.82 8 9.583 6.728 8.82l-5.694 3.44A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.739zM1 11.114l4.758-2.876L1 5.383v5.73z"/>
+					</svg>
+					메세지</h6>
+					<div  v-for="(MESSAGE,index) in MESSAGES" class="card" >
+						<h4 class="left aligned  " >
+							 내용:{{MESSAGE.content}}
+						<button class="btn btn-outline-secondary " style="float:right;" v-if="!MESSAGE.link"  v-on:click="deleteMessage(MESSAGE._id,index)" >삭제하기</button>
+						</h4>
+						<h5 class=" left aligned header " v-if="MESSAGE.bookID"  v-on:click="show(MESSAGE.bookID._id)">
+							 추천된 도서:{{MESSAGE.bookID.title}}
+						</h5>
+						<h5 class=" left aligned header " v-if="MESSAGE.link" >
+							친구 요청입니다. <button class="btn btn-outline-secondary " v-on:click="getplusFriends(MESSAGE.from,index,MESSAGE._id)" >수락하기</button>
+						<button class="btn btn-outline-secondary " v-on:click="deleteMessage(MESSAGE._id,index)" >삭제하기</button>
+						</h5>
 						
-						</div>
-
-						</header>
-						<span class="image featured"><img src="images/book.png" alt="" /></span>
-					</section>
-
-					<div class="row">
-						<div class="col-6 col-12-narrower">
-					 <a name="target"> </a><!--앵커 -->
-							<section class="box special">
-								<span class="image featured"><img src="/public/images/note_4.png" alt=""></span>
-								<h3>Book History</h3>
-								<p>각자의 독서 역사를 기록해 보세요! </p>
-								
-								<ul class="actions special">
-									<% if (login_success) { %>
-									 	<li><a href="/addhistory" class="button">start</a></li>
-									<% }%>
-									
-								</ul>
-							</section>
-
-						</div>
-						<div class="col-6 col-12-narrower">
-
-							<section class="box special">
-								<span class="image featured"><img src="/public/images/lucky.png" alt="" /></span>
-								<h3>With Friends!</h3>
-								<p>친구와 함께하는 독서 라이프!</p>
-								<ul class="actions special">
-									<% if (login_success) { %>
-									 	<li><a href="/profile" class="button">start</a></li>
-									<% }%>
-								</ul>
-							</section>
-
-						</div>
+							 발신자:{{MESSAGE.from}}  
+						
+					
 					</div>
+				
+				</div>
+			  </div>
+					 <div class="card" v-if="!message" v-on:click="messageBox">
+				<br><br>
+				<div class="card-body text-center"  >
+					<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">
+					  <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2zm13 2.383-4.758 2.855L15 11.114v-5.73zm-.034 6.878L9.271 8.82 8 9.583 6.728 8.82l-5.694 3.44A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.739zM1 11.114l4.758-2.876L1 5.383v5.73z"/>
+					</svg>
+					<br>메세지
+					
+				
+				</div>
+			  </div>
+			  <div class="card text-center">
 
-				</section>
+				<div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+				  <div class="carousel-indicators">
+					<button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+					<button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+					<button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+				  </div>
+				  <div class="carousel-inner">
+					<div class="carousel-item active">
+					  <img src="/public/rectangular_logo.png" class="d-block w-100" alt="...">
+					  <div class="carousel-caption d-none d-md-block">
 
-			<!-- CTA -->
-				<section id="cta">
-					<h2>Search</h2>
-					<p>소속부대 뿐 아니라 모든 등록된 도서를 대상으로 검색합니다. 소속부대 등록도서 검색은 Menu에서 지원됩니다.</p>
-					<form method="get" action="/book/search">
-						<div class="row gtr-50 gtr-uniform">
-							<div class="col-8 col-12-mobilep">
-								<input type="text" name="search"  minlength="2" placeholder="" />
-								
-							</div>
-							<div class="col-4 col-12-mobilep">
-							
-								<input type="submit" value="search" class="fit" />
-							</div>
-						</div>
-					</form>
-				</section>
-			<!-- Footer -->
-			<% include ./footer.ejs %>
+					  </div>
+					</div>
+					<!-- <div class="carousel-item">
+					  <img src="/public/images/lucky.png" class="d-block w-100" alt="...">
+					  <div class="carousel-caption d-none d-md-block">
+
+					  </div>
+					</div>
+					<div class="carousel-item">
+					  <img src="/public/images/note_4.png" class="d-block w-100" alt="...">
+					  <div class="carousel-caption d-none d-md-block">
+
+					  </div>
+					</div> -->
+				  </div>
+				  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+					<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+					<span class="visually-hidden">Previous</span>
+				  </button>
+				  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+					<span class="carousel-control-next-icon" aria-hidden="true"></span>
+					<span class="visually-hidden">Next</span>
+				  </button>
+				</div>
+			  </div>
+			  <div class="card text-center">
+
+				<div class="card-body" style="max-height:200px; overflow:scroll; overflow-x: hidden; "  onclick="javascript:window.location='/views/myPage'">
+					<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-journal" viewBox="0 0 16 16">
+  <path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z"/>
+  <path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z"/>
+</svg>
+				  <h5 class="card-title">마이페이지</h5>
+					<%if(posts.length>0){
+						var num=4; 
+						if(posts.length<4){num=posts.length;console.log("--"+posts[i])}
+						
+						for(var i=0;i<num;i++){console.log("@@"+posts[i])%>
+						<ul class="list-group">
+							<li>
+							제목 : <%=posts[i].title%> , 저자 : 	<%=posts[i].author%>
+							</li>
+						</ul>
+					<%}
+					}else{%>
+						별도 장비 없이 QR로 쉽게 반납!
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-upc-scan" viewBox="0 0 16 16">
+  <path d="M1.5 1a.5.5 0 0 0-.5.5v3a.5.5 0 0 1-1 0v-3A1.5 1.5 0 0 1 1.5 0h3a.5.5 0 0 1 0 1h-3zM11 .5a.5.5 0 0 1 .5-.5h3A1.5 1.5 0 0 1 16 1.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 1-.5-.5zM.5 11a.5.5 0 0 1 .5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 1 0 1h-3A1.5 1.5 0 0 1 0 14.5v-3a.5.5 0 0 1 .5-.5zm15 0a.5.5 0 0 1 .5.5v3a1.5 1.5 0 0 1-1.5 1.5h-3a.5.5 0 0 1 0-1h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 1 .5-.5zM3 4.5a.5.5 0 0 1 1 0v7a.5.5 0 0 1-1 0v-7zm2 0a.5.5 0 0 1 1 0v7a.5.5 0 0 1-1 0v-7zm2 0a.5.5 0 0 1 1 0v7a.5.5 0 0 1-1 0v-7zm2 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-7zm3 0a.5.5 0 0 1 1 0v7a.5.5 0 0 1-1 0v-7z"/>
+</svg>
+					<%}%>
+				</div>
+			  </div>
+			</div>
+			</section>
+			<section class="container text-center" onclick="javascript:window.location='/public/Digital_Of_Pages_Privacy Policy.html'" style="max-height:30px;">
+				<div class="card">
+				  <div class="card-body">
+					Digital Of Pages 개인정보 처리방침
+				  </div>
+				</div>
+			</section>
 
 		</div>
+		<script>
+		var app5 = new Vue({
+		  el: '#app-5',
+		  data: {
+			datas: [],
+			  message:false,
+			  MESSAGES:[],
+		  },
+	
+        methods: {
+			show:function(id){
+				window.location='/book/showbook/'+id;
+				
+			},
+			write:function(email){
+				this.where = 'writeLetter';
+				this.email = email;
+			},
+			extiMessageBox:function(id){
+					this.message = false;
+				
+			},
+			messageBox:function(){
+				this.message = true;
+				this.$http.get('/user/loadmessage') 
+					.then(function(response) { 
+					
+					  this.MESSAGES = response.data;
+				  
+					});
+			},
+			getplusFriends:function(from,index,id){
+				console.log("sendTo");
+				
+    			this.$http.get('/user/plusfriend?addfriend='+from+"&id="+id) 
+					.then(function(response) {
+				this.friends = response.data.post.friends;
+					alert('친구 요청을 수락하였습니다.');
+					this.MESSAGES.splice(index,1);
+						});
+				
+			    },
+			deleteMessage: function(id,index) {
+		
+				
+    		this.$http.get('/user/deleteMessage/'+id) 
+					.then(function(response) {
+		
+					});
+				alert('삭제되었습니다.');
+				this.MESSAGES.splice(index,1);
+			  },
+
+    	},
+
+		});
+
+		</script>
 		<script>
 		var app6 = new Vue({
 		  el: '#app-6',
@@ -217,13 +416,46 @@
 		});
 
 		</script>
-			<script src="/public/assets/js/jquery.min.js"></script>
-			<script src="/public/assets/js/jquery.dropotron.min.js"></script>
-			<script src="/public/assets/js/jquery.scrollex.min.js"></script>
-			<script src="/public/assets/js/browser.min.js"></script>
-			<script src="/public/assets/js/breakpoints.min.js"></script>
-			<script src="/public/assets/js/util.js"></script>
-			<script src="/public/assets/js/main.js"></script>
+	<script>
+		var app8 = new Vue({
+		  el: '#app-8',
+		  data: {
+			news: [],
+			  img:[],
+			  time:[],
+			  page:0
+		  },
+	mounted() {
+ 		this.$nextTick(function () {
+    		this.$http.get('/user/news') 
+					.then(function(response) {
+					  console.log(response.data.posts.contents);   
+					  this.news = response.data.posts;
+					
+
+					});
+		    })
+		},
+        methods: {
+			show:function(id){
+				window.location='/history/'+id;
+				
+			},
+			getMoreData: function() {
+			++this.page;
+			this.$http.get('/user/news?page=' + this.page) 
+				.then(function(response) {
+					
+					this.news =[...this.news, ...response.data.posts];
+					
+
+					});
+			  },
+    	},
+
+		});
+
+		</script>
 
 	</body>
 </html>

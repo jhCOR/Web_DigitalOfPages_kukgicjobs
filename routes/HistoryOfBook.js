@@ -6,7 +6,7 @@ var addHistoryOfBook = (req, res)=> {//네이버 api 이용해서 책을 찾은 
 	console.log('HistoryOfBook 모듈 호출됨');
 
 	var paramContents = req.body.contents || req.query.contents||'0';
-	var bookInformation = req.body.booktitle || req.query.booktitle;
+	var bookInformation = req.body.booktitles || req.query.booktitles;
 	var paramTitle = req.body.title || req.query.title||paramContents.substring(0,10);
 	
 	var range =  req.body.range || req.query.range || req.params.range;
@@ -37,7 +37,10 @@ var addHistoryOfBook = (req, res)=> {//네이버 api 이용해서 책을 찾은 
 						
 				return;
 			}
-			
+			var Entities = require('html-entities').AllHtmlEntities;
+		 	var entities = new Entities();
+			 var decodedContents = entities.decode(paramContents);  
+				console.log('decodedContents'+decodedContents);
 			var userObjectId = results._id;
 			
 			var post = new database.BookPostModel({
@@ -47,6 +50,8 @@ var addHistoryOfBook = (req, res)=> {//네이버 api 이용해서 책을 찾은 
 				bookinfo: bookInformation,
 				group:req.user.group,
 				range:range,
+				writeremail:req.user.email,
+				
 			});
 
 			saver.saving(post,res,'/history/' + post._id);
@@ -80,6 +85,7 @@ var showHistory = (req, res)=>{
 						title: '내 독서 기록 보기',
 						post: results,
 						login: req.user.email,
+						profile:'../uploads/'+req.user.profile_path 
 					};
 					console.log("history"+results);
 			   

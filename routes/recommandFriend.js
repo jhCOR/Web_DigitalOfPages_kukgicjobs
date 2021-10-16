@@ -6,9 +6,9 @@ var sendRecommand = (req, res) => {
 	var bookID = req.body.bookID || req.query.bookID || req.params.bookID;
 	var email = req.body.request || req.query.request || req.params.request;
 	
-	var link='친구 추가 요청';
+	var link;
 	if(email){
-		
+		link='친구 추가 요청'
 		friendEmail=email;
 		recommandContent="친구 추가 요청입니다.";
 		

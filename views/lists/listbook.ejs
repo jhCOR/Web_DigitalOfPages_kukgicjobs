@@ -54,12 +54,14 @@
 		
 		<script src="/public/jquery-3.1.1.min.js"></script>
 		<script src="/public/semantic.min.js"></script>
-		
+			<link href="/public/bootstrap/css/bootstrap.min.css" rel="stylesheet" >
+		<script src="/public/bootstrap/js/bootstrap.min.js"></script>
+
 		<script>
 			function listpost(page, perPage) {
 				document.location = '/book/listpost?page=' + page + '&perPage=' + perPage;
 			}
-
+			
 		</script>
 		<!-- <link rel="stylesheet" href="/public/assets/css/main.css" /> -->
 	</head>
@@ -68,17 +70,18 @@
     	<div class="container">
 
 			<div class="ui raised segment">
+	
 				<a href='/book/listpost?page=0&perPage=2' class="ui blue ribbon label">도서 리스트</a>
-				<a href='/book/listpost?page=0&perPage=2&class=총류' class="ui   label">총류</a>
-				<a href='/book/listpost?page=0&perPage=2&class=철학' class="ui   label">철학</a>
-				<a href='/book/listpost?page=0&perPage=2&class=종교' class="ui   label">종교</a>
-				<a href='/book/listpost?page=0&perPage=2&class=사회과학' class="ui   label">사회과학</a>
-				<a href='/book/listpost?page=0&perPage=2&class=자연과학' class="ui   label">자연과학</a>
-				<a href='/book/listpost?page=0&perPage=2&class=기술과학' class="ui   label">기술과학</a>
-				<a href='/book/listpost?page=0&perPage=2&class=예술' class="ui   label">예술</a>
-				<a href='/book/listpost?page=0&perPage=2&class=언어' class="ui   label">언어</a>
-				<a href='/book/listpost?page=0&perPage=2&class=문학' class="ui   label">문학</a>
-				<a href='/book/listpost?page=0&perPage=2&class=역사' class="ui   label">역사</a>
+				<a href='/book/listpost?page=0&perPage=2&class=총류'  class="btn btn-outline-primary">총류</a>
+				<a href='/book/listpost?page=0&perPage=2&class=철학'  class="btn btn-outline-primary">철학</a>
+				<a href='/book/listpost?page=0&perPage=2&class=종교' class="btn btn-outline-primary">종교</a>
+				<a href='/book/listpost?page=0&perPage=2&class=사회과학'  class="btn btn-outline-primary">사회과학</a>
+				<a href='/book/listpost?page=0&perPage=2&class=자연과학'  class="btn btn-outline-primary">자연과학</a>
+				<a href='/book/listpost?page=0&perPage=2&class=기술과학' class="btn btn-outline-primary">기술과학</a>
+				<a href='/book/listpost?page=0&perPage=2&class=예술'  class="btn btn-outline-primary">예술</a>
+				<a href='/book/listpost?page=0&perPage=2&class=언어' class="btn btn-outline-primary">언어</a>
+				<a href='/book/listpost?page=0&perPage=2&class=문학'  class="btn btn-outline-primary">문학</a>
+				<a href='/book/listpost?page=0&perPage=2&class=역사'  class="btn btn-outline-primary">역사</a>
 				
 				<div class="ui blue fluid card">
 					 <div class="content">

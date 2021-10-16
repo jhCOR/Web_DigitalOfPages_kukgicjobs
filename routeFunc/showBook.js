@@ -73,6 +73,7 @@ var showBookFun=(req,res)=>{
 						user:userEmail,
 						Entities: Entities,
 						userBookNum:req.user.reservationlist.length,
+						friends:req.user.friends
 					};
 					
 					

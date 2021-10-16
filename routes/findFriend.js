@@ -13,8 +13,12 @@ var findFriends = (req, res) => {
 
 					 return;
 				}
-					
-			res.render('friendProfile.ejs', { user:results, login_success: true });
+					if(results.profile_path=='/public/images/pic05.jpg'){
+							res.render('friendProfile.ejs', { user:results, login_success: true,profile:'../public/images/pic05.png',admin:req.user.admin  });
+					}else{
+							res.render('friendProfile.ejs', { user:results, login_success: true,profile:'../uploads'+results.profile_path ,admin:req.user.admin  });
+					}
+		
 
 			});
 		} else {
