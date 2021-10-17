@@ -112,8 +112,10 @@
 				
 				<p style="padding:0;">이 책을 읽은 사람 :
 					<span v-for="(user,index) in users" v-on:click="show(user.user)">
-						<img  class="ui avatar image" style="border: 2px solid;" v-bind:src="'../../uploads/' + user.userId.profile_path" /></span></p>
-					
+						<img v-if="user.userId.profile_path!=defaultimg" class="ui avatar image" style="border: 2px solid;" v-bind:src="'../../uploads/' + user.userId.profile_path"  />
+						<img v-if="user.userId.profile_path==defaultimg" class="ui avatar image" style="border: 2px solid;" v-bind:src="defaultimg"  />
+					</span></p>
+				
 
 				<div class="ui blue fluid card">
 					 <div class="content">
@@ -159,7 +161,7 @@
 					 </div>
 	  				<div class="extra content">
 	    				<div class="right floated author">
-	      					<img class="ui avatar image" src="<%='../../uploads/'+posts._doc.writer.profile_path %>"> <%=curWriterName %>
+	      					<img class="ui avatar image" src="<%='../../uploads/'+posts._doc.writer.profile_path %>" alt="/uploads/pic05.png"> <%=curWriterName %>
 	    				</div>
 						 <div >소속부대 <%=group %></div>
 						<%if(borrowUser){%>
@@ -276,11 +278,6 @@
 
 											<div class="align2" >
 											
-												<form   class="align2" method="post" >
-													<input hidden type="text" name="id4" value="<%=curCommentId %>">
-													<input type="submit" value="취소" name="" /> 
-													<!-- 이건 나중에 하기 -->
-												</form> 
 												<% if (login_success&&user===curCommentWriter) { %>
 												<form    class="align2" method="post" action="/review/removereview">
 													<input hidden type="text" name="delete" value="<%=posts._doc.reviewID._id %>">
@@ -313,7 +310,8 @@
 			  alarm:'',
 			  friends:[],
 			  users:[],
-			  path:[]
+			  path:[],
+			  defaultimg:'../../public/images/pic05.png'
 		  },
 		mounted() {
  		 this.$nextTick(function () {

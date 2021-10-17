@@ -159,7 +159,6 @@ module.exports = function (router, passport) {
 		const directory= 'uploads'; 
 		
 		
-		
         // 인증된 경우, req.user 객체에 사용자 정보 있으며, 인증안된 경우 req.user는 false값임
 		var database = req.app.get('database');
         // 인증 안된 경우

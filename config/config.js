@@ -50,6 +50,9 @@ module.exports = {
 		,{file:'./HistoryOfBook', path:'/post/addHistoryOfBook/:id', method:'addHistoryOfBook', type:'get'}
 		,{file:'./HistoryOfBook', path:'/history/:id', method:'showHistory', type:'get'}
 		,{file:'./HistoryOfBook', path:'/historyofbook', method:'listHistoryOfBook', type:'get'}
+		
+		,{file:'./reviewToHistory', path:'/post/addreview', method:'addReviewToHistoryOfBook', type:'post'}
+		,{file:'./reviewToHistory', path:'/post/removereview', method:'removeReviewHistory', type:'post'}
 
 		,{file:'./HistoryOfBook', path:'/post/deleteHistoryOfBook/:id', method:'deleteHistoryOfBook', type:'get'}
 
