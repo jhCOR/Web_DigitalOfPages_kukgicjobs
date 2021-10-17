@@ -32,7 +32,8 @@ var route_loader = require('./routes/route_loader');
 var cors=require('cors');
 // 익스프레스 객체 생성
 var app = express();
- 
+
+
 //===== 뷰 엔진 설정 =====//
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
@@ -41,7 +42,7 @@ console.log('뷰 엔진이 ejs로 설정되었습니다.');
 
 //===== 서버 변수 설정 및 static으로 public 폴더 설정  =====//
 console.log('config.server_port : %d', config.server_port);
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || 80);
  
 
 
@@ -66,27 +67,27 @@ app.use(cookieParser());
 // cookie-parser 설정
 app.use(cookieParser(process.env.COOKIE_SECRET));
 //const client = redis.createClient({ host: process.env.REDIS_HOST, port: process.env.REDIS_PORT, password: process.env.REDIS_PASSWORD, logError: true });
-// var client = redis.createClient();
-// app.use(expressSession(
-//     {
-//         secret: 'secret_key',
-//         store: new RedisStore({
-//             host: "http://20.194.38.172",
-//             port: 6379,
-//             client: client,
-//             prefix : "session:",
-//             db : 0
-//         }),
-//         saveUninitialized: false, // don't create session until something stored,
-//         resave: true // don't save session if unmodified
-//     }
-// ));
+var client = redis.createClient();
+app.use(expressSession(
+    {
+        secret: 'secret_key',
+        store: new RedisStore({
+            host: "http://20.194.38.172",
+            port: 6379,
+            client: client,
+            prefix : "session:",
+            db : 0
+        }),
+        saveUninitialized: false, // don't create session until something stored,
+        resave: true // don't save session if unmodified
+    }
+));
 
-app.use(expressSession({
-	secret:'my key',
-	resave:true,
-	saveUninitialized:true
-}));
+// app.use(expressSession({
+// 	secret:'my key',
+// 	resave:true,
+// 	saveUninitialized:true
+// }));
 
 app.use(cors());
 
@@ -183,6 +184,7 @@ app.use('/user', function (req, res, next) {
 	}
   
 });
+
 app.use('/views/myPage', function (req, res, next) {
 
 	if(!req.isAuthenticated()){
@@ -193,6 +195,7 @@ app.use('/views/myPage', function (req, res, next) {
 	}
   
 });
+
 app.use('/post', function (req, res, next) {
 
 	if(!req.isAuthenticated()){
@@ -277,4 +280,3 @@ var server = http.createServer(app).listen(app.get('port'), function(){
 	database.init(app, config);
    
 });
-
