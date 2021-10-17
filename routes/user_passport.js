@@ -30,7 +30,7 @@ module.exports = function (router, passport) {
 
 
     router.route('/addhistory').get(function (req, res) {
-        res.render('history/historyOfBook.ejs', { writer: req.user.email, post: null });
+        res.render('history/historyOfBook.ejs', { writer: req.user.email, post: null, login_success: true, admin:req.user.admin});
     });
 
     router.route('/views/bookHistoryGallery.ejs').get(function (req, res) {
@@ -95,7 +95,7 @@ module.exports = function (router, passport) {
         		res.end();
 		   }
 			
-            res.render('applyNewBook.ejs', { NEXT: NEXT,login_success: true, admin:req.user.admin  });
+            res.render('applyNewBook.ejs', { NEXT: NEXT,login_success: true, admin:req.user.admin, next:req.query.request  });
         }
     });
     router.route('/dev/addAnnouncement.ejs').get(function (req, res) {

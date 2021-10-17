@@ -36,7 +36,7 @@ var addBookFun=(req, res)=>{
 				
 				return;
 			}
-			console.log(results);
+		
 			var userObjectId = results._doc._id;
 			var review = new database.ReviewModel({
 				group:req.user.group,
@@ -72,7 +72,7 @@ var addBookFun=(req, res)=>{
 					printer.rendering(res,err);
 					return;
 				}
-			console.log("paramClass=>"+result);
+		
 				return res.redirect('/book/showbook/' + book._id); 
 			});
 		});

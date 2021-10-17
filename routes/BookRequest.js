@@ -61,6 +61,31 @@ var acceptRequest = function(req, res) {
 	}
 	
 };
+
+var arriveRequest = function(req, res) {
+	console.log('BookRequest 모듈 안에 있는 arriveRequest 호출됨.');
+
+	var paramId = req.body.id || req.query.id || req.params.id;
+	var database = req.app.get('database');
+
+	if (database.db) {
+	
+		database.AppplyBookModel.findByIdAndUpdate(paramId,{$set: {isArrive : '1'}}, function(err,re){
+			if (err) {
+                console.error('업데이트 중 에러 발생 : ' + err.stack);
+               	printer.errrendering(res,err);
+                return;
+			}
+
+		});
+		
+		res.redirect("/book/listapplybook?page=0&perPage=2"); 
+	} else {
+		printer.errrendering(res);
+	}
+	
+};
 module.exports.applyBook = applyBook;
 module.exports.requestBook = requestBook;
 module.exports.acceptRequest = acceptRequest;
+module.exports.arriveRequest = arriveRequest;
