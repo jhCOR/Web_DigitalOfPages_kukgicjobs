@@ -19,13 +19,12 @@ var adminpage =async function(req, res) {
 			today.setDate(today.getDate()-14);
 		}else{
 			var minus=14-today.getDate();
-			console.log("data:"+today.getDate());
-			console.log("month:"+today.getMonth());
+			
 			var setToday = today.setMonth(today.getMonth()-1);
 			var setToday2 = today.setDate(-1);
-			console.log(today);
+			
 			today.setDate(today.getDate()-minus);
-			console.log("set:"+today);
+			
 		}
 			
 		// await database.BookModel.find({updated_at:{$gte:"2021-09-3T14:00:35.386Z"}}).countDocuments().exec(function(err, count) {
@@ -39,16 +38,16 @@ var adminpage =async function(req, res) {
 		database.UserModel.find({group:req.user.group}).countDocuments().exec(async function(err, count) {
 				
 		// 뷰 템플레이트를 이용하여 렌더링한 후 전송
-		console.log("1:"+count);
+		
 		listCount.push(count);
 			await database.BookModel.find({group:req.user.group}).countDocuments().exec(function(err, count) {
-			console.log("2:"+count);	
+			
 			// 뷰 템플레이트를 이용하여 렌더링한 후 전송
 			listCount.push(count);
 				database.BookModel.find({num:'1',group:req.user.group}).countDocuments().exec(async function(err, count) {
-				console.log("3:"+count);		
+						
 					database.BookModel.find({num:'1',group:req.user.group}).populate('borrowUser', 'name group provider email').exec(async function(err, result) {
-							console.log("3_detail:"+result);		
+						
 					});
 				// 뷰 템플레이트를 이용하여 렌더링한 후 전송
 				await listCount.push(count);
@@ -58,7 +57,9 @@ var adminpage =async function(req, res) {
 							totalUser:listCount[0],
 							totalbook:listCount[1],
 							borrowedbook:listCount[2],
-							books:result
+							books:result,
+							login_success: true, 
+							admin:req.user.admin
 						};
 						
 						res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
@@ -82,7 +83,7 @@ var searchadminpage =async function(req, res) {
 	var searchquery=req.body.search || req.query.search || req.params.search;
 		var database = req.app.get('database');
 
-	console.log('searchquery'+searchquery);
+	
 	if(searchquery==0||searchquery==1){
 		var option = {  num:"1",group: req.user.group, };
 		if (database.db) {
@@ -106,7 +107,7 @@ var searchadminpage =async function(req, res) {
 		if (database.db) {
 		database.UserModel.find(option, async function(err, result) {
 			
-		console.log("re-->"+result[0]);	
+		
 			
 		var context = {
 			users:result

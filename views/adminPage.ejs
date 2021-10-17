@@ -19,21 +19,21 @@
 		<div id="page-wrapper">
 
 			<!-- Header -->
-	<% include ./header_admin.ejs %>
+	<% include ./header.ejs %>
 			<!-- Main -->
-				<section id="main" class="container card text-center">
-					<header class="card">
+				<section id="main" class="container card text-center" style="margin-top:10%; max-height:90%; overflow:scroll; overflow-x:hidden;">
+					<header class="card-body">
 						<h2>관리자 페이지</h2>
 						<h3 >보유 장서 수 : <%=totalbook%></h3>
 					</header>
-					<div class="box" id="app-6">
-						<span class="image featured"><img src="../../public/tilt_logo2.png" alt="" /></span>
+					<div  id="app-6">
+						
 						
 						
 							<div class="row">
-						<div class="col-6 col-12-narrower" >
+						<div class="col-6 col-12-narrower " >
 					
-							<section class="card " >
+							<section class="card-body" >
 								
 								<% var delayed_book=0; 
 								for (var i = 0; i < books.length; i++) {
@@ -53,28 +53,28 @@
 								<%}%>
 								
 							
-							<h3  v-on:click="getData(0)">대출 중인 도서 수 : <%=borrowedbook%></h3>
-							<h3  v-on:click="getInfo(1)">연체 중인 도서 수 : <%=delayed_book%></h3>
-							<h3  v-on:click="getData(2)">회원 수 : <%=totalUser%></h3>
+							<h3  v-on:click="getData(0)" style="text-align:left;">대출 중인 도서 수 : <span class="badge bg-secondary"><%=borrowedbook%></span></h3>
+							<h3  v-on:click="getInfo(1)" style="text-align:left;">연체 중인 도서 수 : <span class="badge bg-secondary"> <%=delayed_book%></span></h3>
+							<h3  v-on:click="getData(2)" style="text-align:left;">회원 수 : <span class="badge bg-secondary"> <%=totalUser%></span></h3>
 								
 							</section>
 
 						</div>
 						<div class="col-6 col-12-narrower">
 
-							<section class="card "  style="height:100%;">
+							<section   style="height:100%;">
 							
-							<div >
+							<div class="card-body">
 									
-								INFORMATION
-								<ul>
+								<h4>INFORMATION</h4>
+								<ul class="list-group">
 									
 								
-									<li v-if=" data.title" v-for="data in datas"  v-on:click="show(data._id)">
-										 제목: {{ data.title }}
+									<li  class="list-group-item" style="text-align:left;" v-if=" data.title" v-for="data in datas"  v-on:click="show(data._id)">
+										 <strong>제목 : </strong> {{ data.title }}
 									</li>
-									<li v-if=" data.reservationlist" v-for="data in datas" >
-										 이름: {{ data.name }}
+									<li  class="list-group-item" style="text-align:left;"  v-if=" data.reservationlist" v-for="data in datas" >
+										   <strong>이름 : </strong>{{ data.name }}
 									</li>
 								</ul>
 							</div>
@@ -83,17 +83,15 @@
 
 						</div>
 					</div>
-						<div class="row">
-							<div class="row-6 row-12-mobilep">
-						
-								
-							</div>
-							<div class="row-6 row-12-mobilep">
-								<h3></h3>
-								<p></p>
-							</div>
+						<div class="card">
+							
 						</div>
 					</div>
+						<nav class="nav">
+							<a class="nav-link active" aria-current="page" href="/admin/addAnnouncement.ejs">관리자 공지사항 작성</a>
+							<a class="nav-link active" aria-current="page" href="/views/addbook.ejs">도서등록</a>
+							<a class="nav-link active" aria-current="page" href="/book/listapplybook?page=0&perPage=2">신청도서목록</a>
+						</nav>
 				</section>
 
 		</div>
