@@ -13,7 +13,13 @@ SchemaObj.createSchema = function(mongoose) {
         bookinfo: {type: String, trim:true, 'default':''},
 		range: {type: String, trim:true, 'default':'비공개'},
 		writeremail:{type: String, trim: true, 'default':''},
-		hits: {type: Number, 'default': 0},   // 조회수
+		hits: {type: Number, 'default': 0}, 
+		review: [{		// 리뷰
+		contents: {type: String, trim:true, 'default': ''},				// 댓글 내용
+			writer: {type: String, trim:true, 'default': ''},
+			writername: {type: String, trim:true, 'default': ''},
+			created_at: {type: Date, 'default': Date.now},
+		}],
 	    created_at: {type: Date, index: {unique: false}, 'default': Date.now},
 	    updated_at: {type: Date, index: {unique: false}, 'default': Date.now}
 	});

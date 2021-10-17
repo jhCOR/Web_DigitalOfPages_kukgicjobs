@@ -154,6 +154,28 @@ app.use('/book', function (req, res, next) {
 	}
   
 });
+app.use('/profile', function (req, res, next) {
+  console.log('Request Type:', req.method);
+	  console.log('로그인(book) :', req.isAuthenticated());
+	if(!req.isAuthenticated()){
+		// res.redirect('/login');
+			res.render('login.ejs', { message:'로그인 상태가 아닙니다. 로그인을 진행해 주세요.' });
+	}else{
+		next();
+	}
+  
+});
+app.use('/addhistory', function (req, res, next) {
+  console.log('Request Type:', req.method);
+	  console.log('로그인(book) :', req.isAuthenticated());
+	if(!req.isAuthenticated()){
+		// res.redirect('/login');
+			res.render('login.ejs', { message:'로그인 상태가 아닙니다. 로그인을 진행해 주세요.' });
+	}else{
+		next();
+	}
+  
+});
 app.use('/user', function (req, res, next) {
   console.log('Request Type:', req.method);
 	  console.log('로그인 :', req.isAuthenticated());

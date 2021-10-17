@@ -43,6 +43,8 @@
 				$("#contentsOutput").html(output);
 				 
 			});
+		
+		
 		</script>
 		<style>
 			
@@ -109,7 +111,86 @@
 					 <div class="right floated author" data-bs-toggle="modal" data-bs-target="#exampleModal">
 	      					<img class="ui avatar image" style="border: 2px solid;" src="<%=profile%>"> <%=post.writer.name %>
 	    				</div>
-					 
+					 	<div >
+						<form class="content ui form" method="post" action="/post/addreview">
+							<div class="field">
+								<label>댓글</label>
+
+								<textarea type="text" name="contents" rows="4" style="width: 600px;" placeholder="댓글 입력"></textarea>
+							</div>		
+							<input hidden type="text" name="writerforalert" value="<%=post.writer.email %>">
+							<input hidden type="text" name="id"  value="<%=post._doc._id %>">
+							<input class="ui submit button" type="submit" value="전송" name="" />
+						</form>
+					</div>
+					 <br>
+					  <%  
+						   for (var i = 0; i < post._doc.review.length; i++){
+						   var curCommentContents = post._doc.review[i].contents;
+						   var curCommentWriter = post._doc.review[i].writer;
+						   var curCommentWriterName = post._doc.review[i].writername;
+						   var curCommentId=post._doc.review[i]._id;
+						   var idforcomment=i;
+					
+                           %>
+					
+                            <div class="item">
+                                <div class="ui grid">
+                                    <div class="sixteen wide column">
+                                        <div class="ui header" >
+											<div class="col-md-4">
+												<h4 class="ui left aligned header ">
+                                                <%=curCommentContents %>
+                                            </h4>
+                                            <h5 class="ui left aligned orange header">
+                                                <%=curCommentWriterName%>
+												<% if (login===curCommentWriter) { %>
+												<svg data-bs-toggle="modal" data-bs-target="#deletereviewModal" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+  <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+  <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+</svg>
+													<% }%>
+											</h5>
+											</div>
+                                            
+											<div class="align2" >
+ 
+												<% if (login===curCommentWriter) { %>
+												
+												
+												<div class="modal fade" id="deletereviewModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+												  <div class="modal-dialog">
+													<div class="modal-content">
+													  <div class="modal-header">
+														<h5 class="modal-title" id="deletereviewModalLabel">댓글 삭제</h5>
+														<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+													  </div>
+													  <div class="modal-body">
+														정말로 댓글을 삭제하시겠습니까?
+													  </div>
+													  <div class="modal-footer">
+														<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+														  <form    class="align2" method="post" action="/post/removereview">
+													<input hidden type="text" name="delete" value="<%=post._doc.review[i]._id %>">
+													<input hidden type="text" name="content" value="<%= post._doc._id %>">
+													<input hidden type="text" name="id" value="<%=i%>">
+													<input type="submit"   class="btn btn-primary"  value="삭제" id="reviewform" name="" />
+												</form> 
+														
+													  </div>
+													</div>
+												  </div>
+												</div>
+												<% }%>
+									
+												
+											</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    <% }
+					%>	
 						
 							<a class="ui button" href="/">Home</a>
 							<%if(post.writer.email==login){%>

@@ -19,32 +19,21 @@
 		<div id="page-wrapper">
 
 			<!-- Header -->
-<header id="header" class="alt">
-	<h1 ><a href="/"><span style="color: black;">Digital Of Pages</span></a><span style="color: black;"> by 국직 잡스</span></h1>
-	<nav id="nav">
-		<ul>
-			<li><a href="/"><span style="color: black;">Home</span></a></li>
-			<li><a href="/book/listapplybook?page=0&perPage=2" style="color: black;">신청도서목록</a></li>
-			<li><a class="btn btn-default" style="color: black;" href="/views/addbook.ejs">도서등록</a></li>
-			<li><a href="/admin/announcement?page=0&request=admin"><span style="color: black;">관리자 공지사항</span></a></li>
-	
-		</ul>
-	</nav>
-</header>
+	<% include ./header_admin.ejs %>
 			<!-- Main -->
-				<section id="main" class="container">
-					<header>
+				<section id="main" class="container card text-center">
+					<header class="card">
 						<h2>관리자 페이지</h2>
 						<h3 >보유 장서 수 : <%=totalbook%></h3>
 					</header>
 					<div class="box" id="app-6">
-						<span class="image featured"><img src="images/laptopWithNote.png" alt="" /></span>
+						<span class="image featured"><img src="../../public/tilt_logo2.png" alt="" /></span>
 						
 						
 							<div class="row">
 						<div class="col-6 col-12-narrower" >
 					
-							<section class="box special">
+							<section class="card " >
 								
 								<% var delayed_book=0; 
 								for (var i = 0; i < books.length; i++) {
@@ -67,12 +56,13 @@
 							<h3  v-on:click="getData(0)">대출 중인 도서 수 : <%=borrowedbook%></h3>
 							<h3  v-on:click="getInfo(1)">연체 중인 도서 수 : <%=delayed_book%></h3>
 							<h3  v-on:click="getData(2)">회원 수 : <%=totalUser%></h3>
+								
 							</section>
 
 						</div>
 						<div class="col-6 col-12-narrower">
 
-							<section class="box special">
+							<section class="card "  style="height:100%;">
 							
 							<div >
 									

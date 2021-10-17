@@ -10,6 +10,7 @@ var readuser = (req, res) => {
                 return;
             }
 		console.log(results);
+		 
 		res.send(results);
 	}); 
 };
