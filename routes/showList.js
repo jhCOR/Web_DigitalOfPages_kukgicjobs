@@ -51,7 +51,7 @@ var listapplybook = function (req, res) {
         var options = {
             page: paramPage,
             perPage: paramPerPage,
-            criteria: { group: req.user.group },
+            criteria: { group: req.user.group},
         };
 
         database.AppplyBookModel.list(options, function (err, results) {
@@ -212,6 +212,8 @@ var listHistoryOfBook = function (req, res) {
                         perPage: paramPerPage,
                         totalRecords: count,
                         size: paramPerPage,
+						login_success: true, 
+						admin:req.user.admin
                     };
 
                     printer.rendering(req, res, 'lists/listHistoryOfBook', context);

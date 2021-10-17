@@ -38,6 +38,7 @@ module.exports = {
 		,{file:'./BookRequest', path:'/book/applyBook', method:'applyBook', type:'post'}
 		,{file:'./BookRequest', path:'/requestBook', method:'requestBook', type:'post'} 
 		,{file:'./BookRequest', path:'/book/acceptRequest/:id', method:'acceptRequest', type:'get'}
+		,{file:'./BookRequest', path:'/book/arriveRequest/:id', method:'arriveRequest', type:'get'}
 		
 		,{file:'./user', path:'/user/modifyUser', method:'modifyUser', type:'post'}
 		,{file:'./user', path:'/user/deleteUser', method:'deleteUser', type:'post'}

@@ -37,7 +37,7 @@ var listPostFun=(req,res)=>{
                 
                 return;
             }
-			console.log(results[0]);
+			
 			if (results) {
 				
 				for(var i=0;i<results.length;i++){
@@ -59,6 +59,8 @@ var listPostFun=(req,res)=>{
 						perPage: paramPerPage, 
 						totalRecords: count,
 						size: paramPerPage,
+						login_success: true,
+						admin:req.user.admin
 					
 					};
 					currentPage=context.page;

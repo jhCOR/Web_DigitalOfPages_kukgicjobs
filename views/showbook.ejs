@@ -316,7 +316,7 @@
 		mounted() {
  		 this.$nextTick(function () {
 			 var bookID=document.getElementById('bookID').value;
-	  		console.log("sended");
+	  		
     		this.$http.get('/user/readuser?bookID='+bookID)
 					.then(function(response) {
 					  

@@ -48,12 +48,12 @@ ul{
 		    <div class="row">
 		
 		        <div class="sm-6">
-		            <div class="card text-center" >
+		            <div class="card" >
 		            
 						
 							
 						<div  class="card-body">
-							<h3>대출 중인 도서</h3>
+							<h3 class=" text-center">대출 중인 도서</h3>
 							<div class="card-body">
 						
 								<ul class="list-group">
@@ -69,7 +69,9 @@ ul{
 										%>
 
 										<li  >
-											<a class="btn" style="width:60%;" href='/book/showbook/<%=posts.reservationlist[i]._id %>'>제목 : <%=posts.reservationlist[i].title%>, 저자 : 		  		<%=posts.reservationlist[i].author%></a>
+											<a class="btn" href='/book/showbook/<%=posts.reservationlist[i]._id %>'>
+												<strong>제목 :</strong> 
+												<%=posts.reservationlist[i].title%>[<strong>저자 :</strong><%=posts.reservationlist[i].author%>] </a>
 											
 												<a  class="btn btn-primary" href='/book/return/<%=posts.reservationlist[i]._id %>'>반납</a>
 												<a  class="btn btn-primary" href='/book/loanByQrcode/<%=posts.reservationlist[i]._id %>?request=borrow'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-upc-scan" viewBox="0 0 16 16">
@@ -86,7 +88,7 @@ ul{
 	
 								
 								<P></P>
-							<h3>연체 중인 도서</h3>
+							<h3 class="text-center">연체 중인 도서</h3>
 							<div>
 								<ul>
 									<% for (var i = 0; i < posts.reservationlist.length; i++) {
@@ -100,7 +102,8 @@ ul{
 										if(dateTerm>14){
 										%>
 
-										<li><a href='/book/showbook/<%=posts.reservationlist[i]._id %>'>제목 : <%=posts.reservationlist[i].title%>, 저자 : <%=posts.reservationlist[i].author%></a>
+									<li><a href='/book/showbook/<%=posts.reservationlist[i]._id %>'>
+										<strong>제목 :</strong> <%=posts.reservationlist[i].title%>[<strong>저자 : </strong><%=posts.reservationlist[i].author%>] </a>
 											<a class="btn btn-default" href='/book/return/<%=posts.reservationlist[i]._id %>'>반납</a>
 											<a class="btn btn-default" href='/book/loanByQrcode/<%=posts.reservationlist[i]._id %>?request=borrow'>QRcode_return</a>
 											

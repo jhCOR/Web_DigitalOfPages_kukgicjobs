@@ -93,7 +93,6 @@ SchemaObj.createSchema = function(mongoose) {
 		load4:function (options, callback) {
 			
 		options.select = options.select ;
-			console.log("/"+options.select);
 		this.find(options.criteria)
 			.populate('writer', 'name provider email')
 			.select(options.select)

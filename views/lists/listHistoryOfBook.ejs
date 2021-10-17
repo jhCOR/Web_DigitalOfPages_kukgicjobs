@@ -65,7 +65,7 @@
 		
 	</head>
 	<body>
-    	
+    	<%include ../header.ejs }%>
     	<div class="container">
     		<br>
     		
@@ -83,7 +83,7 @@
        		
 			      		
 						<div class="ui grid">
-			   				<div class="eight wide column">제목</div>
+			   				<div class="eight wide column">	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;제목</div>
 			   			</div>
 				    		
 						<div class="ui very relaxed selection celled list">
@@ -100,16 +100,16 @@
 								   %>
 								    <div class="item">
 										<div class="ui grid">
-						    				<div class="two wide column" ></div>
+						    				
 						    				<div class="fourteen wide column" onclick="javascript:window.location='/history/<%=posts[i]._id %>'">
 						    					<div class="ui header">
-										    		<h4 class="ui left aligned header">
-										    			<%=curTitle %>
+										    		<h4 class="ui left aligned header" style="margin-left=5%;">
+										    				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%=curTitle %>
 										    		</h4>
 											      	<h5 class="ui right aligned orange header">
 											      			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 														
-															
+																<%=name.name %>&nbsp;&nbsp;&nbsp;&nbsp;<%="("+name.email+")" %>
 											      	</h5>
 													
 												</div>
@@ -198,9 +198,8 @@
 						<div class="menu">
 						
 			
-							
-						<a class="ui button"  href='/'>홈으로</a>
-						
+						<a  class="btn btn-outline-primary" href="/addhistory">독서발자취 남기기</a>
+												
 					</div>
 					</div>
 				</div>

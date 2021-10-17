@@ -182,10 +182,10 @@
 		mounted() {
 			this.$nextTick(function () {
 				var friendEmail = document.getElementById('id_email').innerText;
-				console.log("sended");
+				
 				this.$http.get('/user/friend_profile_reivew?email='+friendEmail) 
 						.then(function(response) {
-						  console.log(response);   
+						
 						  this.datas = response.data
 
 

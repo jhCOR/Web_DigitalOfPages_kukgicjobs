@@ -92,6 +92,7 @@
 								   var name = posts[i]._doc.name;
 								   var curUser = posts[i]._doc.user;
 								   var isAccepted = posts[i]._doc.isAccepted;
+									 var isArrive = posts[i]._doc.isArrive;
   									if(isAccepted=='1'){
 									   isAccepted='수락 완료';
 								   }else{
@@ -107,13 +108,23 @@
 						    				<div class="fourteen wide column" onclick="javascript:window.location='#">
 						    					<div class="ui header">
 										    		<h4 class="ui left aligned header">
-										    			<%=curTitle %><%="(저자: "+posts[i]._doc.author +")"%>
+										    			<%=curTitle %><%="(저자: "+posts[i]._doc.author +")"%>	
+														
+														 <span class="badge bg-warning text-dark" ><%=isAccepted%></span>
+														
+														<% if (admin=='accepted'&&isArrive=='1') { %>
+														 <span class="badge bg-secondary" style="font:black">비치완료</span>
+														<%}%>
 										    		</h4>
 											      	<h5 class="ui right aligned orange header">
 											      			<%='신청자 ID : '+curUser.email %><%=' 신청자 : '+curUser.name %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 															<%=isAccepted %>
-															<% if (admin=='accepted') { %>
+													
+															<% if (admin=='accepted'&&isAccepted=='0') { %>
 															<a class="ui button"  href='/book/acceptRequest/<%=posts[i]._id%> '>신청 수락</a>
+														<%}%>
+														<% if (admin=='accepted'&&isArrive=='0') { %>
+															<a class="ui button"  href='/book/arriveRequest/<%=posts[i]._id%> '>비치완료</a>
 														<%}%>
 											      	</h5>
 													

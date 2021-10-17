@@ -204,10 +204,10 @@ window.onload=()=>{
 		mounted() {
 			this.$nextTick(function () {
 				var friendEmail = document.getElementById('id_email').innerText;
-				console.log("sended");
+				
 				this.$http.get('/user/friend_profile_reivew?email='+friendEmail) 
 						.then(function(response) {
-						  console.log(response);   
+						 
 						  this.datas = response.data
 
 
@@ -222,7 +222,7 @@ window.onload=()=>{
 			},
 			
 			turntoreview:function(){
-				console.log("///");
+				
 				  this.bookLog = false;
 				
 			},
@@ -230,7 +230,7 @@ window.onload=()=>{
 			getData: function() {
 				var friendEmail = document.getElementById('id_email').innerText;
 					if(this.datas[0]!='none'){
-						console.log("|||"+friendEmail);
+						
 							  this.bookLog = true;
     		this.$http.get('/user/friend_profile_bookLog?email='+friendEmail) 
 					.then(function(response) {

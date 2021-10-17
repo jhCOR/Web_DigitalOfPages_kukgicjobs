@@ -50,6 +50,8 @@
 	}
 		</style>
 		
+		<link href="/public/bootstrap/css/bootstrap.min.css" rel="stylesheet" >
+		<script src="/public/bootstrap/js/bootstrap.min.js"></script>
 		
 		<script src="/public/jquery-2.1.4.min.js"></script>
 		<script src="/public/semantic.min.js"></script>
@@ -67,8 +69,9 @@
     		<br>
     		
 			<div class="ui raised segment">
-				<a href='/dev/announcement?page=0&perPage=2' class="ui blue ribbon label"><%=writer %>공지사항</a>
-
+			
+				<a href='/dev/announcement?page=0&request=dev'  class="btn btn-outline-primary">개발자 공지사항</a>
+				<a href='/admin/announcement?page=0&request=admin'  class="btn btn-outline-primary">관리자 공지사항</a>
 				<div class="ui blue fluid card">
 					 <div class="content">
        		

@@ -11,6 +11,7 @@ SchemaObj.createSchema = function(mongoose) {
 		group: {type: String, index: 'hashed', 'default':''},//소속 부대
 		author: {type: String, trim:true, 'default':''},	
 		isAccepted: {type: String, trim:true, 'default':'0'},
+		isArrive: {type: String, trim:true, 'default':'0'},
 	    user: {type: mongoose.Schema.ObjectId, ref: 'user7'},	///사용자
 		
 	    created_at: {type: Date, index: {unique: false}, 'default': Date.now},

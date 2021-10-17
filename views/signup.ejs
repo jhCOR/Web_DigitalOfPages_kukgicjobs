@@ -132,7 +132,7 @@
 			getData: function() {
 				this.$http.get('/searchGroup?search='+this.message) // 해당 url에서 제공하는 데이터를 가져옴.
 					.then(function(response) {
-					  console.log("res:"+response);    // 버튼을 클릭하여 해당 URL로 HTTP GET 요청을 보내면 response 출력.
+				  // 버튼을 클릭하여 해당 URL로 HTTP GET 요청을 보내면 response 출력.
 
 					  this.groups = response.data
 
