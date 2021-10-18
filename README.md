@@ -1,13 +1,22 @@
-# 오늘, SNS를 재정의 하다.  **Digital Of Pages**
+# 모두의 SNS 도서관.  **Digital Of Pages**
 ![image](https://user-images.githubusercontent.com/63538097/137712008-fd233981-27ab-4179-97bb-746b95767ba4.png)
 
 
  
-## 소개
+## 소개 :bell:
 Digital Of Pages는 기존에 규모가 작은 부대 도서관들에서 별도의 도서 관리 체계가 없이 도서를 관리함으로써 발생하는 불편함을 해소하기 위한 서비스입니다. 도서 관리 체계의 부재로 수기로 명부를 적는 방식을 사용하는데 이 경우 도난, 장기 미반납에 대응할 수 없는 문제점이 많아 장병들의 독서 의지를 저하시켜 왔습니다. 또한 도서가 있는데도 몇번이고 같은 책을 받아 쌓아놓는 경우도 빈번하여 불필요한 예산 집행이 심각했습니다. 이 같은 무제를 해결하기 위해 규모나 예산에 구애받지 않고 모두가 쉽게 각자의 도서 관리 체계를 구축할 수 있는 서비스가 필요하다고 판단하였습니다.
 한 편 각 부대들이 완전히 독립된 도서관을 구축한다면 장병과 부대에 큰 부가가치를 제공하기 어렵습니다. 리뷰와 같은 사용자의 산출물의 양이 적을 뿐만 아니라 같은 대한민국 군인이라는 공통된 소속의 시너지 효과를 이용하지 못합니다. 이 같은 제약사항을 SNS와의 결합을 통해 규모의 시너지 효과를 충분히 이용할 수 있도록 보완하였습니다.
 
-## 기능 설명
+## 개발 배경 :heavy_check_mark:
+![image](https://user-images.githubusercontent.com/63538097/137742129-167f28ad-0527-4ce7-9378-721a0c531262.png)<br>
+https://www.yna.co.kr/view/AKR20140311186100004<br>
+![image](https://user-images.githubusercontent.com/63538097/137744192-4bd1f313-fe52-48fa-a69d-103e3b659624.png)<br>
+https://www.fnnews.com/news/201611151731398703<br><br>
+
+현재 부대 내 도서관은 위의 사례와 같이 7개월간 200여권을 절도할 동안 아무도 대응할 수 없었습니다. 하지만 이렇게 나중에라도 발각이 되면 다행이지만 현재 확인을 할 수 없는 상황이 대다수이며, 장기 미반납의 경우는 손대기도 힘든 경우가 빈번합니다. 
+더 나아가 장병들이 선호하는 도서가 어떤 종류인지에 대한 소중한 데이터들이 종이에 쓰여진후 아무런 관심도 받지 못하고 있습니다. 병영도서관의 개선을 위해 장병들이 어떠한 도서를 선호하고 자주 대출하는지에 대한 데이터들을 효과적이고 철저하게 수집할 필요가 있습니다. 또한 기존의 도서관 프로그램이나 서점의 사이트들은 인공지능을 통해 수치적인 분석만을 제공합니다. 따라서 인스타그램이나 페이스북등의 SNS에서 좋은 책들을 서로 추천하거나 공유하고 82년생 김지영, 공정하다는 착각 등 화제가 되는 책들에 대한 사람들의 대화의 장이 열려왔습니다. 하지만 광고성 게시글이거나 특정한 목적이 없는 SNS 특성상 도서에 대한 대화 이외의 목적을 가지고 대화에 참여하는 경우가 빈번합니다. 
+
+## 기능 소개 :clipboard:
 <table>
     <tr>
         <td width="50%">
@@ -19,16 +28,18 @@ Digital Of Pages는 기존에 규모가 작은 부대 도서관들에서 별도�
     </tr>
     <tr>
         <td align="center">
-          로그인</a>
+          로그인
         </td>
         <td align="center">
-           프로필 화면</a>
+           프로필 화면
         </td>
     </tr>
 </table>
 
 - **로그인** 로그인시 관리자/일반 유저로 가입하며 관리자는 소속 부대를 직접 기입할 수 있고 일반 유저는 검색 후 선택할 수 있습니다.
 - **프로필 화면** 프로필 화면에서 프로필 사진 설정, 메세지 보내기 및 확인 도서 대출 이력과 리뷰 이력 등 다양한 정보를 확인할 수 있습니다.
+<br>
+<br>
 <table>
     <tr>
         <td width="50%">
@@ -40,10 +51,10 @@ Digital Of Pages는 기존에 규모가 작은 부대 도서관들에서 별도�
     </tr>
     <tr>
         <td align="center">
-           메인화면 및 독서 발자취</a>
+           메인화면 및 독서 발자취
         </td>
         <td align="center">
-          도서 대출/이 책을 읽은 사람/도서 추천</a>
+          도서 대출/이 책을 읽은 사람/도서 추천
         </td>
     </tr>
 </table>
@@ -51,14 +62,11 @@ Digital Of Pages는 기존에 규모가 작은 부대 도서관들에서 별도�
 - 메인화면에서 메세지,공지사항 새로 들어온 도서, 대출중인 도서 목록을 확인할 수 있으며 상단의 뉴스 아이콘을 선택하면 친구 추가가 된 유저의 독서 발자취 소식이 뜹니다!<br>
  
 - **독서 발자취란?** 독서발자취는 도서와 관련된 다양한 게시물들을 올리는 기능입니다. 도서 대출화면에서 확인 가능한 리뷰와는 별개로 도서 추천 글, 도서 관련 토론 주제 게시, 독서 일기등을 자유롭게 게시할 수 있습니다.
-- **도서 대출**
-- 도서 대출 화면에서 도서를 대출하면 상단에 읽은 사람 목록에 노출됩니다. 이를 통해 해당 도서를 어떤 친구들이 읽었는지 확인할 수 있습니다.
-- 리뷰 작성 기능의 경우 isbn을 공유하는 도서는 그룹(부대)와 상관없이 리뷰를 공유하여 작은 부대의 작은 도서관의 경우 리뷰의 수가 적을 수 밖에 없는 문제를 '군인'이라는 집단의 시너지를 발휘하도록 구성되어있습니다.
-- 도서 추천 기능은 친구목록이 스피너로 노출되어 해당 아이템을 선택하여 쉽게 도서 추천 메세지를 보낼 수 있습니다. 
+- **도서 대출** 도서 대출 화면에서 도서를 대출하면 상단에 읽은 사람 목록에 노출됩니다. 이를 통해 해당 도서를 어떤 친구들이 읽었는지 확인할 수 있습니다.
+- **리뷰 작성 기능**의 경우 isbn을 공유하는 도서는 그룹(부대)와 상관없이 리뷰를 공유하여 작은 부대의 작은 도서관의 경우 리뷰의 수가 적을 수 밖에 없는 문제를 '군인'이라는 집단의 시너지를 발휘하도록 구성되어있습니다.
+- **도서 추천 기능**은 친구목록이 스피너로 노출되어 해당 아이템을 선택하여 쉽게 도서 추천 메세지를 보낼 수 있습니다. 
  
- ***도서 추천 메세지 확인***
-![ezgif com-gif-maker (12)](https://user-images.githubusercontent.com/63538097/137728362-d80f4cff-cd4c-46cb-ae61-d3ce36ed81b3.gif)
-
+<br>
 <br>
 <table>
     <tr>
@@ -71,42 +79,44 @@ Digital Of Pages는 기존에 규모가 작은 부대 도서관들에서 별도�
     </tr>
     <tr>
         <td align="center">
-           도서 신청/ 도서 신청 목록(관리자 계정)</a>
+           도서 신청/ 도서 신청 목록(관리자 계정)
         </td>
         <td align="center">
-          관리자 페이지</a>
+          관리자 페이지
         </td>
     </tr>
 </table>
 
+- **도서 신청** 도서 신청 메뉴를 누르면 제목 및 ISBN을 입력하여 원하는 도서를 신청할 수 있습니다. 네이버 API를 사용하여 도서 신청 내용이 자동 완성됩니다.
+- **도서 신청 목록** 도서 신청 목록 화면에서 신청이 수락되었는지 비치되었는지 확인할 수 있습니다. **관리자 계정**의 경우에만 수락/배치 완료 버튼이 노출됩니다
+- **관리자 페이지** 관리자 페이지에서 그룹원 수, 대출/연체 중인 도서 수 및 목록을 확인할 수 있습니다. 도서 등록 공지사항 등록등의 기능에 접근할 수 있습니다.
+<br>
 <table>
     <tr>
         <td width="50%">
             <img src="https://user-images.githubusercontent.com/63538097/137729032-a92129ed-6f70-42b4-a400-562dff1e3e32.gif">
         </td>
         <td width="50%">
-            <img src="https://user-images.githubusercontent.com/63538097/137726873-987385d0-eed2-4783-a832-bacaa920f535.gif">
+            <img src="https://user-images.githubusercontent.com/63538097/137728362-d80f4cff-cd4c-46cb-ae61-d3ce36ed81b3.gif">
         </td>
     </tr>
     <tr>
         <td align="center">
-           독서 발자취</a>
+           독서 발자취
         </td>
         <td align="center">
-          관리자 페이지</a>
+          메세지 확인(도서 추천 메세지 등)
         </td>
     </tr>
 </table>
 
 
-- **도서 신청** 도서 신청 메뉴를 누르면 제목 및 ISBN을 입력하여 원하는 도서를 신청할 수 있습니다. 네이버 API를 사용하여 도서 신청 내용이 자동 완성됩니다.
-- **도서 신청 목록** 도서 신청 목록 화면에서 신청이 수락되었는지 비치되었는지 확인할 수 있습니다. **관리자 계정**의 경우에만 수락/배치 완료 버튼이 노출됩니다
-- **관리자 페이지** 관리자 페이지에서 그룹원 수, 대출/연체 중인 도서 수 및 목록을 확인할 수 있습니다. 도서 등록 공지사항 등록등의 기능에 접근할 수 있습니다.
 
 ## 컴퓨터 구성 / 필수 조건 안내 (Prerequisites)
-* ECMAScript 6 지원 브라우저 사용
-* 권장: Google Chrome 버젼 77 이상
-* node버전 10이상
+* ECMAScript 6 지원 브라우저 사용해야 정상적으로 이용할 수 있습니다.
+* Google Chrome 버젼 77 이상을 권장합니다.
+* node버전 12이상
+
 ## 기술 스택 (Technique Used) 
 ### Server(back-end)
 
@@ -143,7 +153,7 @@ Digital Of Pages는 기존에 규모가 작은 부대 도서관들에서 별도�
    <div align="center"><img src="https://img.shields.io/badge/vue.js-4FC08D?style=for-the-badge&logo=vue.js&logoColor=white"><br>vue.js</div>
   </td>  
  <td>
-   <div align="center"><img src="https://img.shields.io/badge/semantic-4FC08D?style=for-the-badge&logo=semantic&logoColor=white"><br>vue.js</div>
+   <div align="center"><img src="https://img.shields.io/badge/semantic-4FC08D?style=for-the-badge&logo=semantic&logoColor=white"><br>semantic</div>
   </td>
 </table>
 
@@ -182,13 +192,13 @@ $ pm2 start app.js -i 10 --name dop
    <div align="center">정지혁
   </td>
   <td>
-    <img src="https://img.shields.io/badge/Github-jhCOR-black"/></div>
+    <img src="https://img.shields.io/badge/Github-jhCOR-black"/>
   </td>
    <td>
    팀장,프런트 엔드, 벡엔드, 기획
   </td>
    <td>
-     <img src="https://img.shields.io/badge/Gmail-jhjung9759%40gmail.com-blue"/></div>
+     <img src="https://img.shields.io/badge/Gmail-jhjung9759%40gmail.com-blue"/>
   </td>
 </table>
 
@@ -197,11 +207,23 @@ $ pm2 start app.js -i 10 --name dop
    <div align="center">김정호
   </td>
   <td>
-    <img src="https://img.shields.io/badge/Github-hou27-black"/></div>
+    <img src="https://img.shields.io/badge/Github-hou27-black"/>
   </td>
    <td>
    프런트 엔드, 벡엔드
   </td>
+</table>
+ <table>
+  <td>
+   <div align="center">양재훈
+  </td>
+  <td>
+    <img src="https://img.shields.io/badge/Github-crazybirdz-black"/>
+  </td>
+   <td>
+  프런트 엔드
+  </td>
+
 </table>
 ## 저작권 및 사용권 정보 (Copyleft / End User License)<br>
 * [MIT] (https://github.com/osamhack2021/Web_DigitalOfPages_kukgicjobs/blob/main/LICENSE.md)
