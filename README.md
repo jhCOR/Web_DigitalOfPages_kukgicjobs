@@ -4,12 +4,47 @@
 
  
 ## 소개
- 새로운 SNS, 모두를 위한 도서관 Digital Of Pages 입니다! <br><br>
- 본 프로젝트는 아무리 작고 예산이 적어도 각자의 도서 관리 체계를 구축하여 운용할 수 있는 모두의 도서관이자
- 친구를 맺기 위해 자극적인 게시글을 올릴 필요없이 독서생활과 함께 같은 관심사를 공유하고 시작하는 새로운 SNS 서비스입니다!
- 
-## 기능 설명
+Digital Of Pages는 기존에 규모가 작은 부대 도서관들에서 별도의 도서 관리 체계가 없이 도서를 관리함으로써 발생하는 불편함을 해소하기 위한 서비스입니다. 도서 관리 체계의 부재로 수기로 명부를 적는 방식을 사용하는데 이 경우 도난, 장기 미반납에 대응할 수 없는 문제점이 많아 장병들의 독서 의지를 저하시켜 왔습니다. 또한 도서가 있는데도 몇번이고 같은 책을 받아 쌓아놓는 경우도 빈번하여 불필요한 예산 집행이 심각했습니다. 이 같은 무제를 해결하기 위해 규모나 예산에 구애받지 않고 모두가 쉽게 각자의 도서 관리 체계를 구축할 수 있는 서비스가 필요하다고 판단하였습니다.
+한 편 각 부대들이 완전히 독립된 도서관을 구축한다면 장병과 부대에 큰 부가가치를 제공하기 어렵습니다. 리뷰와 같은 사용자의 산출물의 양이 적을 뿐만 아니라 같은 대한민국 군인이라는 공통된 소속의 시너지 효과를 이용하지 못합니다. 이 같은 제약사항을 SNS와의 결합을 통해 규모의 시너지 효과를 충분히 이용할 수 있도록 보완하였습니다.
 
+## 기능 설명
+<table>
+    <tr>
+        <td width="50%">
+            <img src="https://user-images.githubusercontent.com/63538097/137720442-ffc2033a-fd6e-4323-9843-372d1ef2c653.gif">
+        </td>
+        <td width="50%">
+            <img src="https://user-images.githubusercontent.com/63538097/137721968-1584115c-51cd-49af-bd56-c47b37aa4ba8.gif">
+        </td>
+    </tr>
+    <tr>
+        <td align="center">
+          로그인</a>
+        </td>
+        <td align="center">
+           프로필 화면</a>
+        </td>
+    </tr>
+</table>
+
+<table>
+    <tr>
+        <td width="50%">
+            <img src="https://user-images.githubusercontent.com/63538097/137722992-63592ff2-bb79-4598-a73d-4f04db97dfb4.gif">
+        </td>
+        <td width="50%">
+            <img src="https://user-images.githubusercontent.com/63538097/137723721-a02b4d5d-9835-43d9-b9a7-d219fcf24693.gif">
+        </td>
+    </tr>
+    <tr>
+        <td align="center">
+           메인화면 및 독서 발자취</a>
+        </td>
+        <td align="center">
+          도서 대출/이 책을 읽은 사람/도서 추천</a>
+        </td>
+    </tr>
+</table>
 ## 컴퓨터 구성 / 필수 조건 안내 (Prerequisites)
 * ECMAScript 6 지원 브라우저 사용
 * 권장: Google Chrome 버젼 77 이상
@@ -48,6 +83,9 @@
   </td>
   <td>
    <div align="center"><img src="https://img.shields.io/badge/vue.js-4FC08D?style=for-the-badge&logo=vue.js&logoColor=white"><br>vue.js</div>
+  </td>  
+ <td>
+   <div align="center"><img src="https://img.shields.io/badge/semantic-4FC08D?style=for-the-badge&logo=semantic&logoColor=white"><br>vue.js</div>
   </td>
 </table>
 
@@ -107,7 +145,7 @@ $ pm2 start app.js -i 10 --name dop
    프런트 엔드, 벡엔드
   </td>
 </table>
-## 저작권 및 사용권 정보 (Copyleft / End User License)
- * [MIT] (https://github.com/osamhack2021/Web_DigitalOfPages_kukgicjobs/blob/main/LICENSE.md)
+## 저작권 및 사용권 정보 (Copyleft / End User License)<br>
+* [MIT] (https://github.com/osamhack2021/Web_DigitalOfPages_kukgicjobs/blob/main/LICENSE.md)
 
 
