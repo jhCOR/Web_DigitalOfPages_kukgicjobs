@@ -19,19 +19,40 @@ Digital Of Pages ; DoP
 * node버전 10이상
 ## 기술 스택 (Technique Used) 
 ### Server(back-end)
- - <img src="https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=Node.js&logoColor=white"/></a>
- - <img src="https://img.shields.io/badge/mongoDB-003545?style=for-the-badge&logo=mongoDB&logoColor=white">
- - <img src="https://img.shields.io/badge/express-339933?style=for-the-badge&logo=express&logoColor=white">
- 
-### Front-end
- - 	ejs, HTML5, CSS3, Vue.js
- - <img src="https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=HTML5&logoColor=white"/> 
- - <img src="https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=CSS3&logoColor=white"/>
- - <img src="https://img.shields.io/badge/ejs-4FC08D?style=for-the-badge&logo=ejs&logoColor=white">
- - <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=JavaScript&logoColor=white"/>
- - <img src="https://img.shields.io/badge/bootstrap-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white">
- - <img src="https://img.shields.io/badge/vue.js-4FC08D?style=for-the-badge&logo=vue.js&logoColor=white">
 
+ <table> 
+  <td>
+   <div align="center"><img src="https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=Node.js&logoColor=white"/><br>Node.js</div>
+  </td>
+  <td>
+   <div align="center"> <img src="https://img.shields.io/badge/mongoDB-003545?style=for-the-badge&logo=mongoDB&logoColor=white"><br>MongoDB</div>
+  </td>
+  <td>
+   <div align="center"> <img src="https://img.shields.io/badge/express-339933?style=for-the-badge&logo=express&logoColor=white"><br>Express</div>
+  </td>
+</table>
+
+### Front-end
+ <table>
+  <td>
+   <div align="center"><img src="https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=HTML5&logoColor=white"/> <br>HTML5</div>
+  </td>
+  <td>
+   <div align="center"> <img src="https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=CSS3&logoColor=white"/><br>CSS3</div>
+  </td>
+  <td>
+   <div align="center"> <img src="https://img.shields.io/badge/ejs-4FC08D?style=for-the-badge&logo=ejs&logoColor=white"><br>ejs</div>
+  </td>
+   <td>
+    <div align="center"> <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=JavaScript&logoColor=white"/><br>JavaScript</div>
+  </td>
+  <td>
+   <div align="center"><img src="https://img.shields.io/badge/bootstrap-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white"><br>bootstrap</div>
+  </td>
+  <td>
+   <div align="center"><img src="https://img.shields.io/badge/vue.js-4FC08D?style=for-the-badge&logo=vue.js&logoColor=white"><br>vue.js</div>
+  </td>
+</table>
 
 ## 설치 안내 (Installation Process)
 로컬에서 테스트 하려는 경우
@@ -62,10 +83,34 @@ $ pm2 start app.js -i 10 --name dop
 
 
 ## 팀 정보 (Team Information)
-- jung ji hyeok (jhjung9759@gmail.com), Github Id: jhCOR
-- kim jeong ho (suji999@gmail.com), Github Id: suji999
 
+ <table>
+  <td>
+   <div align="center">정지혁
+  </td>
+  <td>
+    <img src="https://img.shields.io/badge/Github-jhCOR-black"/></div>
+  </td>
+   <td>
+   팀장,프런트 엔드, 벡엔드, 기획
+  </td>
+   <td>
+     <img src="https://img.shields.io/badge/Gmail-jhjung9759%40gmail.com-blue"/></div>
+  </td>
+</table>
+
+ <table>
+  <td>
+   <div align="center">김정호
+  </td>
+  <td>
+    <img src="https://img.shields.io/badge/Github-hou27-black"/></div>
+  </td>
+   <td>
+   프런트 엔드, 벡엔드
+  </td>
+</table>
 ## 저작권 및 사용권 정보 (Copyleft / End User License)
- * [MIT](https://github.com/osamhack2021/Web_DigitalOfPages_kukgicjobs/blob/main/LICENSE.md)
+ * [MIT] (https://github.com/osamhack2021/Web_DigitalOfPages_kukgicjobs/blob/main/LICENSE.md)
 
 
