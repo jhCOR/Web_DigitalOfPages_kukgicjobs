@@ -162,6 +162,11 @@ Digital Of Pages는 SNS와의 결합을 통해 규모의 시너지 효과를 충
 ### API
 네이버 검색 API
 
+## 프로젝트 구조 안내
+Front-End 관련 폴더 : Web_DigitalOfPages_kukgicjobs 폴더 내의 public, views
+
+Back-End 관련폴더 : Web_DigitalOfPages_kukgicjobs 폴더 내의 database, routes, routesFunc, utils폴더
+
 
 ## 설치 안내 (Installation Process) :pencil2:
 
@@ -169,7 +174,6 @@ Digital Of Pages는 SNS와의 결합을 통해 규모의 시너지 효과를 충
 $ git clone git https://github.com/osamhack2021/Web_DigitalOfPages_kukgicjobs.git
 $ npm install
 ```
-
 
 ## 프로젝트 사용법 (Getting Started) :pencil2:
 네이버 API가 사용되었으므로 .env파일을 실행전 수정해야합니다.
