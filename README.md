@@ -55,7 +55,11 @@ Digital Of Pages는 기존에 규모가 작은 부대 도서관들에서 별도�
 - 도서 대출 화면에서 도서를 대출하면 상단에 읽은 사람 목록에 노출됩니다. 이를 통해 해당 도서를 어떤 친구들이 읽었는지 확인할 수 있습니다.
 - 리뷰 작성 기능의 경우 isbn을 공유하는 도서는 그룹(부대)와 상관없이 리뷰를 공유하여 작은 부대의 작은 도서관의 경우 리뷰의 수가 적을 수 밖에 없는 문제를 '군인'이라는 집단의 시너지를 발휘하도록 구성되어있습니다.
 - 도서 추천 기능은 친구목록이 스피너로 노출되어 해당 아이템을 선택하여 쉽게 도서 추천 메세지를 보낼 수 있습니다. 
+ 
+ ***도서 추천 메세지 확인***
+![ezgif com-gif-maker (12)](https://user-images.githubusercontent.com/63538097/137728362-d80f4cff-cd4c-46cb-ae61-d3ce36ed81b3.gif)
 
+<br>
 <table>
     <tr>
         <td width="50%">
@@ -74,6 +78,26 @@ Digital Of Pages는 기존에 규모가 작은 부대 도서관들에서 별도�
         </td>
     </tr>
 </table>
+
+<table>
+    <tr>
+        <td width="50%">
+            <img src="https://user-images.githubusercontent.com/63538097/137729032-a92129ed-6f70-42b4-a400-562dff1e3e32.gif">
+        </td>
+        <td width="50%">
+            <img src="https://user-images.githubusercontent.com/63538097/137726873-987385d0-eed2-4783-a832-bacaa920f535.gif">
+        </td>
+    </tr>
+    <tr>
+        <td align="center">
+           독서 발자취</a>
+        </td>
+        <td align="center">
+          관리자 페이지</a>
+        </td>
+    </tr>
+</table>
+
 
 - **도서 신청** 도서 신청 메뉴를 누르면 제목 및 ISBN을 입력하여 원하는 도서를 신청할 수 있습니다. 네이버 API를 사용하여 도서 신청 내용이 자동 완성됩니다.
 - **도서 신청 목록** 도서 신청 목록 화면에서 신청이 수락되었는지 비치되었는지 확인할 수 있습니다. **관리자 계정**의 경우에만 수락/배치 완료 버튼이 노출됩니다
