@@ -2,7 +2,6 @@
 ![image](https://user-images.githubusercontent.com/63538097/137712008-fd233981-27ab-4179-97bb-746b95767ba4.png)
 
 
-# 시연 웹사이트: http://49.50.167.89
 
 ## 소개 :bell:
 Digital Of Pages는 기존에 규모가 작은 부대 도서관들에서 별도의 도서 관리 체계가 없이 도서를 관리함으로써 발생하는 불편함을 해소하기 위한 서비스입니다.<br><br>
