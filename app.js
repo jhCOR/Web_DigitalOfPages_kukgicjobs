@@ -67,27 +67,27 @@ app.use(cookieParser());
 // cookie-parser 설정
 app.use(cookieParser(process.env.COOKIE_SECRET));
 //const client = redis.createClient({ host: process.env.REDIS_HOST, port: process.env.REDIS_PORT, password: process.env.REDIS_PASSWORD, logError: true });
-var client = redis.createClient();
-app.use(expressSession(
-    {
-        secret: 'secret_key',
-        store: new RedisStore({
-            host: "http://20.194.38.172",
-            port: 6379,
-            client: client,
-            prefix : "session:",
-            db : 0
-        }),
-        saveUninitialized: false, // don't create session until something stored,
-        resave: true // don't save session if unmodified
-    }
-));
+// var client = redis.createClient();
+// app.use(expressSession(
+//     {
+//         secret: 'secret_key',
+//         store: new RedisStore({
+//             host: "http://20.194.38.172",
+//             port: 6379,
+//             client: client,
+//             prefix : "session:",
+//             db : 0
+//         }),
+//         saveUninitialized: false, // don't create session until something stored,
+//         resave: true // don't save session if unmodified
+//     }
+// ));
 
-// app.use(expressSession({
-// 	secret:'my key',
-// 	resave:true,
-// 	saveUninitialized:true
-// }));
+app.use(expressSession({
+	secret:'my key',
+	resave:true,
+	saveUninitialized:true
+}));
 
 app.use(cors());
 
