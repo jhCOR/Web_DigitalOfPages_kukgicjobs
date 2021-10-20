@@ -170,7 +170,15 @@ Back-End 관련폴더 : Web_DigitalOfPages_kukgicjobs 폴더 내의 database, ro
 
 
 ## 설치 안내 (Installation Process) :pencil2:
+### 단순 구동은 로컬 테스트를 권장합니다.
 
+로컬 테스트
+```bash
+$ git clone -b LocalTestVersion --single-branch git https://github.com/osamhack2021/Web_DigitalOfPages_kukgicjobs.git
+$ npm install
+```
+
+서버 배포
 ```bash
 $ git clone git https://github.com/osamhack2021/Web_DigitalOfPages_kukgicjobs.git
 $ npm install
@@ -185,13 +193,15 @@ ID="발급받은 id"
 PW="발급받은 passward"
 ```
 
-로컬에서 실행하는 경우(fix branch로 진행):<br>
+###로컬에서 실행하는 경우(LocalTestVersion branch로 진행 https://github.com/osamhack2021/Web_DigitalOfPages_kukgicjobs/tree/LocalTestVersion):<br>
 ```bash
 mongod
 ```
 ```bash
 npm start
 ```
+
+
 서버에서 배포 하려는 경우(main branch로 진행)(세번째 줄에서 -i 뒤의 숫자는 컴퓨팅 자원에 따라 상이, --name은 선택사항이며 dop는 임의로 정한 이름입니다.)<br>
 1. 몽고디비 실행(data폴더 위치에 따라 --dbpath위치는 상이, 아래의 경로는 workspace 바로 아래 data폴더와 본 프로젝트 폴더가 있는 상황을 가정하였습니다.)
 ```bash
