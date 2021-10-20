@@ -85,6 +85,7 @@ var showHistory = (req, res)=>{
 						title: '내 독서 기록 보기',
 						post: results,
 						login: req.user.email,
+						
 					};
 					console.log("history"+results);
 			   

@@ -44,7 +44,7 @@ SchemaObj.createSchema = function(mongoose) {
 		// ID로 글 찾기
 		load: function(id, callback) {
 			this.findOne({_id: id})
-				.populate('writer', 'name provider email')
+				.populate('writer', 'name provider email profile_path')
 				.exec(callback);
 		},
 		
