@@ -40,7 +40,7 @@ var addReviewFun=(req,res)=>{
 					 });
 					
 					database.ReviewModel.findByIdAndUpdate(results.reviewID,
-					{'$push': {'review':{'contents':paramContents, 'writer':paramWriter, 'writername':Writer}}},
+					{'$push': {'review':{'contents':paramContents, 'writer':paramWriter, 'writername':Writer, 'group':req.user.group}}},
 					{'new':true, 'upsert':true},
 					function(err, results) {
 						if (err) {

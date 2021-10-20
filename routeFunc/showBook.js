@@ -58,7 +58,7 @@ var showBookFun=(req,res)=>{
 
 							return;
 						}
-						
+						console.log(review_results)
 						review_results.map((review_result)=>{review_list.push(...review_result.review)});
 						
 						
