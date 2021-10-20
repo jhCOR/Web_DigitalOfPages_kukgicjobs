@@ -2,7 +2,7 @@ module.exports = {
 	server_port: 80,
 	db_url: 'mongodb://localhost:27017/admin',
 	db_schemas: [
-        {file:'./user_schema', collection:'user', schemaName:'UserSchema', modelName:'UserModel'}
+        {file:'./user_schema', collection:'user7', schemaName:'UserSchema', modelName:'UserModel'}
 		,{file:'./book_schema', collection:'book', schemaName:'BookSchema', modelName:'BookModel'}
 		,{file:'./review_schema', collection:'review', schemaName:'ReviewSchema', modelName:'ReviewModel'}
 		,{file:'./reservation_schema', collection:'reservation', schemaName:'ReservationSchema', modelName:'ReservationModel'}
