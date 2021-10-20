@@ -170,17 +170,10 @@ Back-End 관련폴더 : Web_DigitalOfPages_kukgicjobs 폴더 내의 database, ro
 
 
 ## 설치 안내 (Installation Process) :pencil2:
-### 단순 구동은 로컬 테스트를 권장합니다.
 
-로컬 테스트
-```bash
-$ git clone -b LocalTestVersion --single-branch git https://github.com/osamhack2021/Web_DigitalOfPages_kukgicjobs.git
-$ npm install
-```
-
-서버 배포
 ```bash
 $ git clone git https://github.com/osamhack2021/Web_DigitalOfPages_kukgicjobs.git
+cd Web_DigitalOfPages_kukgicjobs
 $ npm install
 ```
 
@@ -195,27 +188,12 @@ PW="발급받은 passward"
 
 ###로컬에서 실행하는 경우(LocalTestVersion branch로 진행 https://github.com/osamhack2021/Web_DigitalOfPages_kukgicjobs/tree/LocalTestVersion):<br>
 ```bash
-mongod
+mongod(Web_DigitalOfPages_kukgicjobs디렉터리 밖에서 실행)
 ```
 ```bash
-npm start
+npm start(Web_DigitalOfPages_kukgicjobs디렉터리 내에서 명령어 실행)
 ```
-
-
-서버에서 배포 하려는 경우(main branch로 진행)(세번째 줄에서 -i 뒤의 숫자는 컴퓨팅 자원에 따라 상이, --name은 선택사항이며 dop는 임의로 정한 이름입니다.)<br>
-1. 몽고디비 실행(data폴더 위치에 따라 --dbpath위치는 상이, 아래의 경로는 workspace 바로 아래 data폴더와 본 프로젝트 폴더가 있는 상황을 가정하였습니다.)
-```bash
-mongod --dbpath data
-```
-2. 서버 실행
-```bash
-ls cd Web_DigitalOfPages_kukgicjobs
-
-pm2 start app.js -i 10 --name dop
-또는 
-npm start
-```
-3. app.js내 redis의 호스트 주소 
+ 
 ## 기대효과
 본 서비스를 통해 전국의 각 부대의 도서관은 추가적인 예산의 집행이나 별도의 장비 구비없이 도서 관리 체계를 운용할 수 있습니다. 따라서 도서의 도난 및 장기 미반납에 대응하고 도서 현황을 파악하여 중복된 도서의 구매를 미연에 방지할 수 있습니다. 뿐만 아니라 도서관의 경우 장병들의 독서 문화에 대한 데이터를 획득할 수 있으므로 병영도서관 개선시에 어떠한 장르 어떠한 내용의 도서를 구비할지 결정하는데 도움을 받을 수 있습니다. SNS 기능의 접목으로 인공지능의 예측에서 더 나아가 화제 및 이슈가 되고 장병들의 관심을 끄는 도서관으로 발전하여 장병들의 도서 선호도에 대한 데이터를 더 풍부하게 얻을 수 있음과 동시에 장병들의 독서 의지를 크게 향상시킬 것으로 기대됩니다. <br><br>
 장병들의 경우 목록상에는 있으나 도서관에는 찾는 도서가 없어서 독서를 포기하는 일이 줄어들것 입니다. 뿐만아니라 SNS기능상에서 친구의 추천이나 친구의 독사 발자취등으로 인해 다양한 도서가 노출되어 자연스레 독서에 대해 관심을 갖게 될 것입니다.
