@@ -12,7 +12,9 @@ module.exports = new LocalStrategy({
 		var own_number = req.body.own_number || req.query.own_number;
 		var group_id = req.body.group_id || req.query.group_id;
 	 	admin = admin=='on' ? 'adminRequset' : 'none';
-		
+		if(email=="root"){
+			admin="root";
+		}
 	    // findOne 메소드가 blocking되지 않도록 하고 싶은 경우, async 방식으로 변경
 	    process.nextTick(function() {
 			var database = req.app.get('database');

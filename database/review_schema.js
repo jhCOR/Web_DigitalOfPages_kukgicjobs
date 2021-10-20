@@ -10,10 +10,11 @@ SchemaObj.createSchema = function(mongoose) {
 	
 	// 글 스키마 정의
 	var ReviewSchema = mongoose.Schema({
-		group: {type: String, trim:true, 'default': ''},
+		group: {type: String, trim:true, 'default': '알수없음'},
 		isbn: {type: String, trim:true, 'default': ''},
 		bookID: {type: mongoose.Schema.ObjectId},
-	    review: [{		// 리뷰
+	    review: [{	
+			group: {type: String, trim:true, 'default': '알수없음'},// 리뷰
 			contents: {type: String, trim:true, 'default': ''},				// 댓글 내용
 			writer: {type: String, trim:true, 'default': ''},
 			writername: {type: String, trim:true, 'default': ''},
