@@ -112,7 +112,7 @@
 				
 				<p style="padding:0;">이 책을 읽은 사람 :
 					<span v-for="(user,index) in users" v-on:click="show(user.user)">
-						<img v-if="user.userId.profile_path!=defaultimg" class="ui avatar image" style="border: 2px solid;" v-bind:src="'../../uploads/' + user.userId.profile_path"  />
+						<img v-if="user.userId.profile_path!=defaultimg" class="ui avatar image" alt="(알수없음)" style="border: 2px solid;" v-bind:src="'../../uploads/' + user.userId.profile_path"  />
 						<img v-if="user.userId.profile_path==defaultimg" class="ui avatar image" style="border: 2px solid;" v-bind:src="defaultimg"  />
 					</span></p>
 				
