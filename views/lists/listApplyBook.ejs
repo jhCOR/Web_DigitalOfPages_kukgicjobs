@@ -120,10 +120,9 @@
 											      			<%='신청자 ID : '+curUser.email %><%=' 신청자 : '+curUser.name %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 															<%=isAccepted %>
 													
-															<% if (admin=='accepted'&&isAccepted=='0') { %>
-															<a class="ui button"  href='/book/acceptRequest/<%=posts[i]._id%> '>신청 수락</a>
-														<%}%>
+															
 														<% if (admin=='accepted'&&isArrive=='0') { %>
+														<a class="ui button"  href='/book/acceptRequest/<%=posts[i]._id%> '>신청 수락</a>
 															<a class="ui button"  href='/book/arriveRequest/<%=posts[i]._id%> '>비치완료</a>
 														<%}%>
 											      	</h5>

@@ -97,7 +97,9 @@
 							<h5 class="modal-title" id="exampleModalLabel"><%=post.writer.name %></h5>
 							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 						  </div>
-						 
+						 <div class="modal-body">
+								<img  class="img-fluid" style="border: 2px solid;" src="<%="../uploads/"+post.writer.profile_path%>">
+						  </div>
 						  <div class="modal-footer">
 							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
 							<button type="button" class="btn btn-primary" onclick="javascript:window.location='/user/friend?friend=<%=post.writer.email %>'">프로필 보러가기</button>
@@ -107,7 +109,7 @@
 					</div>
 					 
 					 <div class="right floated author" data-bs-toggle="modal" data-bs-target="#exampleModal">
-	      					<img class="ui avatar image" style="border: 2px solid;" src="<%=profile%>"> <%=post.writer.name %>
+	      					<img class="ui avatar image" style="border: 2px solid;" src="<%="../uploads/"+post.writer.profile_path%>"> <%=post.writer.name %>
 	    				</div>
 					 <br>
 					 	<div >
